@@ -1,21 +1,28 @@
-html, body {
+* {
   margin: 0;
-  height: 100%;
 }
 
-body {
+html, body {
+  height: 100%;
+  font: 24px monospace;
+}
+
+body, #root, .counter {
   display: flex;
+  justify-content: space-around;
+  align-content: space-around;
 }
 
 #root {
   margin: auto;
-  font: 16px monospace;
+  padding-bottom: 1rem; 
+  flex-direction: column;
+  border: solid 1px #777;
 }
 
-.box {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+p, button, span {
+  margin: 1rem 1rem 0 1rem;
+  text-align: center;
 }
 
 button {

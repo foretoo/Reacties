@@ -1,13 +1,23 @@
-window.onload = function() {
+window.onload = function bundle() {
 
-  function App(props) {
+  function reducer() {
+        return 0;
+  }
+
+  var store = Redux.createStore(reducer)
+
+  function App() {
     return React.createElement(
       React.Fragment,
       null,
-      React.createElement("h2", null, "Counter"),
-      Counter(0)
+      React.createElement("p", null, "Counter"),
+      Counter(store)
     )
   }
 
-  ReactDOM.render(App(), document.getElementById("root"))
+  function render() {
+    ReactDOM.render(App(), document.getElementById("root"))
+  }
+  render()
+  store.subscribe(render)
 }

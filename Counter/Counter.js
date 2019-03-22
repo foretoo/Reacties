@@ -1,9 +1,26 @@
-function Counter(props) {
+function Counter(store) {
   return React.createElement(
+
     "div",
-    {className: "box"},
-    React.createElement("button", null, "—"),
-    React.createElement("span", null, props),
-    React.createElement("button", null, "+")
-  );
+    {className: "counter"},
+
+    React.createElement(
+      "button",
+      null,
+      "—"
+    ),
+
+    React.createElement(
+      "span",
+      null,
+      store.getState()
+    ),
+
+    React.createElement(
+      "button",
+      null,
+      "+"
+    )
+
+  )
 }
