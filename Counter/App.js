@@ -1,7 +1,14 @@
 window.onload = function bundle() {
 
-  function reducer() {
+  function reducer(state, action) {
+    switch (action.type) {
+      case "INCREMENT":
+        return state + 1;
+      case "DECREMENT":
+        return state - 1;
+      default:
         return 0;
+    }
   }
 
   var store = Redux.createStore(reducer)

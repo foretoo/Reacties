@@ -6,7 +6,7 @@ function Counter(store) {
 
     React.createElement(
       "button",
-      null,
+      {onClick: function() {store.dispatch({type: "DECREMENT"})}},
       "—"
     ),
 
@@ -18,7 +18,7 @@ function Counter(store) {
 
     React.createElement(
       "button",
-      null,
+      {onClick: function() {store.dispatch({type: "INCREMENT"})}},
       "+"
     )
 

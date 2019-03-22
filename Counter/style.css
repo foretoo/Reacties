@@ -1,10 +1,13 @@
 * {
   margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
 }
 
 html, body {
   height: 100%;
-  font: 24px monospace;
+  font: 33px monospace;
 }
 
 body, #root, .counter {
@@ -15,13 +18,24 @@ body, #root, .counter {
 
 #root {
   margin: auto;
-  padding-bottom: 1rem; 
+  padding-bottom: 1rem;
   flex-direction: column;
-  border: solid 1px #777;
 }
 
-p, button, span {
+p, button {
   margin: 1rem 1rem 0 1rem;
+  text-align: center;
+}
+
+button {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 1rem;
+}
+
+span {
+  width: 2rem;
+  margin-top: 1.333rem;
   text-align: center;
 }
 
