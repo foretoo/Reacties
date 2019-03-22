@@ -31,11 +31,12 @@ button {
   width: 2rem;
   height: 2rem;
   border-radius: 1rem;
+  background: #9df;
 }
 
 span {
   width: 2rem;
-  margin-top: 1.333rem;
+  margin-top: 1.5rem;
   text-align: center;
 }
 
