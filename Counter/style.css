@@ -9,4 +9,15 @@ body {
 
 #root {
   margin: auto;
+  font: 16px monospace;
+}
+
+.box {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+button {
+  font: inherit;
 }
