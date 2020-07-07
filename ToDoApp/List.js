@@ -1,3 +1,3 @@
 function List() {
-  return React.createElement("main", null);
+  return React.createElement("main", null, "List");
 }
