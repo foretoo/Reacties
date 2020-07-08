@@ -1,3 +1,5 @@
+const r = React.createElement
+
 window.onload = function bundle() {
 
   class App extends React.Component {
@@ -8,15 +10,17 @@ window.onload = function bundle() {
     }
 
     render() {
-      return React.createElement(
+      return r(
         React.Fragment,
         null,
-        React.createElement(Header, null),
-        React.createElement(Nav, null),
-        React.createElement(List, null),
+        [
+          r(Header, null),
+          r(Nav, null),
+          r(List, null)
+        ]
       )
     }
   }
 
-  ReactDOM.render(App(), document.getElementById("root"))
+  ReactDOM.render(r(App), document.getElementById("root"))
 }

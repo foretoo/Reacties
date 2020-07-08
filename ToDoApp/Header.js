@@ -1,3 +1,3 @@
 function Header() {
-  return React.createElement("header", null, "header");
+  return r("header", null, "Header");
 }

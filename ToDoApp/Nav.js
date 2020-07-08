@@ -1,3 +1,3 @@
 function Nav() {
-  return React.createElement("nav", null, "nav");
+  return r("nav", null, "Nav");
 }
