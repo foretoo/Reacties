@@ -4,3 +4,14 @@
   border: 0;
   outline: 0;
 }
+html, body {
+  height: 100%;
+}
+body {
+  display: flex;
+}
+#root {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}

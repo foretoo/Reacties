@@ -5,8 +5,10 @@ window.onload = function bundle() {
   class App extends React.Component {
 
     constructor() {
-      super();
-      this.state = {}
+      super()
+      this.state = {
+        items: ["First item", "Build dat app", "Filch a cup of tea from nearby collegue"]
+      }
     }
 
     render() {
@@ -16,7 +18,7 @@ window.onload = function bundle() {
         [
           r(Header, null),
           r(Nav, null),
-          r(List, null)
+          r(List, { items: this.state.items })
         ]
       )
     }
