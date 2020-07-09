@@ -9,7 +9,7 @@
   padding: 0;
   border: 0;
   outline: 0;
-  font-size: 20px;
+  font-size: 16px;
   font-family: 'IBM Plex Sans', sans-serif;
   color: var(--black);
   box-sizing: border-box;
@@ -17,52 +17,49 @@
 html, body {
   height: 100%;
 }
-body, #root, nav, nav > ul, section {
+body, #root, nav, .filter, .item {
   display: flex;
 }
 #root {
   width: 800px;
-  margin: auto;
+  margin: 100px auto;
   flex-direction: column;
 }
 header, nav {
-  height: 3em;
+  height: 60px;
 }
 
 
 
-section {
-  padding: 1em 0;
+.done {
+  width: 40px;
 }
-section:hover {
-  box-shadow: inset 2em calc(3em - 1px) 0px 0px rgba(255,255,255,1);
-  background: var(--grey-light);
+.item-text {
+  padding: 20px 0;
+  flex-grow: 1;
+  line-height: 20px;
 }
-section > div {
-  font-size: 0.8em;
-  line-height: 1.25;
+.delete {
+  width: 60px;
 }
 
 
 
 nav {
-  margin-bottom: 2em;
-  justify-content: flex-end;
+  margin-bottom: 40px;
 }
-nav > input, nav > ul > li {
-  font-size: 0.8em;
-}
-nav > input {
-  width: calc(600px - 2.5em);
+.search {
+  padding-left: 40px;
+  flex-grow: 1;
   color: var(--grey-dark);
   border-bottom: 1px solid var(--grey);
   border-radius: 0;
   -webkit-appearance: none;
 }
-nav > input::placeholder {
+.search::placeholder {
   color: var(--grey);
 }
-nav > ul {
+.filter{
   width: 200px;
   list-style-type: none;
   justify-content: space-evenly;
@@ -73,5 +70,5 @@ nav > ul {
 
 
 header {
-  margin-left: 2em;
+  padding-left: 40px;
 }
