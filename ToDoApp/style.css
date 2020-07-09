@@ -1,17 +1,75 @@
+:root {
+  --black: #111;
+  --grey-dark: #888;
+  --grey: #ccc;
+  --grey-light: #eee;
+}
 * {
   margin: 0;
   padding: 0;
   border: 0;
   outline: 0;
+  font-size: 20px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  color: var(--black);
+  box-sizing: border-box;
 }
 html, body {
   height: 100%;
 }
-body {
+body, #root, nav, nav > ul, section {
   display: flex;
 }
 #root {
+  width: 800px;
   margin: auto;
-  display: flex;
   flex-direction: column;
+}
+header, nav {
+  height: 3em;
+}
+
+
+
+section {
+  padding: 1em 0;
+}
+section:hover {
+  box-shadow: inset 2em calc(3em - 1px) 0px 0px rgba(255,255,255,1);
+  background: var(--grey-light);
+}
+section > div {
+  font-size: 0.8em;
+  line-height: 1.25;
+}
+
+
+
+nav {
+  margin-bottom: 2em;
+  justify-content: flex-end;
+}
+nav > input, nav > ul > li {
+  font-size: 0.8em;
+}
+nav > input {
+  width: calc(600px - 2.5em);
+  color: var(--grey-dark);
+  border-bottom: 1px solid var(--grey);
+}
+nav > input::placeholder {
+  color: var(--grey);
+}
+nav > ul {
+  width: 200px;
+  list-style-type: none;
+  justify-content: space-evenly;
+  align-items: center;
+  border-top: 1px solid var(--grey);
+}
+
+
+
+header {
+  margin-left: 2em;
 }
