@@ -3,7 +3,7 @@ const r = React.createElement
 const App = createReactClass({
 
   getInitialState: function() {
-    return { items: ["First item", "Build dat app", "Filch a cup of tea from nearby collegue"] };
+    return { items: ["First item", "Build dat app", "Filch a cup of tea from nearby colleague"] };
   },
 
   render: function() {
