@@ -7,7 +7,7 @@ const List = ({ items, handleChange }) => {
         className: "item-text",
         innerRef: el.ref,
         html: el.html,
-        onChange: e => handleChange(e, el.id)
+        onChange: e => handleChange(e.target, el.id)
       }),
     )
   })

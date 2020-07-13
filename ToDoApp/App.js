@@ -12,16 +12,12 @@ class App extends React.Component {
     }
   }
 
-  handleChange = (e, id) => {
-    const items = this.state.items.map(item => {
-      if (item.id === id) return {id: id, html: e.target.value}
-      else return item
-    })
+  handleChange = (el, id) => {
+    const items = this.state.items.map( item => item.id === id ? {html: el.value} : item )
     this.setState({ items })
   }
 
   render() {
-    console.log(this.state.items);
     return r(
       React.Fragment,
       null,
