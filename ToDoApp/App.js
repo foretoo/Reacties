@@ -1,31 +1,27 @@
 const r = React.createElement
 
-const App = createReactClass({
-
-  getInitialState: function() {
-    return { items: [
-        {id: 1, text: ["First item"]},
-        {id: 2, text: ["Build dat app"]},
-        {id: 3, text: ["Filch a cup of tea from nearby", "colleague"]}
+class App extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      items: [
+        {id: 1, html: "<div>First item</div>", ref: React.createRef()},
+        {id: 2, html: "<div>Build dat app</div>", ref: React.createRef()},
+        {id: 3, html: "<div>Filch a cup of tea from nearby</div><div>colleague</div>", ref: React.createRef()}
       ]
     }
-  },
+  }
 
-  handleChange: function (childs, id) {
-
+  handleChange = (e, id) => {
     const items = this.state.items.map(item => {
-      if (item.id === id) return { id: id, text: Array.from(childs).map(child => {
-        return child.textContent
-      })}
+      if (item.id === id) return {id: id, html: e.target.value}
       else return item
     })
-
-    console.log(items)
     this.setState({ items })
-    console.log(this.state.items)
-  },
+  }
 
-  render: function() {
+  render() {
+    console.log(this.state.items);
     return r(
       React.Fragment,
       null,
@@ -36,6 +32,6 @@ const App = createReactClass({
       ]
     )
   }
-})
+}
 
 ReactDOM.render(r(App), document.getElementById("root"))
