@@ -1,20 +1,22 @@
 
-function List(props) {
+const List = ({ items, handleChange }) => {
 
-  const items = props.items.map((e, i) => {
-    return r(Item, { text: e, id: i})
+  const itemList = items.map((el, i) => {
+    return r("section", { className: "item", key: el.id }, [
+      r("div", { className: "done" }),
+      r("div",
+        {
+          className: "item-text",
+          contenteditable: "true",
+          onBlur: evt => handleChange(evt.target.children, el.id)
+        },
+        el.text.map(text => {
+          return r("div", null, text)
+        })
+      ),
+      r("div", { className: "delete" })
+    ])
   })
 
-  return r("main", null, items);
-}
-
-
-
-function Item(props) {
-
-  return r("section", { className: "item", key: props.id }, [
-    r("div", { className: "done" }),
-    r("div", { className: "item-text", contenteditable: "true" }, r("div", null, props.text)),
-    r("div", { className: "delete" })
-  ])
+  return r("main", null, itemList);
 }

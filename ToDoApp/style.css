@@ -38,6 +38,7 @@ header, nav {
   padding: 20px 0;
   flex-grow: 1;
   line-height: 20px;
+  white-space: pre-line;
 }
 .delete {
   width: 60px;

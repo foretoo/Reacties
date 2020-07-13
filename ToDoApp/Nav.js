@@ -1,4 +1,4 @@
-function Nav() {
+const Nav = () => {
   return r("nav", null, [
     r("input", { className: "search", placeholder: "search" }),
     r("ul", { className: "filter" }, [
