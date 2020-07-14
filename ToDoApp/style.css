@@ -17,7 +17,7 @@
 html, body {
   height: 100%;
 }
-body, #root, nav, .filter, .item {
+body, #root, nav, .filter, .item, .addItem {
   display: flex;
 }
 #root {
@@ -31,17 +31,23 @@ header, nav {
 
 
 
-.done {
+.done-icon, .add-icon {
   width: 40px;
+  cursor: pointer;
 }
-.item-text {
+.item-text, .addItem-text {
   padding: 20px 0;
   flex-grow: 1;
   line-height: 20px;
-  white-space: pre-line;
 }
-.delete {
+.delete-icon {
   width: 60px;
+  cursor: pointer;
+}
+[contentEditable=true]:empty:not(:focus):before{
+  content:attr(dataText);
+  color: var(--grey);
+  cursor: text;
 }
 
 

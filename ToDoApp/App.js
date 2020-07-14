@@ -4,12 +4,29 @@ class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      items: [
-        {id: 1, html: "<div>First item</div>", ref: React.createRef()},
-        {id: 2, html: "<div>Build dat app</div>", ref: React.createRef()},
-        {id: 3, html: "<div>Filch a cup of tea from nearby</div><div>colleague</div>", ref: React.createRef()}
-      ]
+      items: []
     }
+  }
+
+  initID = 0
+
+  componentDidMount() {
+    this.addItem("First item")
+    this.addItem("Build dat app")
+    this.addItem("Filch a cup of tea from nearby colleague")
+  }
+
+  addItem = (html) => {
+    const newItem = {
+      id:         this.initID++,
+      html:       html,
+      done:       false,
+      important:  false,
+      ref:        React.createRef()
+    }
+    this.setState(({items}) => {
+      return { items: [...items, newItem] }
+    })
   }
 
   handleChange = (el, id) => {
@@ -24,7 +41,11 @@ class App extends React.Component {
       [
         r(Header, null),
         r(Nav, null),
-        r(List, { items: this.state.items, handleChange: this.handleChange })
+        r(List, {
+          items:        this.state.items,
+          handleChange: this.handleChange,
+          addItem:      this.addItem
+        })
       ]
     )
   }
