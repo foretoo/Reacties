@@ -8,7 +8,7 @@ const List = ({ items, handleChange, addItem }) => {
           className:  "item-text",
           innerRef:   el.ref,
           html:       el.html,
-          onChange:   e => handleChange(e.target, el.id)
+          onChange:   e => handleChange(e.target.value, el.id)
         }),
         r("div", { className: "delete-icon" })
       ]

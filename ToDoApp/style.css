@@ -31,18 +31,14 @@ header, nav {
 
 
 
-.done-icon, .add-icon {
+.done-icon, .delete-icon, .add-icon {
   width: 40px;
   cursor: pointer;
 }
 .item-text, .addItem-text {
-  padding: 20px 0;
+  padding: 20px 20px 20px 0;
   flex-grow: 1;
   line-height: 20px;
-}
-.delete-icon {
-  width: 60px;
-  cursor: pointer;
 }
 [contentEditable=true]:empty:not(:focus):before{
   content:attr(dataText);

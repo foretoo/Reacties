@@ -13,28 +13,43 @@ class App extends React.Component {
   componentDidMount() {
     this.addItem("First item")
     this.addItem("Build dat app")
-    this.addItem("Filch a cup of tea from nearby colleague")
+    this.addItem("Filch a cup of tea from nearby<div>colleague</div>")
   }
 
   addItem = (html) => {
-    const newItem = {
-      id:         this.initID++,
-      html:       html,
-      done:       false,
-      important:  false,
-      ref:        React.createRef()
-    }
-    this.setState(({items}) => {
+    this.setState(({ items }) => {
+      const newItem = {
+        id:         this.initID++,
+        html:       html,
+        done:       false,
+        important:  false,
+        ref:        React.createRef()
+      }
       return { items: [...items, newItem] }
     })
   }
 
-  handleChange = (el, id) => {
-    const items = this.state.items.map( item => item.id === id ? {html: el.value} : item )
-    this.setState({ items })
+  deleteItem = (id) => {
+    this.setState(({ items }) => {
+      const idx = items.findIndex(item => item.id === id)
+      const newItems = [...items.slice(0, idx), ...items.slice(idx + 1)]
+      return { items: newItems }
+    })
+  }
+
+  handleChange = (html, id) => {
+    if (html.replace(/<[^>]*>?/gm, "").replace(/\s/g,"") === "") {
+      this.deleteItem(id)
+      return
+    }
+    this.setState(({ items }) => {
+      const newItems = items.map(item => item.id === id ? {...item, html: html} : item)
+      return { items: newItems }
+    })
   }
 
   render() {
+    console.log(this.state.items);
     return r(
       React.Fragment,
       null,
