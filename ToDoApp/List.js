@@ -3,16 +3,15 @@ const List = ({ items, handleChange, addItem }) => {
 
   const itemList = items.map((el, i) => {
     return r("section", { className: "item", key: el.id }, [
-        r("div", { className: "done-icon" }),
-        r(ContentEditable, {
-          className:  "item-text",
-          innerRef:   el.ref,
-          html:       el.html,
-          onChange:   e => handleChange(e.target.value, el.id)
-        }),
-        r("div", { className: "delete-icon" })
-      ]
-    )
+      r("div", { className: "done-icon" }),
+      r(ContentEditable, {
+        className:  "item-text",
+        innerRef:   el.ref,
+        html:       el.html,
+        onChange:   e => handleChange(e.target.value, el.id)
+      }),
+      r("div", { className: "delete-icon" })
+    ])
   })
 
   const toAdd = () => {
@@ -26,7 +25,9 @@ const List = ({ items, handleChange, addItem }) => {
         className:  "addItem-text",
         dataText:   "Add",
         innerRef:   ref,
-        html:       ""
+        html:       "",
+        onKeyUp:    e => e.shiftKey && e.key === "Enter" && addItem(ref.current.innerHTML),
+        onKeyDown:  e => e.shiftKey && e.key === "Enter" && e.preventDefault()
       }),
     ])
   }

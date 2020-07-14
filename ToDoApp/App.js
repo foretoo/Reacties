@@ -38,7 +38,7 @@ class App extends React.Component {
   }
 
   handleChange = (html, id) => {
-    if (html.replace(/<[^>]*>?/gm, "").replace(/\s/g,"") === "") {
+    if (html.replace(/<[^>]*>?/gm,"").replace(/\s/g,"") === "") {
       this.deleteItem(id)
       return
     }
@@ -49,7 +49,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.items);
     return r(
       React.Fragment,
       null,

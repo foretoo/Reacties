@@ -22,7 +22,7 @@ body, #root, nav, .filter, .item, .addItem {
 }
 #root {
   width: 800px;
-  margin: 100px auto;
+  margin: 100px auto 0 auto;
   flex-direction: column;
 }
 header, nav {
@@ -40,10 +40,18 @@ header, nav {
   flex-grow: 1;
   line-height: 20px;
 }
-[contentEditable=true]:empty:not(:focus):before{
-  content:attr(dataText);
+.addItem-text:empty:not(:focus):before{
+  content: attr(dataText);
   color: var(--grey);
   cursor: text;
+}
+.addItem-text:focus:not(:empty):before{
+  position: absolute;
+  transform: translate(0, -20px);
+  content: "Shift + Enter to add";
+  font-size: 12px;
+  color: var(--grey);
+  cursor: default;
 }
 
 
@@ -52,8 +60,9 @@ nav {
   margin-bottom: 40px;
 }
 .search {
-  padding-left: 40px;
+  padding: 20px 20px 20px 40px;
   flex-grow: 1;
+  line-height: 20px;
   color: var(--grey-dark);
   border-bottom: 1px solid var(--grey);
   border-radius: 0;
