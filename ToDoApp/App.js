@@ -3,33 +3,37 @@ const r = React.createElement
 class App extends React.Component {
   constructor() {
     super()
-    this.state = {
-      items: []
-    }
+    this.state = { items: [] }
   }
 
   initID = 0
 
   componentDidMount() {
-    this.addItem("First item")
-    this.addItem("Build dat app")
-    this.addItem("Filch a cup of tea from nearby<div>colleague</div>")
+    this.toAddItem("First item")
+    this.toAddItem("Build dat app")
+    this.toAddItem("Filch a cup of tea from nearby<div>colleague</div>")
   }
 
-  addItem = (html) => {
-    this.setState(({ items }) => {
-      const newItem = {
-        id:         this.initID++,
-        html:       html,
-        done:       false,
-        important:  false,
-        ref:        React.createRef()
-      }
-      return { items: [...items, newItem] }
-    })
+  isClean = html => {
+    return html.replace(/<[^>]*>?/gm,"").replace(/\s/g,"").replace(/&nbsp;/g,"") === ""
   }
 
-  deleteItem = (id) => {
+  toAddItem = html => {
+    if (!this.isClean(html)) {
+      this.setState(({ items }) => {
+        const newItem = {
+          id:         this.initID++,
+          html:       html,
+          done:       false,
+          important:  false,
+          ref:        React.createRef()
+        }
+        return { items: [...items, newItem] }
+      })
+    }
+  }
+
+  deleteItem = id => {
     this.setState(({ items }) => {
       const idx = items.findIndex(item => item.id === id)
       const newItems = [...items.slice(0, idx), ...items.slice(idx + 1)]
@@ -38,7 +42,7 @@ class App extends React.Component {
   }
 
   handleChange = (html, id) => {
-    if (html.replace(/<[^>]*>?/gm,"").replace(/\s/g,"") === "") {
+    if (this.isClean(html)) {
       this.deleteItem(id)
       return
     }
@@ -57,9 +61,9 @@ class App extends React.Component {
         r(Nav, null),
         r(List, {
           items:        this.state.items,
-          handleChange: this.handleChange,
-          addItem:      this.addItem
-        })
+          handleChange: this.handleChange
+        }),
+        r(AddItem, { toAddItem: this.toAddItem, isClean: this.isClean })
       ]
     )
   }

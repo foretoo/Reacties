@@ -1,36 +1,53 @@
-
-const List = ({ items, handleChange, addItem }) => {
-
-  const itemList = items.map((el, i) => {
-    return r("section", { className: "item", key: el.id }, [
-      r("div", { className: "done-icon" }),
-      r(ContentEditable, {
-        className:  "item-text",
-        innerRef:   el.ref,
-        html:       el.html,
-        onChange:   e => handleChange(e.target.value, el.id)
-      }),
-      r("div", { className: "delete-icon" })
-    ])
-  })
-
-  const toAdd = () => {
-    const ref = React.createRef()
-    return r("section", { className: "addItem" }, [
-      r("div", {
-        className:  "add-icon",
-        onClick:    () => addItem(ref.current.innerHTML)
-      }),
-      r(ContentEditable, {
-        className:  "addItem-text",
-        dataText:   "Add",
-        innerRef:   ref,
-        html:       "",
-        onKeyUp:    e => e.shiftKey && e.key === "Enter" && addItem(ref.current.innerHTML),
-        onKeyDown:  e => e.shiftKey && e.key === "Enter" && e.preventDefault()
-      }),
-    ])
+class Item extends React.Component {
+  constructor() {
+    super()
+    this.state = { hover: false }
   }
 
-  return r("main", null, [...itemList, r(toAdd)]);
+  render() {
+    const { id, html, ref, handleChange } = this.props
+
+    const svgIcon = path => {
+      return r("svg", {
+          width: "20",
+          height: "20",
+          viewBox: "0 0 20 20",
+          fill: "none",
+          xmlns: "http://www.w3.org/2000/svg"
+        },
+        r("path", {
+          d: path,
+          stroke: "#ccc",
+          "stroke-width": "2"
+        })
+      )
+    }
+
+    return r("section", { className: "item", key: id }, [
+      r("div", { className: "done-icon" }, svgIcon("M19 4L7 16L1 10")),
+      r(ContentEditable, {
+        className: "item-text",
+        innerRef: ref,
+        html: html,
+        onBlur: e => handleChange(e.target.innerHTML, id)
+      }),
+      r("div", { className: "delete-icon" }, svgIcon("M16 4L4 16M4 4L16 16"))
+    ])
+  }
+}
+
+
+
+//////// LIST ////////
+
+const List = ({ items, handleChange }) => {
+  const itemList = items.map(item => {
+    return r(Item, {
+      id: item.id,
+      html: item.html,
+      ref: item.ref,
+      handleChange: handleChange
+    })
+  })
+  return r("main", null, itemList);
 }
