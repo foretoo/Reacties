@@ -88,3 +88,9 @@ nav {
 header {
   padding-left: 40px;
 }
+
+
+
+.hidden {
+  visibility: hidden;
+}
