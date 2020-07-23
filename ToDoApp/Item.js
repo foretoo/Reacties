@@ -1,5 +1,10 @@
 class Item extends React.Component {
 
+  constructor() {
+    super()
+    this.ref = React.createRef()
+  }
+
   shouldComponentUpdate(nextProps) {
     return this.props.html !== nextProps.html || this.props.done !== nextProps.done
   }
@@ -9,7 +14,7 @@ class Item extends React.Component {
     return (
       r(ContentEditable, {
         className: done ? "item-text done" : "item-text",
-        innerRef: ref,
+        innerRef: this.ref,
         html: html,
         onBlur: e => handleChange(e.target.innerHTML, id)
       })

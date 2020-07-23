@@ -1,22 +1,23 @@
 class List extends React.Component {
   constructor() {
     super()
-    this.state = { id: null }
+    this.state = { hoverId: null }
   }
 
   handleMouseOver = id => {
-    if (this.state.id !== id) this.setState({ id: id })
+    if (this.state.hoverId !== id) this.setState({ hoverId: id })
   }
   handleMouseLeave = id => {
-    this.setState({ id: null })
+    this.setState({ hoverId: null })
   }
 
   render() {
-    const {items, handleChange, deleteItem, markDone} = this.props
+    const { items, handleChange, deleteItem, markDone } = this.props
     const itemList = items.map(item => {
+      const isOver = this.state.hoverId === item.id
       return (
         r("section", {
-          className: this.state.id === item.id ? "item hover" : "item",
+          className: isOver ? "item hover" : "item",
           key: item.id,
           onMouseOver: () => this.handleMouseOver(item.id),
           onMouseLeave: () => this.handleMouseLeave(item.id)
@@ -24,21 +25,23 @@ class List extends React.Component {
           r("div", { className: "done-icon", onClick: () => markDone(item.id) },
             r(SVGicon, {
               path: "M19 4L7 16L1 10",
-              dark: this.state.id === item.id ? true : false,
+              dark: isOver,
               light: item.done
             })
           ),
-          r(Item, {
-            id: item.id,
-            html: item.html,
-            done: item.done,
-            ref: item.ref,
-            handleChange: handleChange
-          }),
+          r("div", { className: "item-text-container" }, [
+            r("div", null),
+            r(Item, {
+              id: item.id,
+              html: item.html,
+              done: item.done,
+              handleChange: handleChange
+            })
+          ]),
           r("div", { className: "delete-icon", onClick: () => deleteItem(item.id) },
             r(SVGicon, {
               path: "M16 4L4 16M4 4L16 16",
-              dark: this.state.id === item.id ? true : false
+              dark: isOver
             })
           )
         ])

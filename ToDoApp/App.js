@@ -3,15 +3,14 @@ const r = React.createElement
 class App extends React.Component {
   constructor() {
     super()
+    this.initID = 0
     this.state = { items: [] }
   }
-
-  initID = 0
 
   componentDidMount() {
     this.addItem("First item")
     this.addItem("Build dat app")
-    this.addItem("Filch a cup of tea from nearby<div>colleague</div>")
+    this.addItem("Filch a cup of tea from nearby<br>colleague")
   }
 
   isClean = html => {
@@ -19,18 +18,15 @@ class App extends React.Component {
   }
 
   addItem = html => {
-    if (!this.isClean(html)) {
-      this.setState(({ items }) => {
-        const newItem = {
-          id:         this.initID++,
-          html:       html,
-          done:       false,
-          important:  false,
-          ref:        React.createRef()
-        }
-        return { items: [...items, newItem] }
-      })
-    }
+    this.setState(({ items }) => {
+      const newItem = {
+        id:         this.initID++,
+        html:       html,
+        done:       false,
+        focused:    false
+      }
+      return { items: [...items, newItem] }
+    })
   }
 
   deleteItem = id => {
@@ -55,6 +51,13 @@ class App extends React.Component {
   markDone = id => {
     this.setState(({ items }) => {
       const newItems = items.map(item => item.id === id ? {...item, done: !item.done} : item)
+      return { items: newItems }
+    })
+  }
+
+  markFocused = id => {
+    this.setState(({ items }) => {
+      const newItems = items.map(item => item.id === id ? {...item, focused: !item.focused} : item)
       return { items: newItems }
     })
   }

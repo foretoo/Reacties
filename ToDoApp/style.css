@@ -33,17 +33,33 @@ header, nav {
 .item {
   border-bottom: 1px solid rgba(255, 255, 255, 0);
 }
+.item.hover {
+  border-bottom: 1px solid var(--grey-light)
+}
+.item-text-container, .addItem-text-container {
+  flex-grow: 1;
+}
+
+
 .done-icon, .delete-icon, .add-icon {
   width: 40px;
-  display: flex;
   cursor: pointer;
 }
 .done-icon *, .delete-icon *, .add-icon * {
   margin-top: 20px;
 }
-.item-text, .addItem-text {
+.item-text {
   padding: 20px 20px 20px 0;
-  flex-grow: 1;
+  line-height: 20px;
+}
+.done, .done * {
+  color: var(--grey);
+  text-decoration: line-through;
+}
+
+
+.addItem-text {
+  padding: 0 20px 20px 0;
   line-height: 20px;
 }
 .addItem-text:empty:not(:focus):before{
@@ -51,13 +67,13 @@ header, nav {
   color: var(--grey);
   cursor: text;
 }
-.addItem-text:focus:not(:empty):before{
-  position: absolute;
-  transform: translate(0, -20px);
-  content: "Shift + Enter to add";
+.addItem-hint {
   font-size: 12px;
+  line-height: 20px;
   color: var(--grey);
-  cursor: default;
+}
+.addItem-hint.hidden {
+  visibility: hidden;
 }
 
 
@@ -89,17 +105,4 @@ nav {
 
 header {
   padding-left: 40px;
-}
-
-
-
-.hidden {
-  visibility: hidden;
-}
-.done, .done * {
-  color: var(--grey);
-  text-decoration: line-through;
-}
-.hover {
-  border-bottom: 1px solid var(--grey-light)
 }
