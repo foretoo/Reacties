@@ -12,7 +12,7 @@ class List extends React.Component {
   }
 
   render() {
-    const {items, handleChange, handleDone} = this.props
+    const {items, handleChange, deleteItem, markDone} = this.props
     const itemList = items.map(item => {
       return (
         r("section", {
@@ -21,7 +21,7 @@ class List extends React.Component {
           onMouseOver: () => this.handleMouseOver(item.id),
           onMouseLeave: () => this.handleMouseLeave(item.id)
         }, [
-          r("div", { className: "done-icon", onClick: () => handleDone(item.id) },
+          r("div", { className: "done-icon", onClick: () => markDone(item.id) },
             r(SVGicon, {
               path: "M19 4L7 16L1 10",
               dark: this.state.id === item.id ? true : false,
@@ -35,7 +35,7 @@ class List extends React.Component {
             ref: item.ref,
             handleChange: handleChange
           }),
-          r("div", { className: "delete-icon" },
+          r("div", { className: "delete-icon", onClick: () => deleteItem(item.id) },
             r(SVGicon, {
               path: "M16 4L4 16M4 4L16 16",
               dark: this.state.id === item.id ? true : false

@@ -9,16 +9,16 @@ class App extends React.Component {
   initID = 0
 
   componentDidMount() {
-    this.toAddItem("First item")
-    this.toAddItem("Build dat app")
-    this.toAddItem("Filch a cup of tea from nearby<div>colleague</div>")
+    this.addItem("First item")
+    this.addItem("Build dat app")
+    this.addItem("Filch a cup of tea from nearby<div>colleague</div>")
   }
 
   isClean = html => {
     return html.replace(/<[^>]*>?/gm,"").replace(/\s/g,"").replace(/&nbsp;/g,"") === ""
   }
 
-  toAddItem = html => {
+  addItem = html => {
     if (!this.isClean(html)) {
       this.setState(({ items }) => {
         const newItem = {
@@ -52,7 +52,7 @@ class App extends React.Component {
     })
   }
 
-  handleDone = id => {
+  markDone = id => {
     this.setState(({ items }) => {
       const newItems = items.map(item => item.id === id ? {...item, done: !item.done} : item)
       return { items: newItems }
@@ -69,9 +69,10 @@ class App extends React.Component {
         r(List, {
           items:        this.state.items,
           handleChange: this.handleChange,
-          handleDone:   this.handleDone
+          deleteItem:   this.deleteItem,
+          markDone:     this.markDone
         }),
-        r(AddItem, { toAddItem: this.toAddItem, isClean: this.isClean })
+        r(AddItem, { addItem: this.addItem, isClean: this.isClean })
       ]
     )
   }
