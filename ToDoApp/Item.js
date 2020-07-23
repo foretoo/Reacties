@@ -16,7 +16,8 @@ class Item extends React.Component {
         className: done ? "item-text done" : "item-text",
         innerRef: this.ref,
         html: html,
-        onBlur: e => handleChange(e.target.innerHTML, id)
+        tagName: "span",
+        onBlur: () => handleChange(this.ref.current.innerHTML, id)
       })
     )
   }

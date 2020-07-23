@@ -30,7 +30,7 @@ class List extends React.Component {
             })
           ),
           r("div", { className: "item-text-container" }, [
-            r("div", null),
+            r("div", { className: "focus-flag" }),
             r(Item, {
               id: item.id,
               html: item.html,

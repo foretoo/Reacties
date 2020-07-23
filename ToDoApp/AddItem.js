@@ -1,7 +1,7 @@
 class AddItem extends React.Component {
   constructor() {
     super()
-    this.state = { html: "", isClean: true }
+    this.state = { html: "", isClean: true, focused: false }
   }
 
   handleChange = html => {
@@ -28,13 +28,17 @@ class AddItem extends React.Component {
           dark:   !this.state.isClean
         })
       ),
-      r("div", { className: "addItem-text-container" }, [
+      r("div", {
+        className:  "addItem-text-container",
+        onClick:    () => this.setState({ focused: true })
+      }, [
         r("div", { className: !this.state.isClean ? "addItem-hint" : "addItem-hint hidden" }, "Shift+Enter to add"),
         r(AddItemText, {
           html:         this.state.html,
           handleChange: this.handleChange,
           addItem:      this.props.addItem,
-          isClean:      this.props.isClean
+          isClean:      this.props.isClean,
+          focused:      this.state.focused
         })
       ]),
     ])
@@ -49,7 +53,13 @@ class AddItemText extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.html === ""
+    return nextProps.html === "" || nextProps.focused
+  }
+  componentDidMount() {
+    this.ref.current.focus()
+  }
+  componentDidUpdate() {
+    this.ref.current.focus()
   }
 
   handleShiftEnter = html => {
@@ -65,6 +75,7 @@ class AddItemText extends React.Component {
         dataText:   "Add",
         innerRef:   this.ref,
         html:       html,
+        tagName:    "span",
         onChange:   () => handleChange(this.ref.current.innerHTML),
         onKeyUp:    e => e.shiftKey && e.key === "Enter" && !isClean(this.ref.current.innerHTML) && this.handleShiftEnter(this.ref.current.innerHTML),
         onKeyDown:  e => e.shiftKey && e.key === "Enter" && e.preventDefault(),

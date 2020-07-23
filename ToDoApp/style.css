@@ -28,6 +28,9 @@ body, #root, nav, .filter, .item, .addItem {
 header, nav {
   height: 60px;
 }
+svg {
+  display: block;
+}
 
 
 .item {
@@ -37,6 +40,7 @@ header, nav {
   border-bottom: 1px solid var(--grey-light)
 }
 .item-text-container, .addItem-text-container {
+  padding-bottom: 20px;
   flex-grow: 1;
 }
 
@@ -45,21 +49,21 @@ header, nav {
   width: 40px;
   cursor: pointer;
 }
-.done-icon *, .delete-icon *, .add-icon * {
-  margin-top: 20px;
+.focus-flag {
+  height: 20px;
 }
 .item-text {
-  padding: 20px 20px 20px 0;
   line-height: 20px;
+  background-color: #fff8c8;
 }
-.done, .done * {
+.item-text.done {
   color: var(--grey);
   text-decoration: line-through;
 }
 
 
+
 .addItem-text {
-  padding: 0 20px 20px 0;
   line-height: 20px;
 }
 .addItem-text:empty:not(:focus):before{

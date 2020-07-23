@@ -10,7 +10,7 @@ class App extends React.Component {
   componentDidMount() {
     this.addItem("First item")
     this.addItem("Build dat app")
-    this.addItem("Filch a cup of tea from nearby<br>colleague")
+    this.addItem("Filch a cup of tea from nearby<br>&nbsp;<br>colleague")
   }
 
   isClean = html => {
