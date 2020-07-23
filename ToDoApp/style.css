@@ -30,7 +30,9 @@ header, nav {
 }
 
 
-
+.item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0);
+}
 .done-icon, .delete-icon, .add-icon {
   width: 40px;
   display: flex;
@@ -93,4 +95,11 @@ header {
 
 .hidden {
   visibility: hidden;
+}
+.done, .done * {
+  color: var(--grey);
+  text-decoration: line-through;
+}
+.hover {
+  border-bottom: 1px solid var(--grey-light)
 }

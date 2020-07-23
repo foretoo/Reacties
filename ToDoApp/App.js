@@ -52,6 +52,13 @@ class App extends React.Component {
     })
   }
 
+  handleDone = id => {
+    this.setState(({ items }) => {
+      const newItems = items.map(item => item.id === id ? {...item, done: !item.done} : item)
+      return { items: newItems }
+    })
+  }
+
   render() {
     return r(
       React.Fragment,
@@ -61,7 +68,8 @@ class App extends React.Component {
         r(Nav, null),
         r(List, {
           items:        this.state.items,
-          handleChange: this.handleChange
+          handleChange: this.handleChange,
+          handleDone:   this.handleDone
         }),
         r(AddItem, { toAddItem: this.toAddItem, isClean: this.isClean })
       ]
