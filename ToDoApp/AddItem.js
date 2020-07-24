@@ -1,7 +1,7 @@
 class AddItem extends React.Component {
   constructor() {
     super()
-    this.state = { html: "", isClean: true, focused: false }
+    this.state = { html: "", isClean: true }
   }
 
   handleChange = html => {
@@ -12,7 +12,7 @@ class AddItem extends React.Component {
   handleClick = () => {
     if (!this.state.isClean) {
       this.props.addItem(this.state.html)
-      this.setState({ html: "" })
+      this.setState({ html: "", isClean: true })
     }
   }
 
@@ -28,17 +28,13 @@ class AddItem extends React.Component {
           dark:   !this.state.isClean
         })
       ),
-      r("div", {
-        className:  "addItem-text-container",
-        onClick:    () => this.setState({ focused: true })
-      }, [
+      r("div", { className:  "addItem-text-container" }, [
         r("div", { className: !this.state.isClean ? "addItem-hint" : "addItem-hint hidden" }, "Shift+Enter to add"),
         r(AddItemText, {
           html:         this.state.html,
           handleChange: this.handleChange,
           addItem:      this.props.addItem,
-          isClean:      this.props.isClean,
-          focused:      this.state.focused
+          isClean:      this.props.isClean
         })
       ]),
     ])
@@ -53,18 +49,13 @@ class AddItemText extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.html === "" || nextProps.focused
-  }
-  componentDidMount() {
-    this.ref.current.focus()
-  }
-  componentDidUpdate() {
-    this.ref.current.focus()
+    return nextProps.html === ""
   }
 
   handleShiftEnter = html => {
     this.props.addItem(html)
     this.props.handleChange("")
+    this.ref.current.blur()
   }
 
   render() {

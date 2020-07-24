@@ -6,14 +6,21 @@ class Item extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return this.props.html !== nextProps.html || this.props.done !== nextProps.done
+    return (
+      this.props.html !== nextProps.html ||
+      this.props.done !== nextProps.done ||
+      this.props.focused !== nextProps.focused
+    )
   }
 
   render() {
-    const { id, html, done, ref, handleChange } = this.props
+    const { id, html, done, focused, ref, handleChange } = this.props
+    let className = "item-text"
+    if (done) className += " done"
+    if (focused) className += " focused"
     return (
       r(ContentEditable, {
-        className: done ? "item-text done" : "item-text",
+        className: className,
         innerRef: this.ref,
         html: html,
         tagName: "span",

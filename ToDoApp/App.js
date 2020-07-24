@@ -10,7 +10,7 @@ class App extends React.Component {
   componentDidMount() {
     this.addItem("First item")
     this.addItem("Build dat app")
-    this.addItem("Filch a cup of tea from nearby<br>&nbsp;<br>colleague")
+    this.addItem("Filch a cup of tea from nearby<br>colleague")
   }
 
   isClean = html => {
@@ -73,9 +73,11 @@ class App extends React.Component {
           items:        this.state.items,
           handleChange: this.handleChange,
           deleteItem:   this.deleteItem,
-          markDone:     this.markDone
+          markDone:     this.markDone,
+          markFocused:  this.markFocused
         }),
-        r(AddItem, { addItem: this.addItem, isClean: this.isClean })
+        r(AddItem, { addItem: this.addItem, isClean: this.isClean }),
+        r("footer", null, "by foretoo")
       ]
     )
   }

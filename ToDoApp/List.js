@@ -12,7 +12,7 @@ class List extends React.Component {
   }
 
   render() {
-    const { items, handleChange, deleteItem, markDone } = this.props
+    const { items, handleChange, deleteItem, markDone, markFocused } = this.props
     const itemList = items.map(item => {
       const isOver = this.state.hoverId === item.id
       return (
@@ -30,11 +30,13 @@ class List extends React.Component {
             })
           ),
           r("div", { className: "item-text-container" }, [
-            r("div", { className: "focus-flag" }),
+            r("div", { className: isOver ? "focus-flag" : "focus-flag hidden", onClick: () => markFocused(item.id) },
+            item.focused ? "unfocus" : "focus"),
             r(Item, {
               id: item.id,
               html: item.html,
               done: item.done,
+              focused: item.focused,
               handleChange: handleChange
             })
           ]),
