@@ -1,5 +1,3 @@
-const r = React.createElement
-
 class App extends React.Component {
   constructor() {
     super()

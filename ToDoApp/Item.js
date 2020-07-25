@@ -14,7 +14,7 @@ class Item extends React.Component {
   }
 
   render() {
-    const { id, html, done, focused, ref, handleChange } = this.props
+    const { id, html, done, focused, handleChange } = this.props
     let className = "item-text"
     if (done) className += " done"
     if (focused) className += " focused"
