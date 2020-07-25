@@ -57,7 +57,7 @@ svg {
   vertical-align: middle;
   color: #da0;
   background-color: #fff8c8;
-  border-radius: 10px 0 10px 0;
+  border-radius: 10px ;
   cursor: pointer;
 }
 .focus-flag.hidden {
@@ -126,9 +126,13 @@ header {
 }
 footer {
   padding-right: 200px;
-  display: table-cell;
-  vertical-align: bottom;
-  text-align: right;
   font-size: 12px;
+  text-align: right;
   color: var(--grey);
+}
+footer a {
+  font-size: inherit;
+  text-decoration: none;
+  color: var(--grey);
+  border-bottom: 1px dotted var(--grey-dark)
 }
