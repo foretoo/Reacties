@@ -62,21 +62,34 @@ class App extends React.Component {
   }
 
   handleFilter = flag => {
-    this.setState(({ items, filter }) => {
-      const newItems = items.map(item => {
-        if (flag === "ALL") {
+    if (flag === "ALL") {
+      this.setState(({ items }) => {
+        const newItems = items.map(item => {
           item.display = true
-        }
-        else if (flag === "ACTIVE") {
-          item.display = item.done ? false : true
-        }
-        else if (flag === "DONE") {
-          item.display = item.done ? true : false
-        }
-        return item
+          return item
+        })
+        return { items: newItems }
       })
-      return { items: newItems, filter: flag }
-    })
+    }
+    else if (flag === "ACTIVE") {
+      this.setState(({ items }) => {
+        const newItems = items.map(item => {
+          item.display = item.done ? false : true
+          return item
+        })
+        return { items: newItems }
+      })
+    }
+    else if (flag === "DONE") {
+      this.setState(({ items }) => {
+        const newItems = items.map(item => {
+          item.display = item.done ? true : false
+          return item
+        })
+        return { items: newItems }
+      })
+    }
+    this.setState({ filter: flag })
   }
 
   render() {
