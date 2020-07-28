@@ -75,10 +75,7 @@ class App extends React.Component {
           markFocused:  this.markFocused
         }),
         r(AddItem, { addItem: this.addItem, isClean: this.isClean }),
-        r("footer", null, [
-          "by ",
-          r("a", { href: "https://github.com/foretoo" }, "foretoo")
-        ])
+        r("footer", null, [ "by ", r("a", { href: "https://github.com/foretoo" }, "foretoo") ])
       ]
     )
   }
