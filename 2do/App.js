@@ -2,7 +2,11 @@ class App extends React.Component {
   constructor() {
     super()
     this.initID = 0
-    this.state = { items: [], filter: "ALL" }
+    this.state = {
+      items: [],
+      filter: "ALL",
+      searchText: ""
+    }
   }
 
   componentDidMount() {
@@ -11,8 +15,8 @@ class App extends React.Component {
     this.addItem("Filch a cup of tea from nearby<br>colleague")
   }
 
-  isClean = html => {
-    return html.replace(/<[^>]*>?/gm,"").replace(/\s/g,"").replace(/&nbsp;/g,"") === ""
+  norm = html => {
+    return html.replace(/<[^>]*>?/gm,"").replace(/\s/g,"").replace(/&nbsp;/g,"").toLowerCase()
   }
 
   addItem = html => {
@@ -37,12 +41,15 @@ class App extends React.Component {
   }
 
   handleChange = (html, id) => {
-    if (this.isClean(html)) {
+    if (this.norm(html) === "") {
       this.deleteItem(id)
       return
     }
     this.setState(({ items }) => {
-      const newItems = items.map(item => item.id === id ? {...item, html: html} : item)
+      const newItems = items.map(item => {
+        if (this.state.searchText) this.handleFilter(this.state.filter, this.state.searchText)
+        return item.id === id ? {...item, html: html} : item
+      })
       return { items: newItems }
     })
   }
@@ -61,35 +68,27 @@ class App extends React.Component {
     })
   }
 
-  handleFilter = flag => {
-    if (flag === "ALL") {
-      this.setState(({ items }) => {
-        const newItems = items.map(item => {
-          item.display = true
-          return item
-        })
-        return { items: newItems }
+  handleFilter = (flag, text) => {
+
+    if (this.state.filter !== flag) this.setState({ filter: flag })
+    if (this.state.searchText !== text) this.setState({ searchText: text })
+
+    this.setState(({ items }) => {
+      const newItems = items.map(item => {
+        item.display = text ? (this.norm(item.html).includes(text) ? true : false) : true
+        if (flag === "ALL") {
+          item.display = item.display && true
+        }
+        else if (flag === "ACTIVE") {
+          item.display = item.done ? false : (item.display && true)
+        }
+        else if (flag === "DONE") {
+          item.display = item.done ? (item.display && true) : false
+        }
+        return item
       })
-    }
-    else if (flag === "ACTIVE") {
-      this.setState(({ items }) => {
-        const newItems = items.map(item => {
-          item.display = item.done ? false : true
-          return item
-        })
-        return { items: newItems }
-      })
-    }
-    else if (flag === "DONE") {
-      this.setState(({ items }) => {
-        const newItems = items.map(item => {
-          item.display = item.done ? true : false
-          return item
-        })
-        return { items: newItems }
-      })
-    }
-    this.setState({ filter: flag })
+      return { items: newItems }
+    })
   }
 
   render() {
@@ -98,8 +97,8 @@ class App extends React.Component {
       [
         r(Header, null),
         r(Nav, {
-          filter: this.state.filter,
           handleFilter: this.handleFilter,
+          norm:         this.norm
         }),
         r(List, {
           items:        this.state.items,
@@ -109,8 +108,8 @@ class App extends React.Component {
           markFocused:  this.markFocused
         }),
         r(AddItem, {
-          addItem: this.addItem,
-          isClean: this.isClean
+          addItem:      this.addItem,
+          norm:         this.norm
         }),
         r("footer", null, [ "by ", r("a", { href: "https://github.com/foretoo" }, "foretoo") ])
       ]
