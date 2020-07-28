@@ -17,7 +17,7 @@ class List extends React.Component {
       const isOver = this.state.hoverId === item.id
       return (
         r("section", {
-          className: isOver ? "item hover" : "item",
+          className: !item.display ? "item hidden" : isOver ? "item hover" : "item",
           key: item.id,
           onMouseOver: () => this.handleMouseOver(item.id),
           onMouseLeave: () => this.handleMouseLeave(item.id)

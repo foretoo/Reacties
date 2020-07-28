@@ -2,7 +2,7 @@ class App extends React.Component {
   constructor() {
     super()
     this.initID = 0
-    this.state = { items: [] }
+    this.state = { items: [], filter: "ALL" }
   }
 
   componentDidMount() {
@@ -21,7 +21,8 @@ class App extends React.Component {
         id:         this.initID++,
         html:       html,
         done:       false,
-        focused:    false
+        focused:    false,
+        display:    true
       }
       return { items: [...items, newItem] }
     })
@@ -60,13 +61,33 @@ class App extends React.Component {
     })
   }
 
+  handleFilter = flag => {
+    this.setState(({ items, filter }) => {
+      const newItems = items.map(item => {
+        if (flag === "ALL") {
+          item.display = true
+        }
+        else if (flag === "ACTIVE") {
+          item.display = item.done ? false : true
+        }
+        else if (flag === "DONE") {
+          item.display = item.done ? true : false
+        }
+        return item
+      })
+      return { items: newItems, filter: flag }
+    })
+  }
+
   render() {
     return r(
-      React.Fragment,
-      null,
+      React.Fragment, null,
       [
         r(Header, null),
-        r(Nav, null),
+        r(Nav, {
+          filter: this.state.filter,
+          handleFilter: this.handleFilter,
+        }),
         r(List, {
           items:        this.state.items,
           handleChange: this.handleChange,
@@ -74,7 +95,10 @@ class App extends React.Component {
           markDone:     this.markDone,
           markFocused:  this.markFocused
         }),
-        r(AddItem, { addItem: this.addItem, isClean: this.isClean }),
+        r(AddItem, {
+          addItem: this.addItem,
+          isClean: this.isClean
+        }),
         r("footer", null, [ "by ", r("a", { href: "https://github.com/foretoo" }, "foretoo") ])
       ]
     )

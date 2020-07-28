@@ -7,8 +7,8 @@ class Item extends React.Component {
 
   shouldComponentUpdate(nextProps) {
     return (
-      this.props.html !== nextProps.html ||
-      this.props.done !== nextProps.done ||
+      this.props.html !== nextProps.html  ||
+      this.props.done !== nextProps.done  ||
       this.props.focused !== nextProps.focused
     )
   }
