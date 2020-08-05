@@ -4,7 +4,6 @@ import SVGicon from "./src/SVGicon.js"
 export default class List extends React.Component {
   constructor() {
     super()
-    console.log("List");
     this.state = { hoverId: null }
   }
 

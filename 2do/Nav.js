@@ -1,7 +1,6 @@
 export default class Nav extends React.Component {
   constructor() {
     super()
-    console.log("Nav");
     this.state = { flag: "ALL", text: "" }
   }
 

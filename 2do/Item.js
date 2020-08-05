@@ -4,7 +4,6 @@ export default class Item extends React.Component {
 
   constructor() {
     super()
-    console.log("Item");
     this.ref = React.createRef()
   }
 
