@@ -128,14 +128,26 @@ nav {
   margin: auto;
 }
 .filter .filtered {
-  font-weight: bold;
+  font-weight: 600;
 }
 
 
 
 header {
   padding-left: 40px;
+  display: flex;
 }
+header .weekDay {
+  font-size: 28px;
+  font-family: 'IBM Plex Serif', serif;
+}
+header .monthDay {
+  margin-left: 8px;
+  color: var(--grey);
+}
+
+
+
 footer {
   padding-right: 200px;
   font-size: 12px;
