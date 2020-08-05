@@ -20,7 +20,7 @@ class App extends React.Component {
     this.addItem("Filch a cup of tea from nearby<br>colleague")
   }
 
-  norm = html => {
+  normalize = html => {
     return html.replace(/<[^>]*>?/gm,"").replace(/\s/g,"").replace(/&nbsp;/g,"").toLowerCase()
   }
 
@@ -46,7 +46,7 @@ class App extends React.Component {
   }
 
   handleChange = (html, id) => {
-    if (this.norm(html) === "") {
+    if (this.normalize(html) === "") {
       this.deleteItem(id)
       return
     }
@@ -80,7 +80,7 @@ class App extends React.Component {
 
     this.setState(({ items }) => {
       const newItems = items.map(item => {
-        item.display = text ? (this.norm(item.html).includes(text) ? true : false) : true
+        item.display = text ? (this.normalize(item.html).includes(text) ? true : false) : true
         if (flag === "ALL") {
           item.display = item.display && true
         }
@@ -103,7 +103,7 @@ class App extends React.Component {
         r(Header, null),
         r(Nav, {
           handleFilter: this.handleFilter,
-          norm:         this.norm
+          normalize:    this.normalize
         }),
         r(List, {
           items:        this.state.items,
@@ -114,7 +114,7 @@ class App extends React.Component {
         }),
         r(AddItem, {
           addItem:      this.addItem,
-          norm:         this.norm
+          normalize:    this.normalize
         }),
         r("footer", null,
           r("span", null, [ "by ", r("a", { href: "https://github.com/foretoo" }, "foretoo") ])

@@ -10,8 +10,8 @@ export default class Nav extends React.Component {
   }
 
   handleSearch = text => {
-    this.setState({ text: this.props.norm(text) })
-    this.props.handleFilter(this.state.flag, this.props.norm(text))
+    this.setState({ text: this.props.normalize(text) })
+    this.props.handleFilter(this.state.flag, this.props.normalize(text))
   }
 
   render() {

@@ -8,7 +8,7 @@ export default class AddItem extends React.Component {
   }
 
   handleChange = html => {
-    const isClean = this.props.norm(html) === "" ? true : false
+    const isClean = this.props.normalize(html) === "" ? true : false
     this.setState({ html: html, isClean: isClean })
   }
 
@@ -37,7 +37,7 @@ export default class AddItem extends React.Component {
           html:         this.state.html,
           handleChange: this.handleChange,
           addItem:      this.props.addItem,
-          norm:         this.props.norm
+          normalize:    this.props.normalize
         })
       ]),
     ])
@@ -62,7 +62,7 @@ class AddItemText extends React.Component {
   }
 
   render() {
-    const { html, handleChange, norm } = this.props
+    const { html, handleChange, normalize } = this.props
     return (
       r(ContentEditable, {
         className:  "addItem-text",
@@ -71,9 +71,9 @@ class AddItemText extends React.Component {
         html:       html,
         tagName:    "span",
         onChange:   () => handleChange(this.ref.current.innerHTML),
-        onKeyUp:    e => e.shiftKey && e.key === "Enter" && norm(this.ref.current.innerHTML) && this.handleShiftEnter(this.ref.current.innerHTML),
+        onKeyUp:    e => e.shiftKey && e.key === "Enter" && normalize(this.ref.current.innerHTML) && this.handleShiftEnter(this.ref.current.innerHTML),
         onKeyDown:  e => e.shiftKey && e.key === "Enter" && e.preventDefault(),
-        onBlur:     () => { if (norm(this.ref.current.innerHTML) === "") this.ref.current.innerHTML = "" }
+        onBlur:     () => { if (normalize(this.ref.current.innerHTML) === "") this.ref.current.innerHTML = "" }
       })
     )
   }
