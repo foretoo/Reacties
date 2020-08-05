@@ -1,6 +1,12 @@
+import AddItem from "./Additem.js"
+import List from "./List.js"
+import Nav from "./Nav.js"
+import Header from "./Header.js"
+
 class App extends React.Component {
   constructor() {
     super()
+    console.log("App");
     this.initID = 0
     this.state = {
       items: [],
@@ -10,8 +16,8 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.addItem("First item")
-    this.addItem("Build dat app")
+    // this.addItem("First item")
+    // this.addItem("Build dat app")
     this.addItem("Filch a cup of tea from nearby<br>colleague")
   }
 

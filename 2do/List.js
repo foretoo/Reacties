@@ -1,6 +1,10 @@
-class List extends React.Component {
+import Item from "./Item.js"
+import SVGicon from "./src/SVGicon.js"
+
+export default class List extends React.Component {
   constructor() {
     super()
+    console.log("List");
     this.state = { hoverId: null }
   }
 
@@ -30,8 +34,10 @@ class List extends React.Component {
             })
           ),
           r("div", { className: "item-text-container" }, [
-            r("div", { className: isOver ? "focus-flag" : "focus-flag hidden", onClick: () => markFocused(item.id) },
-            item.focused ? "unfocus" : "focus"),
+            r("div", {
+              className: isOver ? "focus-flag" : "focus-flag hidden",
+              onClick: () => markFocused(item.id)
+            }, item.focused ? "unfocus" : "focus"),
             r(Item, {
               id: item.id,
               html: item.html,

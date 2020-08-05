@@ -1,7 +1,10 @@
-class Item extends React.Component {
+import ContentEditable from "./src/Editable.js"
+
+export default class Item extends React.Component {
 
   constructor() {
     super()
+    console.log("Item");
     this.ref = React.createRef()
   }
 

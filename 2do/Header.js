@@ -1,4 +1,4 @@
-const Header = () => {
+const Header = React.memo(() => {
   const date = new Date()
   const weekDay = date.toLocaleDateString(document.documentElement.lang, {weekday: 'long'})
   const monthDay = date.toLocaleDateString(document.documentElement.lang, {month: 'long', day: 'numeric'})
@@ -7,4 +7,6 @@ const Header = () => {
     r("div", { className: "weekDay" }, weekDay),
     r("div", { className: "monthDay" }, monthDay),
   ])
-}
+})
+
+export default Header

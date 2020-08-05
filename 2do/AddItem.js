@@ -1,6 +1,10 @@
-class AddItem extends React.Component {
+import ContentEditable from "./src/Editable.js"
+import SVGicon from "./src/SVGicon.js"
+
+export default class AddItem extends React.Component {
   constructor() {
     super()
+    console.log("AddItem");
     this.state = { html: "", isClean: true }
   }
 
@@ -45,6 +49,7 @@ class AddItemText extends React.Component {
 
   constructor() {
     super()
+    console.log("AddItemText");
     this.ref = React.createRef()
   }
 

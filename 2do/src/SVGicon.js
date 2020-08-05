@@ -1,4 +1,4 @@
-class SVGicon extends React.Component {
+export default class SVGicon extends React.Component {
 
   shouldComponentUpdate(nextProps) {
     return this.props.dark !== nextProps.dark || this.props.light !== nextProps.light
