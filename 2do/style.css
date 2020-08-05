@@ -139,11 +139,11 @@ header {
   padding-left: 40px;
   display: flex;
 }
-header .weekDay {
+header .monthDay {
   font-size: 28px;
   font-family: 'IBM Plex Serif', serif;
 }
-header .monthDay {
+header .weekDay {
   margin-left: 8px;
   color: var(--grey);
 }
