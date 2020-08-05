@@ -22,7 +22,9 @@ body, #root, nav, .filter, .item, .addItem {
 }
 #root {
   width: 800px;
-  margin: 100px auto auto auto;
+  min-height: 100%;
+  margin: auto;
+  padding-top: 100px;
   flex-direction: column;
 }
 header, nav {
@@ -149,14 +151,18 @@ header .monthDay {
 
 
 footer {
-  padding-right: 200px;
+  padding: 20px 200px 20px 0;
+  flex-grow: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  line-height: 20px;
+}
+footer * {
   font-size: 12px;
-  text-align: right;
   color: var(--grey);
 }
 footer a {
-  font-size: inherit;
   text-decoration: none;
-  color: var(--grey);
   border-bottom: 1px dotted var(--grey-dark)
 }
