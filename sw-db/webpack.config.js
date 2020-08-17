@@ -3,10 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin")
 
 module.exports = {
   entry: "./src/App.js",
-  output: {
-    path: path.join(__dirname, "/build"),
-    filename: "bundle.js"
-  },
+
   module: {
     rules: [
       {
@@ -26,5 +23,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./src/index.html"
     })
-  ]
+  ],
+
+  output: {
+    path: path.join(__dirname, "/build"),
+    filename: "bundle.js"
+  },
+  devtool: 'eval-source-map'
 }
