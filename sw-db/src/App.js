@@ -1,11 +1,7 @@
-import React, { Component } from "react"
-import ReactDOM from "react-dom"
-import "./style.css"
+import React, {Component} from "react"
 
-class App extends Component {
+export default class App extends Component {
   render() {
     return <div>Star Wars Data Base</div>
   }
 }
-
-ReactDOM.render(<App />, window.root)
