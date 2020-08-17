@@ -4,8 +4,13 @@
   "description": "learning to work with sever via SWAPI",
   "main": "src/index.js",
   "scripts": {
+<<<<<<< HEAD
     "start": "webpack-dev-server --mode development --open --hot",
     "build": "webpack --mode production"
+=======
+    "start": "react-scripts start",
+    "build": "react-scripts build"
+>>>>>>> ca451f5bcd9f57fc39057a6b50b3ad47dada7a64
   },
   "license": "ISC",
   "devDependencies": {
