@@ -1,0 +1,17 @@
+.details {
+  display: flex;
+  flex-grow: 1;
+  background: #dee;
+}
+.details > img {
+  width: 200px;
+  height: 200px;
+  background: #fff;
+}
+.details > div {
+  padding: 20px;
+}
+.details ul {
+  padding: 20px;
+  list-style-type: none;
+}

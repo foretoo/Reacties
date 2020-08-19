@@ -1,0 +1,11 @@
+header {
+  display: flex;
+  height: 80px;
+}
+nav {
+  display: flex;
+}
+header > h1, nav > div {
+  line-height: 20px;
+  padding: 30px;
+}

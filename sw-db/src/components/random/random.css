@@ -1,0 +1,18 @@
+.random {
+  display: flex;
+  height: 240px;
+  padding: 20px;
+  background: #dee;
+}
+.random > img {
+  width: 200px;
+  height: 200px;
+  background: #fff;
+}
+.random > div {
+  padding: 20px;
+}
+.random ul {
+  padding: 20px;
+  list-style-type: none;
+}

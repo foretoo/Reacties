@@ -12,8 +12,10 @@ export default class App extends Component {
       <>
         <Header />
         <Random />
-        <List />
-        <Details />
+        <main>
+          <List />
+          <Details />
+        </main>
       </>
     )
   }
