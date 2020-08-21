@@ -11,10 +11,13 @@
   background: #fff;
 }
 .random > div {
-  padding: 40px;
+  margin: 40px;
   color: #eee;
 }
 .random ul {
-  padding: 20px;
+  margin: 20px;
   list-style-type: none;
+}
+.random li {
+  margin-top: 10px;
 }

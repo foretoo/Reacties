@@ -1,6 +1,6 @@
 import React, {Component} from "react"
-import "./random.css"
 import SwapiService from "../../services/SwapiService"
+import "./random.css"
 
 export default class Random extends Component {
 
@@ -24,9 +24,9 @@ export default class Random extends Component {
         this.setState({
           id,
           name: planet.name,
-          population: planet.population,
-          diameter: planet.diameter,
-          rotationPeriod: planet.rotation_period
+          population: new Intl.NumberFormat("RU").format(planet.population),
+          diameter: new Intl.NumberFormat("RU").format(planet.diameter),
+          rotationPeriod: new Intl.NumberFormat("RU").format(planet.rotation_period)
         })
       })
   }
