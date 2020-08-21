@@ -6,33 +6,25 @@ export default class Random extends Component {
 
   constructor() {
     super()
-    this.state = {
-      id: null,
-      name: null,
-      population: null,
-      diameter: null,
-      rotationPeriod: null
-    }
     this.updateData()
   }
 
+  state = {
+    planet: {}
+  }
+
   swapi = new SwapiService
+
   updateData() {
-    const id = Math.floor(Math.random()*19) + 2
-    this.swapi.getPlanet(id)
-      .then(planet => {
-        this.setState({
-          id,
-          name: planet.name,
-          population: new Intl.NumberFormat("RU").format(planet.population),
-          diameter: new Intl.NumberFormat("RU").format(planet.diameter),
-          rotationPeriod: new Intl.NumberFormat("RU").format(planet.rotation_period)
-        })
-      })
+    let id = Math.floor(Math.random()*19) + 2
+    id === 20 && id++
+    this.swapi
+      .getPlanet(id)
+      .then(planet => this.setState({planet}))
   }
 
   render() {
-    const { id, name, population, diameter, rotationPeriod } = this.state
+    const { id, name, population, diameter, rotationPeriod } = this.state.planet
     return (
       <section className="random">
         <img src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}/>
