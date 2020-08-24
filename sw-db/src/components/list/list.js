@@ -1,17 +1,27 @@
-import React, {Component} from "react"
+import React from "react"
+import Loader from "../loader"
 import "./list.css"
 
-export default class List extends Component {
-  render() {
-    return (
-      <ul>
-        <li>item 1</li>
-        <li>item 2</li>
-        <li>item 3</li>
-        <li>item 4</li>
-        <li>item 5</li>
-        <li>item 6</li>
-      </ul>
-    )
+const List = (props) => {
+
+  let output
+  if (props.hasList) {
+    output = props.list.map(item => {
+      return (
+        <li
+          key={item.id}
+          onClick={() => props.handleSelected(item.id)}>
+          {item.name}
+        </li>
+      )
+    })
   }
+  else output = <Loader />
+
+  return (
+    <ul>
+      {output}
+    </ul>
+  )
 }
+export default List
