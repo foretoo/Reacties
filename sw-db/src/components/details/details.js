@@ -1,12 +1,13 @@
-import React from "react"
+import React, { memo } from "react"
 import Loader from "../loader"
 import "./details.css"
 
-const Details = (props) => {
+const Details = memo((props) => {
+
   if (!props.hasDetails) {
     return (
       <section className="details">
-        <Loader />
+        <Loader style={{marginLeft: "20px"}}/>
       </section>
     )
   }
@@ -24,5 +25,5 @@ const Details = (props) => {
       <ul>{items}</ul>
     </section>
   )
-}
+})
 export default Details

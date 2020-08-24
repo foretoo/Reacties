@@ -62,7 +62,7 @@ export default class App extends Component {
   }
 
   handlePageChange = (page) => {
-    this.setState({ page: page, hasList: false, selectedId: null })
+    this.setState({ page: page, hasList: false, selectedId: null, hasDetails: false })
     this.getList(page)
   }
   handleSelected = (id) => {
