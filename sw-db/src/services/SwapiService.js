@@ -50,17 +50,17 @@ export default class SwapiService {
     return isNaN(data) ? data : new Intl.NumberFormat("RU").format(data)
   }
 
-  _transformPerson(person) {
+  _transformPerson = (person) => {
     return {
       id: this._getId(person),
       name: person.name,
       gender: person.gender,
-      birthYear: person.birthYear,
-      eyeColor: person.eyeColor
+      birthYear: person.birth_year,
+      eyeColor: person.eye_color
     }
   }
 
-  _transformPlanet(planet) {
+  _transformPlanet = (planet) => {
     return {
       id: this._getId(planet),
       name: planet.name,
@@ -70,17 +70,15 @@ export default class SwapiService {
     }
   }
 
-  _transformStarship(starship) {
+  _transformStarship = (starship) => {
     return {
       id: this._getId(starship),
       name: starship.name,
       model: starship.model,
       manufacturer: starship.manufacturer,
-      costInCredits: starship.costInCredits,
-      length: starship.length,
-      crew: starship.crew,
-      passengers: starship.passengers,
-      cargoCapacity: starship.cargoCapacity
+      costInCredits: this._formatted(starship.cost_in_credits),
+      length: this._formatted(starship.length),
+      cargoCapacity: this._formatted(starship.cargo_capacity)
     }
   }
 }
