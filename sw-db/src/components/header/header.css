@@ -9,3 +9,9 @@ header > h1, nav > div {
   line-height: 20px;
   padding: 30px;
 }
+nav > div {
+  cursor: pointer;
+}
+.active {
+  font-weight: bold;
+}
