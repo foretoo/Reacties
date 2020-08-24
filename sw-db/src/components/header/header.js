@@ -4,24 +4,24 @@ import "./header.css"
 const Header = (props) => {
 
   const { page, handlePageChange } = props
-  
+
   return (
     <header>
       <h1>StarWars Database</h1>
       <nav>
         <div
-          className={page === "PEOPLE" ? "active" : null}
-          onClick={() => handlePageChange("PEOPLE")}>
+          className={page === "people" ? "active" : null}
+          onClick={() => handlePageChange("people")}>
           People
         </div>
         <div
-          className={page === "PLANETS" ? "active" : null}
-          onClick={() => handlePageChange("PLANETS")}>
+          className={page === "planets" ? "active" : null}
+          onClick={() => handlePageChange("planets")}>
           Planets
         </div>
         <div
-          className={page === "STARSHIPS" ? "active" : null}
-          onClick={() => handlePageChange("STARSHIPS")}>
+          className={page === "starships" ? "active" : null}
+          onClick={() => handlePageChange("starships")}>
           Starships
         </div>
       </nav>
