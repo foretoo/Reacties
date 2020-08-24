@@ -1,17 +1,30 @@
 .details {
   display: flex;
+  align-items: flex-start;
   flex-grow: 1;
-  background: #dee;
+  color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #050505;
 }
-.details > img {
-  width: 200px;
-  height: 200px;
-  background: #fff;
+.details > .img {
+  width: 240px;
 }
-.details > div {
+.details > .img > img {
+  min-width: 240px;
+  width: 100%;
+  object-fit: contain;
+}
+.details > ul {
+  flex-grow: 1;
   padding: 20px;
-}
-.details ul {
-  padding: 20px;
+  min-height: 420px;
   list-style-type: none;
+}
+.details > ul > li {
+  margin-bottom: 20px;
+  list-style-type: none;
+}
+.details > ul > .title {
+  margin-bottom: 40px;
 }
