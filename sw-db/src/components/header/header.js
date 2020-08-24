@@ -1,7 +1,7 @@
-import React from "react"
+import React, { memo } from "react"
 import "./header.css"
 
-const Header = (props) => {
+const Header = memo((props) => {
 
   const { page, handlePageChange } = props
 
@@ -27,5 +27,5 @@ const Header = (props) => {
       </nav>
     </header>
   )
-}
+})
 export default Header

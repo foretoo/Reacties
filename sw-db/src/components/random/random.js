@@ -7,7 +7,15 @@ import "./random.css"
 export default class Random extends Component {
 
   componentDidMount() {
-    setInterval(this.updateData, this.interval)
+    setInterval(this.updateData, 10000)
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    if (
+      nextState.planet.id !== this.state.planet.id  ||
+      nextState.loading !== this.state.loading      ||
+      nextState.error !== this.state.error
+    ) return true
+    else return false
   }
 
   state = {
@@ -17,7 +25,6 @@ export default class Random extends Component {
   }
 
   swapi = new SwapiService
-  interval = 10000
   updateData = () => {
     let id = Math.floor(Math.random()*19) + 2
     if (id === 20) id++

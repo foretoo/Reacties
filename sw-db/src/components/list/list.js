@@ -1,8 +1,8 @@
-import React from "react"
+import React, { memo } from "react"
 import Loader from "../loader"
 import "./list.css"
 
-const List = (props) => {
+const List = memo((props) => {
 
   let output
   if (props.hasList) {
@@ -23,5 +23,5 @@ const List = (props) => {
       {output}
     </ul>
   )
-}
+})
 export default List

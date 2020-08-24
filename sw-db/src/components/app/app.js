@@ -21,6 +21,11 @@ export default class App extends Component {
   componentDidMount() {
     this.getList(this.state.page)
   }
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextState.hasList === false) return false
+    if (nextState.hasDetails === false) return false
+    return true
+  }
 
   swapi = new SwapiService
   getList = (type) => {
@@ -62,11 +67,11 @@ export default class App extends Component {
   }
 
   handlePageChange = (page) => {
-    this.setState({ page: page, hasList: false, selectedId: null, hasDetails: false })
+    this.setState({ page: page, hasList: false, hasDetails: false })
     this.getList(page)
   }
   handleSelected = (id) => {
-    this.setState({ selectedId: id })
+    this.setState({ selectedId: id, hasDetails: false })
     this.getObject(this.state.page, id)
   }
 
