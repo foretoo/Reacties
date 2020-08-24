@@ -4,7 +4,7 @@
   "description": "learning to work with sever via SWAPI",
   "main": "src/index.js",
   "scripts": {
-    "start": "webpack-dev-server --mode production --client-log-level silent --open --hot",
+    "start": "webpack-dev-server --mode development --client-log-level silent --open --hot",
     "build": "webpack --mode production"
   },
   "license": "ISC",
