@@ -5,9 +5,9 @@ import Error from "../error"
 import "./random.css"
 
 export default class Random extends Component {
-  constructor() {
-    super()
-    this.updateData()
+
+  componentDidMount() {
+    setInterval(this.updateData, this.interval)
   }
 
   state = {
@@ -17,14 +17,13 @@ export default class Random extends Component {
   }
 
   swapi = new SwapiService
-  updateData() {
+  interval = 10000
+  updateData = () => {
     let id = Math.floor(Math.random()*19) + 2
-    id === 20 && id++
-    setTimeout(() => {
-      this.swapi.getPlanet(id)
-        .then(planet => this.setState({ planet, loading: false }))
-        .catch(err => this.setState({ error: true, loading: false }))
-    }, 3000)
+    if (id === 20) id++
+    this.swapi.getPlanet(id)
+      .then(planet => this.setState({ planet, loading: false }))
+      .catch(err => this.setState({ error: true, loading: false }))
   }
 
   render() {
