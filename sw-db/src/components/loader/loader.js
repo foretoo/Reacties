@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react"
 import "./loader.css"
 
-const Loader = () => {
+const Loader = (props) => {
 
   const [ str, setStr ] = useState("loading")
   const strRef = useRef(str)
@@ -15,7 +15,7 @@ const Loader = () => {
   }, [])
 
   return (
-    <div className="loader">{str}</div>
+    <div className="loader" style={props.style ? props.style : null}>{str}</div>
   )
 }
 
