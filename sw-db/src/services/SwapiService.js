@@ -46,6 +46,10 @@ export default class SwapiService {
     return item.url.match(regEx)[1]
   }
 
+  _formatted(data) {
+    return isNaN(data) ? data : new Intl.NumberFormat("RU").format(data)
+  }
+
   _transformPerson(person) {
     return {
       id: this._getId(person),
@@ -60,9 +64,9 @@ export default class SwapiService {
     return {
       id: this._getId(planet),
       name: planet.name,
-      population: new Intl.NumberFormat("RU").format(planet.population),
-      diameter: new Intl.NumberFormat("RU").format(planet.diameter),
-      rotationPeriod: new Intl.NumberFormat("RU").format(planet.rotation_period)
+      population: this._formatted(planet.population),
+      diameter: this._formatted(planet.diameter),
+      rotationPeriod: this._formatted(planet.rotation_period)
     }
   }
 
