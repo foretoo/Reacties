@@ -1,7 +1,8 @@
 import React from "react"
 import "./error.css"
 
-const Error = () => {
+const Error = (props) => {
+  if (props.image) return <div className="error">No such image yet</div>
   return (
     <div className="error">
       Something has gone uncommonly wrong,<br/>
