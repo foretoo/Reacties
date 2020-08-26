@@ -11,11 +11,13 @@ const Details = memo((props) => {
       </section>
     )
   }
+
   const items = Object.entries(props.details).map((v,i) => {
     if (!i) return null
     if (i === 1) return <li className="title" key={`${props.details.id}_${i}`}><h2>{v[1]}</h2></li>
     return <li key={`${props.details.id}_${i}`}>{`${v[0]}: ${v[1]}`}</li>
   })
+
   const imgPath = props.type === "people" ? "characters" : props.type
   return (
     <section className="details">
