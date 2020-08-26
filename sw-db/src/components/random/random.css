@@ -10,14 +10,14 @@
   height: 240px;
   background: #fff;
 }
-.random > div {
+.random > .randomDetails {
   margin: 40px;
   color: #eee;
 }
-.random ul {
+.randomDetails > ul {
   margin: 20px;
   list-style-type: none;
 }
-.random li {
+.randomDetails > ul > li {
   margin-top: 10px;
 }

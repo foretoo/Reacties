@@ -50,7 +50,7 @@ const RandomView = (props) => {
   return (
     <>
       <img src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}/>
-      <div>
+      <div className="randomDetails">
         <h2>{name}</h2>
         <ul>
           <li>population: {population}</li>
