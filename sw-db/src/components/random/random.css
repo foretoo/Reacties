@@ -1,0 +1,23 @@
+.random {
+  display: flex;
+  height: 240px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #050505;
+}
+.random > img {
+  width: 240px;
+  height: 240px;
+  background: #fff;
+}
+.random > .randomDetails {
+  margin: 40px;
+  color: #eee;
+}
+.randomDetails > ul {
+  margin: 20px;
+  list-style-type: none;
+}
+.randomDetails > ul > li {
+  margin-top: 10px;
+}

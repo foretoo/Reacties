@@ -1,0 +1,22 @@
+main > ul {
+  flex-shrink: 0;
+  width: 240px;
+  min-height: 420px;
+  padding: 0 20px;
+  margin-right: 20px;
+  list-style-type: none;
+  color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #050505;
+}
+main > ul > li {
+  padding: 10px 0;
+  cursor: pointer;
+}
+main > ul > li:first-child {
+  margin-top: 10px;
+}
+main > ul > li:last-child {
+  margin-bottom: 10px;
+}

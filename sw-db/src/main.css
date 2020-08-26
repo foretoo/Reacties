@@ -1,0 +1,17 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  font-size: 16px;
+  line-height: 20px;
+  font-family: monospace;
+}
+body {
+  display: flex;
+}
+#root {
+  width: 960px;
+  margin: 0 auto;
+}
