@@ -1,5 +1,6 @@
 import React, { memo } from "react"
 import Loader from "../loader"
+import Image from "../image"
 import "./details.css"
 
 const Details = memo((props) => {
@@ -18,11 +19,10 @@ const Details = memo((props) => {
     return <li key={`${props.details.id}_${i}`}>{`${v[0]}: ${v[1]}`}</li>
   })
 
-  const imgPath = props.type === "people" ? "characters" : props.type
   return (
     <section className="details">
       <div className="img">
-        <img src={`https://starwars-visualguide.com/assets/img/${imgPath}/${props.details.id}.jpg`} />
+        <Image type={props.type} id={props.details.id} />
       </div>
       <ul>{items}</ul>
     </section>
