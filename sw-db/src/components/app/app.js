@@ -1,30 +1,22 @@
-import React, { Component } from "react"
+import React, { useState } from "react"
 import SwapiService from "../../services/SwapiService"
 import Header from "../header"
 import Random from "../random"
 import Page from "../page"
 import "./app.css"
 
-export default class App extends Component {
+const App = () => {
 
-  state = {
-    page: "planets"
-  }
+  const [page, setPage] = useState("planets")
 
-  handlePageChange = (page) => {
-    this.setState({ page: page })
-  }
+  const handlePageChange = (page) => setPage(page)
 
-  render() {
-    return (
-      <>
-        <Header
-          page={this.state.page}
-          handlePageChange={this.handlePageChange}
-        />
-        <Random />
-        <Page page={this.state.page} />
-      </>
-    )
-  }
+  return (
+    <>
+      <Header page={page} handlePageChange={handlePageChange} />
+      <Random />
+      <Page page={page} />
+    </>
+  )
 }
+export default App
