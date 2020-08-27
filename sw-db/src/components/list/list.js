@@ -3,9 +3,14 @@ import Loader from "../loader"
 import "./list.css"
 
 
-const List = ({ type, getData, handleSelect }) => {
+const List = ({ type, getData, changeDetailsID }) => {
 
   const [list, setList] = useState(null)
+  const [itemId, setId] = useState(null)
+  const handleSelect = (id) => {
+    changeDetailsID(id)
+    setId(id)
+  }
   let output
 
   useEffect(() => {
@@ -17,9 +22,18 @@ const List = ({ type, getData, handleSelect }) => {
 
   if (list) {
     output = list.map(({ id, name }) => {
+      let className, active = null
+      if (id === itemId) {
+        className = "active"
+        active = <span>{">>>"}</span>
+      }
       return (
-        <li key={id} onClick={() => handleSelect(id)}>
-          {name}
+        <li
+          key={id}
+          className={className}
+          onClick={() => handleSelect(id)}
+        >
+          {name}{active}
         </li>
       )
     })
