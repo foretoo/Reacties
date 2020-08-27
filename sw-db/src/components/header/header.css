@@ -12,6 +12,3 @@ header > h1, nav > div {
 nav > div {
   cursor: pointer;
 }
-.active {
-  font-weight: bold;
-}

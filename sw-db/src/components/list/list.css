@@ -11,6 +11,8 @@ main > ul {
   background: #050505;
 }
 main > ul > li {
+  display: flex;
+  justify-content: space-between;
   padding: 10px 0;
   cursor: pointer;
 }
@@ -19,4 +21,7 @@ main > ul > li:first-child {
 }
 main > ul > li:last-child {
   margin-bottom: 10px;
+}
+main > ul > li > span {
+  margin-left: 10px;
 }

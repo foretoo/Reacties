@@ -1,27 +1,46 @@
-import React, { memo } from "react"
+import React, { useState, useEffect } from "react"
 import Loader from "../loader"
 import "./list.css"
 
-const List = memo((props) => {
 
+const List = ({ type, getData, changeDetailsID }) => {
+
+  const [list, setList] = useState(null)
+  const [itemId, setId] = useState(null)
+  const handleSelect = (id) => {
+    changeDetailsID(id)
+    setId(id)
+  }
   let output
-  if (props.hasList) {
-    output = props.list.map(item => {
+
+  useEffect(() => {
+    getData(type).then(data => {
+      setList(data)
+      handleSelect(data[0].id)
+    })
+  }, [type])
+
+  if (list) {
+    output = list.map(({ id, name }) => {
+      let className, active = null
+      if (id === itemId) {
+        className = "active"
+        active = <span>{">>>"}</span>
+      }
       return (
         <li
-          key={item.id}
-          onClick={() => props.handleSelected(item.id)}>
-          {item.name}
+          key={id}
+          className={className}
+          onClick={() => handleSelect(id)}
+        >
+          {name}{active}
         </li>
       )
     })
   }
   else output = <Loader />
 
-  return (
-    <ul>
-      {output}
-    </ul>
-  )
-})
+  return <ul>{output}</ul>
+}
+
 export default List

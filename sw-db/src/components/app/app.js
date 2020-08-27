@@ -1,101 +1,22 @@
-import React, {Component} from "react"
+import React, { useState } from "react"
 import SwapiService from "../../services/SwapiService"
-import "./app.css"
-
 import Header from "../header"
 import Random from "../random"
-import List from "../list"
-import Details from "../details"
+import Page from "../page"
+import "./app.css"
 
-export default class App extends Component {
+const App = () => {
 
-  state = {
-    page: "planets",
-    list: null,
-    hasList: false,
-    selectedId: null,
-    details: null,
-    hasDetails: false,
-  }
+  const [page, setPage] = useState("planets")
 
-  componentDidMount() {
-    this.getList(this.state.page)
-  }
-  shouldComponentUpdate(nextProps, nextState) {
-    if (nextState.hasList === false) return false
-    if (nextState.hasDetails === false) return false
-    return true
-  }
+  const changePage = (page) => setPage(page)
 
-  swapi = new SwapiService
-  getList = (type) => {
-    if (type === "planets") {
-      this.swapi.getAllPlanets()
-        .then(list => {
-          this.setState({ list, hasList: true, selectedId: list[0].id })
-          this.getObject(type, list[0].id)
-        })
-    }
-    if (type === "people") {
-      this.swapi.getAllPeople()
-        .then(list => {
-          this.setState({ list, hasList: true, selectedId: list[0].id })
-          this.getObject(type, list[0].id)
-        })
-    }
-    if (type === "starships") {
-      this.swapi.getAllStarships()
-        .then(list => {
-          this.setState({ list, hasList: true, selectedId: list[0].id })
-          this.getObject(type, list[0].id)
-        })
-    }
-  }
-  getObject = (type, id) => {
-    if (type === "planets") {
-      this.swapi.getPlanet(id)
-        .then(planet => this.setState({ details: {...planet}, hasDetails: true }))
-    }
-    if (type === "people") {
-      this.swapi.getPerson(id)
-        .then(person => this.setState({ details: {...person}, hasDetails: true }))
-    }
-    if (type === "starships") {
-      this.swapi.getStarship(id)
-        .then(starship => this.setState({ details: {...starship}, hasDetails: true }))
-    }
-  }
-
-  handlePageChange = (page) => {
-    this.setState({ page: page, hasList: false, hasDetails: false })
-    this.getList(page)
-  }
-  handleSelected = (id) => {
-    this.setState({ selectedId: id, hasDetails: false })
-    this.getObject(this.state.page, id)
-  }
-
-  render() {
-    return (
-      <>
-        <Header
-          page={this.state.page}
-          handlePageChange={this.handlePageChange}
-        />
-        <Random />
-        <main>
-          <List
-            list={this.state.list}
-            hasList={this.state.hasList}
-            handleSelected ={this.handleSelected}
-          />
-          <Details
-            type={this.state.page}
-            details={this.state.details}
-            hasDetails={this.state.hasDetails}
-          />
-        </main>
-      </>
-    )
-  }
+  return (
+    <>
+      <Header page={page} changePage={changePage} />
+      <Random />
+      <Page page={page} />
+    </>
+  )
 }
+export default App

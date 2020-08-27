@@ -1,31 +1,45 @@
-import React, { memo } from "react"
+import React, { memo, useState, useEffect } from "react"
 import Loader from "../loader"
 import Image from "../image"
 import "./details.css"
 
-const Details = memo((props) => {
+const RawDetails = ({ type, id, getData }) => {
 
-  if (!props.hasDetails) {
-    return (
-      <section className="details">
-        <Loader style={{marginLeft: "20px"}}/>
-      </section>
-    )
-  }
+  const [data, setData] = useState(null)
+  let output
 
-  const items = Object.entries(props.details).map((v,i) => {
-    if (!i) return null
-    if (i === 1) return <li className="title" key={`${props.details.id}_${i}`}><h2>{v[1]}</h2></li>
-    return <li key={`${props.details.id}_${i}`}>{`${v[0]}: ${v[1]}`}</li>
-  })
+  useEffect(() => {
+    id ? getData(type, id).then(data => setData(data)) : setData(null)
+  }, [type, id])
 
-  return (
-    <section className="details">
+  if (!data || !id) output = <Loader/>
+  else {
+
+    const items = Object.entries(data).map((v,i) => {
+      const [key, value] = [v[0], v[1]]
+      if (!i)       return null
+      if (i === 1)  return <li className="title" key={i}><h2>{value}</h2></li>
+      return <li key={i}>{key +": "+ value}</li>
+    })
+
+    output =
+    <>
       <div className="img">
-        <Image type={props.type} id={props.details.id} />
+        <Image type={type} id={id} />
       </div>
       <ul>{items}</ul>
-    </section>
-  )
-})
+    </>
+  }
+
+  return <section className="details">{output}</section>
+}
+
+
+
+const shouldDetailsUpdate = (prevProps, nextProps) => {
+  if (!prevProps.id || !nextProps.id) return !true
+  if (prevProps.type === nextProps.type && prevProps.id !== nextProps.id) return !true
+  return !false
+}
+const Details = memo(RawDetails, shouldDetailsUpdate)
 export default Details
