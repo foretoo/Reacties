@@ -19,7 +19,7 @@ const Page = (props) => {
     if (type === "people")    return swapi.getPerson(id)
     if (type === "starships") return swapi.getStarship(id)
   }
-  const handleSelect = (id) => setId(id)
+  const changeDetailsID = (id) => setId(id)
 
   useEffect(() => setId(null), [props.page])
 
@@ -28,7 +28,7 @@ const Page = (props) => {
       <List
         type={props.page}
         getData={getList}
-        handleSelect={handleSelect}
+        changeDetailsID={changeDetailsID}
       />
       <Details
         type={props.page}
