@@ -9,11 +9,11 @@ const App = () => {
 
   const [page, setPage] = useState("planets")
 
-  const handlePageChange = (page) => setPage(page)
+  const changePage = (page) => setPage(page)
 
   return (
     <>
-      <Header page={page} handlePageChange={handlePageChange} />
+      <Header page={page} changePage={changePage} />
       <Random />
       <Page page={page} />
     </>

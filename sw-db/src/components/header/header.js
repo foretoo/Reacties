@@ -1,9 +1,7 @@
 import React from "react"
 import "./header.css"
 
-const Header = (props) => {
-
-  const { page, handlePageChange } = props
+const Header = ({ page, changePage }) => {
 
   return (
     <header>
@@ -11,17 +9,17 @@ const Header = (props) => {
       <nav>
         <div
           className={page === "people" ? "active" : null}
-          onClick={() => handlePageChange("people")}>
+          onClick={() => changePage("people")}>
           People
         </div>
         <div
           className={page === "planets" ? "active" : null}
-          onClick={() => handlePageChange("planets")}>
+          onClick={() => changePage("planets")}>
           Planets
         </div>
         <div
           className={page === "starships" ? "active" : null}
-          onClick={() => handlePageChange("starships")}>
+          onClick={() => changePage("starships")}>
           Starships
         </div>
       </nav>
