@@ -1,44 +1,41 @@
-import React, { Component } from "react"
+import React, { useState, useEffect } from "react"
 import SwapiService from "../../services/SwapiService"
 import List from "../list"
 import Details from "../details"
 import "./page.css"
 
-export default class Page extends Component {
+const Page = (props) => {
 
-  state = { detailsID: null }
+  const [detailsID, setId] = useState(null)
 
-  swapi = new SwapiService
-  getList = (type) => {
-    if (type === "planets")   return this.swapi.getAllPlanets()
-    if (type === "people")    return this.swapi.getAllPeople()
-    if (type === "starships") return this.swapi.getAllStarships()
+  const swapi = new SwapiService
+  const getList = (type) => {
+    if (type === "planets")   return swapi.getAllPlanets()
+    if (type === "people")    return swapi.getAllPeople()
+    if (type === "starships") return swapi.getAllStarships()
   }
-  getDetails = (type, id) => {
-    if (type === "planets")   return this.swapi.getPlanet(id)
-    if (type === "people")    return this.swapi.getPerson(id)
-    if (type === "starships") return this.swapi.getStarship(id)
+  const getDetails = (type, id) => {
+    if (type === "planets")   return swapi.getPlanet(id)
+    if (type === "people")    return swapi.getPerson(id)
+    if (type === "starships") return swapi.getStarship(id)
   }
-  handleSelect = (id) => this.setState({ detailsID: id })
+  const handleSelect = (id) => setId(id)
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.page !== this.props.page) this.setState({ detailsID: null })
-  }
+  useEffect(() => setId(null), [props.page])
 
-  render() {
-    return (
-      <main>
-        <List
-          type={this.props.page}
-          getData={this.getList}
-          handleSelect={this.handleSelect}
-        />
-        <Details
-          type={this.props.page}
-          id={this.state.detailsID}
-          getData={this.getDetails}
-        />
-      </main>
-    )
-  }
+  return (
+    <main>
+      <List
+        type={props.page}
+        getData={getList}
+        handleSelect={handleSelect}
+      />
+      <Details
+        type={props.page}
+        id={detailsID}
+        getData={getDetails}
+      />
+    </main>
+  )
 }
+export default Page
