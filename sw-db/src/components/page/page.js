@@ -6,58 +6,38 @@ import "./page.css"
 
 export default class Page extends Component {
 
-  init = {
-    list: null,
-    details: null
-  }
-  state = { ...this.init }
+  state = { detailsID: null }
 
   swapi = new SwapiService
   getList = (type) => {
-    if (type === "planets") {
-      this.swapi.getAllPlanets().then(list => {
-        this.setState({ list })
-        this.getDetails(type, list[0].id)
-      })
-    }
-    if (type === "people") {
-      this.swapi.getAllPeople().then(list => {
-        this.setState({ list })
-        this.getDetails(type, list[0].id)
-      })
-    }
-    if (type === "starships") {
-      this.swapi.getAllStarships().then(list => {
-        this.setState({ list })
-        this.getDetails(type, list[0].id)
-      })
-    }
+    if (type === "planets")   return this.swapi.getAllPlanets()
+    if (type === "people")    return this.swapi.getAllPeople()
+    if (type === "starships") return this.swapi.getAllStarships()
   }
   getDetails = (type, id) => {
-    if (type === "planets")   this.swapi.getPlanet(id).then(planet => this.setState({ details: planet }))
-    if (type === "people")    this.swapi.getPerson(id).then(person => this.setState({ details: person }))
-    if (type === "starships") this.swapi.getStarship(id).then(starship => this.setState({ details: starship }))
+    if (type === "planets")   return this.swapi.getPlanet(id)
+    if (type === "people")    return this.swapi.getPerson(id)
+    if (type === "starships") return this.swapi.getStarship(id)
   }
-  handleSelect = (id) => {
-    this.setState({ details: null })
-    this.getDetails(this.props.page, id)
-  }
+  handleSelect = (id) => this.setState({ detailsID: id })
 
-  componentDidMount() {
-    this.getList(this.props.page)
-  }
   componentDidUpdate(prevProps) {
-    if (prevProps.page !== this.props.page) {
-      this.setState({ ...this.init })
-      this.getList(this.props.page)
-    }
+    if (prevProps.page !== this.props.page) this.setState({ detailsID: null })
   }
 
   render() {
     return (
       <main>
-        <List list={this.state.list} handleSelect={this.handleSelect} />
-        <Details type={this.props.page} details={this.state.details} />
+        <List
+          type={this.props.page}
+          getData={this.getList}
+          handleSelect={this.handleSelect}
+        />
+        <Details
+          type={this.props.page}
+          id={this.state.detailsID}
+          getData={this.getDetails}
+        />
       </main>
     )
   }
