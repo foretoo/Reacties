@@ -3,13 +3,7 @@ import Loader from "../loader"
 import Image from "../image"
 import "./details.css"
 
-const shouldDetailsUpdate = (prevProps, nextProps) => {
-  if (!prevProps.id || !nextProps.id) return !true
-  if (prevProps.type === nextProps.type && prevProps.id !== nextProps.id) return !true
-  return !false
-}
-
-const Details = memo(({ type, id, getData }) => {
+const RawDetails = ({ type, id, getData }) => {
 
   const [data, setData] = useState(null)
   let output
@@ -20,11 +14,14 @@ const Details = memo(({ type, id, getData }) => {
 
   if (!data || !id) output = <Loader/>
   else {
+
     const items = Object.entries(data).map((v,i) => {
+      const [key, value] = [v[0], v[1]]
       if (!i)       return null
-      if (i === 1)  return <li className="title" key={`${id}_${i}`}><h2>{v[1]}</h2></li>
-      return <li key={`${id}_${i}`}>{`${v[0]}: ${v[1]}`}</li>
+      if (i === 1)  return <li className="title" key={i}><h2>{value}</h2></li>
+      return <li key={i}>{key +": "+ value}</li>
     })
+
     output =
     <>
       <div className="img">
@@ -35,7 +32,14 @@ const Details = memo(({ type, id, getData }) => {
   }
 
   return <section className="details">{output}</section>
+}
 
-}, shouldDetailsUpdate)
 
+
+const shouldDetailsUpdate = (prevProps, nextProps) => {
+  if (!prevProps.id || !nextProps.id) return !true
+  if (prevProps.type === nextProps.type && prevProps.id !== nextProps.id) return !true
+  return !false
+}
+const Details = memo(RawDetails, shouldDetailsUpdate)
 export default Details
