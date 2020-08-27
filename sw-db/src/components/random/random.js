@@ -1,22 +1,10 @@
-import React, {Component} from "react"
+import React, { PureComponent } from "react"
 import SwapiService from "../../services/SwapiService"
 import Loader from "../loader"
 import Error from "../error"
 import "./random.css"
 
-export default class Random extends Component {
-
-  componentDidMount() {
-    setInterval(this.updateData, 10000)
-  }
-  shouldComponentUpdate(nextProps, nextState) {
-    if (
-      nextState.planet.id !== this.state.planet.id  ||
-      nextState.loading !== this.state.loading      ||
-      nextState.error !== this.state.error
-    ) return true
-    else return false
-  }
+export default class Random extends PureComponent {
 
   state = {
     planet: {},
@@ -31,6 +19,13 @@ export default class Random extends Component {
     this.swapi.getPlanet(id)
       .then(planet => this.setState({ planet, loading: false }))
       .catch(err => this.setState({ error: true, loading: false }))
+  }
+
+  componentDidMount() {
+    setInterval(this.updateData, 10000)
+  }
+  componentWillUnmount() {
+    clearInterval(this.updateData)
   }
 
   render() {
