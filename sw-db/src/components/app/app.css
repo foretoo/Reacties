@@ -5,3 +5,6 @@ main {
 h2 {
   font-size: 18px;
 }
+.active {
+  font-weight: bold;
+}
