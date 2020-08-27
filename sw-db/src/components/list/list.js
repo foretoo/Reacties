@@ -2,26 +2,22 @@ import React, { memo } from "react"
 import Loader from "../loader"
 import "./list.css"
 
-const List = memo((props) => {
+const List = memo(({ list, handleSelect }) => {
 
   let output
-  if (props.hasList) {
-    output = props.list.map(item => {
+
+  if (list) {
+    output = list.map(({ id, name }) => {
       return (
-        <li
-          key={item.id}
-          onClick={() => props.handleSelected(item.id)}>
-          {item.name}
+        <li key={id} onClick={() => handleSelect(id)}>
+          {name}
         </li>
       )
     })
   }
   else output = <Loader />
 
-  return (
-    <ul>
-      {output}
-    </ul>
-  )
+  return <ul>{output}</ul>
 })
+
 export default List
