@@ -1,15 +1,13 @@
 import React, { PureComponent } from "react"
 import SwapiService from "../../services/SwapiService"
 import Loader from "../loader"
-import Error from "../error"
 import "./random.css"
 
 export default class Random extends PureComponent {
 
   state = {
     planet: {},
-    loading: true,
-    error: false
+    loading: true
   }
 
   swapi = new SwapiService
@@ -18,7 +16,6 @@ export default class Random extends PureComponent {
     if (id === 20) id++
     this.swapi.getPlanet(id)
       .then(planet => this.setState({ planet, loading: false }))
-      .catch(err => this.setState({ error: true, loading: false }))
   }
 
   componentDidMount() {
@@ -30,7 +27,7 @@ export default class Random extends PureComponent {
 
   render() {
     const { planet, loading, error } = this.state
-    const output = error ? <Error /> : loading ? <Loader /> : <RandomView planet={planet} />
+    const output = loading ? <Loader /> : <RandomView planet={planet} />
 
     return (
       <section className="random">

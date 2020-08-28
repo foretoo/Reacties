@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import SwapiService from "../../services/SwapiService"
+import ErrorBoundry from "../error-boundry"
 import Header from "../header"
 import Random from "../random"
 import Page from "../page"
@@ -14,7 +15,9 @@ const App = () => {
   return (
     <>
       <Header page={page} changePage={changePage} />
-      <Random />
+      <ErrorBoundry>
+        <Random />
+      </ErrorBoundry>
       <Page page={page} />
     </>
   )
