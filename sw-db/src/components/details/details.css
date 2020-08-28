@@ -2,9 +2,8 @@
   display: flex;
   flex-grow: 1;
   margin: 20px 0 0 40px;
-  color: white;
   border-radius: 10px;
-  background: #050505;
+  background: var(--bg);
 }
 .details > .img {
   position: relative;

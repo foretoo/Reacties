@@ -1,6 +1,11 @@
+:root {
+  --bg: #111;
+  --text-main-color: #eee;
+}
 main {
   display: flex;
   margin-top: 20px;
+  color: var(--text-main-color);
 }
 h2 {
   font-size: 18px;

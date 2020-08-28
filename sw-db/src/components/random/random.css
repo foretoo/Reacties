@@ -2,8 +2,8 @@
   display: flex;
   height: 240px;
   border-radius: 10px;
-  color: white;
-  background: #050505;
+  background: var(--bg);
+  color: var(--text-main-color);
   overflow: hidden;
 }
 .random > img {

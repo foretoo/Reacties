@@ -3,9 +3,8 @@ main > ul {
   min-width: 200px;
   width: 35%;
   list-style-type: none;
-  color: white;
   border-radius: 10px;
-  background: #050505;
+  background: var(--bg);
   overflow: hidden;
 }
 main > ul > li {
