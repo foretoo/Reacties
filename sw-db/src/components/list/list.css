@@ -1,19 +1,17 @@
 main > ul {
   flex-shrink: 0;
-  width: 240px;
-  min-height: 420px;
-  padding: 0 20px;
-  margin-right: 20px;
+  min-width: 200px;
+  width: 35%;
   list-style-type: none;
   color: white;
   border-radius: 10px;
-  overflow: hidden;
   background: #050505;
+  overflow: hidden;
 }
 main > ul > li {
   display: flex;
   justify-content: space-between;
-  padding: 10px 0;
+  padding: 10px 20px;
   cursor: pointer;
 }
 main > ul > li:first-child {
