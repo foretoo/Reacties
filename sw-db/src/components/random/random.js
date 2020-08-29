@@ -1,28 +1,27 @@
 import React, { PureComponent } from "react"
 import SwapiService from "../../services/SwapiService"
 import Loader from "../loader"
-import Error from "../error"
+import Image from "../image"
 import "./random.css"
 
 export default class Random extends PureComponent {
 
   state = {
+    listLength: null,
     planet: {},
-    loading: true,
-    error: false
+    loading: true
   }
 
   swapi = new SwapiService
   updateData = () => {
-    let id = Math.floor(Math.random()*19) + 2
-    if (id === 20) id++
+    const id = Math.ceil(Math.random()*this.state.listLength)
     this.swapi.getPlanet(id)
       .then(planet => this.setState({ planet, loading: false }))
-      .catch(err => this.setState({ error: true, loading: false }))
   }
 
   componentDidMount() {
-    setInterval(this.updateData, 10000)
+    this.swapi.getAllPlanets().then(data => this.setState({ listLength: data.length }))
+    setInterval(this.updateData, 7000)
   }
   componentWillUnmount() {
     clearInterval(this.updateData)
@@ -30,7 +29,7 @@ export default class Random extends PureComponent {
 
   render() {
     const { planet, loading, error } = this.state
-    const output = error ? <Error /> : loading ? <Loader /> : <RandomView planet={planet} />
+    const output = loading ? <Loader /> : <RandomView planet={planet} />
 
     return (
       <section className="random">
@@ -44,7 +43,7 @@ const RandomView = (props) => {
   const { id, name, population, diameter, rotationPeriod } = props.planet
   return (
     <>
-      <img src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}/>
+      <Image type={"planets"} id={id} />
       <div className="randomDetails">
         <h2>{name}</h2>
         <ul>

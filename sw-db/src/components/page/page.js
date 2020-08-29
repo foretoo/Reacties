@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import SwapiService from "../../services/SwapiService"
+import ErrorBoundry from "../error-boundry"
 import List from "../list"
 import Details from "../details"
 import "./page.css"
@@ -24,17 +25,21 @@ const Page = (props) => {
   useEffect(() => setId(null), [props.page])
 
   return (
-    <main>
-      <List
-        type={props.page}
-        getData={getList}
-        changeDetailsID={changeDetailsID}
-      />
-      <Details
-        type={props.page}
-        id={detailsID}
-        getData={getDetails}
-      />
+    <main className="page">
+      <ErrorBoundry>
+        <List
+          type={props.page}
+          getData={getList}
+          changeDetailsID={changeDetailsID}
+        />
+      </ErrorBoundry>
+      <ErrorBoundry>
+        <Details
+          type={props.page}
+          id={detailsID}
+          getData={getDetails}
+        />
+      </ErrorBoundry>
     </main>
   )
 }

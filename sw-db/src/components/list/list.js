@@ -15,8 +15,8 @@ const List = ({ type, getData, changeDetailsID }) => {
 
   useEffect(() => {
     getData(type).then(data => {
-      setList(data)
-      handleSelect(data[0].id)
+      setList(data.list)
+      handleSelect(data.list[0].id)
     })
   }, [type])
 

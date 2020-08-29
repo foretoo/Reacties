@@ -1,22 +1,34 @@
-import React, { useState } from "react"
+import React, { Component } from "react"
 import SwapiService from "../../services/SwapiService"
+import ThreeScene from '../../threejs/ThreeScene';
+import ErrorBoundry from "../error-boundry"
 import Header from "../header"
 import Random from "../random"
 import Page from "../page"
 import "./app.css"
 
-const App = () => {
+export default class App extends Component {
 
-  const [page, setPage] = useState("planets")
+  state = { page: "planets" }
 
-  const changePage = (page) => setPage(page)
+  changePage = (page) => this.setState({ page })
 
-  return (
-    <>
-      <Header page={page} changePage={changePage} />
-      <Random />
-      <Page page={page} />
-    </>
-  )
+  componentDidMount() {
+    ThreeScene(this.scene)
+  }
+
+  render() {
+    return (
+      <>
+        <div className="three-scene" ref={element => this.scene = element} />
+        <main className="app">
+          <Header page={this.state.page} changePage={this.changePage} />
+          <ErrorBoundry>
+            <Random />
+          </ErrorBoundry>
+          <Page page={this.state.page} />
+        </main>
+      </>
+    )
+  }
 }
-export default App
