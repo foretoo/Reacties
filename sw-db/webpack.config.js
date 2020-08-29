@@ -1,9 +1,14 @@
 const path = require("path")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const myIP = '172.20.10.2' // from cmd: ipconfig > "IPv4 Address" on Windows OR bash: ifconfig > "en0" > "inet" on Mac
 
 module.exports = {
   entry: "./src/index.js",
+  output: {
+    path: path.join(__dirname, "/build"),
+    filename: "bundle.js"
+  },
 
   module: {
     rules: [
@@ -16,7 +21,10 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader']
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader'
+        ]
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
@@ -28,6 +36,7 @@ module.exports = {
       }
     ]
   },
+
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html"
@@ -35,9 +44,9 @@ module.exports = {
     new MiniCssExtractPlugin()
   ],
 
-  output: {
-    path: path.join(__dirname, "/build"),
-    filename: "bundle.js"
-  },
-  // devtool: 'eval-source-map'
+  devServer: {
+    host: myIP, // to get access from devices
+    port: 8080,
+    disableHostCheck: true
+  }
 }
