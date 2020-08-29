@@ -25,7 +25,7 @@ const Page = (props) => {
   useEffect(() => setId(null), [props.page])
 
   return (
-    <main>
+    <main className="page">
       <ErrorBoundry>
         <List
           type={props.page}
