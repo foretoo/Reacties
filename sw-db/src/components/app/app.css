@@ -1,15 +1,18 @@
-:root {
-  --bg: #111;
-  --text-main-color: #eee;
-}
-main {
-  display: flex;
-  margin-top: 20px;
-  color: var(--text-main-color);
-}
 h2 {
   font-size: 18px;
 }
 .active {
   font-weight: bold;
+}
+.three-scene {
+  position: absolute;
+}
+.app {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 960px;
+}
+canvas {
+  display: block;
 }
