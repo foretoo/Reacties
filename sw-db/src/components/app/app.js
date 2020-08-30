@@ -10,7 +10,7 @@ import "./app.css"
 
 export default class App extends Component {
 
-  state = { page: "planets" }
+  state = { page: "people" }
 
   changePage = (page) => this.setState({ page })
 
