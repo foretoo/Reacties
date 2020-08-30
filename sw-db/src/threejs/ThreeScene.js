@@ -9,9 +9,16 @@ export default function ThreeScene(sceneRef, isMobile) {
   camera.position.z = 1
   camera.rotation.x = Math.PI / 2
 
-  const renderer = new THREE.WebGLRenderer()
+  const renderer = new THREE.WebGLRenderer( { antialias: true } )
   renderer.setSize(window.innerWidth, window.innerHeight)
   sceneRef.appendChild(renderer.domElement)
+
+  window.onresize = function () {
+		const width = window.innerWidth
+		const height = window.innerHeight
+		camera.aspect = width / height
+		renderer.setSize( width, height )
+	}
 
   const starGeo = new THREE.Geometry()
   for (let i = 0; i < 500; i++) {
@@ -20,8 +27,8 @@ export default function ThreeScene(sceneRef, isMobile) {
       Math.random() * 1200 - 600,
       Math.random() * 400 - 200
     )
-    star.velocity = 5
-    star.acceleration = 0.2
+    star.velocity = 1
+    star.acceleration = 0.5
     starGeo.vertices.push(star)
   }
 
@@ -45,7 +52,7 @@ export default function ThreeScene(sceneRef, isMobile) {
         star.y = 100 + Math.random()*500
         star.x = Math.random() * 400 - 200
         star.z = Math.random() * 400 - 200
-        star.velocity = 5
+        star.velocity = 1
       }
     });
     starGeo.verticesNeedUpdate = true
