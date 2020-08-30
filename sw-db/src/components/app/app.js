@@ -5,6 +5,7 @@ import ErrorBoundry from "../error-boundry"
 import Header from "../header"
 import Random from "../random"
 import Page from "../page"
+import isMobile from "../ismobile"
 import "./app.css"
 
 export default class App extends Component {
@@ -14,7 +15,7 @@ export default class App extends Component {
   changePage = (page) => this.setState({ page })
 
   componentDidMount() {
-    ThreeScene(this.scene)
+    ThreeScene(this.scene, isMobile())
   }
 
   render() {

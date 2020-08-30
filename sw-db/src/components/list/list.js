@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import Loader from "../loader"
+import isMobile from "../ismobile"
 import "./list.css"
 
 
@@ -40,7 +41,7 @@ const List = ({ type, getData, changeDetailsID }) => {
   }
   else output = <Loader />
 
-  return <ul>{output}</ul>
+  return <ul className={isMobile() ? "list mobile" : "list"}>{output}</ul>
 }
 
 export default List

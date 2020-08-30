@@ -1,6 +1,7 @@
 import React, { memo, useState, useEffect } from "react"
 import Loader from "../loader"
 import Image from "../image"
+import isMobile from "../ismobile"
 import "./details.css"
 
 const RawDetails = ({ type, id, getData }) => {
@@ -18,7 +19,7 @@ const RawDetails = ({ type, id, getData }) => {
     const items = Object.entries(data).map((v,i) => {
       const [key, value] = [v[0], v[1]]
       if (!i)       return null
-      if (i === 1)  return <li className="title" key={i}><h2>{value}</h2></li>
+      if (i === 1)  return <li className="title" key={i}><h1>{value}</h1></li>
       return <li key={i}>{key +": "+ value}</li>
     })
 
@@ -31,7 +32,7 @@ const RawDetails = ({ type, id, getData }) => {
     </>
   }
 
-  return <section className="details">{output}</section>
+  return <section className={isMobile() ? "details mobile" : "details"}>{output}</section>
 }
 
 
