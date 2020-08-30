@@ -2,6 +2,7 @@ import React, { PureComponent } from "react"
 import SwapiService from "../../services/SwapiService"
 import Loader from "../loader"
 import Image from "../image"
+import isMobile from "../ismobile"
 import "./random.css"
 
 export default class Random extends PureComponent {
@@ -14,7 +15,9 @@ export default class Random extends PureComponent {
 
   swapi = new SwapiService
   updateData = () => {
-    const id = Math.ceil(Math.random()*this.state.listLength)
+    // const id = Math.ceil(Math.random()*this.state.listLength)
+    let id = Math.floor(Math.random()*19) + 2
+    id === 20 && id++
     this.swapi.getPlanet(id)
       .then(planet => this.setState({ planet, loading: false }))
   }
@@ -32,7 +35,7 @@ export default class Random extends PureComponent {
     const output = loading ? <Loader /> : <RandomView planet={planet} />
 
     return (
-      <section className="random">
+      <section className={isMobile() ? "random mobile" : "random"}>
         {output}
       </section>
     )
@@ -43,9 +46,11 @@ const RandomView = (props) => {
   const { id, name, population, diameter, rotationPeriod } = props.planet
   return (
     <>
-      <Image type={"planets"} id={id} />
+    <div className="img">
+      <Image type="planets" id={id} />
+    </div>
       <div className="randomDetails">
-        <h2>{name}</h2>
+        <h1>{name}</h1>
         <ul>
           <li>population: {population}</li>
           <li>diameter: {diameter}</li>
