@@ -1,6 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap');
+
 :root {
-  --bg: rgba(255, 255, 255, 0.025);
+  --bg: rgba(255, 255, 255, 0.0333);
+  --bg-mobile: rgba(255, 255, 255, 0.125);
   --text-main-color: #eee;
+  --text-active-color: rgba(255,255,0,0.8);
 }
 * {
   margin: 0;
@@ -10,7 +14,7 @@
   box-sizing: border-box;
   font-size: 16px;
   line-height: 20px;
-  font-family: monospace;
+  font-family: 'IBM Plex Mono', monospace;
   color: var(--text-main-color);
 }
 html, body, #root {
@@ -20,4 +24,10 @@ html, body, #root {
 body {
   background: black;
   overflow: hidden;
+}
+@media all and (max-width: 750px) {
+  * {
+    font-size: 12px;
+    line-height: 15px;
+  }
 }

@@ -1,5 +1,8 @@
 .page {
   display: flex;
-  margin-top: 20px;
+  flex-grow: 1;
+  width: 100%;
   color: var(--text-main-color);
+}
+@media all and (max-width: 750px) {
 }

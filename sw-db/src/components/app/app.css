@@ -1,18 +1,44 @@
-h2 {
-  font-size: 18px;
+h1 {
+  font-size: 1.5em;
+}
+ul {
+  list-style-type: none;
 }
 .active {
   font-weight: bold;
+  color: var(--text-active-color);
 }
 .three-scene {
   position: absolute;
 }
 .app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   width: 960px;
 }
+.img {
+  width: 240px;
+  padding: 0.25em;
+}
+.img > img {
+  display: block;
+  width: 100%;
+  object-fit: contain;
+  object-position: top;
+}
 canvas {
   display: block;
+}
+
+@media all and (max-width: 750px) {
+  .app {
+    width: calc(100% - 2em);
+  }
+  .img {
+    width: 160px;
+  }
 }
