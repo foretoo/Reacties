@@ -26,7 +26,7 @@ const List = ({ type, getData, changeDetailsID }) => {
       let className, active = null
       if (id === itemId) {
         className = "active"
-        active = <span>{">>>"}</span>
+        active = <div className="active-line"></div>
       }
       return (
         <li
@@ -34,7 +34,7 @@ const List = ({ type, getData, changeDetailsID }) => {
           className={className}
           onClick={() => handleSelect(id)}
         >
-          {name}{active}
+          <div className="label-item">{name}</div>{active}
         </li>
       )
     })
