@@ -31,6 +31,7 @@ const Page = (props) => {
           type={props.page}
           getData={getList}
           changeDetailsID={changeDetailsID}
+          isMobile={props.isMobile}
         />
       </ErrorBoundry>
       <ErrorBoundry>
@@ -38,6 +39,7 @@ const Page = (props) => {
           type={props.page}
           id={detailsID}
           getData={getDetails}
+          isMobile={props.isMobile}
         />
       </ErrorBoundry>
     </main>

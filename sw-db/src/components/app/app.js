@@ -10,12 +10,15 @@ import "./app.css"
 
 export default class App extends Component {
 
-  state = { page: "people" }
+  state = {
+    page: "people",
+    isMobile: isMobile()
+  }
 
   changePage = (page) => this.setState({ page })
 
   componentDidMount() {
-    ThreeScene(this.scene, isMobile())
+    ThreeScene(this.scene, this.state.isMobile)
   }
 
   render() {
@@ -25,9 +28,9 @@ export default class App extends Component {
         <main className="app">
           <Header page={this.state.page} changePage={this.changePage} />
           <ErrorBoundry>
-            <Random />
+            <Random isMobile={this.state.isMobile} />
           </ErrorBoundry>
-          <Page page={this.state.page} />
+          <Page page={this.state.page} isMobile={this.state.isMobile} />
         </main>
       </>
     )

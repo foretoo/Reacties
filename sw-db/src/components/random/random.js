@@ -2,7 +2,6 @@ import React, { PureComponent } from "react"
 import SwapiService from "../../services/SwapiService"
 import Loader from "../loader"
 import Image from "../image"
-import isMobile from "../ismobile"
 import "./random.css"
 
 export default class Random extends PureComponent {
@@ -35,7 +34,7 @@ export default class Random extends PureComponent {
     const output = loading ? <Loader /> : <RandomView planet={planet} />
 
     return (
-      <section className={isMobile() ? "random mobile" : "random"}>
+      <section className={this.props.isMobile ? "random mobile" : "random"}>
         {output}
       </section>
     )

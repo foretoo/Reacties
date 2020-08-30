@@ -1,10 +1,9 @@
 import React, { memo, useState, useEffect } from "react"
 import Loader from "../loader"
 import Image from "../image"
-import isMobile from "../ismobile"
 import "./details.css"
 
-const RawDetails = ({ type, id, getData }) => {
+const RawDetails = ({ type, id, getData, isMobile }) => {
 
   const [data, setData] = useState(null)
   let output
@@ -32,7 +31,7 @@ const RawDetails = ({ type, id, getData }) => {
     </>
   }
 
-  return <section className={isMobile() ? "details mobile" : "details"}>{output}</section>
+  return <section className={isMobile ? "details mobile" : "details"}>{output}</section>
 }
 
 
