@@ -1,4 +1,7 @@
 import * as THREE from 'three'
+import motionBlurShader from './motionBlurShader'
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
 
 export default function ThreeScene(sceneRef, isMobile) {
 
@@ -18,6 +21,29 @@ export default function ThreeScene(sceneRef, isMobile) {
 		camera.aspect = width / height
 		renderer.setSize( width, height )
 	}
+
+  // //////// HELLO SHADER ////////
+  //
+  // // EFFECTS
+  // const composer = new EffectComposer(renderer)
+  //
+  // // define a render target with a depthbuffer
+  // const target = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight)
+  // target.depthBuffer = true
+  // target.depthTexture = new THREE.DepthTexture()
+  //
+  // // add a motion blur pass
+  // const motionPass = new ShaderPass(motionBlurShader)
+  // motionPass.renderToScreen = false
+  // composer.addPass(motionPass)
+  //
+  // // define variables used by the motion blur pass
+  // let previousMatrixWorldInverse = new THREE.Matrix4()
+  // let previousProjectionMatrix = new THREE.Matrix4()
+  // let previousCameraPosition = new THREE.Vector3()
+  // let tmpMatrix = new THREE.Matrix4()
+  //
+  // //////// BUYE SHADER ////////
 
   const starsPosBlue = new THREE.Geometry()
   const starsPosViolet = new THREE.Geometry()
@@ -92,6 +118,34 @@ export default function ThreeScene(sceneRef, isMobile) {
     starsViolet.rotation.y += 0.0015
     starsUltra.rotation.y += 0.002
     renderer.render(scene, camera)
+
+    // //////// HELO SHADER ////////
+    //
+    // // render scene and depthbuffer to the render target
+    // renderer.render(scene, camera, target)
+    //
+    // // update motion blur shader uniforms
+    // motionPass.material.uniforms.tColor.value = target.texture
+    // motionPass.material.uniforms.tDepth.value = target.depthTexture
+    // motionPass.material.uniforms.velocityFactor.value = 1
+    // motionPass.material.uniforms.delta.value = delta
+    // // tricky part to compute the clip-to-world and world-to-clip matrices
+    // motionPass.material.uniforms.clipToWorldMatrix.value
+    //   .getInverse(camera.matrixWorldInverse).multiply(tmpMatrix.getInverse(camera.projectionMatrix))
+    // motionPass.material.uniforms.previousWorldToClipMatrix.value
+    //   .copy(previousProjectionMatrix.multiply(previousMatrixWorldInverse))
+    // motionPass.material.uniforms.cameraMove.value.copy(camera.position).sub(previousCameraPosition)
+    //
+    // // render the postprocessing passes
+    // composer.render(delta)
+    //
+    // // save some values for the next render pass
+    // previousMatrixWorldInverse.copy(camera.matrixWorldInverse)
+    // previousProjectionMatrix.copy(camera.projectionMatrix)
+    // previousCameraPosition.copy(camera.position)
+    //
+    // //////// BUYE SHADER ////////
+
     requestAnimationFrame(animate)
   }
 
