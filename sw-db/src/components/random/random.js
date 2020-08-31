@@ -45,6 +45,7 @@ const RandomView = (props) => {
   const { id, name, population, diameter, rotationPeriod } = props.planet
   return (
     <>
+    <div className="hint"><span>RANDOM PLANET</span></div>
     <div className="img">
       <Image type="planets" id={id} />
     </div>
