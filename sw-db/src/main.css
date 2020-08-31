@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap');
 
 :root {
-  --bg: rgba(255, 255, 255, 0.0333);
-  --bg-mobile: rgba(255, 255, 255, 0.125);
+  --bg: rgba(0, 0, 0, 0.8);
+  --bg-mobile: rgba(0, 0, 0, 0.6);
   --text-main-color: #eee;
   --text-active-color: rgba(255,255,0,0.8);
 }
@@ -13,7 +13,7 @@
   outline: none;
   box-sizing: border-box;
   font-size: 16px;
-  line-height: 20px;
+  line-height: 1.25em;
   font-family: 'IBM Plex Mono', monospace;
   color: var(--text-main-color);
 }
@@ -28,6 +28,6 @@ body {
 @media all and (max-width: 750px) {
   * {
     font-size: 12px;
-    line-height: 15px;
+    line-height: 1.25em;
   }
 }
