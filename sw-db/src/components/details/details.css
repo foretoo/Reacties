@@ -1,16 +1,20 @@
 .details {
   display: flex;
+  align-self: flex-start;
+  align-items: flex-start;
   flex-grow: 1;
-  background: var(--bg);
 }
-.details.mobile {
+.details.mobile > ul {
   background: var(--bg-mobile);
 }
 .details > .img {
   flex-shrink: 0;
 }
 .details > ul {
-  margin: 2.5em 0 0 1.5em;
+  padding: 2.5em 1.5em 1.5em 1.5em;
+  align-self: stretch;
+  flex-grow: 1;
+  background: var(--bg);
 }
 .details > ul > li {
   margin-bottom: 0.5em;
@@ -23,6 +27,7 @@
     flex-direction: column;
   }
   .details > ul {
-    margin: -1em 0 0 1.5em;
+    padding: 1.5em 1.5em 1.5em 0;
+    margin: -2.5em 0 0 0.25em;
   }
 }

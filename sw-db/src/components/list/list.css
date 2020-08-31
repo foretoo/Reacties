@@ -7,7 +7,8 @@
   margin: 1em 1.25em 1em 0;
   list-style-type: none;
 }
-.list.mobile {
+.list.mobile .label-item {
+  background: var(--bg-mobile);
 }
 .list > li {
   display: flex;
@@ -20,6 +21,7 @@
 }
 .list .label-item {
   max-width: 80%;
+  background: var(--bg);
 }
 .list .active-line {
   height: 1px;
