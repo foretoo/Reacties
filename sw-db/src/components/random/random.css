@@ -2,12 +2,23 @@
   display: flex;
   flex-shrink: 0;
   height: 240px;
-  padding-left: 1.5em;
   color: var(--text-main-color);
   background: linear-gradient(2deg, rgba(0,255,255,0.333) 0%, rgba(0,255,255,0.175) 5.54%, rgba(0,255,255,0.125) 8.03%, rgba(0,255,255,0.05) 14.83%, rgba(0,255,255,0) 20.56%);
 }
 .random.mobile {
   background: linear-gradient(2deg, rgba(0,255,255,0.333) 0%, rgba(0,255,255,0.175) 8%, rgba(0,255,255,0.125) 13%, rgba(0,255,255,0.05) 24%, rgba(0,255,255,0) 33.333%);
+}
+.hint {
+  width: 1.5em;
+  position: relative;
+  z-index: -1;
+}
+.hint > span {
+  width: 160px;
+  position: absolute;
+  font-size: 0.8em;
+  transform-origin: 0 0;
+  transform: translate(2.6em, 0.4em) rotate(90deg);
 }
 .randomDetails {
   margin-top: 2em;
