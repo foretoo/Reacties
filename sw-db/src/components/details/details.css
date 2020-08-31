@@ -17,6 +17,7 @@
   background: var(--bg);
 }
 .details > ul > li {
+  margin-left: -1.5em;
   margin-bottom: 0.5em;
 }
 .details > ul > .title {
