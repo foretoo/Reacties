@@ -58,14 +58,11 @@ nav > div {
 .hint {
   width: 1.5em;
   position: relative;
-  z-index: -1;
 }
 .hint > span {
-  width: 160px;
   position: absolute;
   font-size: 0.8em;
-  transform-origin: 0 0;
-  transform: translate(2.6em, 0.4em) rotate(90deg);
+  transform: translate(-1em, 50%) rotate(-90deg);
 }
 .randomDetails {
   margin-top: 2em;
@@ -143,6 +140,7 @@ nav > div {
   background: var(--bg);
 }
 .details > ul > li {
+  margin-left: -1.5em;
   margin-bottom: 0.5em;
 }
 .details > ul > .title {
