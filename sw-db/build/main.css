@@ -49,12 +49,23 @@ nav > div {
   display: flex;
   flex-shrink: 0;
   height: 240px;
-  padding-left: 1.5em;
   color: var(--text-main-color);
   background: linear-gradient(2deg, rgba(0,255,255,0.333) 0%, rgba(0,255,255,0.175) 5.54%, rgba(0,255,255,0.125) 8.03%, rgba(0,255,255,0.05) 14.83%, rgba(0,255,255,0) 20.56%);
 }
 .random.mobile {
   background: linear-gradient(2deg, rgba(0,255,255,0.333) 0%, rgba(0,255,255,0.175) 8%, rgba(0,255,255,0.125) 13%, rgba(0,255,255,0.05) 24%, rgba(0,255,255,0) 33.333%);
+}
+.hint {
+  width: 1.5em;
+  position: relative;
+  z-index: -1;
+}
+.hint > span {
+  width: 160px;
+  position: absolute;
+  font-size: 0.8em;
+  transform-origin: 0 0;
+  transform: translate(2.6em, 0.4em) rotate(90deg);
 }
 .randomDetails {
   margin-top: 2em;
@@ -84,7 +95,8 @@ nav > div {
   margin: 1em 1.25em 1em 0;
   list-style-type: none;
 }
-.list.mobile {
+.list.mobile .label-item {
+  background: var(--bg-mobile);
 }
 .list > li {
   display: flex;
@@ -97,6 +109,7 @@ nav > div {
 }
 .list .label-item {
   max-width: 80%;
+  background: var(--bg);
 }
 .list .active-line {
   height: 1px;
@@ -113,17 +126,21 @@ nav > div {
 
 .details {
   display: flex;
+  align-self: flex-start;
+  align-items: flex-start;
   flex-grow: 1;
-  background: var(--bg);
 }
-.details.mobile {
+.details.mobile > ul {
   background: var(--bg-mobile);
 }
 .details > .img {
   flex-shrink: 0;
 }
 .details > ul {
-  margin: 2.5em 0 0 1.5em;
+  padding: 2.5em 1.5em 1.5em 1.5em;
+  align-self: stretch;
+  flex-grow: 1;
+  background: var(--bg);
 }
 .details > ul > li {
   margin-bottom: 0.5em;
@@ -136,7 +153,8 @@ nav > div {
     flex-direction: column;
   }
   .details > ul {
-    margin: -1em 0 0 1.5em;
+    padding: 1.5em 1.5em 1.5em 0;
+    margin: -2.5em 0 0 0.25em;
   }
 }
 
@@ -195,8 +213,8 @@ canvas {
 }
 
 :root {
-  --bg: rgba(255, 255, 255, 0.0333);
-  --bg-mobile: rgba(255, 255, 255, 0.125);
+  --bg: rgba(0, 0, 0, 0.8);
+  --bg-mobile: rgba(0, 0, 0, 0.6);
   --text-main-color: #eee;
   --text-active-color: rgba(255,255,0,0.8);
 }
@@ -207,7 +225,7 @@ canvas {
   outline: none;
   box-sizing: border-box;
   font-size: 16px;
-  line-height: 20px;
+  line-height: 1.25em;
   font-family: 'IBM Plex Mono', monospace;
   color: var(--text-main-color);
 }
@@ -222,7 +240,7 @@ body {
 @media all and (max-width: 750px) {
   * {
     font-size: 12px;
-    line-height: 15px;
+    line-height: 1.25em;
   }
 }
 
