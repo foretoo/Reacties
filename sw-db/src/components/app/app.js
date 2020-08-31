@@ -26,10 +26,11 @@ export default class App extends Component {
       <>
         <div className="three-scene" ref={element => this.scene = element} />
         <main className="app">
-          <Header page={this.state.page} changePage={this.changePage} />
+
           <ErrorBoundry>
             <Random isMobile={this.state.isMobile} />
           </ErrorBoundry>
+          <Header page={this.state.page} changePage={this.changePage} />
           <Page page={this.state.page} isMobile={this.state.isMobile} />
         </main>
       </>
