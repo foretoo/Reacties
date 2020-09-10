@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { useState, useEffect, useRef, useMemo } from "react"
 import SwapiService from "../../services/SwapiService"
 import ThreeScene from '../../threejs/ThreeScene';
 import ErrorBoundry from "../error-boundry"
@@ -8,32 +8,28 @@ import Page from "../page"
 import isMobile from "../ismobile"
 import "./app.css"
 
-export default class App extends Component {
+const App = () => {
 
-  state = {
-    page: "people",
-    isMobile: isMobile()
-  }
+  const [ page, setPage ] = useState("people")
+  const isMo = useMemo(() => isMobile())
+  const scene = useRef(null)
 
-  changePage = (page) => this.setState({ page })
+  const changePage = page => setPage(page)
 
-  componentDidMount() {
-    ThreeScene(this.scene, this.state.isMobile)
-  }
+  useEffect(() => ThreeScene(scene.current, isMo), [])
 
-  render() {
-    return (
-      <>
-        <div className="three-scene" ref={element => this.scene = element} />
-        <main className="app">
+  return (
+    <>
+      <div className="three-scene" ref={scene} />
+      <main className="app">
 
-          <ErrorBoundry>
-            <Random isMobile={this.state.isMobile} />
-          </ErrorBoundry>
-          <Header page={this.state.page} changePage={this.changePage} />
-          <Page page={this.state.page} isMobile={this.state.isMobile} />
-        </main>
-      </>
-    )
-  }
+        <ErrorBoundry>
+          <Random isMobile={isMo} />
+        </ErrorBoundry>
+        <Header page={page} changePage={changePage} />
+        <Page page={page} isMobile={isMo} />
+      </main>
+    </>
+  )
 }
+export default App
