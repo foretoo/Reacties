@@ -5,7 +5,7 @@ import List from "../list"
 import Details from "../details"
 import "./page.css"
 
-const Page = (props) => {
+const Page = ({ page, isMobile }) => {
 
   const [detailsID, setId] = useState(null)
 
@@ -22,24 +22,24 @@ const Page = (props) => {
   }
   const changeDetailsID = (id) => setId(id)
 
-  useEffect(() => setId(null), [props.page])
+  useEffect(() => setId(null), [page])
 
   return (
     <main className="page">
       <ErrorBoundry>
         <List
-          type={props.page}
+          type={page}
           getData={getList}
           changeDetailsID={changeDetailsID}
-          isMobile={props.isMobile}
+          isMobile={isMobile}
         />
       </ErrorBoundry>
       <ErrorBoundry>
         <Details
-          type={props.page}
+          type={page}
           id={detailsID}
           getData={getDetails}
-          isMobile={props.isMobile}
+          isMobile={isMobile}
         />
       </ErrorBoundry>
     </main>
