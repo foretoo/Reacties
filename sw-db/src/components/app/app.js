@@ -10,19 +10,11 @@ import "./app.css"
 
 const App = () => {
 
-<<<<<<< HEAD
   const [ page, setPage ] = useState("people")
   const isMo = useMemo(() => isMobile())
   const scene = useRef(null)
 
   const changePage = page => setPage(page)
-=======
-  const [page, setPage] = useState("people")
-  const isMo = useMemo(() => isMobile())
-  const scene = useRef(null)
-
-  const changePage = (page) => setPage(page)
->>>>>>> c524b92722b352df9ea2a7b514b1248ce011ea40
 
   useEffect(() => ThreeScene(scene.current, isMo), [])
 
