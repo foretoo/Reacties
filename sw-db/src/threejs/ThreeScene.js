@@ -3,7 +3,7 @@ import motionBlurShader from './motionBlurShader'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
 
-export default function ThreeScene(sceneRef, isMobile) {
+export default function ThreeScene(sceneRef) {
 
   const scene = new THREE.Scene()
 
