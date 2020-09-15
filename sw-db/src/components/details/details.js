@@ -1,17 +1,19 @@
-import React, { memo, useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
+import { Context } from "../context"
 import Loader from "../loader"
 import Image from "../image"
 import "./details.css"
 
-const RawDetails = ({ type, id, getData, isMobile }) => {
+const Details = ({ getData }) => {
 
   const [data, setData] = useState(null)
-  let output
+  const {isMo, page, id} = useContext(Context)
 
   useEffect(() => {
-    id ? getData(type, id).then(data => setData(data)) : setData(null)
-  }, [type, id])
+    id ? getData(page, id).then(data => setData(data)) : setData(null)
+  }, [page, id])
 
+  let output
   if (!data || !id) output = <Loader/>
   else {
 
@@ -23,23 +25,15 @@ const RawDetails = ({ type, id, getData, isMobile }) => {
     })
 
     output =
-    <>
-      <div className="img">
-        <Image type={type} id={id} />
-      </div>
-      <ul>{items}</ul>
-    </>
+      <>
+        <div className="img">
+          <Image type={page} id={id} />
+        </div>
+        <ul>{items}</ul>
+      </>
   }
 
-  return <section className={isMobile ? "details mobile" : "details"}>{output}</section>
+  return <section className={isMo ? "details mobile" : "details"}>{output}</section>
 }
 
-
-
-const shouldDetailsUpdate = (prevProps, nextProps) => {
-  if (!prevProps.id || !nextProps.id) return !true
-  if (prevProps.type === nextProps.type && prevProps.id !== nextProps.id) return !true
-  return !false
-}
-const Details = memo(RawDetails, shouldDetailsUpdate)
 export default Details

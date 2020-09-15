@@ -1,46 +1,43 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
+import { Context } from "../context"
 import Loader from "../loader"
 import "./list.css"
 
 
-const List = ({ type, getData, changeDetailsID, isMobile }) => {
+const List = ({ getData }) => {
 
   const [list, setList] = useState(null)
-  const [itemId, setId] = useState(null)
-  const handleSelect = (id) => {
-    changeDetailsID(id)
-    setId(id)
-  }
+  const {isMo, page, id, changeDetails} = useContext(Context)
   let output
 
   useEffect(() => {
-    getData(type).then(data => {
+    getData(page).then(data => {
       setList(data.list)
-      handleSelect(data.list[0].id)
+      changeDetails(data.list[0].id)
     })
-  }, [type])
+  }, [page])
 
   if (list) {
-    output = list.map(({ id, name }) => {
+    output = list.map(item => {
       let className, active = null
-      if (id === itemId) {
+      if (item.id === id) {
         className = "active"
         active = <span className="active-line"></span>
       }
       return (
         <li
-          key={id}
+          key={item.id}
           className={className}
-          onClick={() => handleSelect(id)}
+          onClick={() => changeDetails(item.id)}
         >
-          <span className="label-item">{name}</span>{active}
+          <span className="label-item">{item.name}</span>{active}
         </li>
       )
     })
   }
   else output = <Loader />
 
-  return <ul className={isMobile ? "list mobile" : "list"}>{output}</ul>
+  return <ul className={isMo ? "list mobile" : "list"}>{output}</ul>
 }
 
 export default List

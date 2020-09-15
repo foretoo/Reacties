@@ -1,7 +1,10 @@
-import React from "react"
+import React, { useContext } from "react"
+import { Context } from "../context"
 import "./header.css"
 
-const Header = ({ page, changePage }) => {
+const Header = () => {
+
+  const {page, changePage} = useContext(Context)
 
   return (
     <header>
