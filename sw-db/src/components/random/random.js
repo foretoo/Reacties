@@ -1,54 +1,47 @@
-import React, { PureComponent } from "react"
+import React, { useState, useEffect, useCallback, useMemo, useContext } from "react"
+import { Context } from "../context"
 import SwapiService from "../../services/SwapiService"
 import Loader from "../loader"
 import Image from "../image"
 import "./random.css"
 
-export default class Random extends PureComponent {
+const Random = () => {
 
-  state = {
-    listLength: null,
-    planet: {},
-    loading: true
-  }
+  const [planet, setPlanet] = useState(null)
+  const [loaded, setLoaded] = useState(false)
+  const {swapi, isMo} = useContext(Context)
 
-  swapi = new SwapiService
-  updateData = () => {
-    // const id = Math.ceil(Math.random()*this.state.listLength)
+  const updateData = useCallback(() => {
     let id = Math.floor(Math.random()*19) + 2
     id === 20 && id++
-    this.swapi.getPlanet(id)
-      .then(planet => this.setState({ planet, loading: false }))
-  }
+    swapi.getPlanet(id)
+      .then(planet => {
+        setPlanet(planet)
+        setLoaded(true)
+      })
+  }, [])
+  useEffect(() => {
+    setInterval(updateData, 7000)
+    return clearInterval(updateData)
+  }, [])
 
-  componentDidMount() {
-    this.swapi.getAllPlanets().then(data => this.setState({ listLength: data.length }))
-    setInterval(this.updateData, 7000)
-  }
-  componentWillUnmount() {
-    clearInterval(this.updateData)
-  }
+  const output = !loaded ? <Loader /> : <RandomView planet={planet} />
 
-  render() {
-    const { planet, loading, error } = this.state
-    const output = loading ? <Loader /> : <RandomView planet={planet} />
-
-    return (
-      <section className={this.props.isMobile ? "random mobile" : "random"}>
-        {output}
-      </section>
-    )
-  }
+  return (
+    <section className={isMo ? "random mobile" : "random"}>
+      {output}
+    </section>
+  )
 }
 
-const RandomView = (props) => {
-  const { id, name, population, diameter, rotationPeriod } = props.planet
+const RandomView = ({ planet }) => {
+  const { id, name, population, diameter, rotationPeriod } = planet
   return (
     <>
-    <div className="hint"><span>RANDOM PLANET</span></div>
-    <div className="img">
-      <Image type="planets" id={id} />
-    </div>
+      <div className="hint"><span>RANDOM PLANET</span></div>
+      <div className="img">
+        <Image type="planets" id={id} />
+      </div>
       <div className="randomDetails">
         <h1>{name}</h1>
         <ul>
@@ -60,3 +53,5 @@ const RandomView = (props) => {
     </>
   )
 }
+
+export default Random
