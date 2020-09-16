@@ -30,7 +30,7 @@
   margin-left: 1.5em;
   margin-bottom: 0.5em;
 }
-@media all and (max-width: 750px) {
+@media all and (max-width: 1000px) {
   .random {
     height: 160px;
   }

@@ -42,7 +42,7 @@ canvas {
 
 
 
-@media all and (max-width: 750px) {
+@media all and (max-width: 1000px) {
   .app {
     width: calc(100% - 2em);
   }

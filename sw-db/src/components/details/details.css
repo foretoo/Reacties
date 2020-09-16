@@ -23,7 +23,7 @@
 .details > ul > .title {
   margin-bottom: 1.5em;
 }
-@media all and (max-width: 750px) {
+@media all and (max-width: 1000px) {
   .details {
     flex-direction: column;
   }
