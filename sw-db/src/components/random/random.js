@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo, useContext } from "react"
 import { Context } from "../context"
-import SwapiService from "../../services/SwapiService"
 import Loader from "../loader"
 import Image from "../image"
 import "./random.css"
@@ -9,12 +8,12 @@ const Random = () => {
 
   const [planet, setPlanet] = useState(null)
   const [loaded, setLoaded] = useState(false)
-  const {swapi, isMo} = useContext(Context)
+  const {isMo, getDetails} = useContext(Context)
 
   const updateData = useCallback(() => {
     let id = Math.floor(Math.random()*19) + 2
     id === 20 && id++
-    swapi.getPlanet(id)
+    getDetails("planets", id)
       .then(planet => {
         setPlanet(planet)
         setLoaded(true)

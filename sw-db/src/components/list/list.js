@@ -7,11 +7,11 @@ import "./list.css"
 const List = ({ getData }) => {
 
   const [list, setList] = useState(null)
-  const {isMo, page, id, changeDetails} = useContext(Context)
+  const {isMo, page, id, changeDetails, getList} = useContext(Context)
   let output
 
   useEffect(() => {
-    getData(page).then(data => {
+    getList(page).then(data => {
       setList(data.list)
       changeDetails(data.list[0].id)
     })

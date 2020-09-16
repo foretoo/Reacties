@@ -4,13 +4,13 @@ import Loader from "../loader"
 import Image from "../image"
 import "./details.css"
 
-const Details = ({ getData }) => {
+const Details = () => {
 
   const [data, setData] = useState(null)
-  const {isMo, page, id} = useContext(Context)
+  const {isMo, page, id, getDetails} = useContext(Context)
 
   useEffect(() => {
-    id ? getData(page, id).then(data => setData(data)) : setData(null)
+    id ? getDetails(page, id).then(data => setData(data)) : setData(null)
   }, [page, id])
 
   let output

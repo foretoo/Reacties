@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useContext } from "react"
+import { ContextProvider } from "../context"
 import ThreeScene from '../../threejs/ThreeScene';
 import ErrorBoundry from "../error-boundry"
 import Header from "../header"
 import Random from "../random"
-import Page from "../page"
-import { ContextProvider } from "../context"
+import List from "../list"
+import Details from "../details"
 import "./app.css"
 
 const App = () => {
@@ -21,7 +22,14 @@ const App = () => {
           <Random />
         </ErrorBoundry>
         <Header />
-        <Page />
+        <main className="page">
+          <ErrorBoundry>
+            <List />
+          </ErrorBoundry>
+          <ErrorBoundry>
+            <Details />
+          </ErrorBoundry>
+        </main>
       </main>
     </ContextProvider>
   )
