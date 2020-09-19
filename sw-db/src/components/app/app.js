@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react"
-import { BrowserRouter as Router, Route } from "react-router-dom"
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom"
 import { ContextProvider } from "../context"
 import ThreeScene from '../../threejs/ThreeScene'
 import ErrorBoundry from "../error-boundry"
@@ -22,6 +22,7 @@ const App = () => {
         <Router basename='/'>
           <Header />
           <Route path="/:page?/:id?" component={Page}/>
+          <Route exact path="/"><Redirect to="/people/" /></Route>
         </Router>
 
       </main>
