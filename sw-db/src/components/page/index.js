@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useHistory } from "react-router-dom"
 import { Context } from "../context"
 import ErrorBoundry from "../error-boundry"
 import List from "../list"
@@ -8,9 +8,10 @@ import Details from "../details"
 const Page = () => {
 
   const { page, id } = useParams()
+  const history = useHistory()
   const { changePage, changeDetails } = useContext(Context)
 
-  useEffect(() => changePage(page), [page])
+  useEffect(() => page ? changePage(page) : history.push("people"), [page])
   useEffect(() => id && changeDetails(id), [id])
 
   return (
