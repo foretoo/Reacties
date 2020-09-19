@@ -1,6 +1,7 @@
-import React, { useState, useMemo, useCallback } from "react"
+import React, { useState, useEffect, useMemo, useCallback } from "react"
 import SwapiService from "../../services/SwapiService"
 import isMobile from "../ismobile"
+
 
 const Context = React.createContext()
 
@@ -8,10 +9,15 @@ const ContextProvider = ({ children }) => {
 
   const isMo = useMemo(() => isMobile())
   const swapi = useMemo(() => new SwapiService)
+  
+  const [ page, setPage ] = useState(null)
+  const [ details, setDetails ] = useState({ id: null, detailsSelected: false })
 
-  const [ state, setState ] = useState({ page: "people", detailsSelected: false })
-  const changePage = page => setState({ ...state, page, id: null, detailsSelected: false })
-  const changeDetails = id => setState({ ...state, id, detailsSelected: true })
+  const changePage = useCallback((page) => {
+    setPage(page)
+    setDetails({ id: null, detailsSelected: false })
+  })
+  const changeDetails = useCallback((id) => setDetails({ id, detailsSelected: true }))
 
   const getList = useCallback((type) => {
     if (type === "planets")   return swapi.getAllPlanets()
@@ -26,7 +32,7 @@ const ContextProvider = ({ children }) => {
 
   return (
     <Context.Provider value={{
-      ...state, isMo, changePage, changeDetails, getList, getDetails
+      ...details, page, isMo, changePage, changeDetails, getList, getDetails
     }}>
       {children}
     </Context.Provider>

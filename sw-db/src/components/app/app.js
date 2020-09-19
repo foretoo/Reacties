@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useContext } from "react"
+import React, { useRef, useEffect } from "react"
+import { BrowserRouter as Router, Route } from "react-router-dom"
 import { ContextProvider } from "../context"
-import ThreeScene from '../../threejs/ThreeScene';
+import ThreeScene from '../../threejs/ThreeScene'
 import ErrorBoundry from "../error-boundry"
 import Header from "../header"
 import Random from "../random"
-import List from "../list"
-import Details from "../details"
+import Page from "../page"
 import "./app.css"
 
 const App = () => {
@@ -16,20 +16,14 @@ const App = () => {
   return (
     <ContextProvider>
       <div className="three-scene" ref={scene} />
-
       <main className="app">
-        <ErrorBoundry>
-          <Random />
-        </ErrorBoundry>
-        <Header />
-        <main className="page">
-          <ErrorBoundry>
-            <List />
-          </ErrorBoundry>
-          <ErrorBoundry>
-            <Details />
-          </ErrorBoundry>
-        </main>
+
+        <ErrorBoundry><Random /></ErrorBoundry>
+        <Router>
+          <Header />
+          <Route path="/:page?/:id?" component={Page}/>
+        </Router>
+
       </main>
     </ContextProvider>
   )
