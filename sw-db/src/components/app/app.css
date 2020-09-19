@@ -12,13 +12,14 @@ ul {
   position: absolute;
 }
 .app {
-  display: flex;
-  flex-direction: column;
+  width: 90%;
+  max-width: 960px;
   height: 100%;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  width: 960px;
+  display: flex;
+  flex-direction: column;
 }
 .img {
   width: 240px;
@@ -42,7 +43,7 @@ canvas {
 
 
 
-@media all and (max-width: 1000px) {
+@media all and (max-width: 750px) {
   .app {
     width: calc(100% - 2em);
   }

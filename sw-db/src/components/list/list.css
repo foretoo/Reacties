@@ -1,10 +1,10 @@
 .list {
+  width: 25%;
+  margin-right: 1.25em;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   flex-shrink: 0;
-  width: 25%;
-  margin: 1em 1.25em 1em 0;
   list-style-type: none;
 }
 .list.mobile .label-item {
@@ -13,7 +13,6 @@
 .list > li {
   display: flex;
   justify-content: space-between;
-  padding: 1em 0;
   cursor: pointer;
 }
 .list > .active > .label-item {
@@ -30,7 +29,7 @@
   flex-grow: 1;
   border-bottom: 1px dotted var(--text-active-color);
 }
-@media all and (max-width: 1000px) {
+@media all and (max-width: 750px) {
   .list {
     width: 160px;
   }
