@@ -11,7 +11,7 @@ const Page = () => {
   const history = useHistory()
   const { changePage, changeDetails } = useContext(Context)
 
-  useEffect(() => page ? changePage(page) : history.push("people"), [page])
+  useEffect(() => changePage(page), [page])
   useEffect(() => id && changeDetails(id), [id])
 
   return (
