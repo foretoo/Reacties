@@ -19,7 +19,7 @@ const App = () => {
       <main className="app">
 
         <ErrorBoundry><Random /></ErrorBoundry>
-        <Router>
+        <Router basename='/'>
           <Header />
           <Route path="/:page?/:id?" component={Page}/>
         </Router>
