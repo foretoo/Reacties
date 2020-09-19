@@ -13,7 +13,6 @@ const List = ({ getData }) => {
   useEffect(() => {
     getList(page).then(data => {
       setList(data.list)
-      changeDetails(data.list[0].id)
     })
   }, [page])
 

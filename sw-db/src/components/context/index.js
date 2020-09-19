@@ -9,9 +9,9 @@ const ContextProvider = ({ children }) => {
   const isMo = useMemo(() => isMobile())
   const swapi = useMemo(() => new SwapiService)
 
-  const [ state, setState ] = useState({ page: "people" })
-  const changePage = page => setState({ ...state, page, id: null })
-  const changeDetails = id => setState({ ...state, id })
+  const [ state, setState ] = useState({ page: "people", detailsSelected: false })
+  const changePage = page => setState({ ...state, page, id: null, detailsSelected: false })
+  const changeDetails = id => setState({ ...state, id, detailsSelected: true })
 
   const getList = useCallback((type) => {
     if (type === "planets")   return swapi.getAllPlanets()

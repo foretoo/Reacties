@@ -7,16 +7,16 @@ import "./details.css"
 const Details = () => {
 
   const [data, setData] = useState(null)
-  const {isMo, page, id, getDetails} = useContext(Context)
+  const {isMo, page, id, getDetails, detailsSelected} = useContext(Context)
 
   useEffect(() => {
     id ? getDetails(page, id).then(data => setData(data)) : setData(null)
   }, [page, id])
 
   let output
-  if (!data || !id) output = <Loader/>
+  if (!detailsSelected) output = "Select item"
+  else if (!data || !id) output = <Loader/>
   else {
-
     const items = Object.entries(data).map((v,i) => {
       const [key, value] = [v[0], v[1]]
       if (!i)       return null
@@ -33,7 +33,13 @@ const Details = () => {
       </>
   }
 
-  return <section className={isMo ? "details mobile" : "details"}>{output}</section>
+  return (
+    <section className={isMo ? "details mobile" : "details"}>
+      <div className="container">
+        {output}
+      </div>
+    </section>
+  )
 }
 
 export default Details
