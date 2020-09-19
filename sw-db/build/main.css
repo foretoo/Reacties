@@ -84,12 +84,12 @@ nav > div {
 }
 
 .list {
+  width: 25%;
+  margin-right: 1.25em;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   flex-shrink: 0;
-  width: 25%;
-  margin: 1em 1.25em 1em 0;
   list-style-type: none;
 }
 .list.mobile .label-item {
@@ -98,7 +98,6 @@ nav > div {
 .list > li {
   display: flex;
   justify-content: space-between;
-  padding: 1em 0;
   cursor: pointer;
 }
 .list > .active > .label-item {
@@ -123,47 +122,39 @@ nav > div {
 
 .details {
   display: flex;
-  align-self: flex-start;
-  align-items: flex-start;
   flex-grow: 1;
 }
 .details.mobile > ul {
   background: var(--bg-mobile);
 }
-.details > .img {
+.details > .container {
+  margin: auto;
+  display: flex;
+}
+.details > .container > .img {
   flex-shrink: 0;
 }
-.details > ul {
+.details > .container > ul {
   padding: 2.5em 1.5em 1.5em 1.5em;
-  align-self: stretch;
   flex-grow: 1;
   background: var(--bg);
 }
-.details > ul > li {
+.details > .container > ul > li {
   margin-left: -1.5em;
   margin-bottom: 0.5em;
 }
-.details > ul > .title {
+.details > .container > ul > .title {
   margin-bottom: 1.5em;
 }
 @media all and (max-width: 750px) {
-  .details {
+  .details > .container {
     flex-direction: column;
   }
-  .details > ul {
+  .details > .container > ul {
     padding: 1.5em 1.5em 1.5em 0;
     margin: -2.5em 0 0 0.25em;
     width: calc(160px - 0.5em);
   }
-}
-
-.page {
-  display: flex;
-  flex-grow: 1;
-  width: 100%;
-  color: var(--text-main-color);
-}
-@media all and (max-width: 750px) {
 }
 
 h1 {
@@ -180,13 +171,14 @@ ul {
   position: absolute;
 }
 .app {
-  display: flex;
-  flex-direction: column;
+  width: 90%;
+  max-width: 960px;
   height: 100%;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  width: 960px;
+  display: flex;
+  flex-direction: column;
 }
 .img {
   width: 240px;
@@ -201,6 +193,14 @@ ul {
 canvas {
   display: block;
 }
+.page {
+  display: flex;
+  flex-grow: 1;
+  width: 100%;
+  color: var(--text-main-color);
+}
+
+
 
 @media all and (max-width: 750px) {
   .app {
