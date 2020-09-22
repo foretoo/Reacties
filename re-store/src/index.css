@@ -14,4 +14,5 @@ html, body, #root {
 #root {
   max-width: 1024px;
   margin: auto;
+  flex-direction: column;
 }
