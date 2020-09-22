@@ -7,16 +7,16 @@ import Loader from './loader'
 
 import './app.css'
 
-const App = ({ str }) => {
+const App = ({ state }) => {
   const { cnx } = useContext(Context)
   return (
     <ErrorCatcher>
-      <div>{str.concat(' ', cnx)}</div>
+      {state}
       <Loader />
     </ErrorCatcher>
   )
 }
 
-const mapStateToProps = state => ({ str: state })
+const mapStateToProps = state => state
 
 export default connect(mapStateToProps)(App)
