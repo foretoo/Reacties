@@ -1,8 +1,11 @@
 import { h } from 'preact'
+import { useContext } from 'preact/hooks'
 import { connect } from 'react-redux'
+import { Context } from './context'
 
 const App = ({ str }) => {
-  return str
+  const { cnx } = useContext(Context)
+  return str + ' ' + cnx
 }
 
 const mapStateToProps = state => ({ str: state })
