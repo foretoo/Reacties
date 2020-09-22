@@ -52,6 +52,7 @@ export default {
     process.env.DEV && (
       serve({
         open: true,
+        historyApiFallback: true,
         contentBase: 'build',
         host: '172.20.10.4',
         port: 8000
