@@ -1,10 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@300&display=swap');
+
+:root {
+  --text-main: #111;
+  --text-light: #555;
+}
+
+
 * {
   margin: 0;
   padding: 0;
   border: 0;
   outline: 0;
-  font-family: monospace;
+  font-family: 'Cormorant', serif;
   font-size: 20px;
+  color: var(--text-main);
   box-sizing: border-box;
 }
 html, body, #root {
@@ -14,5 +23,12 @@ html, body, #root {
 #root {
   max-width: 1024px;
   margin: auto;
+  padding: 0 1em;
   flex-direction: column;
+}
+ul {
+  list-style-type: none;
+}
+a {
+  text-decoration: none;
 }
