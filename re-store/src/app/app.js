@@ -1,5 +1,5 @@
 import { h, Fragment } from 'preact'
-import { Link, Route } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import Loader from '../components/loader'
 import Header from '../components/header'
 import Home from '../pages/home'
