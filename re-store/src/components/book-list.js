@@ -15,11 +15,7 @@ const BookList = ({ books, booksLoaded }) => {
   }, [])
 
   const list = books.map(book => {
-    return (
-      <li key={book.id}>
-        <BookItem book={book} />
-      </li>
-    )
+    return <BookItem key={book.id} book={book} />
   })
 
   return (
