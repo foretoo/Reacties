@@ -1,0 +1,10 @@
+.navigation {
+  display: flex;
+  height: 5em;
+  justify-content: space-between;
+  align-items: center;
+}
+.navigation > a:first-child {
+  font-size: 2em;
+  font-style: italic;
+}
