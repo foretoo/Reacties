@@ -1,9 +1,9 @@
 import { h, render } from 'preact'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import { reducer } from './reducer'
-import App from './app'
-import './style.css'
+import reducer from './reducers/reducer'
+import App from './components/app'
+import './index.css'
 
 const store = createStore(reducer)
 
