@@ -1,7 +1,10 @@
 import { h } from 'preact'
+import BookList from '../components/book-list'
 
 const Home = () => {
-  return 'Home Page'
+  return (
+    <BookList />
+  )
 }
 
 export default Home
