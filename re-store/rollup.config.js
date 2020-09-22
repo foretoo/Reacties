@@ -19,14 +19,12 @@ export default {
     format: 'iife'
   },
   plugins: [
+    process.env.PROD && cleaner({ targets: ['build'] }),
     alias({
       entries: [
         { find: 'react', replacement: 'preact/compat' },
         { find: 'react-dom', replacement: 'preact/compat' }
       ]
-    }),
-    cleaner({
-      targets: ['build']
     }),
     replace({ 'process.env.NODE_ENV': JSON.stringify(mode) }),
     resolve(),
