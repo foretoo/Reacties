@@ -48,7 +48,7 @@ export default {
       target: 'index.html'
     }),
     url({
-      fileName: '[name][extname]'
+      fileName: '[dirname][name][extname]'
     }),
     process.env.PROD && terser(),
     process.env.DEV && (
