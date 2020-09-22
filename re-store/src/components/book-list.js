@@ -4,7 +4,13 @@ import BookItem from './book-item'
 
 const BookList = ({ books }) => {
 
-  const list = books.map( book => <li key={book.id}><BookItem book={book} /></li> )
+  const list = books.map(book => {
+    return (
+      <li key={book.id}>
+        <BookItem book={book} />
+      </li>
+    )
+  })
 
   return (
     <ul>
