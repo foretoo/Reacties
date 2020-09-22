@@ -1,6 +1,8 @@
 import { h } from 'preact'
+
 import { connect } from 'react-redux'
 import BookItem from './book-item'
+import * as actions from '../actions'
 
 const BookList = ({ books }) => {
 
@@ -21,4 +23,4 @@ const BookList = ({ books }) => {
 
 const mapStateToProps = state => state
 
-export default connect(mapStateToProps)(BookList)
+export default connect(mapStateToProps, actions)(BookList)
