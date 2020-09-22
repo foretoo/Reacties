@@ -1,14 +1,13 @@
 import { h, createContext } from 'preact'
+import BookstoreService from '../services/bookstore-service'
 
 const Context = createContext()
+const boosto = new BookstoreService()
 
 const ContextProvider = ({ children }) => {
-
-  const cnx = 'get puplished'
-
   return (
     <Context.Provider value={{
-      cnx
+      boosto
     }}>
       {children}
     </Context.Provider>
