@@ -1,7 +1,8 @@
-import { h, Fragment } from 'preact'
+import { h } from 'preact'
 import { useContext } from 'preact/hooks'
 import { connect } from 'react-redux'
 import { Context } from './context'
+import ErrorCatcher from './error'
 import Loader from './loader'
 
 import './app.css'
@@ -9,10 +10,10 @@ import './app.css'
 const App = ({ str }) => {
   const { cnx } = useContext(Context)
   return (
-    <>
+    <ErrorCatcher>
       <div>{str.concat(' ', cnx)}</div>
       <Loader />
-    </>
+    </ErrorCatcher>
   )
 }
 
