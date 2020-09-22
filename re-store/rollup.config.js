@@ -5,6 +5,7 @@ import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import babel from '@rollup/plugin-babel'
 import postcss from 'rollup-plugin-postcss'
+import url from '@rollup/plugin-url'
 import html from 'rollup-plugin-generate-html-template'
 import { terser } from "rollup-plugin-terser"
 import serve from 'rollup-plugin-serve'
@@ -45,6 +46,9 @@ export default {
     html({
       template: 'src/index.html',
       target: 'index.html'
+    }),
+    url({
+      fileName: '[name][extname]'
     }),
     process.env.PROD && terser(),
     process.env.DEV && (
