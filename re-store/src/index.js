@@ -8,16 +8,13 @@ import './index.css'
 
 
 
-const HOApp = () => {
-  return (
-    <Provider store={store}>
-      <ContextProvider>
-        <Router>
-          <App />
-        </Router>
-      </ContextProvider>
-    </Provider>
-  )
-}
-
-render(<HOApp />,	window.root)
+render(
+  <Provider store={store}>
+    <ContextProvider>
+      <Router>
+        <App />
+      </Router>
+    </ContextProvider>
+  </Provider>,
+  window.root
+)
