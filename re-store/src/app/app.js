@@ -1,7 +1,7 @@
 import { h, Fragment } from 'preact'
 import { Link, Route } from 'react-router-dom'
 import Home from '../pages/home'
-import Card from '../pages/card'
+import Cart from '../pages/cart'
 import Loader from '../components/loader'
 
 import './app.css'
@@ -13,10 +13,10 @@ const App = () => {
       <header>
         <Link to='/home'>Home</Link>
         /
-        <Link to='/card'>Card</Link>
+        <Link to='/card'>Cart</Link>
       </header>
       <Route path='/home' component={Home}/>
-      <Route path='/card' component={Card}/>
+      <Route path='/cart' component={Cart}/>
     </>
   )
 }

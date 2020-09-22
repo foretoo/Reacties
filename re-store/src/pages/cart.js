@@ -1,7 +1,7 @@
 import { h } from 'preact'
 
-const Card = () => {
+const Cart = () => {
   return 'Card Page'
 }
 
-export default Card
+export default Cart
