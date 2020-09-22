@@ -11,11 +11,11 @@ const App = () => {
     <>
       <Loader />
       <header>
-        <Link to='/home'>Home</Link>
+        <Link to='/'>Home</Link>
         /
-        <Link to='/card'>Cart</Link>
+        <Link to='/cart'>Cart</Link>
       </header>
-      <Route path='/home' component={Home}/>
+      <Route path='/' exact component={Home}/>
       <Route path='/cart' component={Cart}/>
     </>
   )
