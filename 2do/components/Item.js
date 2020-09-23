@@ -1,4 +1,4 @@
-import ContentEditable from "./src/Editable.js"
+import ContentEditable from "./Editable.js"
 
 export default class Item extends React.Component {
 

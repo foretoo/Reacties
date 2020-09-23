@@ -107,12 +107,4 @@ export default class ContentEditable extends React.Component {
 
     this.lastHtml = html;
   };
-  static propTypes = {
-    html: PropTypes.string.isRequired,
-    onChange: PropTypes.func,
-    disabled: PropTypes.bool,
-    tagName: PropTypes.string,
-    className: PropTypes.string,
-    innerRef: PropTypes.oneOfType([PropTypes.object, PropTypes.func])
-  };
 }

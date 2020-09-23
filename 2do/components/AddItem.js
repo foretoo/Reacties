@@ -1,5 +1,5 @@
-import ContentEditable from "./src/Editable.js"
-import SVGicon from "./src/SVGicon.js"
+import ContentEditable from "./Editable.js"
+import SVGicon from "./SVGicon.js"
 
 export default class AddItem extends React.Component {
   constructor() {

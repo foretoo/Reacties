@@ -1,5 +1,5 @@
 import Item from "./Item.js"
-import SVGicon from "./src/SVGicon.js"
+import SVGicon from "./SVGicon.js"
 
 export default class List extends React.Component {
   constructor() {

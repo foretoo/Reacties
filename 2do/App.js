@@ -1,7 +1,7 @@
-import AddItem from "./Additem.js"
-import List from "./List.js"
-import Nav from "./Nav.js"
-import Header from "./Header.js"
+import AddItem from "./components/Additem.js"
+import List from "./components/List.js"
+import Nav from "./components/Nav.js"
+import Header from "./components/Header.js"
 
 class App extends React.Component {
   constructor() {
