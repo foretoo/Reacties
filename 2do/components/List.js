@@ -2,12 +2,14 @@ class List extends React.Component {
   constructor() {
     super()
     this.state = { hoverId: null }
+    this.handleMouseOver = this.handleMouseOver.bind(this)
+    this.handleMouseLeave = this.handleMouseLeave.bind(this)
   }
 
-  handleMouseOver = id => {
+  handleMouseOver (id) {
     if (this.state.hoverId !== id) this.setState({ hoverId: id })
   }
-  handleMouseLeave = id => {
+  handleMouseLeave (id) {
     this.setState({ hoverId: null })
   }
 

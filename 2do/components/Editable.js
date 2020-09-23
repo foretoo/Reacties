@@ -27,13 +27,24 @@ function replaceCaret(el) {
  * A simple component for an html element with editable contents.
  */
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 class ContentEditable extends React.Component {
-  lastHtml = this.props.html;
-  el = typeof this.props.innerRef === 'function' ? {
-    current: null
-  } : React.createRef();
-  getEl = () => (this.props.innerRef && typeof this.props.innerRef !== 'function' ? this.props.innerRef : this.el).current;
+  constructor(...args) {
+    super(...args);
+
+    _defineProperty(this, "lastHtml", this.props.html);
+
+    _defineProperty(this, "el", typeof this.props.innerRef === 'function' ? {
+      current: null
+    } : React.createRef());
+    this.getEl = this.getEl.bind(this)
+    this.emitChange = this.emitChange.bind(this)
+  }
+
+  getEl() {
+    return (this.props.innerRef && typeof this.props.innerRef !== 'function' ? this.props.innerRef : this.el).current;
+  }
 
   render() {
     const {

@@ -2,14 +2,16 @@ class AddItem extends React.Component {
   constructor() {
     super()
     this.state = { html: "", isClean: true }
+    this.handleChange = this.handleChange.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
-  handleChange = html => {
+  handleChange (html) {
     const isClean = this.props.normalize(html) === "" ? true : false
     this.setState({ html: html, isClean: isClean })
   }
 
-  handleClick = () => {
+  handleClick () {
     if (!this.state.isClean) {
       this.props.addItem(this.state.html)
       this.setState({ html: "", isClean: true })
@@ -46,13 +48,14 @@ class AddItemText extends React.Component {
   constructor() {
     super()
     this.ref = React.createRef()
+    this.handleShiftEnter = this.handleShiftEnter.bind(this)
   }
 
   shouldComponentUpdate(nextProps) {
     return nextProps.html === ""
   }
 
-  handleShiftEnter = html => {
+  handleShiftEnter (html) {
     this.props.addItem(html)
     this.props.handleChange("")
     this.ref.current.blur()
