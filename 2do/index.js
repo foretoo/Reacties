@@ -1,3 +1,5 @@
+const r = React.createElement
+
 const modules = [
   'components/AddItem.js',
   'components/Editable.js',
