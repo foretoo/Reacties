@@ -2,14 +2,16 @@ class Nav extends React.Component {
   constructor() {
     super()
     this.state = { flag: "ALL", text: "" }
+    this.handleFlag = this.handleFlag.bind(this)
+    this.handleSearch = this.handleSearch.bind(this)
   }
 
-  handleFlag = flag => {
+  handleFlag (flag) {
     this.setState({ flag: flag })
     this.props.handleFilter(flag, this.state.text)
   }
 
-  handleSearch = text => {
+  handleSearch (text) {
     this.setState({ text: this.props.normalize(text) })
     this.props.handleFilter(this.state.flag, this.props.normalize(text))
   }
