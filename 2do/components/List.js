@@ -1,7 +1,4 @@
-import Item from "./Item.js"
-import SVGicon from "./SVGicon.js"
-
-export default class List extends React.Component {
+class List extends React.Component {
   constructor() {
     super()
     this.state = { hoverId: null }

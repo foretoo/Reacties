@@ -1,6 +1,4 @@
-import ContentEditable from "./Editable.js"
-
-export default class Item extends React.Component {
+class Item extends React.Component {
 
   constructor() {
     super()

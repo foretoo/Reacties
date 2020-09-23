@@ -1,8 +1,3 @@
-import AddItem from "./components/AddItem.js"
-import List from "./components/List.js"
-import Nav from "./components/Nav.js"
-import Header from "./components/Header.js"
-
 class App extends React.Component {
   constructor() {
     super()

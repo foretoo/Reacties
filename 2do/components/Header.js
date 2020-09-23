@@ -17,5 +17,3 @@ const Header = React.memo(() => {
     r("div", { className: "weekDay" }, weekDay),
   ])
 })
-
-export default Header
