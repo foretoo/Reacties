@@ -1,17 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@300&display=swap');
+/* Rozha One */
+@import url('https://fonts.googleapis.com/css2?family=Rozha+One&display=swap');
+/* EB Garamond weight:400+i,700 */
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400;1,700&display=swap');
 
 :root {
   --text-main: #111;
   --text-light: #555;
+  --wow: #0e9;
 }
-
 
 * {
   margin: 0;
   padding: 0;
   border: 0;
   outline: 0;
-  font-family: 'Cormorant', serif;
+  font-family: 'EB Garamond', serif;
   font-size: 20px;
   color: var(--text-main);
   box-sizing: border-box;

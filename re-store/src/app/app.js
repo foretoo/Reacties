@@ -8,8 +8,7 @@ import Cart from '../pages/cart'
 const App = () => {
   return (
     <>
-      <Loader />
-      <Header />
+      <Header cartNum={4}/>
       <Route path='/' exact component={Home}/>
       <Route path='/cart' component={Cart}/>
     </>
