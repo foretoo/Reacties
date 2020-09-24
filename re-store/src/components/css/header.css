@@ -1,10 +1,31 @@
 .navigation {
   display: flex;
-  height: 7em;
+  height: 5em;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 3em;
 }
 .navigation > a:first-child {
-  font-size: 2.6em;
+  font-size: 3em;
+  font-family: 'Rozha One';
+}
+.cart-info {
+  position: relative;
+  padding: 0.25em 0.5em;
+}
+.cart-info-n {
+  font-weight: 700;
+}
+.cart-info-i {
   font-style: italic;
+}
+.cart-ellipse {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--wow);
+  border-radius: 50%;
+  transform: rotate(-12deg);
 }
