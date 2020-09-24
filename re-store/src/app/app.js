@@ -4,7 +4,6 @@ import Loader from '../components/loader'
 import Header from '../components/header'
 import Home from '../pages/home'
 import Cart from '../pages/cart'
-import './app.css'
 
 const App = () => {
   return (

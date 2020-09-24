@@ -18,11 +18,7 @@ const BookList = ({ books, booksLoaded }) => {
     return <BookItem key={book.id} book={book} />
   })
 
-  return (
-    <ul>
-      {list}
-    </ul>
-  )
+  return <ul>{list}</ul>
 }
 
 const mapStateToProps = state => state
