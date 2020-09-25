@@ -1,7 +1,7 @@
 .book-item {
   display: flex;
   position: relative;
-  margin-bottom: 1px;
+  margin-bottom: 1em;
   padding: 1em;
 }
 .book-ellipse {
@@ -9,9 +9,8 @@
   height: 80%;
   margin: -2em;
   position: absolute;
-  border: 1px solid var(--text-main);
+  border: 1px solid var(--text-light);
   border-radius: 50%;
-  transform: rotate(-2deg);
   z-index: -1;
 }
 .book-img {
