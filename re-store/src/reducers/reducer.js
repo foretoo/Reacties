@@ -1,8 +1,21 @@
 const initialState = {
   books: [],
   cart: {
-    books: [],
-    num: 4,
+    books: [
+      {
+        id: 1,
+        title: 'Production-ready Microservices',
+        count: 1,
+        price: 129,
+        imgName: 'prm' },
+      {
+        id: 2,
+        title: 'Realese It!',
+        count: 1,
+        price: 71,
+        imgName: 'rli' }
+    ],
+    num: 2,
     sum: 200,
   }
 }
