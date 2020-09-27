@@ -11,7 +11,7 @@ const CartItem = ({ book }) => {
         <button>+</button>
       </div>
       <span class='cart-item-price'>{book.price}£</span>
-      <button>delete</button>
+      <button>x</button>
     </li>
   )
 }
