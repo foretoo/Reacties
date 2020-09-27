@@ -11,7 +11,12 @@ const CartList = ({ books }) => {
 
   return (
     <main class='cart-container'>
-      <div class='cart-list-head'>Your order</div>
+      <div class='cart-container-head'>Your order</div>
+      <div class='cart-list-head'>
+        <span class='cart-list-head-title'>TITLE</span>
+        <span class='cart-list-head-count'>COUNT</span>
+        <span class='cart-list-head-price'>PRICE</span>
+      </div>
       <ul class='cart-list'>{cartList}</ul>
     </main>
   )
