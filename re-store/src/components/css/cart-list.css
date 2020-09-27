@@ -2,7 +2,25 @@
   display: flex;
   flex-direction: column;
 }
-.cart-list-head {
+.cart-container-head {
   height: 3em;
   font-size: 1.6em;
+}
+.cart-list-head {
+  display: flex;
+  align-items: center;
+  min-height: 3em;
+}
+.cart-list-head * {
+  font-family: 'IBM Plex Mone', monospace;
+  font-size: 0.75em;
+  color: var(--text-light);
+}
+.cart-list-head-title {
+  width: 60%;
+}
+.cart-list-head-count, .cart-list-head-price {
+  width: 15%;
+  display: flex;
+  justify-content: center;
 }
