@@ -15,6 +15,7 @@ const BookItem = ({ book }) => {
       <div class='book-info'>
         <p class='book-title'>{title}</p>
         <p class='book-author'>{author}</p>
+        <button class='book-add-item'>add</button>
       </div>
     </li>
   )
