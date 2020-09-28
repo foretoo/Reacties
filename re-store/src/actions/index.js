@@ -1,11 +1,17 @@
+export const booksRequested = () => {
+  return {
+    type: 'FETCH_BOOKS_REQUEST'
+  }
+}
 export const booksLoaded = newBooks => {
   return {
-    type: 'BOOKS_LOADED',
+    type: 'FETCH_BOOKS_SUCCES',
     payload: newBooks
   }
 }
-export const booksRequested = newBooks => {
+export const booksError = error => {
   return {
-    type: 'BOOKS_REQUESTED'
+    type: 'FETCH_BOOKS_FAILURE',
+    payload: error
   }
 }
