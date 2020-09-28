@@ -9,11 +9,12 @@
 .cart-list-head {
   display: flex;
   align-items: center;
-  min-height: 3em;
+  height: 3em;
 }
 .cart-list-head * {
   font-family: 'IBM Plex Mone', monospace;
-  font-size: 0.75em;
+  font-size: 0.666em;
+  letter-spacing: 2px;
   color: var(--text-light);
 }
 .cart-list-head-title {
@@ -23,4 +24,9 @@
   width: 15%;
   display: flex;
   justify-content: center;
+}
+.cart-container-footer {
+  height: 3em;
+  padding: 1em 0;
+  text-align: right;
 }
