@@ -15,3 +15,27 @@ export const clearBooks = () => {
     type: 'CLEAR_BOOKS'
   }
 }
+export const addCartBook = id => {
+  return {
+    type: 'ADD_CART_BOOK',
+    payload: id
+  }
+}
+export const incCartBook = id => {
+  return {
+    type: 'INC_CART_BOOK',
+    payload: id
+  }
+}
+export const decCartBook = id => {
+  return {
+    type: 'DEC_CART_BOOK',
+    payload: id
+  }
+}
+export const delCartBook = id => {
+  return {
+    type: 'DEL_CART_BOOK',
+    payload: id
+  }
+}

@@ -23,6 +23,7 @@ const initialState = {
 }
 
 const reducer = (state = initialState, action) => {
+  let newCartNum, newCartSum, newCartBooks, newCartBook, idx
   switch (action.type) {
     case 'CLEAR_BOOKS':
       return {
@@ -44,6 +45,88 @@ const reducer = (state = initialState, action) => {
         loading: false,
         books: [],
         error: action.payload
+      }
+
+    case 'ADD_CART_BOOK':
+      newCartNum = state.cart.num
+      newCartSum = state.cart.sum
+      newCartBooks = state.cart.books
+      idx = newCartBooks.findIndex(book => book.id === action.payload.id)
+
+      if (idx >= 0) {
+        newCartBook = {...newCartBooks[idx], count: ++newCartBooks[idx].count}
+        newCartBooks.splice(idx, 1, newCartBook)
+      }
+      else {
+        newCartBooks.push({...action.payload, count: 1})
+      }
+      newCartNum++
+      newCartSum += action.payload.price
+
+      return {
+        ...state,
+        cart: {
+          books: newCartBooks,
+          num: newCartNum,
+          sum: newCartSum
+        }
+      }
+
+    case 'INC_CART_BOOK':
+      newCartNum = state.cart.num
+      newCartSum = state.cart.sum
+      newCartBooks = state.cart.books.map(book => {
+        if (book.id === action.payload) {
+          book.count++
+          newCartNum++
+          newCartSum += book.price
+        }
+        return book
+      })
+      return {
+        ...state,
+        cart: {
+          books: newCartBooks,
+          num: newCartNum,
+          sum: newCartSum
+        }
+      }
+    case 'DEC_CART_BOOK':
+      newCartNum = state.cart.num
+      newCartSum = state.cart.sum
+      newCartBooks = state.cart.books.map(book => {
+        if (book.id === action.payload) {
+          book.count--
+          newCartNum--
+          newCartSum -= book.price
+        }
+        return book
+      })
+      return {
+        ...state,
+        cart: {
+          books: newCartBooks,
+          num: newCartNum,
+          sum: newCartSum
+        }
+      }
+    case 'DEL_CART_BOOK':
+      newCartNum = state.cart.num
+      newCartSum = state.cart.sum
+      newCartBooks = state.cart.books.filter(book => {
+        if (book.id === action.payload) {
+          newCartNum -= book.count
+          newCartSum -= book.price * book.count
+        }
+        return book.id !== action.payload
+      })
+      return {
+        ...state,
+        cart: {
+          books: newCartBooks,
+          num: newCartNum,
+          sum: newCartSum
+        }
       }
     default:
       return state
