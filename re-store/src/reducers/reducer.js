@@ -24,7 +24,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'FETCH_BOOKS_REQUEST':
+    case 'CLEAR_BOOKS':
       return {
         ...state,
         loading: true,
