@@ -1,5 +1,5 @@
 import { h } from 'preact'
-import BookList from '../components/book-list-container'
+import BookListContainer from '../components/book-list-container'
 
 const Home = () => {
   return <BookListContainer />

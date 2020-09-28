@@ -1,11 +1,10 @@
-import * as actions from './index'
+import  { booksLoaded, booksError } from './index'
 import BookstoreService from '../services/bookstore-service'
 
 const boosto = new BookstoreService()
 
 export const fetchBooks = dispatch => {
-  dispatch(actions.booksRequested())
   boosto.getBooks()
-    .then(books => dispatch(actions.booksLoaded(books)))
-    .catch(err => dispatch(actions.booksError(err)))
+    .then(books => dispatch(booksLoaded(books)))
+    .catch(err => dispatch(booksError(err)))
 }

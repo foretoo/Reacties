@@ -4,12 +4,15 @@ import { connect } from 'react-redux'
 import ErrorIdicator from './error-indicator'
 import Loader from './loader'
 import BookList from './book-list'
-
 import { fetchBooks } from '../actions/hof'
+import { clearBooks } from '../actions'
 
-const BookListContainer = ({ books, loading, error, fetchBooks }) => {
+const BookListContainer = ({ books, loading, error, fetchBooks, clearBooks }) => {
 
-  useEffect(() => fetchBooks(), [])
+  useEffect(() => {
+    fetchBooks()
+    return () => clearBooks()
+  }, [])
 
   if (error) return <ErrorIdicator />
   else if (loading) return <Loader />
@@ -17,6 +20,11 @@ const BookListContainer = ({ books, loading, error, fetchBooks }) => {
 }
 
 const mapStateToProps = ({ books, loading, error }) => ({ books, loading, error })
-const mapDispatchToProps = dispatch => ({ fetchBooks: () => fetchBooks(dispatch) })
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchBooks: () => fetchBooks(dispatch),
+    clearBooks: () => dispatch(clearBooks())
+  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookListContainer)
