@@ -1,4 +1,5 @@
 const initialState = {
+  loading: true,
   books: [],
   cart: {
     books: [
@@ -22,9 +23,16 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case 'BOOKS_REQUESTED':
+      return {
+        ...state,
+        loading: true,
+        books: [],
+      }
     case 'BOOKS_LOADED':
       return {
         ...state,
+        loading: false,
         books: action.payload
       }
     default:
