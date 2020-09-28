@@ -1,6 +1,7 @@
 const initialState = {
   loading: true,
   books: [],
+  error: null,
   cart: {
     books: [
       {
@@ -23,17 +24,26 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'BOOKS_REQUESTED':
+    case 'FETCH_BOOKS_REQUEST':
       return {
         ...state,
         loading: true,
         books: [],
+        error: null
       }
-    case 'BOOKS_LOADED':
+    case 'FETCH_BOOKS_SUCCES':
       return {
         ...state,
         loading: false,
-        books: action.payload
+        books: action.payload,
+        error: null
+      }
+    case 'FETCH_BOOKS_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        books: [],
+        error: action.payload
       }
     default:
       return state
