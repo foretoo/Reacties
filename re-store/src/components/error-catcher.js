@@ -1,4 +1,5 @@
 import { h, Component } from "preact"
+import ErrorIdicator from './error-indicator'
 
 export default class ErrorCatcher extends Component {
 
@@ -14,7 +15,7 @@ export default class ErrorCatcher extends Component {
 
   render(props, state) {
     if (state.errored) {
-      return <div>Something went badly wrong</div>
+      return <ErrorIdicator />
     }
     return props.children
   }
