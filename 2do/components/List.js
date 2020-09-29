@@ -16,10 +16,13 @@ class List extends React.Component {
   render() {
     const { items, handleChange, deleteItem, markDone, markFocused } = this.props
     const itemList = items.map(item => {
+      const isDisplayed = item.display
+      const isFocused = item.focused
       const isOver = this.state.hoverId === item.id
+      const className = "item " + (!isDisplayed ? "hidden " : "") + (isFocused ? "focused " : "") + (isOver ? "hover" : "")
       return (
         r("section", {
-          className: !item.display ? "item hidden" : isOver ? "item hover" : "item",
+          className: className,
           key: item.id,
           onMouseOver: () => this.handleMouseOver(item.id),
           onMouseLeave: () => this.handleMouseLeave(item.id)
@@ -40,7 +43,6 @@ class List extends React.Component {
               id: item.id,
               html: item.html,
               done: item.done,
-              focused: item.focused,
               handleChange: handleChange
             })
           ]),

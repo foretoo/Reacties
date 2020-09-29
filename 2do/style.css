@@ -27,7 +27,7 @@ body, #root, nav, .filter, .item, .addItem {
   width: 800px;
   min-height: 100%;
   margin: auto;
-  padding-top: 100px;
+  padding: 100px 20px 0 20px;
   flex-direction: column;
 }
 header, nav {
@@ -44,12 +44,15 @@ svg {
 .item.hover {
   border-bottom: 1px solid var(--grey-light)
 }
+.item.focused {
+  background-color: #fff8c8;
+}
 .item.hidden {
   display: none;
 }
 .item-text-container, .addItem-text-container {
   flex-grow: 1;
-  padding-bottom: 20px;
+  position: relative;
 }
 
 
@@ -58,24 +61,18 @@ svg {
   cursor: pointer;
 }
 .focus-flag {
-  display: table-cell;
   height: 20px;
-  padding: 0 6px 0 6px;
+  position: absolute;
   font-size: 12px;
-  vertical-align: middle;
   color: #da0;
-  background-color: #fff8c8;
-  border-radius: 10px ;
   cursor: pointer;
 }
 .focus-flag.hidden {
   visibility: hidden;
 }
 .item-text {
+  padding: 20px 20px 20px 0;
   line-height: 20px;
-}
-.item-text.focused {
-  background-color: #fff8c8;
 }
 .item-text.done {
   color: var(--grey);
@@ -86,6 +83,7 @@ svg {
 
 .addItem-text {
   line-height: 20px;
+  padding: 20px 20px 20px 0;
 }
 .addItem-text:empty:not(:focus):before{
   content: attr(dataText);
@@ -93,6 +91,7 @@ svg {
   cursor: text;
 }
 .addItem-hint {
+  position: absolute;
   margin-top: 8px;
   line-height: 12px;
   font-size: 12px;
