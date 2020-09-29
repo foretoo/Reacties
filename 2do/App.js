@@ -1,8 +1,3 @@
-import AddItem from "./Additem.js"
-import List from "./List.js"
-import Nav from "./Nav.js"
-import Header from "./Header.js"
-
 class App extends React.Component {
   constructor() {
     super()
@@ -12,6 +7,12 @@ class App extends React.Component {
       filter: "ALL",
       searchText: ""
     }
+    this.addItem = this.addItem.bind(this)
+    this.deleteItem = this.deleteItem.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.markDone = this.markDone.bind(this)
+    this.markFocused = this.markFocused.bind(this)
+    this.handleFilter = this.handleFilter.bind(this)
   }
 
   componentDidMount() {
@@ -20,11 +21,11 @@ class App extends React.Component {
     this.addItem("Filch a cup of tea from nearby<br>colleague")
   }
 
-  normalize = html => {
+  normalize (html) {
     return html.replace(/<[^>]*>?/gm,"").replace(/\s/g,"").replace(/&nbsp;/g,"").toLowerCase()
   }
 
-  addItem = html => {
+  addItem (html) {
     this.setState(({ items }) => {
       const newItem = {
         id:         this.initID++,
@@ -37,7 +38,7 @@ class App extends React.Component {
     })
   }
 
-  deleteItem = id => {
+  deleteItem (id) {
     this.setState(({ items }) => {
       const idx = items.findIndex(item => item.id === id)
       const newItems = [...items.slice(0, idx), ...items.slice(idx + 1)]
@@ -45,7 +46,7 @@ class App extends React.Component {
     })
   }
 
-  handleChange = (html, id) => {
+  handleChange (html, id) {
     if (this.normalize(html) === "") {
       this.deleteItem(id)
       return
@@ -59,21 +60,21 @@ class App extends React.Component {
     })
   }
 
-  markDone = id => {
+  markDone (id) {
     this.setState(({ items }) => {
       const newItems = items.map(item => item.id === id ? {...item, done: !item.done} : item)
       return { items: newItems }
     })
   }
 
-  markFocused = id => {
+  markFocused (id) {
     this.setState(({ items }) => {
       const newItems = items.map(item => item.id === id ? {...item, focused: !item.focused} : item)
       return { items: newItems }
     })
   }
 
-  handleFilter = (flag, text) => {
+  handleFilter (flag, text) {
 
     if (this.state.filter !== flag) this.setState({ filter: flag })
     if (this.state.searchText !== text) this.setState({ searchText: text })
