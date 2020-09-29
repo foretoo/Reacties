@@ -23,7 +23,7 @@ class Item extends React.Component {
         className: className,
         innerRef: this.ref,
         html: html,
-        tagName: "span",
+        tagName: "div",
         onBlur: () => handleChange(this.ref.current.innerHTML, id)
       })
     )

@@ -69,7 +69,7 @@ class AddItemText extends React.Component {
         dataText:   "Add",
         innerRef:   this.ref,
         html:       html,
-        tagName:    "span",
+        tagName:    "div",
         onChange:   () => handleChange(this.ref.current.innerHTML),
         onKeyUp:    e => e.shiftKey && e.key === "Enter" && normalize(this.ref.current.innerHTML) && this.handleShiftEnter(this.ref.current.innerHTML),
         onKeyDown:  e => e.shiftKey && e.key === "Enter" && e.preventDefault(),
