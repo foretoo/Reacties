@@ -6,6 +6,14 @@ import './css/cart-list.css'
 
 const CartList = ({ books, sum, incCartBook, decCartBook, delCartBook }) => {
 
+  if (!books.length) {
+    return (
+      <main class='cart-container'>
+        <div class='cart-container-head'>Not yet</div>
+      </main>
+    )
+  }
+
   const cartList = books.map(book => {
     return (
       <CartItem
