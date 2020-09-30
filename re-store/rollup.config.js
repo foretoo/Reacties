@@ -1,5 +1,5 @@
 import alias from '@rollup/plugin-alias'
-import cleaner from 'rollup-plugin-cleaner'
+// import cleaner from 'rollup-plugin-cleaner'
 import replace from '@rollup/plugin-replace'
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
@@ -20,7 +20,7 @@ export default {
     format: 'iife'
   },
   plugins: [
-    process.env.PROD && cleaner({ targets: ['build'] }),
+    // process.env.PROD && cleaner({ targets: ['build'] }),
     alias({
       entries: [
         { find: 'react', replacement: 'preact/compat' },
@@ -56,8 +56,8 @@ export default {
         open: true,
         historyApiFallback: true,
         contentBase: 'build',
-        host: '172.20.10.4',
-        port: 8000
+        host: 'localhost',
+        port: 3000
       })
     ),
     process.env.DEV && livereload('build')
