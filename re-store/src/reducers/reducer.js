@@ -1,24 +1,13 @@
 const initialState = {
-  loading: true,
-  books: [],
-  error: null,
+  lib: {
+    loading: true,
+    books: [],
+    error: null,
+  },
   cart: {
-    books: [
-      {
-        id: 1,
-        title: 'Production-ready Microservices',
-        count: 1,
-        price: 129,
-        imgName: 'prm' },
-      {
-        id: 2,
-        title: 'Realese It!',
-        count: 1,
-        price: 71,
-        imgName: 'rli' }
-    ],
-    num: 2,
-    sum: 200,
+    books: [],
+    num: 0,
+    sum: 0,
   }
 }
 
@@ -28,22 +17,21 @@ const getCartBook = (state, id) => {
   return { book, idx }
 }
 
-const updateCartBook = (book, num) => {
-  return { ...book, count: (book.count || 0) + num }
-}
-
-const updateCart = (state, book, idx, num) => {
+const updatedCart = (state, book, idx, num) => {
   const newCart = state.cart
+  book.count = book.count || 0
+  book.count += num
+
   if (idx < 0) newCart.books.push(book)
   else if (book.count === 0) newCart.books.splice(idx, 1)
   else newCart.books.splice(idx, 1, book)
-  console.log(newCart.books);
+
   return {
     ...state,
     cart: {
       books: newCart.books,
       num: newCart.num + num,
-      sum: newCart.sum + book.price*num
+      sum: newCart.sum + book.price * num
     }
   }
 }
@@ -75,26 +63,24 @@ const reducer = (state = initialState, action) => {
 
     case 'ADD_CART_BOOK': {
       let { book, idx } = getCartBook(state, action.payload.id)
-      book = idx < 0 ? updateCartBook(action.payload, 1) : updateCartBook(book, 1)
-      return updateCart(state, book, idx, 1)
+      if (!book) book = action.payload
+      return updatedCart(state, book, idx, 1)
     }
 
     case 'INC_CART_BOOK': {
-      let { book, idx } = getCartBook(state, action.payload)
-      book = updateCartBook(book, 1)
-      return updateCart(state, book, idx, 1)
+      const { book, idx } = getCartBook(state, action.payload)
+      return updatedCart(state, book, idx, 1)
     }
 
     case 'DEC_CART_BOOK': {
-      let { book, idx } = getCartBook(state, action.payload)
-      book = updateCartBook(book, -1)
-      return updateCart(state, book, idx, -1)
+      const { book, idx } = getCartBook(state, action.payload)
+      return updatedCart(state, book, idx, -1)
     }
 
     case 'DEL_CART_BOOK': {
-      let { book, idx } = getCartBook(state, action.payload)
-      book = updateCartBook(book, -book.count)
-      return updateCart(state, book, idx, -book.count)
+      const { book, idx } = getCartBook(state, action.payload)
+      const count = -book.count
+      return updatedCart(state, book, idx, count)
     }
 
     default:
