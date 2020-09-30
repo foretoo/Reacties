@@ -10,11 +10,9 @@ import './index.css'
 
 render(
   <Provider store={store}>
-    <ContextProvider>
-      <Router>
-        <App />
-      </Router>
-    </ContextProvider>
+    <Router>
+      <App />
+    </Router>
   </Provider>,
   window.root
 )
