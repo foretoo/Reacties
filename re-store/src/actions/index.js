@@ -15,10 +15,10 @@ export const clearBooks = () => {
     type: 'CLEAR_BOOKS'
   }
 }
-export const addCartBook = id => {
+export const addCartBook = book => {
   return {
     type: 'ADD_CART_BOOK',
-    payload: id
+    payload: book
   }
 }
 export const incCartBook = id => {
