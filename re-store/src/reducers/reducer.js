@@ -1,17 +1,13 @@
-const initialState = {
-  lib: {
-    loading: true,
-    books: [],
-    error: null
-  },
-  cart: {
-    books: [],
-    num: 0,
-    sum: 0
-  }
-}
-
 const updateLib = (lib, { type, payload }) => {
+
+  if (!lib) {
+    lib = {
+      loading: true,
+      books: [],
+      error: null
+    }
+  }
+
   switch (type) {
     case 'CLEAR_BOOKS':
       return {
@@ -37,6 +33,14 @@ const updateLib = (lib, { type, payload }) => {
 }
 
 const updateCart = (cart, { type, payload }) => {
+
+  if (!cart) {
+    cart = {
+      books: [],
+      num: 0,
+      sum: 0
+    }
+  }
 
   const getCartBook = (cart, id) => {
     const idx = cart.books.findIndex(book => book.id === id)
@@ -81,7 +85,7 @@ const updateCart = (cart, { type, payload }) => {
   }
 }
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = {}, action) => {
   return {
     lib: updateLib(state.lib, action),
     cart: updateCart(state.cart, action)
