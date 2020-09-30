@@ -9,7 +9,7 @@ const BookList = ({ books, addCartBook }) => {
       <BookItem
         key={book.id}
         book={book}
-        addCartBook={() => addCartBook(book)}
+        addCartBook={() => addCartBook(book.id)}
       />
     )
   })
@@ -18,7 +18,7 @@ const BookList = ({ books, addCartBook }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addCartBook: book => dispatch(addCartBook(book))
+    addCartBook: id => dispatch(addCartBook(id))
   }
 }
 
