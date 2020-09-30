@@ -22,10 +22,30 @@ const initialState = {
   }
 }
 
-const prepareCartChange = (state, id) => {
-  const newCartBooks = state.cart.books
-  const idx = newCartBooks.findIndex(book => book.id === id)
-  return { newCartBooks, idx }
+const getCartBook = (state, id) => {
+  const idx = state.cart.books.findIndex(book => book.id === id)
+  const book = state.cart.books[idx] || null
+  return { book, idx }
+}
+
+const updateCartBook = (book, num) => {
+  return { ...book, count: (book.count || 0) + num }
+}
+
+const updateCart = (state, book, idx, num) => {
+  const newCart = state.cart
+  if (idx < 0) newCart.books.push(book)
+  else if (book.count === 0) newCart.books.splice(idx, 1)
+  else newCart.books.splice(idx, 1, book)
+  console.log(newCart.books);
+  return {
+    ...state,
+    cart: {
+      books: newCart.books,
+      num: newCart.num + num,
+      sum: newCart.sum + book.price*num
+    }
+  }
 }
 
 const reducer = (state = initialState, action) => {
@@ -54,74 +74,27 @@ const reducer = (state = initialState, action) => {
       }
 
     case 'ADD_CART_BOOK': {
-      const { newCartBooks, idx } = prepareCartChange(state, action.payload)
-      let newBook
-      if (idx >= 0) {
-        newBook = newCartBooks[idx]
-        newBook.count++
-        newCartBooks.splice(idx, 1, newBook)
-      }
-      else {
-        newBook = state.books.filter(book => book.id === action.payload)[0]
-        newCartBooks.push({...newBook, count: 1})
-      }
-      return {
-        ...state,
-        cart: {
-          books: newCartBooks,
-          num: state.cart.num + 1,
-          sum: state.cart.sum + newBook.price
-        }
-      }
+      let { book, idx } = getCartBook(state, action.payload.id)
+      book = idx < 0 ? updateCartBook(action.payload, 1) : updateCartBook(book, 1)
+      return updateCart(state, book, idx, 1)
     }
 
     case 'INC_CART_BOOK': {
-      const { newCartBooks, idx } = prepareCartChange(state, action.payload)
-      const newBook = newCartBooks[idx]
-      newBook.count++
-      newCartBooks.splice(idx, 1, newBook)
-      return {
-        ...state,
-        cart: {
-          books: newCartBooks,
-          num: state.cart.num + 1,
-          sum: state.cart.sum + newBook.price
-        }
-      }
+      let { book, idx } = getCartBook(state, action.payload)
+      book = updateCartBook(book, 1)
+      return updateCart(state, book, idx, 1)
     }
 
     case 'DEC_CART_BOOK': {
-      const { newCartBooks, idx } = prepareCartChange(state, action.payload)
-      const newBook = newCartBooks[idx]
-      if (newBook.count === 1) {
-        newCartBooks.splice(idx, 1)
-      }
-      else {
-        newBook.count--
-        newCartBooks.splice(idx, 1, newBook)
-      }
-      return {
-        ...state,
-        cart: {
-          books: newCartBooks,
-          num: state.cart.num - 1,
-          sum: state.cart.sum - newBook.price
-        }
-      }
+      let { book, idx } = getCartBook(state, action.payload)
+      book = updateCartBook(book, -1)
+      return updateCart(state, book, idx, -1)
     }
 
     case 'DEL_CART_BOOK': {
-      const { newCartBooks, idx } = prepareCartChange(state, action.payload)
-      const [ price, count ] = [ newCartBooks[idx].price, newCartBooks[idx].count ]
-      newCartBooks.splice(idx, 1)
-      return {
-        ...state,
-        cart: {
-          books: newCartBooks,
-          num: state.cart.num - count,
-          sum: state.cart.sum - price*count
-        }
-      }
+      let { book, idx } = getCartBook(state, action.payload)
+      book = updateCartBook(book, -book.count)
+      return updateCart(state, book, idx, -book.count)
     }
 
     default:
