@@ -11,7 +11,7 @@ const initialState = {
   }
 }
 
-const updateLib = ({ type, payload }) => {
+const updateLib = (lib, { type, payload }) => {
   switch (type) {
     case 'CLEAR_BOOKS':
       return {
@@ -31,10 +31,12 @@ const updateLib = ({ type, payload }) => {
         books: [],
         error: payload
       }
+    default:
+      return lib
   }
 }
 
-const updateCart = (cart, action) => {
+const updateCart = (cart, { type, payload }) => {
 
   const getCartBook = (cart, id) => {
     const idx = cart.books.findIndex(book => book.id === id)
@@ -56,41 +58,33 @@ const updateCart = (cart, action) => {
     }
   }
 
-  switch (action.type) {
+  switch (type) {
     case 'ADD_CART_BOOK': {
-      let { book, idx } = getCartBook(cart, action.payload.id)
-      if (!book) book = action.payload
+      let { book, idx } = getCartBook(cart, payload.id)
+      if (!book) book = payload
       return updatedCartList(cart, book, idx, 1)
     }
     case 'INC_CART_BOOK': {
-      const { book, idx } = getCartBook(cart, action.payload)
+      const { book, idx } = getCartBook(cart, payload)
       return updatedCartList(cart, book, idx, 1)
     }
     case 'DEC_CART_BOOK': {
-      const { book, idx } = getCartBook(cart, action.payload)
+      const { book, idx } = getCartBook(cart, payload)
       return updatedCartList(cart, book, idx, -1)
     }
     case 'DEL_CART_BOOK': {
-      const { book, idx } = getCartBook(cart, action.payload)
-      const count = -book.count
-      return updatedCartList(cart, book, idx, count)
+      const { book, idx } = getCartBook(cart, payload)
+      return updatedCartList(cart, book, idx, -book.count)
     }
+    default:
+      return cart
   }
 }
 
 const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'CLEAR_BOOKS':
-    case 'FETCH_BOOKS_SUCCES':
-    case 'FETCH_BOOKS_FAILURE':
-      return { ...state, lib: updateLib(action) }
-    case 'ADD_CART_BOOK':
-    case 'INC_CART_BOOK':
-    case 'DEC_CART_BOOK':
-    case 'DEL_CART_BOOK':
-      return { ...state, cart: updateCart(state.cart, action) }
-    default:
-      return state
+  return {
+    lib: updateLib(state.lib, action),
+    cart: updateCart(state.cart, action)
   }
 }
 export default reducer
