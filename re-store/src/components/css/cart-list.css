@@ -1,0 +1,32 @@
+.cart-container {
+  display: flex;
+  flex-direction: column;
+}
+.cart-container-head {
+  height: 3em;
+  font-size: 1.6em;
+}
+.cart-list-head {
+  display: flex;
+  align-items: center;
+  height: 3em;
+}
+.cart-list-head * {
+  font-family: 'IBM Plex Mone', monospace;
+  font-size: 0.666em;
+  letter-spacing: 2px;
+  color: var(--text-light);
+}
+.cart-list-head-title {
+  width: 60%;
+}
+.cart-list-head-count, .cart-list-head-price {
+  width: 15%;
+  display: flex;
+  justify-content: center;
+}
+.cart-container-footer {
+  height: 3em;
+  padding: 1em 0;
+  text-align: right;
+}

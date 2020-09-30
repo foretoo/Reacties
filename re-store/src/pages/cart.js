@@ -1,7 +1,8 @@
 import { h } from 'preact'
+import CartList from '../components/cart-list'
 
 const Cart = () => {
-  return 'Card Page'
+  return <CartList />
 }
 
 export default Cart

@@ -1,0 +1,26 @@
+.cart-item {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--text-light);
+}
+.cart-item-title {
+  width: 60%;
+  line-height: 1em;
+  margin: 1em 0;
+}
+.cart-item-count-container, .cart-item-price {
+  width: 15%;
+  display: flex;
+  justify-content: center;
+}
+.cart-item button {
+  padding: 0.333em 0.75em;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75em;
+  border-radius: 1em;
+  background: #fff;
+  cursor: pointer;
+}
+.cart-item > button {
+  margin-left: auto;
+}

@@ -2,6 +2,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Rozha+One&display=swap');
 /* EB Garamond weight:400+i,700 */
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400;1,700&display=swap');
+/* IBM Plex Mono weight:500 */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&display=swap');
 
 :root {
   --text-main: #111;

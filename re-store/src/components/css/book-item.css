@@ -15,10 +15,15 @@
 }
 .book-img {
   width: 180px;
-  box-shadow: 1em 2em 3em #aaa;
+  box-shadow: 1em 2em 3em #ccc;
 }
 .book-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
   margin: 0 2em;
+  align-self: stretch;
 }
 .book-title {
   font-size: 1.6em;
@@ -26,4 +31,15 @@
 .book-author {
   font-style: italic;
   color: var(--text-light);
+}
+.book-add-item {
+  margin-top: 2em;
+  padding: 0.333em 1em;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75em;
+  color: #fff;
+  border-radius: 1em;
+  box-shadow: 0 0.5em 1.5em var(--wow);
+  background: var(--wow);
+  cursor: pointer;
 }

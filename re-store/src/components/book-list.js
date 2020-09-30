@@ -1,26 +1,25 @@
 import { h } from 'preact'
-import { useEffect, useContext } from 'preact/hooks'
 import { connect } from 'react-redux'
-import { Context } from '../app/context'
+import { addCartBook } from '../actions'
 import BookItem from './book-item'
-import * as actions from '../actions'
 
-const BookList = ({ books, booksLoaded }) => {
-
-  const { boosto } = useContext(Context)
-
-  useEffect(() => {
-    const books = boosto.getBooks()
-    booksLoaded(books)
-  }, [])
-
+const BookList = ({ books, addCartBook }) => {
   const list = books.map(book => {
-    return <BookItem key={book.id} book={book} />
+    return (
+      <BookItem
+        key={book.id}
+        book={book}
+        addCartBook={() => addCartBook(book.id)}
+      />
+    )
   })
-
   return <ul>{list}</ul>
 }
 
-const mapStateToProps = state => state
+const mapDispatchToProps = dispatch => {
+  return {
+    addCartBook: id => dispatch(addCartBook(id))
+  }
+}
 
-export default connect(mapStateToProps, actions)(BookList)
+export default connect(null, mapDispatchToProps)(BookList)

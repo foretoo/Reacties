@@ -2,9 +2,10 @@ import { h } from 'preact'
 import * as images from '../assets'
 import './css/book-item.css'
 
-const BookItem = ({ book }) => {
+const BookItem = ({ book, addCartBook }) => {
 
   const { title, author, imgName } = book
+  
   const angel = Math.floor(Math.random()*17 - 8)
   const style = { transform: `rotate(${angel}deg)` }
 
@@ -15,8 +16,10 @@ const BookItem = ({ book }) => {
       <div class='book-info'>
         <p class='book-title'>{title}</p>
         <p class='book-author'>{author}</p>
+        <button class='book-add-item' onClick={addCartBook}>add</button>
       </div>
     </li>
   )
 }
+
 export default BookItem
