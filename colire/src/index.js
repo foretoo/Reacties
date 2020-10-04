@@ -1,3 +1,4 @@
+import "preact/debug";
 import { h, render } from 'preact'
 import { ContextProvider } from './app/context'
 import { BrowserRouter as Router } from 'react-router-dom'
@@ -6,7 +7,7 @@ import './index.css'
 
 render(
   <ContextProvider>
-    <Router basename='/'>
+    <Router>
       <App />
     </Router>
   </ContextProvider>,
