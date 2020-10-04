@@ -1,8 +1,8 @@
 import { h, Fragment } from 'preact'
 import { useContext } from 'preact/hooks'
 import { Link, Route } from 'react-router-dom'
-import Palette from '../components/palette'
 import { Context } from './context'
+import Palette from '../components/palette'
 import './app.css'
 
 const App = () => {
