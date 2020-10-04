@@ -1,18 +1,24 @@
+/* IBM Plex Sans Regular */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap');
+/* IBM Plex Mono Regular+Italic */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital@0;1&display=swap');
+
 :root {
   --light-l: rgba(255, 255, 255, 0.75);
   --light-m: rgba(255, 255, 255, 0.5);
   --light-s: rgba(255, 255, 255, 0.25);
   --dark-l: rgba(0, 0, 0, 0.75);
   --dark-m: rgba(0, 0, 0, 0.5);
-  --dark-s: rgba(0, 0, 0, 0.25);
+  --dark-s: rgba(0, 0, 0, 0.1);
 }
 * {
   margin: 0;
   padding: 0;
   border: 0;
   outline: 0;
-  font-family: monospace;
+  font-family: 'IBM Plex Sans', sans-serif;
   font-size: 20px;
+  line-height: 1em;
   box-sizing: border-box;
 }
 html, body, #root {
@@ -22,4 +28,7 @@ html, body, #root {
 }
 #root {
   flex-direction: column;
+}
+a {
+  text-decoration: none;
 }
