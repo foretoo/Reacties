@@ -1,4 +1,5 @@
 import { h } from 'preact'
+import { Link } from 'react-router-dom'
 import ColorBox from './color-box'
 import './css/palette.css'
 
@@ -10,7 +11,10 @@ const Palette = ({ paletteName, id, emoji, colors }) => {
 
   return (
     <div class='palette'>
-      <header class='palette-header'>{paletteName}</header>
+      <header class='palette-header'>
+        <Link to='/'>Home</Link>
+        {paletteName}
+      </header>
       <main class='palette-colors'>
         {colorsList}
       </main>
