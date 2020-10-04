@@ -19,7 +19,7 @@ const BookListContainer = ({ books, loading, error, fetchBooks, clearBooks }) =>
   else return <BookList books={books} />
 }
 
-const mapStateToProps = ({ books, loading, error }) => ({ books, loading, error })
+const mapStateToProps = state => state.lib
 const mapDispatchToProps = dispatch => {
   return {
     fetchBooks: () => fetchBooks(dispatch),
