@@ -3,7 +3,7 @@ import { useContext } from 'preact/hooks'
 import { Link, Route } from 'react-router-dom'
 import { Context } from './context'
 import Palette from '../components/palette'
-import './app.css'
+import './css/app.css'
 
 const App = () => {
 
