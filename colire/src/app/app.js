@@ -5,7 +5,7 @@ import { Context } from './context'
 
 const App = () => {
   const { seedColors } = useContext(Context)
-  return <Palette {...seedColors[0]} />
+  return <Palette {...seedColors[1]} />
 }
 
 export default App
