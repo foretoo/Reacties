@@ -12,18 +12,25 @@
   border-radius: 2px;
   color: var(--light-l);
   font-size: 0.75em;
-  border: 1px solid var(--light-s);
-  background: var(--light-s);
+  border: 1px solid var(--dark-s);
+  background: var(--dark-s);
   cursor: pointer;
+  opacity: 0;
 }
 .color-box-info {
   height: 1em;
   display: flex;
-  justify-content: center;
   align-items: center;
 }
 .color-box-info-name {
+  padding: 0.333em;
+  font-family: 'IBM Plex Mono', monospace;
+  font-style: italic;
   font-size: 0.6em;
   line-height: 1em;
   color: var(--dark-m);
+}
+.color-box:hover .color-box-button {
+  opacity: 1;
+  transition: 0.5s;
 }

@@ -6,9 +6,16 @@
 }
 .palette-colors {
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
-  flex-grow: 1;
+  height: calc(100% - 6em);
 }
 .palette-header, .palette-footer {
-  height: 2em;
+  height: 3em;
+  padding: 1em;
+  display: flex;
+  align-items: center;
+}
+.palette-header * {
+  margin-right: 0.5em;
 }
