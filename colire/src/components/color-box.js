@@ -6,7 +6,7 @@ const ColorBox = ({ name, color }) => {
     <div class='color-box' style={{ background: color }}>
       <button class='color-box-button'>Copy</button>
       <div class='color-box-info'>
-        <div class='color-box-info-name'>{name}</div>
+        <div class='color-box-info-name'>{color}</div>
       </div>
     </div>
   )
