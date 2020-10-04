@@ -1,5 +1,6 @@
 import { h } from 'preact'
 import ColorBox from './color-box'
+import './css/palette.css'
 
 const Palette = ({ paletteName, id, emoji, colors }) => {
 
@@ -9,12 +10,11 @@ const Palette = ({ paletteName, id, emoji, colors }) => {
 
   return (
     <div class='palette'>
-      <header></header>
+      <header class='palette-header'>{paletteName}</header>
       <main class='palette-colors'>
-        {paletteName}
         {colorsList}
       </main>
-      <footer></footer>
+      <footer class='palette-footer'></footer>
     </div>
   )
 }
