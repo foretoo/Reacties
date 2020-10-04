@@ -1,6 +1,6 @@
 {
   "name": "redux-store",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "preact-redux store app",
   "main": "src/index.js",
   "scripts": {
@@ -27,7 +27,6 @@
   },
   "dependencies": {
     "preact": "^10.4.8",
-    "prop-types": "^15.7.2",
     "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.5"
