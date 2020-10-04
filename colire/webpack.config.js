@@ -43,6 +43,9 @@ module.exports = {
 
   devServer: {
     historyApiFallback: true,
+    clientLogLevel: 'silent',
+    hot: true,
+    open: true,
     host: myIP,
     port: port
   }

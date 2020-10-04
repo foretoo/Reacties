@@ -10,7 +10,7 @@
   "author": "Ecospell",
   "license": "ISC",
   "scripts": {
-    "start": "webpack-dev-server --mode development --client-log-level silent --open --hot",
+    "start": "webpack-dev-server --mode development",
     "build": "webpack --mode production"
   },
   "dependencies": {
