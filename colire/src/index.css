@@ -1,3 +1,11 @@
+:root {
+  --light-l: rgba(255, 255, 255, 0.75);
+  --light-m: rgba(255, 255, 255, 0.5);
+  --light-s: rgba(255, 255, 255, 0.25);
+  --dark-l: rgba(0, 0, 0, 0.75);
+  --dark-m: rgba(0, 0, 0, 0.5);
+  --dark-s: rgba(0, 0, 0, 0.25);
+}
 * {
   margin: 0;
   padding: 0;
