@@ -7,17 +7,11 @@
     "type": "git",
     "url": "git+https://github.com/foretoo/kod.git"
   },
-  "keywords": [
-    "preact",
-    "webpack",
-    "color",
-    "theme",
-    "picker"
-  ],
   "author": "Ecospell",
   "license": "ISC",
   "scripts": {
-    "start": "webpack-dev-server --mode development --client-log-level silent --open --hot"
+    "start": "webpack-dev-server --mode development --client-log-level silent --open --hot",
+    "build": "webpack --mode production"
   },
   "dependencies": {
     "preact": "^10.5.3"
