@@ -1,7 +1,5 @@
 import { h, render } from 'preact'
-
-const App = () => {
-  return <h1>Colire</h1>
-}
+import App from './app'
+import './index.css'
 
 render(<App />, window.root)
