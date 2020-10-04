@@ -1,5 +1,11 @@
 import { h, render } from 'preact'
-import App from './app'
+import { ContextProvider } from './app/context'
+import App from './app/app'
 import './index.css'
 
-render(<App />, window.root)
+render(
+  <ContextProvider>
+    <App />
+  </ContextProvider>,
+  window.root
+)
