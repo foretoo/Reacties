@@ -15,7 +15,7 @@
 }
 .book-img {
   width: 180px;
-  box-shadow: 1em 2em 3em #ccc;
+  filter: url('#filter');
 }
 .book-info {
   display: flex;
