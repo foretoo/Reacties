@@ -12,7 +12,7 @@ const App = () => {
 
   for (const palette of seedColors) {
     paletteLinks.push(
-      <Link to={palette.id} class='palette-box'>
+      <Link to={palette.id} className='palette-box'>
         <div class='palette-box-name'>{palette.paletteName}</div>
       </Link>
     )

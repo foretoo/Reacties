@@ -12,7 +12,7 @@ const Palette = ({ paletteName, id, emoji, colors }) => {
   return (
     <div class='palette'>
       <header class='palette-header'>
-        <Link to='/' class='palette-header-link'>Home</Link>
+        <Link to='/' className='palette-header-link'>Home</Link>
         <span>/</span>
         <span>{paletteName}</span>
       </header>
