@@ -4,7 +4,7 @@ const myIP = process.platform === 'darwin' ? '172.20.10.4' : 'localhost'
 const port = '8000'
 
 module.exports = {
-  mode: 'development',
+
   entry: "./src/index.js",
   devtool: 'inline-source-map',
 
