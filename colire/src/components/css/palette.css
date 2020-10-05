@@ -2,6 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   height: calc(100% - 6em);
+  overflow: hidden;
 }
 .palette-header, .palette-footer {
   height: 3em;
@@ -11,4 +12,41 @@
 }
 .palette-header * {
   margin-right: 0.5em;
+}
+.palette-overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.2s, opacity 0.2s ease;
+  z-index: 101;
+}
+.palette-overlay.copy {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.2s ease 0.4s;
+}
+.palette-overlay h1 {
+  margin: 1em;
+  padding: 0.8em 1em;
+  text-align: center;
+  color: var(--light-h);
+  text-shadow: 0 0 0.5em var(--dark-l);
+  border: 1px solid var(--light-l);
+  border-radius: 4px;
+  background: var(--light-l);
+  transition: opacity 0.2s ease;
+}
+.palette-overlay span {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8em;
+  color: var(--light-m);
+  text-shadow: 0 0 0.5em var(--dark-l);
 }

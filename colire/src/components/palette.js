@@ -1,14 +1,19 @@
 import { h, Fragment } from 'preact'
+import { useContext } from 'preact/hooks'
 import { Link } from 'react-router-dom'
+import { Context } from '../app/context'
 import ColorBox from './color-box'
 import './css/palette.css'
 
 const Palette = ({ paletteName, id, emoji, colors }) => {
 
+  const { state } = useContext(Context)
+
   const colorsList = colors.map(color => {
     return <ColorBox key={color.name} {...color} />
   })
 
+  const copiedClass = state.copy ? ' copy' : ''
   return (
     <>
       <header class='palette-header'>
@@ -19,6 +24,10 @@ const Palette = ({ paletteName, id, emoji, colors }) => {
       <main class='palette-colors'>
         {colorsList}
       </main>
+      <section class={'palette-overlay' + copiedClass}>
+        <h1>Copied</h1>
+        <span>{state.color}</span>
+      </section>
       <footer class='palette-footer'></footer>
     </>
   )
