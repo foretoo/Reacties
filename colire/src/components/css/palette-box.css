@@ -1,0 +1,15 @@
+.palette-box {
+  width: 26%;
+  height: 26%;
+  display: flex;
+  flex-direction: column;
+  background: #000;
+  filter: url('#filter')
+}
+.palette-box * {
+  flex: 1;
+}
+.palette-box-name {
+  font-size: 0.75em;
+  color: var(--light-l);
+}

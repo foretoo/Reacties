@@ -2,7 +2,9 @@ import { h, Fragment } from 'preact'
 import { useContext } from 'preact/hooks'
 import { Link, Route } from 'react-router-dom'
 import { Context } from './context'
+import PaletteBox from '../components/palette-box'
 import Palette from '../components/palette'
+import SVGFilter from '../components/svg-filter'
 import './css/app.css'
 
 const App = () => {
@@ -11,11 +13,7 @@ const App = () => {
   const paletteLinks = [], palettePaths = []
 
   for (const palette of seedColors) {
-    paletteLinks.push(
-      <Link to={palette.id} className='palette-box'>
-        <div class='palette-box-name'>{palette.paletteName}</div>
-      </Link>
-    )
+    paletteLinks.push(<PaletteBox {...palette}/>)
     palettePaths.push(
       <Route path={`/${palette.id}`}>
         <Palette {...palette}/>
@@ -33,6 +31,7 @@ const App = () => {
         <footer class='home-footer'></footer>
       </Route>
       {palettePaths}
+      <SVGFilter />
     </>
   )
 }
