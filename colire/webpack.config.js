@@ -4,12 +4,9 @@ const myIP = '172.20.10.4'
 const port = '8000'
 
 module.exports = {
+  mode: 'development',
   entry: "./src/index.js",
-  output: {
-    path: path.join(__dirname, "/build"),
-    filename: "bundle.js"
-  },
-  devtool: "source-map",
+  devtool: 'inline-source-map',
 
   resolve: {
     alias: {
