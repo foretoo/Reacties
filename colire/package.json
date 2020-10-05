@@ -14,6 +14,7 @@
     "build": "webpack --mode production"
   },
   "dependencies": {
+    "chroma-js": "^2.1.0",
     "preact": "^10.5.3",
     "react-copy-to-clipboard": "^5.0.2",
     "react-router-dom": "^5.2.0"
