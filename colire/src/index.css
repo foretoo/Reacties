@@ -4,12 +4,12 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital@0;1&display=swap');
 
 :root {
-  --light-l: rgba(255, 255, 255, 0.75);
+  --light-h: rgba(255, 255, 255, 0.75);
   --light-m: rgba(255, 255, 255, 0.5);
-  --light-s: rgba(255, 255, 255, 0.25);
-  --dark-l: rgba(0, 0, 0, 0.75);
+  --light-l: rgba(255, 255, 255, 0.25);
+  --dark-h: rgba(0, 0, 0, 0.75);
   --dark-m: rgba(0, 0, 0, 0.5);
-  --dark-s: rgba(0, 0, 0, 0.1);
+  --dark-l: rgba(0, 0, 0, 0.1);
 }
 * {
   margin: 0;

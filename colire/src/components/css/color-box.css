@@ -10,10 +10,10 @@
   padding: 0.25em 0.5em;
   align-self: center;
   border-radius: 2px;
-  color: var(--light-l);
+  color: var(--light-h);
   font-size: 0.8em;
-  border: 1px solid var(--dark-s);
-  background: var(--dark-s);
+  border: 1px solid var(--dark-l);
+  background: var(--dark-l);
   opacity: 0;
 }
 .color-box-info {
@@ -34,8 +34,8 @@
   padding: 4px 6px;
   line-height: 1em;
   font-size: 0.6em;
-  color: var(--light-l);
-  background: var(--dark-s);
+  color: var(--light-h);
+  background: var(--dark-l);
 }
 .color-box:hover .color-box-button {
   opacity: 1;
