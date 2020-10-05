@@ -10,5 +10,5 @@ render(
       <App />
     </Router>
   </ContextProvider>,
-  window.root
+  document.body
 )
