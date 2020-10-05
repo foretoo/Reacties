@@ -32,3 +32,6 @@ html, body, #root {
 a {
   text-decoration: none;
 }
+a, button {
+  cursor: pointer;
+}
