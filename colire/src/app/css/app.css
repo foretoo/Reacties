@@ -1,5 +1,9 @@
 .home-main {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 1em;
   flex-grow: 1;
+  align-self: center;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
