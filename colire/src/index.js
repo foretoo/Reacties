@@ -1,7 +1,6 @@
-import "preact/debug";
 import { h, render } from 'preact'
 import { ContextProvider } from './app/context'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { HashRouter as Router } from 'react-router-dom'
 import App from './app/app'
 import './index.css'
 
