@@ -1,6 +1,6 @@
 const path = require("path")
 const HtmlWebPackPlugin = require("html-webpack-plugin")
-const myIP = process.platform === 'darwin' ? '172.20.10.4' : 'localhost'
+const myIP = (process.platform === 'darwin' && '172.20.10.4') || (process.platform === 'win32' && '172.20.10.2') || 'localhost'
 const port = '8000'
 
 module.exports = {
