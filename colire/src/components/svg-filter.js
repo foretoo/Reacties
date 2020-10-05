@@ -1,9 +1,10 @@
 import { h } from 'preact'
 
 const SVGFilter = () => {
-  const blur = 15
+  const blur = 20
+  const saturate = 5
   const brightness = 1
-  const contrast = 0
+  const contrast = 0.1
   const offset = { x: 0, y: 25 }
   return (
     <svg xmlns="http://www.w3.org/2000/svg">
@@ -16,16 +17,20 @@ const SVGFilter = () => {
         primitiveUnits="userSpaceOnUse"
         color-interpolation-filters="linearRGB"
       >
-        <feGaussianBlur in="SourceGraphic"
-          stdDeviation={blur}
-          edgeMode="none"
-          result="blur" />
-        <feComponentTransfer in="blur" result="brightness">
+        <feComponentTransfer in="SourceGraphic" result="brightness">
           <feFuncR type="linear" slope={brightness} intercept={contrast} />
           <feFuncG type="linear" slope={brightness} intercept={contrast} />
           <feFuncB type="linear" slope={brightness} intercept={contrast} />
         </feComponentTransfer>
-        <feOffset in="brightness"
+        <feColorMatrix in="brightness"
+          type="saturate"
+          values={saturate}
+          result="saturate" />
+        <feGaussianBlur in="saturate"
+          stdDeviation={blur}
+          edgeMode="none"
+          result="blur" />
+        <feOffset in="blur"
           dx={offset.x}
           dy={offset.y}
           result="offset" />
