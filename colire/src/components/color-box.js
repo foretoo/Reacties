@@ -4,7 +4,7 @@ import { Context } from '../app/context'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import './css/color-box.css'
 
-const ColorBox = ({ name, hex }) => {
+const ColorBox = ({ name, hex, rgb }) => {
 
   const { dispatch } = useContext(Context)
   const [ copied, setCopied ] = useState(false)
@@ -26,7 +26,7 @@ const ColorBox = ({ name, hex }) => {
         <div class={'color-box-overlay' + copiedClass} style={{ background: hex }}></div>
         <button class='color-box-button'>COPY</button>
         <div class='color-box-info'>
-          <div class='color-box-info-name'>{hex}</div>
+          <div class='color-box-info-name'>{name}</div>
           <button class='color-box-info-more'>MORE</button>
         </div>
       </div>
