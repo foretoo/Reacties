@@ -16,7 +16,7 @@ const getScale = (hexColor, numOfColors) => {
   return chroma.scale(getRange(hexColor)).mode('lab').colors(numOfColors)
 }
 
-const colorGenerator = palette => {
+const colorScaler = palette => {
   const newPalette = {
     ...palette,
     colors: {}
@@ -38,4 +38,4 @@ const colorGenerator = palette => {
   return newPalette
 }
 
-export default colorGenerator
+export default colorScaler
