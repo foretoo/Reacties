@@ -1,6 +1,7 @@
 import { h, Fragment } from 'preact'
 import { Link, Route } from 'react-router-dom'
 import seedColors from '../seed-colors'
+import colorGenerator from '../utils/color-generator'
 import PaletteBox from '../components/palette-box'
 import Palette from '../components/palette'
 import SVGFilter from '../components/svg-filter'
@@ -14,7 +15,7 @@ const App = () => {
     paletteLinks.push(<PaletteBox {...palette}/>)
     palettePaths.push(
       <Route path={`/${palette.id}`}>
-        <Palette {...palette}/>
+        <Palette {...colorGenerator(palette)}/>
       </Route>
     )
   }

@@ -9,8 +9,8 @@ const Palette = ({ paletteName, id, emoji, colors }) => {
 
   const { state } = useContext(Context)
 
-  const colorsList = colors.map(color => {
-    return <ColorBox key={color.name} {...color} />
+  const colorsList = colors[500].map(color => {
+    return <ColorBox key={color.id} {...color} />
   })
 
   const copiedClass = state.copy ? ' copy' : ''
