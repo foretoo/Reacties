@@ -1,7 +1,6 @@
 import { h, Fragment } from 'preact'
-import { useContext } from 'preact/hooks'
 import { Link, Route } from 'react-router-dom'
-import { Context } from './context'
+import seedColors from '../seed-colors'
 import PaletteBox from '../components/palette-box'
 import Palette from '../components/palette'
 import SVGFilter from '../components/svg-filter'
@@ -9,7 +8,6 @@ import './css/app.css'
 
 const App = () => {
 
-  const { seedColors } = useContext(Context)
   const paletteLinks = [], palettePaths = []
 
   for (const palette of seedColors) {

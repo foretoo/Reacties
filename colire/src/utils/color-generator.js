@@ -1,5 +1,5 @@
 import chroma from 'chroma-js'
-import seedColors from '../app/seedColors'
+import seedColors from '../seed-colors'
 
 const levels = [ 0, 100, 200, 300, 400, 500, 600, 700, 800, 900 ]
 

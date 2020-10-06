@@ -1,6 +1,5 @@
 import { h, createContext } from 'preact'
 import { useReducer } from 'preact/hooks'
-import seedColors from './seedColors'
 
 const Context = createContext()
 
@@ -30,7 +29,7 @@ const ContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initState)
   return (
     <Context.Provider value={{
-      seedColors, state, dispatch
+      state, dispatch
     }}>
       {children}
     </Context.Provider>
