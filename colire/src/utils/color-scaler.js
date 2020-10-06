@@ -1,14 +1,14 @@
 import chroma from 'chroma-js'
 import seedColors from '../seed-colors'
 
-const levels = [ 0, 100, 200, 300, 400, 500, 600, 700, 800, 900 ]
+const levels = [ 100, 200, 300, 400, 500, 600, 700, 800, 900 ]
 
 const getRange = hexColor => {
   const end = '#fff'
   return [
-    chroma(hexColor).darken(1.4).hex(),
+    chroma(hexColor).darken(1.618).hex(),
     hexColor,
-    end
+    chroma(hexColor).brighten(1.618).hex()
   ]
 }
 
