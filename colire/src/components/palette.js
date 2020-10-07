@@ -1,17 +1,24 @@
 import { h, Fragment } from 'preact'
-import { useContext } from 'preact/hooks'
+import { useState, useContext } from 'preact/hooks'
 import { Link } from 'react-router-dom'
 import { Context } from '../app/context'
+import Slider from 'rc-slider'
 import ColorBox from './color-box'
+import 'rc-slider/assets/index.css'
 import './css/palette.css'
 
 const Palette = ({ paletteName, id, emoji, colors }) => {
 
   const { state } = useContext(Context)
+  const [ level, setLevel ] = useState(500)
 
-  const colorsList = colors[500].map(color => {
+  const colorsList = colors[level].map(color => {
     return <ColorBox key={color.id} {...color} />
   })
+
+  const handleChangeLevel = level => {
+    setLevel(level)
+  }
 
   const copiedClass = state.copy ? ' copy' : ''
   return (
@@ -20,6 +27,13 @@ const Palette = ({ paletteName, id, emoji, colors }) => {
         <Link to='/' className='palette-header-link'>Home</Link>
         <span>/</span>
         <span>{paletteName}</span>
+        <Slider
+          defaultValue={level}
+          min={100}
+          max={900}
+          step={100}
+          onAfterChange={handleChangeLevel}
+        />
       </header>
       <main class='palette-colors'>
         {colorsList}
