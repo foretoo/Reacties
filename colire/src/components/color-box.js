@@ -6,11 +6,12 @@ import './css/color-box.css'
 
 const ColorBox = ({ name, hex, rgb }) => {
 
-  const { dispatch } = useContext(Context)
+  const { state, dispatch } = useContext(Context)
   const [ copied, setCopied ] = useState(false)
+  const colorCode = state.mode === 'HEX' ? hex : rgb
 
   const handleCopy = () => {
-    dispatch({ type: 'COPY', payload: hex })
+    dispatch({ type: 'COPY', payload: colorCode })
     setCopied(true,
       setTimeout(() => {
         dispatch({ type: 'ANIMATION_DONE'})
@@ -21,7 +22,7 @@ const ColorBox = ({ name, hex, rgb }) => {
 
   const copiedClass = copied ? ' copy' : ''
   return (
-    <CopyToClipboard text={hex} onCopy={handleCopy}>
+    <CopyToClipboard text={colorCode} onCopy={handleCopy}>
       <div class='color-box' style={{ background: hex }}>
         <div class={'color-box-overlay' + copiedClass} style={{ background: hex }}></div>
         <button class='color-box-button'>COPY</button>

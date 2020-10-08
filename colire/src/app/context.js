@@ -5,7 +5,8 @@ const Context = createContext()
 
 const initState = {
   copy: false,
-  color: ''
+  color: '',
+  mode: 'HEX'
 }
 
 const reducer = (state, action) => {
@@ -19,6 +20,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         copy: false
+      }
+    case 'CHANGE_COLOR_MODE':
+      return {
+        ...state,
+        mode: action.payload
       }
     default:
       return state
