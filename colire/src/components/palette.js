@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { Context } from '../app/context'
 import Slider from 'rc-slider'
 import ColorBox from './color-box'
+import Select from './select'
 import 'rc-slider/assets/index.css'
 import './css/palette.css'
 
@@ -26,14 +27,15 @@ const Palette = ({ paletteName, id, emoji, colors }) => {
       <header class='palette-header'>
         <Link to='/' className='palette-header-link'>Home</Link>
         <span>/</span>
-        <span>{paletteName}</span>
+        <span>{paletteName} {emoji}</span>
         <Slider
           defaultValue={level}
           min={100}
           max={900}
           step={100}
-          onAfterChange={handleChangeLevel}
+          onChange={handleChangeLevel}
         />
+        <Select />
       </header>
       <main class='palette-colors'>
         {colorsList}
