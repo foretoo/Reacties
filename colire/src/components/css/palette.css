@@ -10,9 +10,6 @@
   display: flex;
   align-items: center;
 }
-.palette-header * {
-  margin-right: 0.5em;
-}
 .palette-overlay {
   position: absolute;
   left: 0;
