@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 import './css/palette-box.css'
 
 const PaletteBox = ({ id, paletteName, colors }) => {
-  const colorList = colors.map(({color}) => {
-    const style = { background: color }
+  const colorList = colors[500].map(({hex}) => {
+    const style = { background: hex }
     return <div class='palette-box-color' style={style}></div>
   })
   return (

@@ -10,13 +10,13 @@ const ColorBox = ({ name, id, hex, rgb }) => {
   const colorCode = state.mode === 'HEX' ? hex : rgb
 
   const handleCopy = () => {
-    dispatch({ type: 'COPY', payload: { id, colorCode } })
+    dispatch({ type: 'COPY', payload: { id, code: colorCode } })
     setTimeout(() => {
       dispatch({ type: 'ANIMATION_DONE'})
     }, 1600)
   }
 
-  const copiedClass = state.copied && state.colorId === id ? ' copy' : ''
+  const copiedClass = state.copy.status && state.copy.id === id ? ' copy' : ''
   return (
     <CopyToClipboard text={colorCode} onCopy={handleCopy}>
       <div class='color-box' style={{ background: hex }}>

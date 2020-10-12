@@ -1,7 +1,7 @@
 import { h, Fragment } from 'preact'
+import { useContext } from 'preact/hooks'
 import { Link, Route } from 'react-router-dom'
-import seedColors from '../seed-colors'
-import colorScaler from '../utils/color-scaler'
+import { Context } from './context'
 import PaletteBox from '../components/palette-box'
 import Palette from '../components/palette'
 import SVGFilter from '../components/svg-filter'
@@ -9,13 +9,16 @@ import './css/app.css'
 
 const App = () => {
 
+  const { state } = useContext(Context)
   const paletteLinks = [], palettePaths = []
 
-  for (const palette of seedColors) {
-    paletteLinks.push(<PaletteBox {...palette}/>)
+  for (const palette of state.palettes) {
+    paletteLinks.push(
+      <PaletteBox {...palette}/>
+    )
     palettePaths.push(
       <Route path={`/${palette.id}`}>
-        <Palette {...colorScaler(palette)}/>
+        <Palette {...palette}/>
       </Route>
     )
   }
