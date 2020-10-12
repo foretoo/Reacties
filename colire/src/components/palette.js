@@ -7,6 +7,7 @@ import ColorBox from './color-box'
 import Select from './select'
 import 'rc-slider/assets/index.css'
 import './css/palette.css'
+import './css/rc-slider.css'
 
 const Palette = ({ id, paletteName, emoji, colors, activeLevel }) => {
 
@@ -24,7 +25,8 @@ const Palette = ({ id, paletteName, emoji, colors, activeLevel }) => {
     })
   }
 
-  const copiedClass = state.copy.status ? ' copy' : ''
+  const overlayShow = state.copy.animate ? ' show' : ''
+  const snackBarShow = state.format.animate ? ' show' : ''
   return (
     <>
       <header class='palette-header'>
@@ -40,8 +42,11 @@ const Palette = ({ id, paletteName, emoji, colors, activeLevel }) => {
       </header>
       <main class='palette-colors'>
         {colorsList}
+        <aside class={'palette-snackbar' + snackBarShow}>
+          Format changed to {state.format.label}
+        </aside>
       </main>
-      <section class={'palette-overlay' + copiedClass}>
+      <section class={'palette-overlay' + overlayShow}>
         <h1>Copied</h1>
         <span>{state.copy.code}</span>
       </section>
