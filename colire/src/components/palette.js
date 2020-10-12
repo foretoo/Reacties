@@ -12,9 +12,10 @@ const Palette = ({ id, paletteName, emoji, colors, activeLevel }) => {
 
   const { state, dispatch } = useContext(Context)
 
-  const colorsList = colors[activeLevel].map(color => {
-    return <ColorBox key={color.id} {...color} />
-  })
+  const colorsList = []
+  for (const color in colors) {
+    colorsList.push(<ColorBox key={color} {...colors[color][activeLevel]} />)
+  }
 
   const handleChangeLevel = level => {
     dispatch({
