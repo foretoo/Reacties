@@ -4,23 +4,19 @@ import { Context } from '../app/context'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import './css/color-box.css'
 
-const ColorBox = ({ name, hex, rgb }) => {
+const ColorBox = ({ name, id, hex, rgb }) => {
 
   const { state, dispatch } = useContext(Context)
-  const [ copied, setCopied ] = useState(false)
   const colorCode = state.mode === 'HEX' ? hex : rgb
 
   const handleCopy = () => {
-    dispatch({ type: 'COPY', payload: colorCode })
-    setCopied(true,
-      setTimeout(() => {
-        dispatch({ type: 'ANIMATION_DONE'})
-        setCopied(false)
-      }, 1600)
-    )
+    dispatch({ type: 'COPY', payload: { id, colorCode } })
+    setTimeout(() => {
+      dispatch({ type: 'ANIMATION_DONE'})
+    }, 1600)
   }
 
-  const copiedClass = copied ? ' copy' : ''
+  const copiedClass = state.copied && state.colorId === id ? ' copy' : ''
   return (
     <CopyToClipboard text={colorCode} onCopy={handleCopy}>
       <div class='color-box' style={{ background: hex }}>
