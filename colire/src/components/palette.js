@@ -43,7 +43,8 @@ const Palette = ({ paletteName, emoji, colors }) => {
         <span>{state.colorCode}</span>
       </section>
       <footer class='palette-footer'>
-        <span>{paletteName} {emoji}</span>
+        <span>{paletteName}</span>
+        <span>{emoji}</span>
       </footer>
     </>
   )

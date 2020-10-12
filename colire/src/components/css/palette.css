@@ -10,6 +10,9 @@
   display: flex;
   align-items: center;
 }
+.palette-footer {
+  justify-content: space-between;
+}
 .palette-overlay {
   position: absolute;
   left: 0;
