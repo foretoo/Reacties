@@ -8,7 +8,7 @@ import Select from './select'
 import 'rc-slider/assets/index.css'
 import './css/palette.css'
 
-const Palette = ({ paletteName, id, emoji, colors }) => {
+const Palette = ({ paletteName, emoji, colors }) => {
 
   const { state } = useContext(Context)
   const [ level, setLevel ] = useState(500)
@@ -21,13 +21,11 @@ const Palette = ({ paletteName, id, emoji, colors }) => {
     setLevel(level)
   }
 
-  const copiedClass = state.copy ? ' copy' : ''
+  const copiedClass = state.copied ? ' copy' : ''
   return (
     <>
       <header class='palette-header'>
         <Link to='/' className='palette-header-link'>Home</Link>
-        <span>/</span>
-        <span>{paletteName} {emoji}</span>
         <Slider
           defaultValue={level}
           min={100}
@@ -42,9 +40,11 @@ const Palette = ({ paletteName, id, emoji, colors }) => {
       </main>
       <section class={'palette-overlay' + copiedClass}>
         <h1>Copied</h1>
-        <span>{state.color}</span>
+        <span>{state.colorCode}</span>
       </section>
-      <footer class='palette-footer'></footer>
+      <footer class='palette-footer'>
+        <span>{paletteName} {emoji}</span>
+      </footer>
     </>
   )
 }
