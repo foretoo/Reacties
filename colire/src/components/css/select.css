@@ -1,4 +1,15 @@
-.select-color-mode {
-  padding: 0.2em;
+.color-mode-list {
+  display: flex;
+  color: var(--dark-m);
   cursor: pointer;
+}
+.color-mode-list > li {
+  padding: 0.25em 0.4em;
+  font-size: 0.8em;
+  border-radius: 4px;
+  border: 1px solid transparent;
+}
+.color-mode-list > li.active {
+  color: var(--dark-h);
+  border: 1px solid var(--dark-m);
 }
