@@ -1,27 +1,41 @@
 const reducer = (state, action) => {
   switch(action.type) {
-    case 'COPY':
+    case 'COPY': {
       return {
         ...state,
         copy: {
-          status: true,
-          code: action.payload.code,
-          id: action.payload.id
+          animate: true,
+          code: action.payload
         }
       }
-    case 'ANIMATION_DONE':
+    }
+    case 'COPY_ANIMATION_DONE': {
       return {
         ...state,
         copy: {
           ...state.copy,
-          status: false
+          animate: false
         }
       }
-    case 'CHANGE_COLOR_MODE':
+    }
+    case 'CHANGE_COLOR_MODE': {
       return {
         ...state,
-        mode: action.payload
+        format: {
+          animate: true,
+          label: action.payload
+        }
       }
+    }
+    case 'MODE_ANIMATION_DONE': {
+      return {
+        ...state,
+        format: {
+          ...state.format,
+          animate: false
+        }
+      }
+    }
     case 'CHANGE_PALETTE_LEVEL': {
       const newPalettes = state.palettes.map(palette => {
         if (palette.id === action.payload.id) {

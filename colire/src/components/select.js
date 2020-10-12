@@ -7,22 +7,25 @@ const Select = () => {
 
   const { state, dispatch } = useContext(Context)
 
-  const handleChangeMode = mode => {
+  const handleChangeMode = format => {
     dispatch({
       type: 'CHANGE_COLOR_MODE',
-      payload: mode
+      payload: format
     })
+    setTimeout(() => {
+      dispatch({ type: 'MODE_ANIMATION_DONE' })
+    }, 1600)
   }
 
   return (
     <ul class='color-mode-list'>
       <li
-        class={state.mode === 'HEX' ? 'active' : ''}
+        class={state.format.label === 'HEX' ? 'active' : ''}
         onClick={() => handleChangeMode('HEX')}>
         HEX
       </li>
       <li
-        class={state.mode === 'RGB' ? 'active' : ''}
+        class={state.format.label === 'RGB' ? 'active' : ''}
         onClick={() => handleChangeMode('RGB')}>
         RGB
       </li>
