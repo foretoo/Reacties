@@ -12,11 +12,13 @@ for (const palette of seedColors) {
 const initialState = {
   palettes,
   copy: {
-    status: false,
-    code: '',
-    id: null
+    animate: false,
+    code: ''
   },
-  mode: 'HEX'
+  format: {
+    animate: false,
+    label: 'HEX'
+  }
 }
 
 export default initialState
