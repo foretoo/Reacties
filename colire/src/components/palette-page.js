@@ -7,7 +7,7 @@ const PalettePage = ({ colors, activeLevel }) => {
 
   const colorsList = []
   for (const color in colors) {
-    colorsList.push(<ColorBox key={color} id={color} {...colors[color][activeLevel]} />)
+    colorsList.push(<ColorBox key={color} id={color} addClass=' palette' {...colors[color][activeLevel]} />)
   }
   return colorsList
 }

@@ -16,7 +16,7 @@ const ColorPage = ({ colors }) => {
 
   const colorsList = []
   for (const level in colors) {
-    colorsList.push(<ColorBox key={level} id={level} {...colors[level]} />)
+    colorsList.push(<ColorBox key={level} id={level} addClass=' color' {...colors[level]} />)
   }
   return colorsList
 }
