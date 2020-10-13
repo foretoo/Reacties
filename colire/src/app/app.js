@@ -3,8 +3,7 @@ import { useContext } from 'preact/hooks'
 import { Link, Route } from 'react-router-dom'
 import { Context } from './context'
 import PaletteBox from '../components/palette-box'
-import Palette from '../components/palette'
-import SVGFilter from '../components/svg-filter'
+import Page from '../components/page'
 import './css/app.css'
 
 const App = () => {
@@ -15,11 +14,6 @@ const App = () => {
   for (const palette of state.palettes) {
     paletteLinks.push(
       <PaletteBox {...palette}/>
-    )
-    palettePaths.push(
-      <Route path={`/${palette.id}`}>
-        <Palette {...palette}/>
-      </Route>
     )
   }
 
@@ -32,8 +26,7 @@ const App = () => {
         </main>
         <footer class='home-footer'></footer>
       </Route>
-      {palettePaths}
-      <SVGFilter />
+      <Route path='/:paletteID/:colorID?' component={Page} />
     </>
   )
 }
