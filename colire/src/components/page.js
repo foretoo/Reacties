@@ -50,7 +50,7 @@ const Page = () => {
           Format changed to {state.format.label}
         </aside>
       </main>
-      <section class={'page-overlay' + overlayShow}>
+      <section class={'page-overlay' + overlayShow + state.copy.class}>
         <h1>Copied</h1>
         <span>{state.copy.code}</span>
       </section>

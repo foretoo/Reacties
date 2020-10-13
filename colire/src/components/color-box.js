@@ -1,29 +1,37 @@
 import { h } from 'preact'
 import { useState, useContext } from 'preact/hooks'
+import chroma from 'chroma-js'
 import { Context } from '../app/context'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import './css/color-box.css'
 
-const ColorBox = ({ id, name, hex, rgb, button, addClass }) => {
+const ColorBox = ({ name, hex, rgb, button, addClass }) => {
 
   const { state, dispatch } = useContext(Context)
+  const { animate, code } = state.copy
+  
   const colorCode = state.format.label === 'HEX' ? hex : rgb
+  const overlayShow = animate && code === colorCode ? ' copy' : ''
+
+  const lum = chroma(hex).luminance()
+  const lumClass = lum < 0.333 ? ' light' : ' dark'
 
   const handleCopy = () => {
     dispatch({
       type: 'COPY',
-      payload: colorCode
+      payload: {
+        code: colorCode,
+        class: lumClass
+      }
     })
     setTimeout(() => {
       dispatch({ type: 'COPY_ANIMATION_DONE' })
     }, 1600)
   }
 
-  const { animate, code } = state.copy
-  const overlayShow = animate && code === colorCode ? ' copy' : ''
   return (
     <CopyToClipboard text={colorCode} onCopy={handleCopy}>
-      <div class={'color-box' + addClass} style={{ background: hex }}>
+      <div class={'color-box' + addClass + lumClass} style={{ background: hex }}>
         <div class={'color-box-overlay' + overlayShow} style={{ background: hex }}></div>
         <button class='color-box-button'>COPY</button>
         <div class='color-box-info'>

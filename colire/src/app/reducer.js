@@ -5,7 +5,8 @@ const reducer = (state, action) => {
         ...state,
         copy: {
           animate: true,
-          code: action.payload
+          code: action.payload.code,
+          class: action.payload.class
         }
       }
     }

@@ -13,7 +13,8 @@ const initialState = {
   palettes,
   copy: {
     animate: false,
-    code: ''
+    code: '',
+    class: ''
   },
   format: {
     animate: false,

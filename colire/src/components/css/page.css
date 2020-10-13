@@ -11,49 +11,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 22;
 }
 .page-footer {
   justify-content: flex-end;
 }
 .page-footer * {
   margin-left: 0.6em;
-}
-.page-overlay {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0.2s, opacity 0.2s ease;
-  z-index: 101;
-}
-.page-overlay.show {
-  visibility: visible;
-  opacity: 1;
-  transition: opacity 0.2s ease 0.4s;
-}
-.page-overlay h1 {
-  margin: 1em;
-  padding: 0.8em 1em;
-  text-align: center;
-  color: var(--light-h);
-  text-shadow: 0 0 0.5em var(--dark-l);
-  border: 1px solid var(--light-l);
-  border-radius: 4px;
-  background: var(--light-l);
-  transition: opacity 0.2s ease;
-}
-.page-overlay span {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.8em;
-  color: var(--light-m);
-  text-shadow: 0 0 0.5em var(--dark-l);
 }
 .page-snackbar {
   position: absolute;
@@ -73,4 +37,51 @@
   opacity: 1;
   transform: translateY(0);
   transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.page-overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.2s, opacity 0.2s ease;
+  z-index: 21;
+}
+.page-overlay.show {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.2s ease 0.4s;
+}
+.page-overlay h1 {
+  margin: 1em;
+  padding: 0.8em 1em;
+  text-align: center;
+  border-radius: 4px;
+  transition: opacity 0.2s ease;
+}
+.page-overlay span {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8em;
+}
+.light h1 {
+  color: var(--light-h);
+  border: 1px solid var(--light-l);
+  background: var(--light-l);
+}
+.dark h1 {
+  color: var(--dark-h);
+  border: 1px solid var(--dark-l);
+  background: var(--dark-l);
+}
+.light span {
+  color: var(--light-m);
+}
+.dark span {
+  color: var(--dark-m);
 }
