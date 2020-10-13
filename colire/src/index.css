@@ -37,6 +37,9 @@ a {
 a, button {
   cursor: pointer;
 }
+ul {
+  list-style: none;
+}
 svg {
   display: none;
 }
