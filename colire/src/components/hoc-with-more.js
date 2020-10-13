@@ -1,7 +1,7 @@
 import { h } from 'preact'
 import { useHistory } from "react-router-dom"
 
-const withLink = List => props => {
+const withMore = List => props => {
   const WrappedList = List(props).map(Component => {
     const history = useHistory()
     const handleColorPage = e => {
@@ -15,4 +15,4 @@ const withLink = List => props => {
   return WrappedList
 }
 
-export default withLink
+export default withMore

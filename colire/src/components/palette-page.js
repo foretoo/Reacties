@@ -1,6 +1,6 @@
 import { h } from 'preact'
 import ColorBox from './color-box'
-import withLink from './hoc-with-link'
+import withMore from './hoc-with-more'
 import './css/palette-page.css'
 
 const PalettePage = ({ colors, activeLevel }) => {
@@ -12,4 +12,4 @@ const PalettePage = ({ colors, activeLevel }) => {
   return colorsList
 }
 
-export default withLink(PalettePage)
+export default withMore(PalettePage)
