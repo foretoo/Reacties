@@ -27,7 +27,7 @@ const ColorPage = ({ colors }) => {
   return (
     <>
       {colorsList}
-      <div class='color-box-back'>
+      <div class='color-box back'>
         <button class='color-box-button' onClick={handleGoBack}>GO BACK</button>
       </div>
     </>
