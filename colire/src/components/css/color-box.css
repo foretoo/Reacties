@@ -12,9 +12,13 @@
 .color-box.color {
   height: 50%;
 }
+.color-box-back {
+  width: 20%;
+  display: flex;
+}
 .color-box-button {
   margin: auto;
-  padding: 0.25em 0.5em;
+  padding: 0.333em 0.5em;
   align-self: center;
   border-radius: 2px;
   color: var(--light-h);
@@ -22,6 +26,11 @@
   border: 1px solid var(--dark-l);
   background: var(--dark-l);
   opacity: 0;
+}
+.color-box-back .color-box-button {
+  margin: auto;
+  color: var(--dark-h);
+  opacity: 1;
 }
 .color-box-info {
   height: 1em;
