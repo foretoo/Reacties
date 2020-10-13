@@ -23,6 +23,15 @@ const Page = () => {
     })
   }
 
+  const slider = colorID
+    ? null
+    : <Slider
+      defaultValue={palette.activeLevel}
+      min={100}
+      max={900}
+      step={100}
+      onChange={handleChangeLevel}
+    />
   const content = colorID
     ? <ColorPage colors={palette.colors[colorID]} />
     : <PalettePage colors={palette.colors} activeLevel={palette.activeLevel} />
@@ -32,13 +41,7 @@ const Page = () => {
     <>
       <header class='page-header'>
         <Link to='/' className='page-header-link'>Home</Link>
-        <Slider
-          defaultValue={palette.activeLevel}
-          min={100}
-          max={900}
-          step={100}
-          onChange={handleChangeLevel}
-        />
+        {slider}
         <Select />
       </header>
       <main class='page-content'>
