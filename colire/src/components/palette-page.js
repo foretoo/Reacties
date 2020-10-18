@@ -1,15 +1,65 @@
-import { h } from 'preact'
-import ColorBox from './color-box'
-import withMore from './hoc-with-more'
-import './css/palette-page.css'
+import { h, Fragment } from 'preact'
+import { useContext } from 'preact/hooks'
+import { Link, useParams } from 'react-router-dom'
+import { Context } from '../app/context'
+import PaletteListContent from './palette-list-content'
+import ColorListContent from './color-list-content'
+import Slider from 'rc-slider'
+import Select from './select'
+import 'rc-slider/assets/index.css'
+import './css/page.css'
+import './css/rc-slider.css'
 
-const PalettePage = ({ colors, activeLevel }) => {
+const PalettePage = () => {
 
-  const colorsList = []
-  for (const color in colors) {
-    colorsList.push(<ColorBox key={color} id={color} addClass=' palette' {...colors[color][activeLevel]} />)
+  const { state, dispatch } = useContext(Context)
+  const { paletteID, colorID } = useParams()
+  const palette = state.palettes.find(palette => palette.id === paletteID)
+
+  const handleChangeLevel = level => {
+    dispatch({
+      type: 'CHANGE_PALETTE_LEVEL',
+      payload: { id: paletteID, level }
+    })
   }
-  return colorsList
+
+  const slider = colorID
+    ? null
+    : <Slider
+      defaultValue={palette.activeLevel}
+      min={100}
+      max={900}
+      step={100}
+      onChange={handleChangeLevel}
+    />
+  const content = colorID
+    ? <ColorListContent colors={palette.colors[colorID]} />
+    : <PaletteListContent colors={palette.colors} activeLevel={palette.activeLevel} />
+  const overlayShow = state.copy.animate ? ' show' : ''
+  const snackBarShow = state.format.animate ? ' show' : ''
+  return (
+    <>
+      <header class='page-header'>
+        <Link to='/' className='page-header-link'>Home</Link>
+        {slider}
+        <Select />
+      </header>
+      <main class='page-content'>
+        {content}
+        <aside class={'page-snackbar' + snackBarShow}>
+          Format changed to {state.format.label}
+        </aside>
+      </main>
+      <section class={'page-overlay' + overlayShow + state.copy.class}>
+        <h1>Copied</h1>
+        <span>{state.copy.code}</span>
+      </section>
+      <footer class='page-footer'>
+        <span>{palette.paletteName}</span>
+        <span>{palette.emoji}</span>
+      </footer>
+    </>
+  )
 }
 
-export default withMore(PalettePage)
+export default PalettePage

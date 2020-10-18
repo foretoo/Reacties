@@ -3,7 +3,7 @@ import { useContext } from 'preact/hooks'
 import { Link, Route } from 'react-router-dom'
 import { Context } from './context'
 import PaletteBox from '../components/palette-box'
-import Page from '../components/page'
+import PalettePage from '../components/palette-page'
 import './css/app.css'
 
 const App = () => {
@@ -26,7 +26,7 @@ const App = () => {
         </main>
         <footer class='home-footer'></footer>
       </Route>
-      <Route path='/:paletteID/:colorID?' component={Page} />
+      <Route path='/:paletteID/:colorID?' component={PalettePage} />
     </>
   )
 }
