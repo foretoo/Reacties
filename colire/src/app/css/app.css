@@ -10,5 +10,17 @@
   align-content: space-evenly;
 }
 .home-header, .home-footer {
-  height: 2em;
+  height: 3em;
+  padding: 1em;
+  display: flex;
+  align-items: center;
+}
+.new-palette-button {
+  margin-left: auto;
+  padding: 0.333em 0.5em;
+  font-size: 0.8em;
+  color: var(--dark-m);
+  border: 1px solid var(--dark-l);
+  border-radius: 2px;
+  background: var(--dark-l);
 }
