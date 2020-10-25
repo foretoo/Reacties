@@ -2,6 +2,7 @@ import { h } from 'preact'
 import { useContext } from 'preact/hooks'
 import { Link, Switch, Route } from 'react-router-dom'
 import { Context } from './context'
+import SVGFilter from '../components/svg-filter'
 import PaletteBox from '../components/palette-box'
 import PalettePage from '../components/palette-page'
 import NewPalettePage from '../components/new-palette-page'
@@ -28,6 +29,7 @@ const App = () => {
           {paletteLinks}
         </main>
         <footer class='home-footer'></footer>
+        <SVGFilter />
       </Route>
       <Route path='/new-palette' component={NewPalettePage} />
       <Route path='/:paletteID/:colorID?' component={PalettePage} />
