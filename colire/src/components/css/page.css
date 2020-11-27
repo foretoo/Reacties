@@ -6,11 +6,7 @@
   overflow: hidden;
 }
 .page-header, .page-footer {
-  height: 3em;
-  padding: 1em;
-  display: flex;
   justify-content: space-between;
-  align-items: center;
   z-index: 22;
 }
 .page-footer {

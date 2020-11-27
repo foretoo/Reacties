@@ -9,7 +9,7 @@
   justify-content: space-evenly;
   align-content: space-evenly;
 }
-.home-header, .home-footer {
+header, footer {
   height: 3em;
   padding: 1em;
   display: flex;
@@ -23,4 +23,7 @@
   border: 1px solid var(--dark-l);
   border-radius: 2px;
   background: var(--dark-l);
+}
+svg.filter {
+  display: none;
 }
