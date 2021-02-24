@@ -1,26 +1,70 @@
 import * as THREE from 'three'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+export default class Sketch {
+  constructor(options) {
+    this.time = 0
+    this.container = options.dom
+    this.scene = new THREE.Scene();
 
-const renderer = new THREE.WebGLRenderer( { antialias: true } );
-renderer.setSize( window.innerWidth, window.innerHeight );
-document.body.appendChild( renderer.domElement );
+    this.width = this.container.offsetWidth
+    this.height = this.container.offsetHeight
 
-const geometry = new THREE.BoxGeometry();
-const material = new THREE.MeshNormalMaterial();
-const cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
+    this.camera = new THREE.PerspectiveCamera( 75, this.width / this.height, 0.1, 1000 );
+    this.camera.position.z = 5;
 
-camera.position.z = 5;
+    this.renderer = new THREE.WebGLRenderer( { antialias: true } );
+    this.container.appendChild( this.renderer.domElement );
+    this.controls = new OrbitControls( this.camera, this.renderer.domElement );
 
-const animate = function () {
-	requestAnimationFrame( animate );
+    this.resize()
+    this.setupResize()
+    this.addObjects()
+    this.render()
+  }
 
-	cube.rotation.x += 0.01;
-	cube.rotation.y += 0.01;
+  setupResize() {
+    window.addEventListener('resize', this.resize.bind(this))
+  }
 
-	renderer.render( scene, camera );
-};
+  resize() {
+    this.width = this.container.offsetWidth
+    this.height = this.container.offsetHeight
+    this.renderer.setSize( this.width, this.height )
+    this.camera.aspect = this.width / this.height
+    this.camera.updateProjectionMatrix()
+  }
 
-animate();
+  addObjects() {
+    this.geometry = new THREE.BoxGeometry();
+    // this.material = new THREE.MeshNormalMaterial();
+
+    this.material = new THREE.ShaderMaterial({
+      fragmentShader: `
+        void main() {
+          gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+        }
+      `,
+      vertexShader: `
+        void main() {
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `
+    })
+
+    this.cube = new THREE.Mesh( this.geometry, this.material );
+    this.scene.add( this.cube );
+  }
+
+  render() {
+    this.time += 0.5
+    this.cube.rotation.x += 0.01;
+  	this.cube.rotation.y += 0.01;
+    this.renderer.render( this.scene, this.camera );
+    window.requestAnimationFrame(this.render.bind(this))
+  }
+}
+
+new Sketch({
+  dom: document.getElementById('root')
+})
