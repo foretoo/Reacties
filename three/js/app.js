@@ -6,7 +6,9 @@ import {  Scene,
           ShaderMaterial,
           Mesh
         } from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import fragment from './shaders/fragment.glsl'
+import vertex from './shaders/vertex.glsl'
 
 export default class Sketch {
   constructor(options) {
@@ -20,9 +22,10 @@ export default class Sketch {
     this.camera = new PerspectiveCamera( 75, this.width / this.height, 0.1, 1000 );
     this.camera.position.z = 5;
 
-    this.renderer = new WebGLRenderer( { antialias: true } );
+    this.renderer = new WebGLRenderer({ antialias: true });
     this.container.appendChild( this.renderer.domElement );
-    this.controls = new OrbitControls( this.camera, this.renderer.domElement );
+    this.controls = new OrbitControls( this.camera, this.renderer.domElement )
+    this.controls.enablePan = false;
 
     this.resize()
     this.setupResize()
@@ -47,16 +50,8 @@ export default class Sketch {
     // this.material = new MeshNormalMaterial();
 
     this.material = new ShaderMaterial({
-      fragmentShader: `
-        void main() {
-          gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
-        }
-      `,
-      vertexShader: `
-        void main() {
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        }
-      `
+      fragmentShader: fragment,
+      vertexShader: vertex
     })
 
     this.cube = new Mesh( this.geometry, this.material );
