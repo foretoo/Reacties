@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import fragment from './shaders/fragment.glsl'
 import vertex from './shaders/vertex.glsl'
+import image from '../assets/cloud.jpg'
 
 export default class Sketch {
   constructor(options) {
@@ -12,8 +13,8 @@ export default class Sketch {
     this.width = this.container.offsetWidth
     this.height = this.container.offsetHeight
 
-    this.camera = new THREE.PerspectiveCamera( 10, this.width / this.height, 0.01, 10 );
-    this.camera.position.z = 5;
+    this.camera = new THREE.PerspectiveCamera( 50, this.width / this.height, 0.01, 100 );
+    this.camera.position.z = 2;
 
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.container.appendChild( this.renderer.domElement );
@@ -39,12 +40,13 @@ export default class Sketch {
   }
 
   addObjects() {
-    this.geometry = new THREE.PlaneBufferGeometry( 4,4, 500,500 );
+    this.geometry = new THREE.PlaneBufferGeometry( 1,1, 32,32 );
     // this.material = new THREE.MeshNormalMaterial();
 
     this.material = new THREE.ShaderMaterial({
       uniforms: {
-        time: { value: 0 }
+        time: { value: 0 },
+        cloudTexture: { value: new THREE.TextureLoader().load(image)}
       },
       side: THREE.DoubleSide,
       fragmentShader: fragment,
@@ -57,8 +59,8 @@ export default class Sketch {
   }
 
   render() {
-    this.time += 0.5
-    // this.cube.rotation.x += 0.01;
+    this.time += 0.005
+    // this.cube.rotation.x = -Math.PI/2.5
   	// this.cube.rotation.y += 0.01;
     this.material.uniforms.time.value = this.time
     this.renderer.render( this.scene, this.camera );
