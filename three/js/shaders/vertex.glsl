@@ -81,18 +81,18 @@ void main() {
   float PI = 3.14159265;
   vec3 newposition = position;
 
-  // float dist = distance(uv,vec2(0.5));
+  float noise = cnoise(vec3(newposition.x*3., newposition.y*3., time));
   // float noise = cnoise(vec3(newposition.x*0.667, newposition.y + time*1.5, 0));
-  // float noise = cnoise(vec3(newposition.x*3., newposition.y*3. + time, 0));
-  float noise = cnoise(4.*newposition + time);
+  // float noise = cnoise(4.*newposition + time);
+  // float dist = distance(uv,vec2(0.5));
 
   // newposition.z += 2.*sin((newposition.x - 2.)*.25*PI);
   // newposition.z += -(newposition.y-.5)*.5*noise;
   // newposition.z += .1*sin(dist*4.*PI + time*4.);
-  newposition += .1*normal*noise;
+  newposition.z = .5*noise;
 
 
-  vNoise = noise;
+  vNoise = 2.*newposition.z;
   vUv = uv;
 
 
