@@ -14,14 +14,14 @@ export default class Sketch {
     this.height = this.container.offsetHeight
 
     this.camera = new THREE.PerspectiveCamera( 50, this.width / this.height, 0.01, 100 );
-    this.camera.position.z = 2;
+    this.camera.position.z = 3;
 
-    this.renderer = new THREE.WebGLRenderer({ antialias: true });
-    this.container.appendChild( this.renderer.domElement );
+    this.renderer = new THREE.WebGLRenderer({ antialias: true })
+    this.renderer.setSize( this.width, this.height )
+    this.container.appendChild( this.renderer.domElement )
     this.controls = new OrbitControls( this.camera, this.renderer.domElement )
-    this.controls.enablePan = false;
+    this.controls.enablePan = false
 
-    this.resize()
     this.setupResize()
     this.addObjects()
     this.render()
@@ -40,9 +40,10 @@ export default class Sketch {
   }
 
   addObjects() {
-    this.geometry = new THREE.PlaneBufferGeometry( 1,1, 32,32 );
-    // this.material = new THREE.MeshNormalMaterial();
+    // this.geometry = new THREE.PlaneBufferGeometry( 1,1, 32,32 )
+    this.geometry = new THREE.SphereBufferGeometry( 1, 144,144 )
 
+    // this.material = new THREE.MeshNormalMaterial();
     this.material = new THREE.ShaderMaterial({
       uniforms: {
         time: { value: 0 },
@@ -51,17 +52,17 @@ export default class Sketch {
       side: THREE.DoubleSide,
       fragmentShader: fragment,
       vertexShader: vertex,
-      wireframe: false
+      wireframe: true
     })
 
-    this.cube = new THREE.Mesh( this.geometry, this.material );
-    this.scene.add( this.cube );
+    this.obj = new THREE.Mesh( this.geometry, this.material );
+    this.scene.add( this.obj );
   }
 
   render() {
     this.time += 0.005
-    // this.cube.rotation.x = -Math.PI/2.5
-  	// this.cube.rotation.y += 0.01;
+    // this.obj.rotation.x = -Math.PI/2.5
+  	// this.obj.rotation.y += 0.01;
     this.material.uniforms.time.value = this.time
     this.renderer.render( this.scene, this.camera );
     window.requestAnimationFrame(this.render.bind(this))
