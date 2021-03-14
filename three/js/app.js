@@ -2,13 +2,14 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import fragment from './shaders/fragment.glsl'
 import vertex from './shaders/vertex.glsl'
-import image from '../assets/cloud.jpg'
+import image from '../assets/cloud1.jpg'
 
 export default class Sketch {
   constructor(options) {
     this.time = 0
     this.container = options.dom
     this.scene = new THREE.Scene();
+    this.scene.background = new THREE.Color( 0xffffff );
 
     this.width = this.container.offsetWidth
     this.height = this.container.offsetHeight
@@ -40,7 +41,7 @@ export default class Sketch {
   }
 
   addObjects() {
-    this.geometry = new THREE.PlaneBufferGeometry( 1,1, 128,128 )
+    this.geometry = new THREE.PlaneBufferGeometry( 1,1.25, 120,150 )
     // this.geometry = new THREE.SphereBufferGeometry( 1, 144,144 )
 
     // this.material = new THREE.MeshNormalMaterial();
@@ -60,10 +61,12 @@ export default class Sketch {
   }
 
   render() {
-    this.time += 0.005
-    // this.obj.rotation.x = -Math.PI/2.5
+    // this.obj.rotation.x = -Math.PI/4
   	// this.obj.rotation.y += 0.01;
+
+    this.time = performance.now()/1000
     this.material.uniforms.time.value = this.time
+
     this.renderer.render( this.scene, this.camera );
     window.requestAnimationFrame(this.render.bind(this))
   }
