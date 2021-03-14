@@ -5,7 +5,7 @@ import { Context } from '../app/context'
 import ColorBox from './color-box'
 import './css/color-page.css'
 
-const ColorPage = ({ colors }) => {
+const ColorListContent = ({ colors }) => {
 
   if (!colors) {
     const { state } = useContext(Context)
@@ -34,4 +34,4 @@ const ColorPage = ({ colors }) => {
   )
 }
 
-export default ColorPage
+export default ColorListContent
