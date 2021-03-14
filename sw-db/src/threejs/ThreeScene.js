@@ -1,17 +1,24 @@
-import * as THREE from 'three'
-import motionBlurShader from './motionBlurShader'
-import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
-import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
+// import * as THREE from 'three'
+import { Scene } from 'three/src/scenes/Scene'
+import { PerspectiveCamera } from 'three/src/cameras/PerspectiveCamera'
+import { WebGLRenderer } from 'three/src/renderers/WebGLRenderer'
+import { Geometry } from 'three/src/core/Geometry'
+import { Vector3 } from 'three/src/math/Vector3'
+import { LineBasicMaterial } from 'three/src/materials/LineBasicMaterial'
+import { LineSegments } from 'three/src/objects/LineSegments'
+// import motionBlurShader from './motionBlurShader'
+// import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
+// import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
 
 export default function ThreeScene(sceneRef) {
 
-  const scene = new THREE.Scene()
+  const scene = new Scene()
 
-  const camera = new THREE.PerspectiveCamera(120, window.innerWidth / window.innerHeight, 1, 1000)
+  const camera = new PerspectiveCamera(120, window.innerWidth / window.innerHeight, 1, 1000)
   camera.position.z = 1
   camera.rotation.x = Math.PI / 3
 
-  const renderer = new THREE.WebGLRenderer( { antialias: true } )
+  const renderer = new WebGLRenderer( { antialias: true } )
   renderer.setSize(window.innerWidth, window.innerHeight)
   sceneRef.appendChild(renderer.domElement)
 
@@ -45,9 +52,9 @@ export default function ThreeScene(sceneRef) {
   //
   // //////// BUYE SHADER ////////
 
-  const starsPosBlue = new THREE.Geometry()
-  const starsPosViolet = new THREE.Geometry()
-  const starsPosUltra = new THREE.Geometry()
+  const starsPosBlue = new Geometry()
+  const starsPosViolet = new Geometry()
+  const starsPosUltra = new Geometry()
 
   function correct(x, z) {
     const l = Math.sqrt(Math.pow(Math.abs(x),2) + Math.pow(Math.abs(z),2))
@@ -59,13 +66,13 @@ export default function ThreeScene(sceneRef) {
     for (let i = 0; i < 1000; i++) {
       let star
       if (i % 2 === 0) {
-        star = new THREE.Vector3(
+        star = new Vector3(
           Math.random() * 400 - 200,
           Math.random() * 1200 - 600,
           Math.random() * 400 - 200
         )
       } else {
-        star = new THREE.Vector3(
+        star = new Vector3(
           group.vertices[i-1].x,
           group.vertices[i-1].y,
           group.vertices[i-1].z
@@ -80,13 +87,13 @@ export default function ThreeScene(sceneRef) {
   generateStarsPos(starsPosViolet)
   generateStarsPos(starsPosUltra)
 
-  const starsMatlBlue = new THREE.LineBasicMaterial( { color: 0x4488aa, linewidth: 1 } )
-  const starsMatViolet = new THREE.LineBasicMaterial( { color: 0x4477ee, linewidth: 1 } )
-  const starsMatUltra = new THREE.LineBasicMaterial( { color: 0xaabbff, linewidth: 1 } )
+  const starsMatlBlue = new LineBasicMaterial( { color: 0x4488aa, linewidth: 1 } )
+  const starsMatViolet = new LineBasicMaterial( { color: 0x4477ee, linewidth: 1 } )
+  const starsMatUltra = new LineBasicMaterial( { color: 0xaabbff, linewidth: 1 } )
 
-  const starsBlue = new THREE.LineSegments(starsPosBlue, starsMatlBlue)
-  const starsViolet = new THREE.LineSegments(starsPosViolet, starsMatViolet)
-  const starsUltra = new THREE.LineSegments(starsPosUltra, starsMatUltra)
+  const starsBlue = new LineSegments(starsPosBlue, starsMatlBlue)
+  const starsViolet = new LineSegments(starsPosViolet, starsMatViolet)
+  const starsUltra = new LineSegments(starsPosUltra, starsMatUltra)
   scene.add(starsBlue)
   scene.add(starsViolet)
   scene.add(starsUltra)
