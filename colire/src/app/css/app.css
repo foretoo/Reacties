@@ -2,13 +2,28 @@
   width: 100%;
   max-width: 960px;
   margin: 0 1em;
-  flex-grow: 1;
+  height: calc(100% - 6em);
   align-self: center;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
   align-content: space-evenly;
 }
-.home-header, .home-footer {
-  height: 2em;
+header, footer {
+  height: 3em;
+  padding: 1em;
+  display: flex;
+  align-items: center;
+}
+.new-palette-button {
+  margin-left: auto;
+  padding: 0.333em 0.5em;
+  font-size: 0.8em;
+  color: var(--dark-m);
+  border: 1px solid var(--dark-l);
+  border-radius: 2px;
+  background: var(--dark-l);
+}
+svg.filter {
+  display: none;
 }

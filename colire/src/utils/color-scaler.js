@@ -4,7 +4,6 @@ import seedColors from '../seed-colors'
 const levels = [ 100, 200, 300, 400, 500, 600, 700, 800, 900 ]
 
 const getRange = hexColor => {
-  const end = '#fff'
   return [
     chroma(hexColor).darken(1.618).hex(),
     hexColor,

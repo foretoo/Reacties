@@ -3,9 +3,10 @@
   height: 26%;
   display: flex;
   flex-direction: column;
-  filter: url('#filter');
+  filter: url(#filter);
+  -webkit-filter: url(#filter);
 }
-.palette-box * {
+.palette-box-color {
   flex: 1;
 }
 .palette-box-name {
