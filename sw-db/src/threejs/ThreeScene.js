@@ -2,7 +2,7 @@
 import { Scene } from 'three/src/scenes/Scene'
 import { PerspectiveCamera } from 'three/src/cameras/PerspectiveCamera'
 import { WebGLRenderer } from 'three/src/renderers/WebGLRenderer'
-import { Geometry } from 'three/src/core/Geometry'
+import { BufferGeometry } from 'three/src/core/BufferGeometry'
 import { Vector3 } from 'three/src/math/Vector3'
 import { LineBasicMaterial } from 'three/src/materials/LineBasicMaterial'
 import { LineSegments } from 'three/src/objects/LineSegments'
@@ -52,9 +52,9 @@ export default function ThreeScene(sceneRef) {
   //
   // //////// BUYE SHADER ////////
 
-  const starsPosBlue = new Geometry()
-  const starsPosViolet = new Geometry()
-  const starsPosUltra = new Geometry()
+  const starsPosBlue = new BufferGeometry()
+  const starsPosViolet = new BufferGeometry()
+  const starsPosUltra = new BufferGeometry()
 
   function correct(x, z) {
     const l = Math.sqrt(Math.pow(Math.abs(x),2) + Math.pow(Math.abs(z),2))
@@ -63,6 +63,7 @@ export default function ThreeScene(sceneRef) {
     return [x*k, z*k]
   }
   function generateStarsPos(group) {
+    const vertices = []
     for (let i = 0; i < 1000; i++) {
       let star
       if (i % 2 === 0) {
@@ -73,19 +74,24 @@ export default function ThreeScene(sceneRef) {
         )
       } else {
         star = new Vector3(
-          group.vertices[i-1].x,
-          group.vertices[i-1].y,
-          group.vertices[i-1].z
+          vertices[i-1].x,
+          vertices[i-1].y,
+          vertices[i-1].z
         )
       }
       star.velocity = 5
       star.acceleration = 0.05 * (Math.abs(star.x) + Math.abs(star.z)) / 200
-      group.vertices.push(star)
+      vertices.push(star)
     }
+    return vertices
   }
-  generateStarsPos(starsPosBlue)
-  generateStarsPos(starsPosViolet)
-  generateStarsPos(starsPosUltra)
+
+  const starsPosBluePosArr = generateStarsPos()
+  const starsPosVioletPosArr = generateStarsPos()
+  const starsPosUltraPosArr = generateStarsPos()
+  starsPosBlue.setFromPoints(starsPosBluePosArr)
+  starsPosViolet.setFromPoints(starsPosVioletPosArr)
+  starsPosUltra.setFromPoints(starsPosUltraPosArr)
 
   const starsMatlBlue = new LineBasicMaterial( { color: 0x4488aa, linewidth: 1 } )
   const starsMatViolet = new LineBasicMaterial( { color: 0x4477ee, linewidth: 1 } )
@@ -99,18 +105,18 @@ export default function ThreeScene(sceneRef) {
   scene.add(starsUltra)
 
   function updateStarsPos(group) {
-    group.vertices.forEach((star, i) => {
+    group.forEach((star, i) => {
       if (i % 2 === 0) {
         star.velocity += star.acceleration
       } else {
         if (star.y < -(100 + Math.random()*500)) {
-          star.y = group.vertices[i-1].y = 100 + Math.random()*500
+          star.y = group[i-1].y = 100 + Math.random()*500
           star.x = Math.random() * 400 - 200
           star.z = Math.random() * 400 - 200
           const [x, z] = correct(star.x, star.z)
-          star.x = group.vertices[i-1].x = x
-          star.z = group.vertices[i-1].z = z
-          star.velocity = group.vertices[i-1].velocity = 5
+          star.x = group[i-1].x = x
+          star.z = group[i-1].z = z
+          star.velocity = group[i-1].velocity = 5
         }
       }
       star.y -= star.velocity
@@ -118,9 +124,12 @@ export default function ThreeScene(sceneRef) {
     group.verticesNeedUpdate = true
   }
   function animate() {
-    updateStarsPos(starsPosBlue)
-    updateStarsPos(starsPosViolet)
-    updateStarsPos(starsPosUltra)
+    updateStarsPos(starsPosBluePosArr)
+    updateStarsPos(starsPosVioletPosArr)
+    updateStarsPos(starsPosUltraPosArr)
+    starsPosBlue.setFromPoints(starsPosBluePosArr)
+    starsPosViolet.setFromPoints(starsPosVioletPosArr)
+    starsPosUltra.setFromPoints(starsPosUltraPosArr)
     starsBlue.rotation.y += 0.001
     starsViolet.rotation.y += 0.0015
     starsUltra.rotation.y += 0.002
