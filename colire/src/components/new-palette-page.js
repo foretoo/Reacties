@@ -1,11 +1,13 @@
 import { h, Fragment } from 'preact'
 import { useState } from 'preact/hooks'
 import { Link } from 'react-router-dom'
+import { ChromePicker } from 'react-color'
 import './css/new-palette-page.css'
 
 const NewPalettePage = () => {
 
   const [ formHidden, setFormHidden ] = useState(true)
+  const [ color, setColor ] = useState('#cfa')
 
   let formClass = 'new-palette-form'
   if (formHidden) formClass += ' hidden'
@@ -22,7 +24,9 @@ const NewPalettePage = () => {
       </header>
 
       <main class='new-palette-container'>
-        <aside class={formClass}></aside>
+        <aside class={formClass}>
+          <ChromePicker color={color} onChange={color => setColor(color)} disableAlpha={true}/>
+        </aside>
         <section class='new-palette-content'>
 
         </section>
