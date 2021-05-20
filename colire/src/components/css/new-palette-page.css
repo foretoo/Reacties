@@ -1,12 +1,13 @@
 .new-palette-container {
   flex-grow: 1;
   display: flex;
+  background: var(--dark-l);
   overflow: hidden;
 }
 .new-palette-form {
   margin: 0;
   width: 320px;
-  background: #cfa;
+  background: #fff;
   transition: margin 0.2s ease;
 }
 .new-palette-form.hidden {
@@ -16,6 +17,7 @@
   flex-grow: 1;
 }
 svg.burger-icon {
+  margin-right: 1em;
   stroke: var(--dark-h);
   cursor: pointer;
 }

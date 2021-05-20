@@ -1,5 +1,6 @@
 import { h, Fragment } from 'preact'
 import { useState } from 'preact/hooks'
+import { Link } from 'react-router-dom'
 import './css/new-palette-page.css'
 
 const NewPalettePage = () => {
@@ -17,6 +18,7 @@ const NewPalettePage = () => {
         >
           <path d="M18 10H2M18 4H2M18 16H2" stroke-width="2" stroke-linecap="round"/>
         </svg>
+        <Link to='/' className='page-header-link'>Home</Link>
       </header>
 
       <main class='new-palette-container'>
