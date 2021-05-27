@@ -24,6 +24,11 @@ header, footer {
   border-radius: 2px;
   background: var(--dark-l);
 }
+.new-palette-button:hover {
+  color: var(--dark-h);
+  border: 1px solid var(--dark-m);
+  background: white;
+}
 svg.filter {
   display: none;
 }
