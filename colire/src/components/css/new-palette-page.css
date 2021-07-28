@@ -1,27 +1,33 @@
 .new-palette-container {
   flex-grow: 1;
+  display: flex;
+  flex-wrap: wrap;
   background: var(--dark-l);
   overflow: hidden;
 }
+
+
+
+.new-palette-content {
+  flex-grow: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+
+
+
 .new-palette-form {
   padding: 1em;
   width: 320px;
-  height: calc(100% - 6em);
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  transition: transform 0.2s ease;
-  transform: translateX(0);
-  position: absolute;
   background: #fff;
-}
-.new-palette-form.hidden {
-  transform: translateX(-100%);
 }
 .new-palette-form > * {
   margin-bottom: 1.5em;
 }
-
 .new-palette-form input[type=text] {
   padding: 0.666em 1em;
   width: 100%;
@@ -35,7 +41,6 @@
 .new-palette-form input[type=text]:focus {
   border: 1px solid var(--dark-m);
 }
-
 .new-palette-form button {
   padding: 0.666em 1em;
   font-size: 0.8em;
@@ -48,20 +53,17 @@
   border: 1px solid var(--dark-m);
   background: white;
 }
-
 .new-palette-add.light {
   color: var(--light-h);
 }
-
 .chrome-picker {
   margin-bottom: 0.5em !important;
   width: 100% !important;
   box-shadow: none !important;
 }
-.new-palette-content {
-  width: 100%;
-  height: 100%;
-}
+
+
+
 svg.burger-icon {
   margin-right: 1em;
   stroke: var(--dark-h);
