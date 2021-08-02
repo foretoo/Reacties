@@ -5,7 +5,7 @@ import { Context } from '../app/context'
 import PaletteListContent from './palette-list-content'
 import ColorListContent from './color-list-content'
 import Slider from 'rc-slider'
-import Select from './select'
+import SelectColorMode from './select-color-mode'
 import 'rc-slider/assets/index.css'
 import './css/page.css'
 import './css/rc-slider.css'
@@ -42,7 +42,7 @@ const PalettePage = () => {
       <header class='page-header'>
         <Link to='/' className='page-header-link'>Home</Link>
         {slider}
-        <Select />
+        <SelectColorMode />
       </header>
       <main class='page-content'>
         {content}

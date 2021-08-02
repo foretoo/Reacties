@@ -3,7 +3,7 @@ import { useContext } from 'preact/hooks'
 import { Context } from '../app/context'
 import './css/select.css'
 
-const Select = () => {
+const SelectColorMode = () => {
 
   const { state, dispatch } = useContext(Context)
 
@@ -33,4 +33,4 @@ const Select = () => {
   )
 }
 
-export default Select
+export default SelectColorMode
