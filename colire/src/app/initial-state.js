@@ -19,6 +19,19 @@ const initialState = {
   format: {
     animate: false,
     label: 'HEX'
+  },
+  custom: {
+    palette: [{
+      name: 'grey',
+      rgb: 'rgb(187,187,187)',
+      hex: '#bbbbbb'
+    }],
+    color: {
+      name: '',
+      rgb: '',
+      hex: '#fff'
+    },
+    hidden: false
   }
 }
 

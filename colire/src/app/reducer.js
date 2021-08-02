@@ -49,6 +49,43 @@ const reducer = (state, action) => {
         palettes: newPalettes
       }
     }
+    case 'ADD_NEW_COLOR': {
+      const { palette, color } = state.custom
+      return {
+        ...state,
+        custom: {
+          ...state.custom,
+          palette: palette.concat(color)
+        }
+      }
+    }
+    case 'CHANGE_NEW_COLOR': {
+      const { hex, rgb } = action.payload
+      return {
+        ...state,
+        custom: {
+          ...state.custom,
+          color: {
+            ...state.custom.color,
+            hex,
+            rgb
+          }
+        }
+      }
+    }
+    case 'CHANGE_NEW_COLOR_NAME': {
+      const name = action.payload
+      return {
+        ...state,
+        custom: {
+          ...state.custom,
+          color: {
+            ...state.custom.color,
+            name
+          }
+        }
+      }
+    }
     default:
       return state
   }
