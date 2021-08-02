@@ -12,7 +12,6 @@ const NewPalettePage = () => {
 
   const { state, dispatch } = useContext(Context)
   const { palette } = state.custom
-  console.log(palette);
 
   const paletteElement = palette.map(color => {
     const lum = chroma(color.hex).luminance()
