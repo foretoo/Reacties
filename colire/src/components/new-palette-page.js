@@ -9,7 +9,7 @@ import './css/new-palette-page.css'
 const NewPalettePage = () => {
 
   const [ formHidden, setFormHidden ] = useState(false)
-  const [ color, setColor ] = useState({ hex: '#bbb', rgb: {}, name: 'grey' })
+  const [ color, setColor ] = useState({ hex: '#bbb', rgb: 'rgb(187,187,187)', name: 'grey' })
   const [ palette, setPalette ] = useState([color])
 
   let formClass = 'new-palette-form'
@@ -21,6 +21,13 @@ const NewPalettePage = () => {
   const handleAddColor = () => setPalette(palette => ([ ...palette, color ]))
   const handleChangeColor = ({ hex, rgb }) => setColor(color => ({ ...color, hex, rgb }))
   const handleChangeColorName = e => setColor(color => ({ ...color, name: e.target.value }))
+
+  const handleRandomColor = () => {
+    const randomColor = chroma.random()
+    const hex = chroma(randomColor).hex()
+    const rgb = chroma(randomColor).css()
+    setColor(color => ({ ...color, hex, rgb }))
+  }
 
   const paletteElement = palette.map(color => {
     const lum = chroma(color.hex).luminance()
@@ -49,7 +56,7 @@ const NewPalettePage = () => {
         <aside class={formClass}>
           <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
             <button>Clear palette</button>
-            <button>Random color</button>
+            <button onClick={handleRandomColor}>Random color</button>
           </div>
           <ChromePicker color={color} onChange={handleChangeColor} disableAlpha={true}/>
           <input type='text' placeholder='color name' onChange={handleChangeColorName} />
