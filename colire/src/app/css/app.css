@@ -8,6 +8,8 @@
   flex-wrap: wrap;
   justify-content: space-evenly;
   align-content: space-evenly;
+  filter: url(#filter);
+  -webkit-filter: url(#filter);
 }
 header, footer {
   height: 3em;
