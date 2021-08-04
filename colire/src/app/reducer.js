@@ -86,6 +86,15 @@ const reducer = (state, action) => {
         }
       }
     }
+    case 'TOGGLE_NEW_COLOR_FORM': {
+      return {
+        ...state,
+        custom: {
+          ...state.custom,
+          hidden: !state.custom.hidden
+        }
+      }
+    }
     default:
       return state
   }

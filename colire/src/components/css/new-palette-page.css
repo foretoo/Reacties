@@ -1,7 +1,6 @@
 .new-palette-container {
   flex-grow: 1;
   display: flex;
-  flex-wrap: wrap;
   background: var(--dark-l);
   overflow: hidden;
 }
@@ -18,12 +17,17 @@
 
 
 .new-palette-form {
+  margin-left: 0;
   padding: 1em;
   width: 320px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  transition: margin-left 0.5s ease-out;
   background: #fff;
+}
+.new-palette-form.hidden {
+  margin-left: -320px;
 }
 .new-palette-form > * {
   margin-bottom: 1.5em;
