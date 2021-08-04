@@ -6,6 +6,7 @@ import './css/select-color-mode.css'
 const SelectColorMode = () => {
 
   const { state, dispatch } = useContext(Context)
+  const { format: { label: label } } = state
 
   const handleChangeMode = format => {
     dispatch({
@@ -20,12 +21,12 @@ const SelectColorMode = () => {
   return (
     <ul class='color-mode-list'>
       <li
-        class={state.format.label === 'HEX' ? 'active' : ''}
+        class={label === 'HEX' ? 'active' : ''}
         onClick={() => handleChangeMode('HEX')}>
         HEX
       </li>
       <li
-        class={state.format.label === 'RGB' ? 'active' : ''}
+        class={label === 'RGB' ? 'active' : ''}
         onClick={() => handleChangeMode('RGB')}>
         RGB
       </li>
