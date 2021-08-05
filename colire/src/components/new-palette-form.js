@@ -7,12 +7,18 @@ import { ChromePicker } from 'react-color'
 const NewPaletteForm = () => {
 
   const { state, dispatch } = useContext(Context)
-  const { color, hidden } = state.custom
+  const { color, hidden, validName } = state.custom
 
   let formClass = 'new-palette-form'
   if (hidden) formClass += ' hidden'
-  let lumClass = 'new-palette-add'
+  let lumClass = 'new-palette-button'
   if (chroma(color.hex).luminance() < 0.333) lumClass += ' light'
+  let inputClass = 'new-palette-input-name'
+  let submitClass = 'submit'
+  if (!validName) {
+    inputClass += ' warn'
+    submitClass += ' warn'
+  }
 
   const handleAddColor = () => {
     dispatch({
@@ -49,8 +55,11 @@ const NewPaletteForm = () => {
         <button onClick={handleRandomColor}>Random color</button>
       </div>
       <ChromePicker color={color.hex ? color : {hex:'#fff'}} onChange={handleChangeColor} disableAlpha={true}/>
-      <input type='text' placeholder='color name' onChange={handleChangeColorName} />
-      <button class={lumClass} style={{ backgroundColor: color.hex }} onClick={handleAddColor}>Add color</button>
+      <input class={inputClass} type='text' placeholder='color name' onChange={handleChangeColorName} />
+      <div class={submitClass}>
+        <button class={lumClass} style={{ backgroundColor: color.hex }} onClick={handleAddColor}>Add color</button>
+        <p class='warn-info'>This name has already taken</p>
+      </div>
     </aside>
   )
 }

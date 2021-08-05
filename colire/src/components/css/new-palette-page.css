@@ -32,19 +32,46 @@
 .new-palette-form > * {
   margin-bottom: 1.5em;
 }
-.new-palette-form input[type=text] {
+
+.new-palette-input-name {
   padding: 0.666em 1em;
   width: 100%;
   font-size: 0.8em;
   border: 1px solid var(--dark-l);
   border-radius: 4px;
 }
-.new-palette-form input[type=text]::placeholder {
+.new-palette-input-name::placeholder {
   color: var(--dark-m);
 }
-.new-palette-form input[type=text]:focus {
+.new-palette-input-name:focus {
   border: 1px solid var(--dark-m);
 }
+.new-palette-input-name.warn {
+  color: var(--warn);
+  border: 1px solid var(--warn);
+}
+
+.submit {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+.submit .warn-info {
+  display: none;
+  width: 50%;
+  font-size: 0.666em;
+  color: var(--warn)
+}
+.submit.warn .warn-info {
+  display: inline;
+}
+.submit.warn .new-palette-button {
+  color: var(--dark-l);
+}
+.submit.warn .new-palette-button.light {
+  color: var(--light-l);
+}
+
 .new-palette-form button {
   padding: 0.666em 1em;
   font-size: 0.8em;
@@ -57,7 +84,7 @@
   border: 1px solid var(--dark-m);
   background: white;
 }
-.new-palette-add.light {
+.new-palette-button.light {
   color: var(--light-h);
 }
 .chrome-picker {

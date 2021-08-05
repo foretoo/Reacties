@@ -26,6 +26,24 @@ const newPaletteReducer = (state, action) => {
     }
     case 'CHANGE_NEW_COLOR_NAME': {
       const name = action.payload
+      const { palette } = state.custom
+      if (palette.some(e => e.name === name)) {
+        return {
+          ...state,
+          custom: {
+            ...state.custom,
+            validName: false
+          }
+        }
+      } else {
+        return {
+          ...state,
+          custom: {
+            ...state.custom,
+            validName: true
+          }
+        }
+      }
       return {
         ...state,
         custom: {

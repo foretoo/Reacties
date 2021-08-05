@@ -10,6 +10,7 @@
   --dark-h: rgba(0, 0, 0, 0.75);
   --dark-m: rgba(0, 0, 0, 0.5);
   --dark-l: rgba(0, 0, 0, 0.1);
+  --warn: rgba(159, 63, 63, 1);
 }
 * {
   margin: 0;
