@@ -21,9 +21,15 @@ const NewPaletteForm = () => {
   }
 
   const handleAddColor = () => {
-    dispatch({
-      type: 'ADD_NEW_COLOR'
-    })
+    if (validName) {
+      dispatch({
+        type: 'ADD_NEW_COLOR'
+      })
+      dispatch({
+        type: 'CHANGE_NEW_COLOR_NAME',
+        payload: ''
+      })
+    }
   }
   const handleChangeColor = ({ hex, rgb }) => {
     const tempRGB = `rgb(${rgb.r},${rgb.g},${rgb.b})`
@@ -55,7 +61,7 @@ const NewPaletteForm = () => {
         <button onClick={handleRandomColor}>Random color</button>
       </div>
       <ChromePicker color={color.hex ? color : {hex:'#fff'}} onChange={handleChangeColor} disableAlpha={true}/>
-      <input class={inputClass} type='text' placeholder='color name' onChange={handleChangeColorName} />
+      <input class={inputClass} type='text' value={color.name} placeholder='color name' onChange={handleChangeColorName} />
       <div class={submitClass}>
         <button class={lumClass} style={{ backgroundColor: color.hex }} onClick={handleAddColor}>Add color</button>
         <p class='warn-info'>This name has already taken</p>
