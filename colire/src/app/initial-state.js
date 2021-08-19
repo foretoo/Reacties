@@ -29,10 +29,9 @@ const initialState = {
     color: {
       name: '',
       rgb: '',
-      hex: '#fff'
+      hex: '#ffffff'
     },
-    hidden: false,
-    validName: true
+    hidden: false
   }
 }
 

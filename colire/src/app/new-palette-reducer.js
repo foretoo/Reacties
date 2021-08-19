@@ -12,6 +12,7 @@ const newPaletteReducer = (state, action) => {
     }
     case 'CHANGE_NEW_COLOR': {
       const { hex, rgb } = action.payload
+      const { palette } = state.custom
       return {
         ...state,
         custom: {
@@ -27,42 +28,17 @@ const newPaletteReducer = (state, action) => {
     case 'CHANGE_NEW_COLOR_NAME': {
       const name = action.payload
       const { palette } = state.custom
-      if (!name) {
-        return {
-          ...state,
-          custom: {
-            ...state.custom,
-            color: {
-              ...state.custom.color,
-              name
-            }
-          }
-        }
-      } else if (palette.some(e => e.name === name)) {
-        return {
-          ...state,
-          custom: {
-            ...state.custom,
-            color: {
-              ...state.custom.color,
-              name
-            },
-            validName: false
-          }
-        }
-      } else {
-        return {
-          ...state,
-          custom: {
-            ...state.custom,
-            color: {
-              ...state.custom.color,
-              name
-            },
-            validName: true
+      return {
+        ...state,
+        custom: {
+          ...state.custom,
+          color: {
+            ...state.custom.color,
+            name
           }
         }
       }
+
     }
     case 'TOGGLE_NEW_COLOR_FORM': {
       return {
