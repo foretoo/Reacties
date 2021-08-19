@@ -1,4 +1,4 @@
-import { h, Fragment } from 'preact'
+import { h } from 'preact'
 import { useState, useContext } from 'preact/hooks'
 import { Context } from '../app/context'
 import chroma from 'chroma-js'
