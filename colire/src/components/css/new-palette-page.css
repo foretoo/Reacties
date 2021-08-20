@@ -68,6 +68,9 @@
 .submit.warn .new-palette-button {
   color: var(--dark-l);
 }
+.submit.warn .new-palette-button:hover {
+  border: 1px solid var(--dark-l);
+}
 .submit.warn .new-palette-button.light {
   color: var(--light-l);
 }
@@ -85,6 +88,9 @@
   background: white;
 }
 .new-palette-button.light {
+  color: var(--light-h);
+}
+.new-palette-button.light:hover {
   color: var(--light-h);
 }
 .chrome-picker {
