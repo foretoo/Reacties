@@ -1,14 +1,13 @@
 import { h } from 'preact'
-import { useState, useContext } from 'preact/hooks'
+import { useContext } from 'preact/hooks'
 import { Context } from '../app/context'
 import chroma from 'chroma-js'
 import { ChromePicker } from 'react-color'
 
 const NewPaletteForm = () => {
 
-  const [ valid, setValid ] = useState({ name: true, color: true })
   const { state, dispatch } = useContext(Context)
-  const { color, palette, hidden } = state.custom
+  const { color, palette, hidden, valid } = state.custom
 
   let formClass = 'new-palette-form'
   if (hidden) formClass += ' hidden'
@@ -18,32 +17,34 @@ const NewPaletteForm = () => {
 
   let inputClass = 'new-palette-input-name'
   let submitClass = 'submit'
-  let warnText = ''
-  if (!valid.name) {
+  if (!valid.name || valid.warnText) {
     inputClass += ' warn'
     submitClass += ' warn'
-    warnText += 'Name should be unique. '
   }
   if (!valid.color) {
     if (!submitClass.includes('warn')) submitClass += ' warn'
-    warnText += 'Color should be unique.'
   }
 
   const handleAddColor = () => {
+    if (!valid.name || !valid.color) return
+
     const validColor = !palette.some(c => c.hex === color.hex)
-    setValid(valid => ({ ...valid, color: validColor }))
-    if (valid.name && valid.color && validColor) {
+    if (!validColor) {
       dispatch({
-        type: 'ADD_NEW_COLOR'
+        type: 'CHANGE_NEW_COLOR',
+        payload: {
+          hex: color.hex,
+          rgb: color.rgb
+        }
       })
-      dispatch({
-        type: 'CHANGE_NEW_COLOR_NAME',
-        payload: ''
-      })
+      return
     }
+
+    dispatch({
+      type: 'ADD_NEW_COLOR'
+    })
   }
   const handleChangeColor = ({ hex, rgb }) => {
-    setValid(valid => ({ ...valid, color: !palette.some(c => c.hex === hex) }))
     const tempRGB = `rgb(${rgb.r},${rgb.g},${rgb.b})`
     dispatch({
       type: 'CHANGE_NEW_COLOR',
@@ -55,7 +56,6 @@ const NewPaletteForm = () => {
   }
   const handleChangeColorName = e => {
     const name = e.target.value
-    setValid(valid => ({ ...valid, name: !palette.some(c => c.name === name) }))
     dispatch({
       type: 'CHANGE_NEW_COLOR_NAME',
       payload: name
@@ -79,7 +79,7 @@ const NewPaletteForm = () => {
       <input class={inputClass} type='text' value={color.name} placeholder='color name' onChange={handleChangeColorName} />
       <div class={submitClass}>
         <button class={lumClass} style={{ backgroundColor: color.hex }} onClick={handleAddColor}>Add color</button>
-        <p class='warn-info'>{warnText}</p>
+        <p class='warn-info'>{valid.warnText}</p>
       </div>
     </aside>
   )

@@ -31,7 +31,12 @@ const initialState = {
       rgb: '',
       hex: '#ffffff'
     },
-    hidden: false
+    hidden: false,
+    valid: {
+      name: true,
+      color: true,
+      warnText: ''
+    }
   }
 }
 
