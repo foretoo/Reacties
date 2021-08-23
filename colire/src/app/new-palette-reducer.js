@@ -1,3 +1,6 @@
+import addLevelProp from '../utils/add-level-prop'
+import colorScaler from '../utils/color-scaler'
+
 const newPaletteReducer = (state, action) => {
   switch(action.type) {
     case 'ADD_NEW_COLOR': {
@@ -32,9 +35,9 @@ const newPaletteReducer = (state, action) => {
       }
     }
     case 'CHANGE_NEW_COLOR': {
-      const { hex, rgb } = action.payload
+      const color = action.payload
       const { palette, valid } = state.custom
-      const colorIsValid = !palette.some(c => c.hex === hex)
+      const colorIsValid = !palette.some(c => c.color === color)
       const warnText =
         colorIsValid ?
           valid.warnText.replace('Color should be unique.', '').trim() :
@@ -48,8 +51,7 @@ const newPaletteReducer = (state, action) => {
           ...state.custom,
           color: {
             ...state.custom.color,
-            hex,
-            rgb
+            color
           },
           valid: {
             ...valid,
@@ -95,6 +97,37 @@ const newPaletteReducer = (state, action) => {
         custom: {
           ...state.custom,
           hidden: !hidden
+        }
+      }
+    }
+    case 'CHANGE_PALETTE_NAME': {
+      const paletteName = action.payload
+      return {
+        ...state,
+        custom: {
+          ...state.custom,
+          paletteName
+        }
+      }
+    }
+    case 'SAVE_PALETTE': {
+      const { palette, paletteName, emoji } = state.custom
+      const newPalette = colorScaler(addLevelProp({
+        paletteName,
+        id: paletteName.toLowerCase().replace(/ /g, '-'),
+        emoji,
+        colors: palette
+      }))
+      const palettes = state.palettes.concat(newPalette)
+      return {
+        ...state,
+        palettes,
+        custom: {
+          palette: [],
+          paletteName: '',
+          color: { name: '', color: '#ffffff' },
+          hidden: false,
+          valid: { name: true, color: true, warnText: '' }
         }
       }
     }

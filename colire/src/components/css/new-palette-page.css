@@ -101,8 +101,33 @@
 
 
 
+
 svg.burger-icon {
   margin-right: 1em;
   stroke: var(--dark-h);
   cursor: pointer;
+}
+.new-palette-header .nav {
+  width: calc(320px - 1em);
+}
+.palette-name-form {
+  flex-grow: 1;
+  display: flex;
+}
+.input-palette-name {
+  flex-grow: 1;
+  padding-left: 1em;
+  font-size: 0.8em;
+}
+.new-palette-header button {
+  padding: 0.666em 1em;
+  font-size: 0.8em;
+  color: var(--dark-h);
+  border: 1px solid var(--dark-l);
+  border-radius: 4px;
+  background: var(--dark-l);
+}
+.new-palette-header button:hover {
+  border: 1px solid var(--dark-m);
+  background: white;
 }

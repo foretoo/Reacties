@@ -13,7 +13,7 @@ const NewPaletteForm = () => {
   if (hidden) formClass += ' hidden'
 
   let lumClass = 'new-palette-button'
-  if (chroma(color.hex).luminance() < 0.333) lumClass += ' light'
+  if (chroma(color.color).luminance() < 0.333) lumClass += ' light'
 
   let inputClass = 'new-palette-input-name'
   let submitClass = 'submit'
@@ -28,14 +28,11 @@ const NewPaletteForm = () => {
   const handleAddColor = () => {
     if (!valid.name || !valid.color) return
 
-    const validColor = !palette.some(c => c.hex === color.hex)
+    const validColor = !palette.some(c => c.color === color.color)
     if (!validColor) {
       dispatch({
         type: 'CHANGE_NEW_COLOR',
-        payload: {
-          hex: color.hex,
-          rgb: color.rgb
-        }
+        payload: color.color
       })
       return
     }
@@ -44,14 +41,10 @@ const NewPaletteForm = () => {
       type: 'ADD_NEW_COLOR'
     })
   }
-  const handleChangeColor = ({ hex, rgb }) => {
-    const tempRGB = `rgb(${rgb.r},${rgb.g},${rgb.b})`
+  const handleChangeColor = ({ hex }) => {
     dispatch({
       type: 'CHANGE_NEW_COLOR',
-      payload: {
-        hex,
-        rgb: tempRGB
-      }
+      payload: hex
     })
   }
   const handleChangeColorName = e => {
@@ -64,9 +57,7 @@ const NewPaletteForm = () => {
   const handleRandomColor = () => {
     const randomColor = chroma.random()
     const hex = chroma(randomColor).hex()
-    const rgb = chroma(randomColor).css()
-    setValid(valid => ({ ...valid, color: !palette.some(c => c.hex === hex) }))
-    handleChangeColor({ hex, rgb })
+    handleChangeColor({ hex })
   }
 
   return (
@@ -75,10 +66,10 @@ const NewPaletteForm = () => {
         <button>Clear palette</button>
         <button onClick={handleRandomColor}>Random color</button>
       </div>
-      <ChromePicker color={ color.hex ? color : {hex:'#fff'} } onChange={handleChangeColor} disableAlpha={true}/>
+      <ChromePicker color={ color.color } onChange={handleChangeColor} disableAlpha={true}/>
       <input class={inputClass} type='text' value={color.name} placeholder='color name' onChange={handleChangeColorName} />
       <div class={submitClass}>
-        <button class={lumClass} style={{ backgroundColor: color.hex }} onClick={handleAddColor}>Add color</button>
+        <button class={lumClass} style={{ backgroundColor: color.color }} onClick={handleAddColor}>Add color</button>
         <p class='warn-info'>{valid.warnText}</p>
       </div>
     </aside>

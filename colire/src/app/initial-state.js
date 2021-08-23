@@ -23,13 +23,13 @@ const initialState = {
   custom: {
     palette: [{
       name: 'grey',
-      rgb: 'rgb(187,187,187)',
-      hex: '#bbbbbb'
+      color: '#bbbbbb'
     }],
+    paletteName: '',
+    emoji: '',
     color: {
       name: '',
-      rgb: '',
-      hex: '#ffffff'
+      color: '#ffffff'
     },
     hidden: false,
     valid: {
