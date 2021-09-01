@@ -26,7 +26,7 @@ const initialState = {
       color: '#bbbbbb'
     }],
     paletteName: '',
-    emoji: '',
+    emoji: '🖖',
     color: {
       name: '',
       color: '#ffffff'
