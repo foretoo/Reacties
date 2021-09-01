@@ -113,13 +113,33 @@ svg.burger-icon {
 .palette-name-form {
   flex-grow: 1;
   display: flex;
+  align-items: center;
+}
+.palette-name-form .warn-info {
+  display: none;
+  margin-right: 1em;
+  text-align: right;
+  font-size: 0.666em;
+  color: var(--warn);
+}
+.palette-name-form.warn .warn-info {
+  display: block;
 }
 .input-palette-name {
   flex-grow: 1;
-  padding-left: 1em;
-  font-size: 0.8em;
+  display: flex;
+  align-items: center;
 }
-.new-palette-header button {
+.input-palette-name input {
+  margin-left: 1em;
+  min-width: 230px;
+}
+.input-palette-name div {
+  padding: 1em;
+  cursor: pointer;
+}
+.palette-name-form > button {
+  margin-left: 1em;
   padding: 0.666em 1em;
   font-size: 0.8em;
   color: var(--dark-h);
@@ -127,7 +147,26 @@ svg.burger-icon {
   border-radius: 4px;
   background: var(--dark-l);
 }
-.new-palette-header button:hover {
+.palette-name-form > button:hover {
   border: 1px solid var(--dark-m);
   background: white;
+}
+
+
+
+.emoji-mart {
+  font-size: 20px;
+  top: 3em;
+  position: absolute;
+}
+.emoji-mart-category-label > span {
+  height: 3em;
+  padding: 1em 6px;
+  font-size: 0.8em;
+}
+.new-palette-header > .hiddenHelper {
+  position: absolute;
+  visibility: hidden;
+  white-space: pre;
+  z-index: -100;
 }

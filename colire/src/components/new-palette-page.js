@@ -1,17 +1,18 @@
 import { h, Fragment } from 'preact'
-import { useContext, useEffect } from 'preact/hooks'
-import { Link, useHistory } from 'react-router-dom'
+import { useContext } from 'preact/hooks'
+import { Link } from 'react-router-dom'
 import { Context } from '../app/context'
-import NewPaletteForm from './new-palette-form'
 import chroma from 'chroma-js'
 import { ChromePicker } from 'react-color'
+import NewPaletteForm from './new-palette-form'
+import NewPaletteNameForm from './new-palette-name-form'
 import './css/new-palette-page.css'
 
 const NewPalettePage = () => {
 
   const { state, dispatch } = useContext(Context)
-  const { palette, paletteName } = state.custom
-  const history = useHistory()
+  const { palette } = state.custom
+
 
   const paletteElement = palette.map(color => {
     const lum = chroma(color.color).luminance()
@@ -24,21 +25,7 @@ const NewPalettePage = () => {
       </div>
     )
   })
-  if (!paletteName) null
 
-  const handleChangePaletteName = e => {
-    const name = e.target.value
-    dispatch({
-      type: 'CHANGE_PALETTE_NAME',
-      payload: name
-    })
-  }
-  const handleSavePalette = () => {
-    if (paletteName) {
-      dispatch({ type: 'SAVE_PALETTE' })
-      history.push('/')
-    }
-  }
 
   return (
     <>
@@ -51,10 +38,7 @@ const NewPalettePage = () => {
           </svg>
           <Link to='/' className='page-header-link'>Home</Link>
         </div>
-        <div class='palette-name-form'>
-          <input class='input-palette-name' type='text' placeholder='Enter palette name...' onChange={handleChangePaletteName} />
-          <button onClick={handleSavePalette}>Save palette</button>
-        </div>
+        <NewPaletteNameForm />
       </header>
 
       <main class='new-palette-container'>
