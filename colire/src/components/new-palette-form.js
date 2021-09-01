@@ -31,6 +31,10 @@ const NewPaletteForm = () => {
     const validColor = !palette.some(c => c.color === color.color)
     if (!validColor) {
       dispatch({
+        type: 'CHANGE_NEW_COLOR_NAME',
+        payload: color.name
+      })
+      dispatch({
         type: 'CHANGE_NEW_COLOR',
         payload: color.color
       })
