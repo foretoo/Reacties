@@ -6,12 +6,6 @@
   position: relative;
   cursor: pointer;
 }
-.color-box.palette {
-  height: 25%;
-}
-.color-box.color {
-  height: 50%;
-}
 .color-box-back {
   width: 20%;
   display: flex;
