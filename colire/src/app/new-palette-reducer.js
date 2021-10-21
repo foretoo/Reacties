@@ -3,9 +3,21 @@ import colorScaler from '../utils/color-scaler'
 
 const newPaletteReducer = (state, action) => {
   switch(action.type) {
+    case 'DELETE_COLOR': {
+      const color = action.payload
+      const { palette } = state.custom
+      const newPalette = palette.filter(c => c.color != color)
+      return {
+        ...state,
+        custom: {
+          ...state.custom,
+          palette: newPalette
+        }
+      }
+    }
     case 'ADD_NEW_COLOR': {
       const { palette, color, valid } = state.custom
-      if (!color.name) {
+      if (!color.name.trim()) {
         return {
           ...state,
           custom: {
@@ -21,7 +33,10 @@ const newPaletteReducer = (state, action) => {
         ...state,
         custom: {
           ...state.custom,
-          palette: palette.concat(color),
+          palette: palette.concat({
+            name: color.name.trim(),
+            color: color.color
+          }),
           color: {
             ...color,
             name: ''
