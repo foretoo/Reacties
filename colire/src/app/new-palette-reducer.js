@@ -3,9 +3,21 @@ import colorScaler from '../utils/color-scaler'
 
 const newPaletteReducer = (state, action) => {
   switch(action.type) {
+    case 'DELETE_COLOR': {
+      const color = action.payload
+      const { palette } = state.custom
+      const newPalette = palette.filter(c => c.color != color)
+      return {
+        ...state,
+        custom: {
+          ...state.custom,
+          palette: newPalette
+        }
+      }
+    }
     case 'ADD_NEW_COLOR': {
       const { palette, color, valid } = state.custom
-      if (!color.name) {
+      if (!color.name.trim()) {
         return {
           ...state,
           custom: {
@@ -21,7 +33,10 @@ const newPaletteReducer = (state, action) => {
         ...state,
         custom: {
           ...state.custom,
-          palette: palette.concat(color),
+          palette: palette.concat({
+            name: color.name.trim(),
+            color: color.color
+          }),
           color: {
             ...color,
             name: ''
@@ -65,10 +80,10 @@ const newPaletteReducer = (state, action) => {
       const nameValue = action.payload
       const { palette, valid } = state.custom
       const nameIsValid = !palette.some(c => c.name === nameValue)
-      let warnText = nameValue ? valid.warnText.replace('Enter a color name.', '') : 'Enter a color name. '
+      let warnText = nameValue ? valid.warnText.replace('Enter a color name.', '').trim() : 'Enter a color name. '
       warnText =
         nameIsValid ?
-          warnText.replace('Name should be unique.', '') :
+          warnText.replace('Name should be unique.', '').trim() :
           valid.warnText.includes('Name should be unique.') ?
             valid.warnText :
             warnText.concat('Name should be unique. ')

@@ -22,10 +22,10 @@ const SVGFilter = () => {
           <feFuncG type="linear" slope={brightness} intercept={contrast} />
           <feFuncB type="linear" slope={brightness} intercept={contrast} />
         </feComponentTransfer>
-        <feColorMatrix in="brightness"
+        {/* <feColorMatrix in="brightness"
           type="saturate"
           values={saturate}
-          result="saturate" />
+          result="saturate" /> */}
         <feGaussianBlur in="saturate"
           stdDeviation={blur}
           edgeMode="none"

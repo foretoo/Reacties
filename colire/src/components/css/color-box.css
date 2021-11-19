@@ -2,7 +2,7 @@
   width: 20%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: space-between;
   position: relative;
   cursor: pointer;
 }
@@ -11,6 +11,13 @@
 }
 .color-box.color {
   height: 50%;
+}
+.color-box-trash {
+  align-self: flex-end;
+  visibility: hidden;
+}
+.color-box:hover .color-box-trash {
+  visibility: visible;
 }
 .color-box-back {
   width: 20%;
@@ -71,6 +78,9 @@
   border: 1px solid var(--dark-l);
   background: var(--dark-l);
 }
+.dark .color-box-trash {
+  stroke: var(--dark-h);
+}
 .dark .color-box-info-name {
   color: var(--dark-h);
 }
@@ -83,6 +93,9 @@
   color: var(--light-m);
   border: 1px solid var(--light-l);
   background: var(--light-l);
+}
+.light .color-box-trash {
+  stroke: var(--light-h);
 }
 .light .color-box-info-name {
   color: var(--light-h);
