@@ -1,14 +1,14 @@
 const path = require("path")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const myIP = '172.20.10.4' // from cmd: ipconfig > "IPv4 Address" on Windows OR bash: ifconfig > "en0" > "inet" on Mac
-const port = '8080'
+const myIP = '192.168.1.51' // from cmd: ipconfig > "IPv4 Address" on Windows OR bash: ifconfig > "en0" > "inet" on Mac
+const port = '8000'
 
 module.exports = {
   entry: "./src/index.js",
   output: {
     path: path.join(__dirname, "/build"),
-    publicPath: "./",
+    publicPath: "/",
     filename: "bundle.js"
   },
 

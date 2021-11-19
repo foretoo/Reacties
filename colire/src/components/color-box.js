@@ -1,5 +1,5 @@
 import { h } from 'preact'
-import { useState, useContext } from 'preact/hooks'
+import { useContext } from 'preact/hooks'
 import chroma from 'chroma-js'
 import { Context } from '../app/context'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
@@ -9,7 +9,7 @@ const ColorBox = ({ name, hex, rgb, button, addClass }) => {
 
   const { state, dispatch } = useContext(Context)
   const { animate, code } = state.copy
-  
+
   const colorCode = state.format.label === 'HEX' ? hex : rgb
   const overlayShow = animate && code === colorCode ? ' copy' : ''
 

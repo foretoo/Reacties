@@ -1,4 +1,4 @@
-const reducer = (state, action) => {
+const paletteReducer = (state, action) => {
   switch(action.type) {
     case 'COPY': {
       return {
@@ -54,4 +54,4 @@ const reducer = (state, action) => {
   }
 }
 
-export default reducer
+export default paletteReducer

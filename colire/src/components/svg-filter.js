@@ -7,7 +7,7 @@ const SVGFilter = () => {
   const contrast = 0.1
   const offset = { x: 0, y: 25 }
   return (
-    <svg xmlns="http://www.w3.org/2000/svg">
+    <svg class="filter" xmlns="http://www.w3.org/2000/svg">
       <filter id="filter"
         x="-50%"
         y="-50%"
@@ -22,10 +22,10 @@ const SVGFilter = () => {
           <feFuncG type="linear" slope={brightness} intercept={contrast} />
           <feFuncB type="linear" slope={brightness} intercept={contrast} />
         </feComponentTransfer>
-        <feColorMatrix in="brightness"
+        {/* <feColorMatrix in="brightness"
           type="saturate"
           values={saturate}
-          result="saturate" />
+          result="saturate" /> */}
         <feGaussianBlur in="saturate"
           stdDeviation={blur}
           edgeMode="none"

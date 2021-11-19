@@ -5,7 +5,7 @@ import { Context } from '../app/context'
 import PaletteListContent from './palette-list-content'
 import ColorListContent from './color-list-content'
 import Slider from 'rc-slider'
-import Select from './select'
+import SelectColorMode from './select-color-mode'
 import 'rc-slider/assets/index.css'
 import './css/page.css'
 import './css/rc-slider.css'
@@ -42,18 +42,18 @@ const PalettePage = () => {
       <header class='page-header'>
         <Link to='/' className='page-header-link'>Home</Link>
         {slider}
-        <Select />
+        <SelectColorMode />
       </header>
       <main class='page-content'>
+        <section class={'page-overlay' + overlayShow + state.copy.class}>
+          <h1>Copied</h1>
+          <span>{state.copy.code}</span>
+        </section>
         {content}
         <aside class={'page-snackbar' + snackBarShow}>
           Format changed to {state.format.label}
         </aside>
       </main>
-      <section class={'page-overlay' + overlayShow + state.copy.class}>
-        <h1>Copied</h1>
-        <span>{state.copy.code}</span>
-      </section>
       <footer class='page-footer'>
         <span>{palette.paletteName}</span>
         <span>{palette.emoji}</span>

@@ -10,6 +10,7 @@
   --dark-h: rgba(0, 0, 0, 0.75);
   --dark-m: rgba(0, 0, 0, 0.5);
   --dark-l: rgba(0, 0, 0, 0.1);
+  --warn: rgba(159, 63, 63, 1);
 }
 * {
   margin: 0;
@@ -23,12 +24,13 @@
 }
 html, body {
   width: 100%;
-  height: 100%;
+  height: 100vh;
 }
 body {
   position: relative;
   display: flex;
   flex-direction: column;
+  align-items: stretch;
 }
 a {
   text-decoration: none;
@@ -39,7 +41,4 @@ a, button {
 }
 ul {
   list-style: none;
-}
-svg {
-  display: none;
 }

@@ -12,6 +12,13 @@
 .color-box.color {
   height: 50%;
 }
+.color-box-trash {
+  align-self: flex-end;
+  visibility: hidden;
+}
+.color-box:hover .color-box-trash {
+  visibility: visible;
+}
 .color-box-back {
   width: 20%;
   display: flex;
@@ -19,7 +26,6 @@
 .color-box-button {
   margin: auto;
   padding: 0.333em 0.5em;
-  align-self: center;
   border-radius: 2px;
   font-size: 0.8em;
   opacity: 0;
@@ -72,6 +78,9 @@
   border: 1px solid var(--dark-l);
   background: var(--dark-l);
 }
+.dark .color-box-trash {
+  stroke: var(--dark-h);
+}
 .dark .color-box-info-name {
   color: var(--dark-h);
 }
@@ -84,6 +93,9 @@
   color: var(--light-m);
   border: 1px solid var(--light-l);
   background: var(--light-l);
+}
+.light .color-box-trash {
+  stroke: var(--light-h);
 }
 .light .color-box-info-name {
   color: var(--light-h);

@@ -19,6 +19,24 @@ const initialState = {
   format: {
     animate: false,
     label: 'HEX'
+  },
+  custom: {
+    palette: [{
+      name: 'grey',
+      color: '#bbbbbb'
+    }],
+    paletteName: '',
+    emoji: '🖖',
+    color: {
+      name: '',
+      color: '#ffffff'
+    },
+    hidden: false,
+    valid: {
+      name: true,
+      color: true,
+      warnText: ''
+    }
   }
 }
 

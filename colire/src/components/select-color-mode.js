@@ -1,11 +1,12 @@
 import { h } from 'preact'
 import { useContext } from 'preact/hooks'
 import { Context } from '../app/context'
-import './css/select.css'
+import './css/select-color-mode.css'
 
-const Select = () => {
+const SelectColorMode = () => {
 
   const { state, dispatch } = useContext(Context)
+  const { format: { label: label } } = state
 
   const handleChangeMode = format => {
     dispatch({
@@ -20,12 +21,12 @@ const Select = () => {
   return (
     <ul class='color-mode-list'>
       <li
-        class={state.format.label === 'HEX' ? 'active' : ''}
+        class={label === 'HEX' ? 'active' : ''}
         onClick={() => handleChangeMode('HEX')}>
         HEX
       </li>
       <li
-        class={state.format.label === 'RGB' ? 'active' : ''}
+        class={label === 'RGB' ? 'active' : ''}
         onClick={() => handleChangeMode('RGB')}>
         RGB
       </li>
@@ -33,4 +34,4 @@ const Select = () => {
   )
 }
 
-export default Select
+export default SelectColorMode
