@@ -6,7 +6,7 @@ import * as THREE from 'three'
 // import { ShaderMaterial } from 'three/src/materials/ShaderMaterial'
 // import { TextureLoader } from 'three/src/loaders/TextureLoader'
 // import { Mesh } from 'three/src/objects/Mesh'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import fragment from './shaders/fragment.glsl'
 import vertex from './shaders/vertex.glsl'
 import image from '../assets/cloud1.jpg'
@@ -27,8 +27,8 @@ export default class Sketch {
     this.renderer = new THREE.WebGLRenderer({ antialias: true })
     this.renderer.setSize( this.width, this.height )
     this.container.appendChild( this.renderer.domElement )
-    this.controls = new OrbitControls( this.camera, this.renderer.domElement )
-    this.controls.enablePan = false
+    // this.controls = new OrbitControls( this.camera, this.renderer.domElement )
+    // this.controls.enablePan = false
 
     this.setupResize()
     this.addObjects()
