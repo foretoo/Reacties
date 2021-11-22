@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "chroma-js": "^2.1.0",
-    "emoji-mart": "^3.0.1",
     "preact": "^10.5.3",
     "rc-slider": "^9.5.1",
     "react-color": "^2.18.1",

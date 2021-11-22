@@ -2,8 +2,7 @@ import { h, Fragment } from 'preact'
 import { useState, useContext, useEffect, useRef } from 'preact/hooks'
 import { useHistory } from 'react-router-dom'
 import { Context } from '../app/context'
-import { Picker } from 'emoji-mart'
-import 'emoji-mart/css/emoji-mart.css'
+import EmojiPicker from './emoji-picker'
 import './css/new-palette-page.css'
 
 const NewPaletteNameForm = () => {
@@ -52,7 +51,7 @@ const NewPaletteNameForm = () => {
     handleDisplayformState()
     dispatch({
       type: 'CHANGE_PALETTE_EMOJI',
-      payload: emoji.native
+      payload: emoji
     })
   }
   const handleSavePalette = () => {
@@ -77,12 +76,9 @@ const NewPaletteNameForm = () => {
   return (
     <>
       <div class={formClass}>
-        <Picker
+        <EmojiPicker
           style={{ left: formState.emojisOffset, visibility: formState.displayEmojis ? 'visible' : 'hidden' }}
-          showPreview={false}
-          showSkinTones={false}
-          exclude={['recent']}
-          onSelect={handleSelectEmoji}
+          handleSelectEmoji={handleSelectEmoji}
         />
         <div class='input-palette-name'>
           <input ref={inputRef} type='text' placeholder='Enter palette name...' onChange={handleChangePaletteName} />
