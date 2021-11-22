@@ -34,5 +34,8 @@ for (const e of isbn) {
 
   const img = document.createElement('img')
   img.src = `http://covers.openlibrary.org/b/isbn/${e}-L.jpg`
-  layout.append(img)
+  const div = document.createElement('div')
+  div.className = 'img'
+  div.append(img)
+  layout.append(div)
 }
