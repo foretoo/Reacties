@@ -22,7 +22,7 @@ const NewPalettePage = () => {
         <svg class='color-box-trash' width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"
           onClick={() => dispatch({ type: 'DELETE_COLOR', payload: color.color })}
         >
-          <path d="M19 7H11M10 14.5C10 14.5 11 15 12.5 15H16M10 23H20L21 10C21 10 20 11 18.5 11H11.5C10 11 9 10 9 10L10 23Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M18.5 7.5H11.5M14.5 14.5H12C10.9691 14.5 10.1744 14.2639 9.77816 14.1161M9.77816 14.1161L9.5 10.5C9.5 10.5 10.5 11.5 12 11.5H18C19.5 11.5 20.5 10.5 20.5 10.5L19.5 23.5H10.5L9.77816 14.1161Z" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         <div class='color-box-info'>
           <div class='color-box-info-name'>{color.name}</div>
