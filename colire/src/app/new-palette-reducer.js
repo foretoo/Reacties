@@ -115,6 +115,18 @@ const newPaletteReducer = (state, action) => {
         }
       }
     }
+    case 'CHANGE_PALETTE': {
+      const newOrder = action.payload
+      const { palette } = state.custom
+      const newPalette = newOrder.map(c => palette.find(_c => c === _c.name))
+      return {
+        ...state,
+        custom: {
+          ...state.custom,
+          palette: newPalette
+        }
+      }
+    }
     case 'CHANGE_PALETTE_NAME': {
       const paletteName = action.payload
       return {
