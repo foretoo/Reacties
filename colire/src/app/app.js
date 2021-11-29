@@ -11,7 +11,7 @@ import './css/app.css'
 const App = () => {
 
   const { state } = useContext(Context)
-  const paletteLinks = [], palettePaths = []
+  const paletteLinks = []
 
   for (const palette of state.palettes) {
     paletteLinks.push(
