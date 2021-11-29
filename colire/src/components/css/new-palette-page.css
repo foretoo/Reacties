@@ -150,3 +150,10 @@ svg.burger-icon {
   border: 1px solid var(--dark-m);
   background: white;
 }
+
+.new-palette-header > .hiddenHelper {
+  position: absolute;
+  visibility: hidden;
+  white-space: pre;
+  z-index: -100;
+}
