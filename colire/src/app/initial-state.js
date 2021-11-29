@@ -22,8 +22,8 @@ const initialState = {
   },
   custom: {
     palette: seedColors[0].colors,
-    paletteName: seedColors[0].paletteName,
-    emoji: seedColors[0].emoji,
+    paletteName: '',
+    emoji: '🖖',
     color: {
       name: '',
       color: '#ffffff'
