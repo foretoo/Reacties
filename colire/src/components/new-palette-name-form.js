@@ -81,7 +81,7 @@ const NewPaletteNameForm = () => {
           handleSelectEmoji={handleSelectEmoji}
         />
         <div class='input-palette-name'>
-          <input ref={inputRef} type='text' placeholder='Enter palette name...' onChange={handleChangePaletteName} />
+          <input ref={inputRef} value={paletteName} type='text' placeholder='Enter palette name...' onChange={handleChangePaletteName} />
           <div ref={emojiButtonRef} onClick={handleDisplayformState}>{emoji}</div>
         </div>
         <div class='warn-info'>{formState.warnText}</div>
