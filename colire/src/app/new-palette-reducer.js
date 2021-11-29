@@ -169,6 +169,15 @@ const newPaletteReducer = (state, action) => {
         }
       }
     }
+    case 'CLEAR_PALETTE': {
+      return {
+        ...state,
+        custom: {
+          ...state.custom,
+          palette: [],
+        }
+      }
+    }
     default:
       return state
   }

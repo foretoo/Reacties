@@ -63,11 +63,16 @@ const NewPaletteForm = () => {
     const hex = chroma(randomColor).hex()
     handleChangeColor({ hex })
   }
+  const handleClearPalette = () => {
+    dispatch({
+      type: 'CLEAR_PALETTE'
+    })
+  }
 
   return (
     <aside class={formClass}>
       <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
-        <button>Clear palette</button>
+        <button onClick={handleClearPalette}>Clear palette</button>
         <button onClick={handleRandomColor}>Random color</button>
       </div>
       <ChromePicker color={ color.color } onChange={handleChangeColor} disableAlpha={true}/>
