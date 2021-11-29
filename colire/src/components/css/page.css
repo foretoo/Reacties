@@ -1,5 +1,5 @@
 .page-content {
-  min-height: calc(100% - 6em);
+  flex-grow: 1;
   position: relative;
   display: flex;
   flex-wrap: wrap;
