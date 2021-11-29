@@ -21,12 +21,9 @@ const initialState = {
     label: 'HEX'
   },
   custom: {
-    palette: [{
-      name: 'grey',
-      color: '#bbbbbb'
-    }],
-    paletteName: '',
-    emoji: '🖖',
+    palette: seedColors[0].colors,
+    paletteName: seedColors[0].paletteName,
+    emoji: seedColors[0].emoji,
     color: {
       name: '',
       color: '#ffffff'
