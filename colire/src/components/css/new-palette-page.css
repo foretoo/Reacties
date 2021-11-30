@@ -16,6 +16,7 @@
 
 
 .new-palette-form {
+  flex-shrink: 0;
   margin-left: 0;
   padding: 1em;
   width: 320px;
