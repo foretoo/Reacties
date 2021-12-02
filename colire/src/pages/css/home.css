@@ -9,14 +9,6 @@
   align-content: center;
   filter: url(#filter);
 }
-header, footer {
-  height: 3em;
-  padding: 1em;
-  display: flex;
-  align-items: center;
-  background-color: white;
-  z-index: 111;
-}
 .new-palette-button {
   margin-left: auto;
   padding: 0.333em 0.5em;

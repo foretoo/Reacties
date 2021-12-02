@@ -2,8 +2,8 @@ import { h, Fragment } from 'preact'
 import { useContext } from 'preact/hooks'
 import { Link } from 'react-router-dom'
 import { Context } from '@app'
-import { NewPalette, NewPaletteForm, NewPaletteNameForm } from '@components'
-import './palette-editor.css'
+import { Footer, Header, NewPalette, NewPaletteForm, NewPaletteNameForm } from '@components'
+import './css/palette-editor.css'
 
 const PaletteEditor = () => {
 
@@ -11,7 +11,7 @@ const PaletteEditor = () => {
 
   return (
     <>
-      <header class='new-palette-header'>
+      <Header class='new-palette-header'>
         <div class='nav'>
           <svg class="burger-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
             onClick={() => dispatch({ type: 'TOGGLE_NEW_COLOR_FORM' })}
@@ -21,7 +21,7 @@ const PaletteEditor = () => {
           <Link to='/' className='page-header-link'>Home</Link>
         </div>
         <NewPaletteNameForm />
-      </header>
+      </Header>
 
       <main class='new-palette-container'>
         <NewPaletteForm />
@@ -30,7 +30,7 @@ const PaletteEditor = () => {
         </section>
       </main>
 
-      <footer class='new-palette-footer'></footer>
+      <Footer class='new-palette-footer'></Footer>
     </>
   )
 }

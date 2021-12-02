@@ -6,16 +6,6 @@
   align-content: flex-start;
   overflow: hidden;
 }
-.page-header, .page-footer {
-  justify-content: space-between;
-  z-index: 22;
-}
-.page-footer {
-  justify-content: flex-end;
-}
-.page-footer * {
-  margin-left: 0.6em;
-}
 
 
 .page-snackbar {
@@ -37,6 +27,8 @@
   transform: translateY(0);
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
+
+
 .page-overlay {
   position: absolute;
   left: 0;
@@ -68,6 +60,8 @@
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.8em;
 }
+
+
 .light h1 {
   color: var(--light-h);
   border: 1px solid var(--light-l);
