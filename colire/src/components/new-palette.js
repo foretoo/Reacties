@@ -1,6 +1,6 @@
 import { h, Fragment } from 'preact'
 import { useState, useEffect, useContext } from 'preact/hooks'
-import { Context } from '../app/context'
+import { Context } from '@app'
 import chroma from 'chroma-js'
 import { DndContext, closestCenter, PointerSensor, useSensor } from '@dnd-kit/core'
 import { SortableContext, arrayMove } from '@dnd-kit/sortable'

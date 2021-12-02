@@ -1,6 +1,6 @@
 import { h } from 'preact'
 import { useContext } from 'preact/hooks'
-import { Context } from '../app/context'
+import { Context } from '@app'
 import chroma from 'chroma-js'
 import { ChromePicker } from 'react-color'
 

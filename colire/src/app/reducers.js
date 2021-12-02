@@ -1,5 +1,4 @@
-import paletteReducer from './palette-reducer'
-import newPaletteReducer from './new-palette-reducer'
+import { paletteReducer, newPaletteReducer } from '@app'
 
 const reduceReducers = (...reducers) => (state, action) =>
   reducers.reduce((acc, nextReducer) => nextReducer(acc, action), state);

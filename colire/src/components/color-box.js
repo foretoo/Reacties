@@ -1,7 +1,7 @@
 import { h } from 'preact'
 import { useContext } from 'preact/hooks'
 import chroma from 'chroma-js'
-import { Context } from '../app/context'
+import { Context } from '@app'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import './css/color-box.css'
 

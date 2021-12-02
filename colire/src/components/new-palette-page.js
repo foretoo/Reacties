@@ -1,7 +1,7 @@
 import { h, Fragment } from 'preact'
 import { useContext } from 'preact/hooks'
 import { Link } from 'react-router-dom'
-import { Context } from '../app/context'
+import { Context } from '@app'
 import NewPalette from './new-palette'
 import NewPaletteForm from './new-palette-form'
 import NewPaletteNameForm from './new-palette-name-form'

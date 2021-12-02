@@ -1,6 +1,6 @@
 import { h } from 'preact'
 import { useContext } from 'preact/hooks'
-import { Context } from '../app/context'
+import { Context } from '@app'
 import './css/select-color-mode.css'
 
 const SelectColorMode = () => {

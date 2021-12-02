@@ -1,7 +1,7 @@
 import { h } from 'preact'
 import { useContext } from 'preact/hooks'
 import { Link, Switch, Route } from 'react-router-dom'
-import { Context } from './context'
+import { Context } from '@app'
 import SVGFilter from '../components/svg-filter'
 import PaletteBox from '../components/palette-box'
 import PalettePage from '../components/palette-page'

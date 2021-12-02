@@ -1,7 +1,6 @@
 import { h, createContext } from 'preact'
 import { useReducer } from 'preact/hooks'
-import initialState from './initial-state'
-import reducer from './reducers'
+import { initialState, reducer } from '@app'
 
 const Context = createContext()
 

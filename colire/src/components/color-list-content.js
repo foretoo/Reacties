@@ -1,7 +1,7 @@
 import { h, Fragment } from 'preact'
 import { useContext } from 'preact/hooks'
 import { useParams, useHistory } from 'react-router-dom'
-import { Context } from '../app/context'
+import { Context } from '@app'
 import ColorBox from './color-box'
 import './css/color-page.css'
 

@@ -1,7 +1,7 @@
 import { h, Fragment } from 'preact'
 import { useContext } from 'preact/hooks'
 import { Link, useParams } from 'react-router-dom'
-import { Context } from '../app/context'
+import { Context } from '@app'
 import PaletteListContent from './palette-list-content'
 import ColorListContent from './color-list-content'
 import Slider from 'rc-slider'
