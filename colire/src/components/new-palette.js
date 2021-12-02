@@ -4,7 +4,7 @@ import { Context } from '@app'
 import chroma from 'chroma-js'
 import { DndContext, closestCenter, PointerSensor, useSensor } from '@dnd-kit/core'
 import { SortableContext, arrayMove } from '@dnd-kit/sortable'
-import SortableColorBox from './sortable-color-box'
+import { SortableColorBox } from '@components'
 import './css/color-box.css'
 
 

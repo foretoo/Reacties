@@ -1,6 +1,5 @@
 import { h } from 'preact'
-import ColorBox from './color-box'
-import withMore from './hoc-with-more'
+import { ColorBox, withMore } from '@components'
 import './css/palette-page.css'
 
 const PaletteListContent = ({ colors, activeLevel }) => {

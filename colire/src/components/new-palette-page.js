@@ -2,9 +2,7 @@ import { h, Fragment } from 'preact'
 import { useContext } from 'preact/hooks'
 import { Link } from 'react-router-dom'
 import { Context } from '@app'
-import NewPalette from './new-palette'
-import NewPaletteForm from './new-palette-form'
-import NewPaletteNameForm from './new-palette-name-form'
+import { NewPalette, NewPaletteForm, NewPaletteNameForm } from '@components'
 import './css/new-palette-page.css'
 
 const NewPalettePage = () => {

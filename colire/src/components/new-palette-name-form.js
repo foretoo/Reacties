@@ -2,7 +2,7 @@ import { h, Fragment } from 'preact'
 import { useState, useContext, useEffect, useRef } from 'preact/hooks'
 import { useHistory } from 'react-router-dom'
 import { Context } from '@app'
-import EmojiPicker from './emoji-picker'
+import { EmojiPicker } from '@components'
 import './css/new-palette-page.css'
 
 const NewPaletteNameForm = () => {
