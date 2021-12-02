@@ -1,5 +1,5 @@
 import { h } from 'preact'
-import { emojiList } from './emoji-list'
+import { emojiList } from '@utils/constants'
 import './css/emoji-picker.css'
 
 const EmojiPicker = ({ style, handleSelectEmoji }) => {

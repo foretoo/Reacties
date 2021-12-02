@@ -1,6 +1,5 @@
-import seedColors from '../seed-colors'
-import addLevelProp from '../utils/add-level-prop'
-import colorScaler from '../utils/color-scaler'
+import { seedColors } from '@utils/constants'
+import { addLevelProp, colorScaler } from '@utils/helpers'
 
 const palettes = []
 

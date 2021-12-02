@@ -1,5 +1,4 @@
-import addLevelProp from '../utils/add-level-prop'
-import colorScaler from '../utils/color-scaler'
+import { addLevelProp, colorScaler } from '@utils/helpers'
 
 const newPaletteReducer = (state, action) => {
   switch(action.type) {
