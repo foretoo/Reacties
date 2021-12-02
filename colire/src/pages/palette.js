@@ -6,9 +6,10 @@ import { PaletteListContent, ColorListContent, SelectColorMode } from '@componen
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
 import './css/page.css'
+import './css/palette-page.css'
 import './css/rc-slider.css'
 
-const PalettePage = () => {
+const Palette = () => {
 
   const { state, dispatch } = useContext(Context)
   const { paletteID, colorID } = useParams()
@@ -60,4 +61,4 @@ const PalettePage = () => {
   )
 }
 
-export default PalettePage
+export default Palette

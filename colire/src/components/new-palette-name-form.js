@@ -3,7 +3,6 @@ import { useState, useContext, useEffect, useRef } from 'preact/hooks'
 import { useHistory } from 'react-router-dom'
 import { Context } from '@app'
 import { EmojiPicker } from '@components'
-import './css/new-palette-page.css'
 
 const NewPaletteNameForm = () => {
 
