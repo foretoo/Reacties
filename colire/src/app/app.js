@@ -2,7 +2,6 @@ import { h } from 'preact'
 import { useContext } from 'preact/hooks'
 import { Switch, Route } from 'react-router-dom'
 import { Home, Palette, PaletteEditor } from '@pages'
-import './css/app.css'
 
 const App = () => {
   return (

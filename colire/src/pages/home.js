@@ -3,6 +3,7 @@ import { useContext } from 'preact/hooks'
 import { Link } from 'react-router-dom'
 import { Context } from '@app'
 import { SVGFilter, PaletteBox } from '@components'
+import './home.css'
 
 const Home = () => {
 
