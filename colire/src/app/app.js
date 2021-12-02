@@ -7,7 +7,7 @@ const App = () => {
   return (
     <Switch>
       <Route path='/' exact component={Home} />
-      <Route path='/new-palette' component={PaletteEditor} />
+      <Route path='/create-palette' component={PaletteEditor} />
       <Route path='/:paletteID/:colorID?' component={Palette} />
     </Switch>
   )

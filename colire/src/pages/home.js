@@ -13,7 +13,7 @@ const Home = () => {
   return (
     <>
       <header class='home-header'>
-        <Link to='/new-palette' className='new-palette-button'>New Palette</Link>
+        <Link to='/create-palette' className='new-palette-button'>Create Palette</Link>
       </header>
 
       <main class='home-main'>
