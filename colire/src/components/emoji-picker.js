@@ -6,19 +6,19 @@ const EmojiPicker = ({ style, handleSelectEmoji }) => {
 
   const list = emojiList.map(e => {
     return (
-      <div
+      <ul
         className='emoji'
         onClick={() => handleSelectEmoji(e)}
       >
         {e}
-      </div>
+      </ul>
     )
   })
 
   return (
-    <div className='emoji-picker' style={style}>
+    <li className='emoji-picker' style={style}>
       {list}
-    </div>
+    </li>
   )
 }
 
