@@ -1,19 +1,20 @@
 .palette-box {
-  width: 16.5em;
-  padding: 2em;
+  width: calc(33% - 4rem);
+  min-width: 16rem;
+  padding: 2rem;
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
 }
 .palette-box-color {
   width: 20%;
-  height: 2em;
+  height: 2rem;
 }
 .palette-box-name {
   width: 100%;
-  height: 2.5em;
-  padding: 0.666em 0.75em;
-  font-size: 0.8em;
+  height: 2rem;
+  padding: 0.666rem 0.75rem;
+  font-size: 0.8rem;
   color: var(--light-h);
   background: #000;
 }
