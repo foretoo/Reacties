@@ -12,8 +12,8 @@ module.exports = (env, { mode }) => {
       alias: {
         "react": "preact/compat",
         "react-dom": "preact/compat",
-        '@': path.resolve(__dirname, 'src'),
         '@app': path.resolve(__dirname, 'src/app'),
+        '@pages': path.resolve(__dirname, 'src/pages'),
         '@components': path.resolve(__dirname, 'src/components'),
         '@utils': path.resolve(__dirname, 'src/utils'),
       }
