@@ -47,7 +47,7 @@ module.exports = (env, { mode }) => {
     output: {
       path: path.join(__dirname, 'build'),
       filename: '[name].js',
-      chunkFilename:'[id].vendor.js'
+      chunkFilename:'[name].vendor.js'
     },
 
     devServer: {
