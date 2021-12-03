@@ -1,7 +1,7 @@
 import { h } from 'preact'
 import { useContext, useState, useEffect } from 'preact/hooks'
 import { Context } from '@app'
-import { useDynamicImport } from '@utils/helpers'
+import { useDynamicImport } from '@utils/hooks'
 import chroma from 'chroma-js'
 
 const NewPaletteForm = () => {

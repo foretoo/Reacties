@@ -3,7 +3,7 @@ import { useContext, useState, useEffect } from 'preact/hooks'
 import { Link, useParams } from 'react-router-dom'
 import { Context } from '@app'
 import { Footer, Header, PaletteListContent, ColorListContent, SelectColorMode } from '@components'
-import { useDynamicImport } from '@utils/helpers'
+import { useDynamicImport } from '@utils/hooks'
 import 'rc-slider/assets/index.css'
 import './css/page.css'
 import './css/rc-slider.css'
@@ -27,7 +27,7 @@ const Palette = () => {
       min={100}
       max={900}
       step={100}
-      onChange={handleChangeLevel}
+      onChange={level => handleChangeLevel(level)}
     />
 
   const handleChangeLevel = level => {
