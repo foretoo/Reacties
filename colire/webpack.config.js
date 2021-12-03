@@ -46,40 +46,8 @@ module.exports = (env, { mode }) => {
 
     output: {
       path: path.join(__dirname, 'build'),
-      filename: (pathData) => {
-        const name = pathData.chunk.name
-        return ( name === 'index' ? 'index' : name + '.vendor' ) + '.js'
-      },
-    },
-
-    optimization: {
-      splitChunks: {
-        chunks: 'all',
-        usedExports: true,
-        cacheGroups: {
-          defaultVendors: {
-            test: /[\\/]node_modules[\\/]/,
-            name: 'main',
-            priority: -10,
-            reuseExistingChunk: true,
-          },
-          reactSliderVendor: {
-            test: /[\\/]node_modules[\\/](rc-slider)[\\/]/,
-            name: "rc-slider",
-            reuseExistingChunk: true,
-          },
-          reactColorVendor: {
-            test: /[\\/]node_modules[\\/](react-color)[\\/]/,
-            name: "react-color",
-            reuseExistingChunk: true,
-          },
-          dndVendor: {
-            test: /[\\/]node_modules[\\/](@dnd-kit)[\\/]/,
-            name: "dnd-kit",
-            reuseExistingChunk: true,
-          }
-        },
-      },
+      filename: '[name].js',
+      chunkFilename:'[id].vendor.js'
     },
 
     devServer: {
