@@ -10,7 +10,7 @@ const useDynamicImport = (name = '', callback = () => {}, props = {}) => {
 
   const load = async () => {
     const Component = await callback().then(module => module.default ? module.default : module[name])
-    setComponent(<Component {...props}/>)
+    setComponent(<Component {...props} />)
   }
 
   return component
