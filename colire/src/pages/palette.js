@@ -1,9 +1,9 @@
 import { h, Fragment } from 'preact'
-import { useContext } from 'preact/hooks'
+import { useContext, useState, useEffect } from 'preact/hooks'
 import { Link, useParams } from 'react-router-dom'
 import { Context } from '@app'
 import { PaletteListContent, ColorListContent, SelectColorMode } from '@components'
-import Slider from 'rc-slider'
+import { useDynamicImport } from '@utils/helpers'
 import 'rc-slider/assets/index.css'
 import './css/page.css'
 import './css/rc-slider.css'
@@ -14,6 +14,22 @@ const Palette = () => {
   const { paletteID, colorID } = useParams()
   const palette = state.palettes.find(palette => palette.id === paletteID)
 
+  const slider = colorID ? null : useDynamicImport(
+    'Slider',
+    () => import(
+      /* webpackChunkName: "rc-slider" */
+      /* webpackMode: "lazy" */
+      /* webpackPrefetch: true */
+      'rc-slider'
+    ), {
+      defaultValue: palette.activeLevel,
+      min: 100,
+      max: 900,
+      step: 100,
+      onChange: level => handleChangeLevel(level)
+    }
+  )
+
   const handleChangeLevel = level => {
     dispatch({
       type: 'CHANGE_PALETTE_LEVEL',
@@ -21,15 +37,7 @@ const Palette = () => {
     })
   }
 
-  const slider = colorID
-    ? null
-    : <Slider
-      defaultValue={palette.activeLevel}
-      min={100}
-      max={900}
-      step={100}
-      onChange={handleChangeLevel}
-    />
+
   const content = colorID
     ? <ColorListContent colors={palette.colors[colorID]} />
     : <PaletteListContent colors={palette.colors} activeLevel={palette.activeLevel} />

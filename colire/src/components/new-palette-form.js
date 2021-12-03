@@ -1,13 +1,27 @@
 import { h } from 'preact'
-import { useContext } from 'preact/hooks'
+import { useContext, useState, useEffect } from 'preact/hooks'
 import { Context } from '@app'
+import { useDynamicImport } from '@utils/helpers'
 import chroma from 'chroma-js'
-import { ChromePicker } from 'react-color'
 
 const NewPaletteForm = () => {
 
   const { state, dispatch } = useContext(Context)
   const { color, palette, hidden, valid } = state.custom
+
+  const picker = useDynamicImport(
+    'ChromePicker',
+    () => import(
+      /* webpackChunkName: "react-color" */
+      /* webpackMode: "lazy" */
+      /* webpackPrefetch: true */
+      'react-color'
+    ), {
+      color: color.color,
+      disableAlpha: true,
+      onChange: color => handleChangeColor(color)
+    }
+  )
 
   let formClass = 'new-palette-form'
   if (hidden) formClass += ' hidden'
@@ -69,13 +83,15 @@ const NewPaletteForm = () => {
     })
   }
 
+
+
   return (
     <aside class={formClass}>
       <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
         <button onClick={handleClearPalette}>Clear palette</button>
         <button onClick={handleRandomColor}>Random color</button>
       </div>
-      <ChromePicker color={ color.color } onChange={handleChangeColor} disableAlpha={true}/>
+      {picker}
       <input class={inputClass} type='text' value={color.name} placeholder='color name' onChange={handleChangeColorName} />
       <div class={submitClass}>
         <button class={lumClass} style={{ backgroundColor: color.color }} onClick={handleAddColor}>Add color</button>
