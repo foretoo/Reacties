@@ -50,7 +50,6 @@ module.exports = (env, { mode }) => {
         const name = pathData.chunk.name
         return ( name === 'index' ? 'index' : name + '.vendor' ) + '.js'
       },
-      clean: true,
     },
 
     optimization: {
