@@ -1,7 +1,7 @@
 import { h } from 'preact'
 import { useState, useEffect } from 'preact/hooks'
 
-const useDynamicImport = (name, callback, props) => {
+const useDynamicImport = (name = '', callback = () => {}, props = {}) => {
 
   const [ component, setComponent ] = useState(null)
   useEffect(() => {
