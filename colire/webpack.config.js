@@ -1,17 +1,19 @@
-const path = require("path")
-const HtmlWebPackPlugin = require("html-webpack-plugin")
+const path = require('path')
+const HtmlWebPackPlugin = require('html-webpack-plugin')
 const myIP = (process.platform === 'darwin' && '192.168.1.44') || (process.platform === 'win32' && '192.168.1.51') || 'localhost'
 const port = '8000'
 
 module.exports = (env, { mode }) => {
   return {
-    entry: "./src/index.js",
+    entry: {
+      index: './src/index.js'
+    },
     devtool: mode === 'production' ? false : 'inline-source-map',
 
     resolve: {
       alias: {
-        "react": "preact/compat",
-        "react-dom": "preact/compat",
+        'react': 'preact/compat',
+        'react-dom': 'preact/compat',
         '@app': path.resolve(__dirname, 'src/app'),
         '@pages': path.resolve(__dirname, 'src/pages'),
         '@components': path.resolve(__dirname, 'src/components'),
@@ -24,7 +26,7 @@ module.exports = (env, { mode }) => {
         {
           test: /\.(js|jsx)$/,
           exclude: /node_modules/,
-          loader: "babel-loader"
+          loader: 'babel-loader'
         },
         {
           test: /\.css$/,
@@ -38,19 +40,55 @@ module.exports = (env, { mode }) => {
 
     plugins: [
       new HtmlWebPackPlugin({
-        template: "./src/index.html"
+        template: './src/index.html'
       })
     ],
 
     output: {
-      path: path.join(__dirname, "/build"),
-      filename: "bundle.js"
+      path: path.join(__dirname, 'build'),
+      filename: (pathData) => {
+        const name = pathData.chunk.name
+        return ( name === 'index' ? 'index' : name + '.vendor' ) + '.js'
+      },
+      clean: true,
+    },
+
+    optimization: {
+      splitChunks: {
+        chunks: 'all',
+        usedExports: true,
+        cacheGroups: {
+          defaultVendors: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'main',
+            priority: -10,
+            reuseExistingChunk: true,
+          },
+          reactSliderVendor: {
+            test: /[\\/]node_modules[\\/](rc-slider)[\\/]/,
+            name: "rc-slider",
+            reuseExistingChunk: true,
+          },
+          reactColorVendor: {
+            test: /[\\/]node_modules[\\/](react-color)[\\/]/,
+            name: "react-color",
+            reuseExistingChunk: true,
+          },
+          dndVendor: {
+            test: /[\\/]node_modules[\\/](@dnd-kit)[\\/]/,
+            name: "dnd-kit",
+            reuseExistingChunk: true,
+          }
+        },
+      },
     },
 
     devServer: {
-      disableHostCheck: true,
       historyApiFallback: true,
-      clientLogLevel: 'silent',
+      client: {
+        logging: 'none',
+      },
+      allowedHosts: 'auto',
       hot: true,
       open: true,
       host: myIP,
