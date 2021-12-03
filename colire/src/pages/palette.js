@@ -2,7 +2,7 @@ import { h, Fragment } from 'preact'
 import { useContext, useState, useEffect } from 'preact/hooks'
 import { Link, useParams } from 'react-router-dom'
 import { Context } from '@app'
-import { PaletteListContent, ColorListContent, SelectColorMode } from '@components'
+import { Footer, Header, PaletteListContent, ColorListContent, SelectColorMode } from '@components'
 import { useDynamicImport } from '@utils/helpers'
 import 'rc-slider/assets/index.css'
 import './css/page.css'
@@ -14,21 +14,21 @@ const Palette = () => {
   const { paletteID, colorID } = useParams()
   const palette = state.palettes.find(palette => palette.id === paletteID)
 
-  const slider = colorID ? null : useDynamicImport(
-    'Slider',
-    () => import(
+  const Slider = useDynamicImport('Slider', () => import(
       /* webpackChunkName: "rc-slider" */
       /* webpackMode: "lazy" */
       /* webpackPrefetch: true */
       'rc-slider'
-    ), {
-      defaultValue: palette.activeLevel,
-      min: 100,
-      max: 900,
-      step: 100,
-      onChange: level => handleChangeLevel(level)
-    }
+    )
   )
+  const slider = colorID ? null :
+    <Slider
+      defaultValue={palette.activeLevel}
+      min={100}
+      max={900}
+      step={100}
+      onChange={handleChangeLevel}
+    />
 
   const handleChangeLevel = level => {
     dispatch({
@@ -45,11 +45,12 @@ const Palette = () => {
   const snackBarShow = state.format.animate ? ' show' : ''
   return (
     <>
-      <header class='page-header'>
+      <Header className='page-header'>
         <Link to='/' className='page-header-link'>Home</Link>
         {slider}
         <SelectColorMode />
-      </header>
+      </Header>
+
       <main class='page-content'>
         <section class={'page-overlay' + overlayShow + state.copy.class}>
           <h1>Copied</h1>
@@ -60,10 +61,11 @@ const Palette = () => {
           Format changed to {state.format.label}
         </aside>
       </main>
-      <footer class='page-footer'>
+
+      <Footer className='page-footer'>
         <span>{palette.paletteName}</span>
         <span>{palette.emoji}</span>
-      </footer>
+      </Footer>
     </>
   )
 }

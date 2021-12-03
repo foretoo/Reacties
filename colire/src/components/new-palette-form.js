@@ -9,18 +9,12 @@ const NewPaletteForm = () => {
   const { state, dispatch } = useContext(Context)
   const { color, palette, hidden, valid } = state.custom
 
-  const picker = useDynamicImport(
-    'ChromePicker',
-    () => import(
+  const ChromePicker = useDynamicImport('ChromePicker', () => import(
       /* webpackChunkName: "react-color" */
       /* webpackMode: "lazy" */
       /* webpackPrefetch: true */
       'react-color'
-    ), {
-      color: color.color,
-      disableAlpha: true,
-      onChange: color => handleChangeColor(color)
-    }
+    )
   )
 
   let formClass = 'new-palette-form'
@@ -91,7 +85,7 @@ const NewPaletteForm = () => {
         <button onClick={handleClearPalette}>Clear palette</button>
         <button onClick={handleRandomColor}>Random color</button>
       </div>
-      {picker}
+      <ChromePicker color={ color.color } onChange={handleChangeColor} disableAlpha={true}/>
       <input class={inputClass} type='text' value={color.name} placeholder='color name' onChange={handleChangeColorName} />
       <div class={submitClass}>
         <button class={lumClass} style={{ backgroundColor: color.color }} onClick={handleAddColor}>Add color</button>
