@@ -8,7 +8,7 @@ import { SortableColorBox } from '@components'
 import './css/color-box.css'
 
 
-const NewPalette = () => {
+const SortablePalette = () => {
 
   const { state, dispatch } = useContext(Context)
   const { palette } = state.custom
@@ -50,4 +50,4 @@ const NewPalette = () => {
 
 }
 
-export default NewPalette
+export default SortablePalette

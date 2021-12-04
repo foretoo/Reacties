@@ -2,7 +2,7 @@ import { h, Fragment } from 'preact'
 import { useContext } from 'preact/hooks'
 import { Link } from 'react-router-dom'
 import { Context } from '@app'
-import { Footer, Header, NewPalette, NewPaletteForm, NewPaletteNameForm } from '@components'
+import { Footer, Header, SortablePalette, NewPaletteForm, NewPaletteNameForm } from '@components'
 import './css/palette-editor.css'
 
 const PaletteEditor = () => {
@@ -26,7 +26,7 @@ const PaletteEditor = () => {
       <main class='new-palette-container'>
         <NewPaletteForm />
         <section class='new-palette-content'>
-          <NewPalette />
+          <SortablePalette />
         </section>
       </main>
 
