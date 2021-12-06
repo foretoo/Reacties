@@ -25,10 +25,15 @@
 body {
   min-height: 100vh;
   display: flex;
+  overscroll-behavior: none;
+}
+#root {
+  width: 100%;
+  display: flex;
   flex-direction: column;
   align-items: stretch;
   background-color: var(--dark-l);
-  overscroll-behavior-y: none;
+  overflow: scroll;
 }
 a {
   text-decoration: none;
