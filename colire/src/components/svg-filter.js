@@ -26,7 +26,7 @@ const SVGFilter = () => {
           type="saturate"
           values={saturate}
           result="saturate" /> */}
-        <feGaussianBlur in="saturate"
+        <feGaussianBlur in="brightness"
           stdDeviation={blur}
           edgeMode="none"
           result="blur" />
