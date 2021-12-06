@@ -8,7 +8,7 @@ module.exports = (env, { mode }) => {
     entry: {
       index: './src/index.js'
     },
-    devtool: mode === 'production' ? false : 'inline-source-map',
+    devtool: mode === 'development' ? 'inline-source-map' : false,
 
     resolve: {
       alias: {
@@ -34,7 +34,7 @@ module.exports = (env, { mode }) => {
             'style-loader',
             'css-loader'
           ]
-        },
+        }
       ]
     },
 
@@ -46,8 +46,16 @@ module.exports = (env, { mode }) => {
 
     output: {
       path: path.join(__dirname, 'build'),
-      filename: '[name].js',
-      chunkFilename:'[name].vendor.js'
+      filename: '[name].[contenthash].js',
+      chunkFilename: ({ chunk }) => {
+          const i = chunk.id.indexOf('lodash')
+          if (i !== -1) {
+            const name = chunk.id.slice(i + 8, -3)
+            return 'lodash.' + name + '.vendor.js'
+          }
+          return chunk.name + '.vendor.js'
+        },
+      hashDigestLength: 16,
     },
 
     devServer: {
