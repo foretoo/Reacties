@@ -9,13 +9,12 @@ const Slider = ({ id, level }) => {
 
   const { dispatch } = useContext(Context)
 
-  const Component = useDynamicImport('Slider', () => import(
-      /* webpackChunkName: "rc-slider" */
-      /* webpackMode: "lazy" */
-      /* webpackPrefetch: true */
-      'rc-slider'
-    )
-  )
+  const { isLoading, module: Component } = useDynamicImport('Slider', () => import(
+    /* webpackChunkName: "rc-slider" */
+    /* webpackMode: "lazy" */
+    /* webpackPrefetch: true */
+    'rc-slider'
+  ))
 
   const handleChangeLevel = level => {
     dispatch({
@@ -24,7 +23,7 @@ const Slider = ({ id, level }) => {
     })
   }
 
-  return (
+  return !isLoading && (
     <Component
       defaultValue={level}
       min={100}
