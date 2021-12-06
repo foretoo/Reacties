@@ -1,21 +1,47 @@
 import { h } from 'preact'
-import { useState, useEffect } from 'preact/hooks'
+import { useState, useEffect, useRef } from 'preact/hooks'
 
-const useDynamicImport = (name = '', upload = () => {}) => {
+const useDynamicImport = (name = '', upload = () => null) => {
 
-  const [ component, setComponent ] = useState(null)
+  const uploadRef = useRef(upload)
+  useEffect(() => {
+    uploadRef.current = upload
+  }, [ upload ])
+
+  const initState = {
+    isLoading: false,
+    module: null,
+    error: null
+  }
+  const [ state, setState ] = useState(initState)
 
   useEffect(() => {
     let isMounted = true
-    upload()
-      .then(module => module[name] ? module[name] : module.default )
-      .then(module => {
-        isMounted && setComponent( () => module )
-      })
-    return () => (isMounted = false)
-  }, [ name, upload ])
+    setState(state => {
+      return { ...state, isLoading: true }
+    })
 
-  return component
+    upload().then(data => data[name] ? data[name] : data.default)
+      .then(module => {
+        isMounted && setState(state => {
+          return { ...state, module, error: null }
+        })
+      })
+      .catch(error => {
+        isMounted && setState(state => {
+          return { ...state, error, component: null }
+        })
+      })
+      .finally(() => {
+        isMounted && setState(state => {
+          return { ...state, isLoading: false }
+        })
+      })
+
+    return () => (isMounted = false)
+  }, [ name ])
+
+  return state
 }
 
 export default useDynamicImport
