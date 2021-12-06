@@ -9,5 +9,5 @@ render(
       <App />
     </Router>
   </ContextProvider>,
-  document.body
+  window.root
 )
