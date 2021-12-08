@@ -30,7 +30,7 @@ const PaletteEditor = () => {
         </section>
       </main>
 
-      <Footer class='new-palette-footer'></Footer>
+      <Footer />
     </>
   )
 }

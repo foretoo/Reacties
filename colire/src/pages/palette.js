@@ -46,7 +46,7 @@ const Palette = () => {
         </aside>
       </main>
 
-      <Footer className='page-footer'>
+      <Footer>
         <span>{palette.paletteName}</span>
         <span>{palette.emoji}</span>
       </Footer>

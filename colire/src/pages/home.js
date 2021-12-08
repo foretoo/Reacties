@@ -20,7 +20,7 @@ const Home = () => {
         {paletteLinks}
       </main>
 
-      <Footer className='home-footer'></Footer>
+      <Footer />
 
       <SVGFilter />
     </>
