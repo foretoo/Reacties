@@ -4,13 +4,26 @@
   flex-direction: column;
   justify-content: space-between;
   position: relative;
+  overflow: hidden;
 }
 .color-box.palette {
-  height: calc((100vh - 6em) / 4);
+  height: 25%;
 }
 .color-box.color {
-  height: calc((100vh - 6em) / 2);
+  height: 50%;
 }
+
+/* @media only screen and (max-width: 560px) {
+  .color-box {
+    width: 50%;
+  }
+  .color-box.palette {
+    height: calc((100vh - 6em) / 10);
+  }
+  .color-box.color {
+    height: calc((100vh - 6em) / 5);
+  }
+} */
 
 .color-box:hover .icon-trash {
   visibility: visible;
