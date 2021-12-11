@@ -25,8 +25,7 @@ const Palette = () => {
     : <PaletteListContent colors={palette.colors} activeLevel={palette.activeLevel} />
   )
 
-  
-  const snackBarShow = state.format.animate ? ' show' : ''
+  const snackbarShowClass = state.format.show ? ' show' : ''
 
   return (
     <>
@@ -37,11 +36,13 @@ const Palette = () => {
       </Header>
 
       <main class='page-content'>
-        <Overlay />
-        <Content />
-        <aside class={'page-snackbar' + snackBarShow}>
+
+        <aside class={'page-snackbar' + snackbarShowClass}>
           Format changed to {state.format.label}
         </aside>
+        <Overlay />
+        <Content />
+
       </main>
 
       <Footer>

@@ -18,12 +18,12 @@ const ColorBox = ({ name, hex, rgb, button, contentClass }) => {
       type: 'COPY',
       payload: {
         code: colorCode,
-        class: lumClass
+        lumClass
       }
     })
-    dispatch({ type: 'COPY_SHOW_OVERLAY' })
+    dispatch({ type: 'COPY_OVERLAY_SHOW' })
     setTimeout(() => {
-      dispatch({ type: 'COPY_HIDE_OVERLAY' })
+      dispatch({ type: 'COPY_OVERLAY_HIDE' })
     }, 1600)
   }
 

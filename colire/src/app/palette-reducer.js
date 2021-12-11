@@ -5,25 +5,25 @@ const paletteReducer = (state, action) => {
         ...state,
         copy: {
           code: action.payload.code,
-          lumClass: action.payload.class
+          lumClass: action.payload.lumClass
         }
       }
     }
-    case 'COPY_SHOW_OVERLAY': {
+    case 'COPY_OVERLAY_SHOW': {
       return {
         ...state,
         copy: {
           ...state.copy,
-          overlay: true
+          show: true
         }
       }
     }
-    case 'COPY_HIDE_OVERLAY': {
+    case 'COPY_OVERLAY_HIDE': {
       return {
         ...state,
         copy: {
           ...state.copy,
-          overlay: false
+          show: false
         }
       }
     }
@@ -31,17 +31,25 @@ const paletteReducer = (state, action) => {
       return {
         ...state,
         format: {
-          animate: true,
           label: action.payload
         }
       }
     }
-    case 'MODE_ANIMATION_DONE': {
+    case 'COLOR_MODE_SHOW': {
       return {
         ...state,
         format: {
           ...state.format,
-          animate: false
+          show: true
+        }
+      }
+    }
+    case 'COLOR_MODE_HIDE': {
+      return {
+        ...state,
+        format: {
+          ...state.format,
+          show: false
         }
       }
     }

@@ -6,10 +6,10 @@ import './css/overlay.css'
 const Overlay = () => {
 
   const { state } = useContext(Context)
-  const { overlay, lumClass, code } = state.copy
+  const { show, lumClass, code } = state.copy
 
-  const showClass = overlay ? ' show' : ''
-  
+  const showClass = show ? ' show' : ''
+
   return (
     <section
       class={'overlay' + showClass + lumClass}
