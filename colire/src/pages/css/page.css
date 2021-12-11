@@ -1,29 +1,7 @@
-.page-content {
+.content-container {
   flex-grow: 1;
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  align-content: flex-start;
   overflow: hidden;
-}
-
-
-.page-snackbar {
-  position: absolute;
-  right: 0;
-  top: 0;
-  margin: 1rem;
-  padding: 0.5rem 0.75rem;
-  font-size: 0.8rem;
-  color: var(--light-h);
-  border-radius: 4px;
-  opacity: 0;
-  transform: translateY(-3rem);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-  background: var(--dark-m);
-  z-index: 1;
-}
-.page-snackbar.show {
-  transform: translateY(0);
-  opacity: 1;
 }

@@ -9,7 +9,8 @@ import {
   PaletteListContent,
   ColorListContent,
   SelectColorMode,
-  Slider
+  Slider,
+  Snackbar
 } from '@components'
 import './css/page.css'
 
@@ -24,9 +25,7 @@ const Palette = () => {
     ? <ColorListContent colors={palette.colors[colorID]} />
     : <PaletteListContent colors={palette.colors} activeLevel={palette.activeLevel} />
   )
-
-  const snackbarShowClass = state.format.show ? ' show' : ''
-
+  
   return (
     <>
       <Header className='page-header'>
@@ -35,14 +34,10 @@ const Palette = () => {
         <SelectColorMode />
       </Header>
 
-      <main class='page-content'>
-
-        <aside class={'page-snackbar' + snackbarShowClass}>
-          Format changed to {state.format.label}
-        </aside>
+      <main class='content-container'>
+        <Snackbar />
         <Overlay />
         <Content />
-
       </main>
 
       <Footer>

@@ -11,6 +11,7 @@ import PaletteBox from './palette-box'
 import PaletteListContent from './palette-list-content'
 import SelectColorMode from './select-color-mode'
 import Slider from './slider'
+import Snackbar from './snackbar'
 import SortableColorBox from './sortable-color-box'
 import SortablePalette from './sortable-palette'
 import SVGFilter from './svg-filter'
@@ -29,6 +30,7 @@ export {
   PaletteListContent,
   SelectColorMode,
   Slider,
+  Snackbar,
   SortableColorBox,
   SortablePalette,
   SVGFilter
