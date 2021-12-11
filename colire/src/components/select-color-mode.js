@@ -6,15 +6,16 @@ import './css/select-color-mode.css'
 const SelectColorMode = () => {
 
   const { state, dispatch } = useContext(Context)
-  const { format: { label: label } } = state
+  const { format: { label } } = state
 
   const handleChangeMode = format => {
     dispatch({
       type: 'CHANGE_COLOR_MODE',
       payload: format
     })
+    dispatch({ type: 'COLOR_MODE_SHOW' })
     setTimeout(() => {
-      dispatch({ type: 'MODE_ANIMATION_DONE' })
+      dispatch({ type: 'COLOR_MODE_HIDE' })
     }, 1600)
   }
 
