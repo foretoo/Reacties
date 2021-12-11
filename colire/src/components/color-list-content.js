@@ -17,7 +17,7 @@ const ColorListContent = ({ colors }) => {
 
   const colorsList = []
   for (const level in colors) {
-    colorsList.push(<ColorBox key={level} id={level} addClass=' color' {...colors[level]} />)
+    colorsList.push(<ColorBox key={level} id={level} contentClass=' color' {...colors[level]} />)
   }
 
   const handleGoBack = () => {
