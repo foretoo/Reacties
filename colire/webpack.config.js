@@ -47,14 +47,7 @@ module.exports = (env, { mode }) => {
     output: {
       path: path.join(__dirname, 'build'),
       filename: '[name].[contenthash].js',
-      chunkFilename: ({ chunk }) => {
-          const i = chunk.id.indexOf('lodash')
-          if (i !== -1) {
-            const name = chunk.id.slice(i + 8, -3)
-            return 'lodash.' + name + '.vendor.js'
-          }
-          return chunk.name + '.vendor.js'
-        },
+      chunkFilename: ({ chunk }) => lodashHandler(chunk.id) || chunk.name + '.vendor.js',
       hashDigestLength: 16,
     },
 
@@ -69,5 +62,13 @@ module.exports = (env, { mode }) => {
       host: myIP,
       port: port
     }
+  }
+}
+
+function lodashHandler(id) {
+  const i = id.indexOf('lodash_')
+  if (i !== -1) {
+    const name = id.slice(i + 8, -3)
+    return 'lodash.' + name + '.vendor.js'
   }
 }
