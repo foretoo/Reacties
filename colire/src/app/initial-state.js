@@ -13,7 +13,7 @@ const initialState = {
   copy: {
     animate: false,
     code: '',
-    class: ''
+    lumClass: ''
   },
   format: {
     animate: false,

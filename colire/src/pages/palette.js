@@ -24,7 +24,7 @@ const Palette = () => {
     : <PaletteListContent colors={palette.colors} activeLevel={palette.activeLevel} />
   )
 
-  const overlayShow = state.copy.animate ? ' show' : ''
+  const overlayShowClass = state.copy.overlay ? ' show' : ''
   const snackBarShow = state.format.animate ? ' show' : ''
 
   return (
@@ -36,7 +36,10 @@ const Palette = () => {
       </Header>
 
       <main class='page-content'>
-        <section class={'page-overlay' + overlayShow + state.copy.class}>
+        <section
+          class={'page-overlay' + overlayShowClass + state.copy.lumClass}
+          style={{background: state.copy.code}}
+        >
           <h1>Copied</h1>
           <span>{state.copy.code}</span>
         </section>

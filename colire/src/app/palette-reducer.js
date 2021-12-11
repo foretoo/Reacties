@@ -4,18 +4,26 @@ const paletteReducer = (state, action) => {
       return {
         ...state,
         copy: {
-          animate: true,
           code: action.payload.code,
-          class: action.payload.class
+          lumClass: action.payload.class
         }
       }
     }
-    case 'COPY_ANIMATION_DONE': {
+    case 'COPY_SHOW_OVERLAY': {
       return {
         ...state,
         copy: {
           ...state.copy,
-          animate: false
+          overlay: true
+        }
+      }
+    }
+    case 'COPY_HIDE_OVERLAY': {
+      return {
+        ...state,
+        copy: {
+          ...state.copy,
+          overlay: false
         }
       }
     }
