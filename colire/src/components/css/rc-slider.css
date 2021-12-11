@@ -1,7 +1,7 @@
 .rc-slider {
   width: auto;
   flex-grow: 1;
-  margin: 0 4em;
+  margin: 0 4rem;
 }
 .rc-slider-rail {
   height: 12px;

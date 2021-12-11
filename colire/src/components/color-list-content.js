@@ -3,7 +3,6 @@ import { useContext } from 'preact/hooks'
 import { useParams, useHistory } from 'react-router-dom'
 import { Context } from '@app'
 import { ColorBox } from '@components'
-import './css/color-content.css'
 
 const ColorListContent = ({ colors }) => {
 

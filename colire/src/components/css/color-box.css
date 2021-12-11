@@ -18,13 +18,16 @@
     width: 50%;
   }
   .color-box.palette {
-    height: calc((100vh - 6em) / 10);
+    height: 10%;
   }
   .color-box.color {
-    height: calc((100vh - 6em) / 5);
+    height: 10%;
   }
 } */
 
+
+
+/*    INFO    */
 .color-box-info {
   min-height: 28px;;
   display: flex;
@@ -35,56 +38,22 @@
   margin-left: 8px;
   font-family: 'IBM Plex Mono', monospace;
   font-style: italic;
-  font-size: 0.6em;
-  line-height: 1em;
+  font-size: 0.6rem;
+  line-height: 0.6rem;
 }
 .color-box-info-more {
   margin: 4px;
   padding: 4px 6px;
   border-radius: 2px;
-  line-height: 1em;
-  font-size: 0.6em;
+  font-size: 0.6rem;
+  line-height: 0.6rem;
 }
-.color-box:hover .color-box-button {
-  opacity: 1;
-  transition: 0.5s;
+.light .color-box-info-name {
+  color: var(--light-h);
 }
-
-.color-box:hover .icon-trash {
-  visibility: visible;
-}
-.icon-trash {
-  align-self: flex-end;
-  visibility: hidden;
-}
-
-.color-box-back {
-  width: 20%;
-  display: flex;
-}
-.color-box-button {
-  margin: auto;
-  padding: 0.333em 0.5em;
-  border-radius: 2px;
-  font-size: 0.8em;
-  opacity: 0;
-}
-.back .color-box-button {
-  margin: auto;
-  color: var(--dark-h);
-  border: 1px solid var(--dark-l);
-  opacity: 1;
-}
-
-
-
-.dark .icon-trash {
-  stroke: var(--dark-h);
-}
-.dark .color-box-button {
-  color: var(--dark-m);
-  border: 1px solid var(--dark-l);
-  background: var(--dark-l);
+.light .color-box-info-more {
+  color: var(--light-m);
+  background: var(--light-l);
 }
 .dark .color-box-info-name {
   color: var(--dark-h);
@@ -94,18 +63,49 @@
   background: var(--dark-l);
 }
 
-.light .icon-trash {
-  stroke: var(--light-h);
+
+
+/*    BUTTON    */
+.color-box-button {
+  margin: auto;
+  padding: 0.25rem 0.4rem;
+  border-radius: 2px;
+  font-size: 0.8rem;
+  opacity: 0;
+}
+.color-box:hover .color-box-button {
+  opacity: 1;
+  transition: 0.5s;
+}
+.back .color-box-button {
+  color: var(--dark-h);
+  border: 1px solid var(--dark-l);
+  opacity: 1;
 }
 .light .color-box-button {
   color: var(--light-m);
   border: 1px solid var(--light-l);
   background: var(--light-l);
 }
-.light .color-box-info-name {
-  color: var(--light-h);
+.dark .color-box-button {
+  color: var(--dark-m);
+  border: 1px solid var(--dark-l);
+  background: var(--dark-l);
 }
-.light .color-box-info-more {
-  color: var(--light-m);
-  background: var(--light-l);
+
+
+
+/* ICON_TRASH */
+.icon-trash {
+  align-self: flex-end;
+  visibility: hidden;
+}
+.color-box:hover .icon-trash {
+  visibility: visible;
+}
+.dark .icon-trash {
+  stroke: var(--dark-h);
+}
+.light .icon-trash {
+  stroke: var(--light-h);
 }
