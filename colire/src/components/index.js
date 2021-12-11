@@ -6,6 +6,7 @@ import Header from './header'
 import withMore from './hoc-with-more'
 import NewPaletteForm from './new-palette-form'
 import NewPaletteNameForm from './new-palette-name-form'
+import Overlay from './overlay'
 import PaletteBox from './palette-box'
 import PaletteListContent from './palette-list-content'
 import SelectColorMode from './select-color-mode'
@@ -23,6 +24,7 @@ export {
   withMore,
   NewPaletteForm,
   NewPaletteNameForm,
+  Overlay,
   PaletteBox,
   PaletteListContent,
   SelectColorMode,

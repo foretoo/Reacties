@@ -1,0 +1,49 @@
+.overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.2s, opacity 0.2s ease-in;
+  z-index: 1;
+}
+.overlay.show {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.2s ease-out;
+}
+
+.overlay h1 {
+  margin: 1rem;
+  padding: 0.8rem 1rem;
+  text-align: center;
+  border-radius: 4px;
+  transition: opacity 0.2s ease;
+}
+.overlay.light h1 {
+  color: var(--light-h);
+  border: 1px solid var(--light-l);
+  background: var(--light-l);
+}
+.overlay.dark h1 {
+  color: var(--dark-h);
+  border: 1px solid var(--dark-l);
+  background: var(--dark-l);
+}
+
+.overlay span {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem;
+}
+.overlay.light span {
+  color: var(--light-m);
+}
+.overlay.dark span {
+  color: var(--dark-m);
+}
