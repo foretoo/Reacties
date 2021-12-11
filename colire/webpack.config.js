@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const myIP = (process.platform === 'darwin' && '192.168.1.44') || (process.platform === 'win32' && '192.168.1.51') || 'localhost'
 const port = '8000'
 
@@ -31,7 +32,7 @@ module.exports = (env, { mode }) => {
         {
           test: /\.css$/,
           use: [
-            'style-loader',
+            MiniCssExtractPlugin.loader,
             'css-loader'
           ]
         }
@@ -41,6 +42,9 @@ module.exports = (env, { mode }) => {
     plugins: [
       new HtmlWebPackPlugin({
         template: './src/index.html'
+      }),
+      new MiniCssExtractPlugin({
+        filename: "[name].[contenthash].css"
       })
     ],
 
