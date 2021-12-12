@@ -25,7 +25,7 @@ const Palette = () => {
     ? <ColorListContent colors={palette.colors[colorID]} />
     : <PaletteListContent colors={palette.colors} activeLevel={palette.activeLevel} />
   )
-  
+
   return (
     <>
       <Header className='page-header'>

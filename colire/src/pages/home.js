@@ -15,6 +15,7 @@ const Home = () => {
   useEffect(() => {
     const rect = mainRef.current.getBoundingClientRect()
     headRef.current.style.marginLeft = rect.left + 110 + 'px'
+    headRef.current.style.visibility = 'visible'
   }, [])
 
   return (
