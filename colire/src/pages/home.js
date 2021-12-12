@@ -2,7 +2,7 @@ import { h, Fragment } from 'preact'
 import { useContext } from 'preact/hooks'
 import { Link } from 'react-router-dom'
 import { Context } from '@app'
-import { Footer, Header, SVGFilter, PaletteBox } from '@components'
+import { AddPaletteBtn, SVGFilter, PaletteBox } from '@components'
 import './css/home.css'
 
 const Home = () => {
@@ -12,15 +12,12 @@ const Home = () => {
 
   return (
     <>
-      <Header className='home-header'>
-        <Link to='/create-palette' className='new-palette-button'>Create Palette</Link>
-      </Header>
-
       <main class='home-main'>
+        <Link to='/create-palette'>
+          <AddPaletteBtn />
+        </Link>
         {paletteLinks}
       </main>
-
-      <Footer />
 
       <SVGFilter />
     </>

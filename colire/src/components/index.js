@@ -1,3 +1,4 @@
+import AddPaletteBtn from './add-palette-btn'
 import ColorBox from './color-box'
 import ColorListContent from './color-list-content'
 import EmojiPicker from './emoji-picker'
@@ -17,6 +18,7 @@ import SortablePalette from './sortable-palette'
 import SVGFilter from './svg-filter'
 
 export {
+  AddPaletteBtn,
   ColorBox,
   ColorListContent,
   EmojiPicker,
