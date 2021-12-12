@@ -1,20 +1,24 @@
 .palette-box {
-  width: calc(33% - 4rem);
-  min-width: 16rem;
-  padding: 2rem;
-  display: flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
-}
-.palette-box-color {
-  width: 20%;
-  height: 2rem;
+  width: calc(2.5rem * 5);
+  padding: 2.5rem;
+  border-radius: 0.25rem;
+  box-sizing: content-box;
 }
 .palette-box-name {
   width: 100%;
   height: 2rem;
   padding: 0.5rem 0.75rem;
-  font-size: 0.8rem;
-  color: var(--light-h);
-  background: #000;
+  font-size: 0.9rem;
+  color: var(--dark-h);
+}
+.palette-box-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.palette-box-color {
+  width: 2.5rem;
+  height: 2rem;
 }

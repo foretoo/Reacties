@@ -1,11 +1,12 @@
 .home-main {
   flex-grow: 1;
+  max-width: 1090px;
   align-self: center;
-  max-width: 1440px;
   padding: 1em;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
   align-content: center;
   filter: url(#filter);
 }
