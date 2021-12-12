@@ -1,6 +1,6 @@
-/* IBM Plex Sans Regular */
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap');
-/* IBM Plex Mono Regular+Italic */
+/* IBM Plex Sans : Light italic + Regular + Bold */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,700;1,300&display=swap');
+/* IBM Plex Mono : Regular + Italic */
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital@0;1&display=swap');
 
 :root {
@@ -31,7 +31,6 @@ html, body, #root {
 #root {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
   background-color: var(--dark-l);
   overflow-y: auto;
 }

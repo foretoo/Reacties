@@ -8,5 +8,7 @@
   margin-top: 2rem;
   height: calc(2rem * 4);
   font-weight: bold;
+  color: inherit;
   background: url('../../assets/add-palette-btn.svg') no-repeat center;
+  cursor: pointer;
 }
