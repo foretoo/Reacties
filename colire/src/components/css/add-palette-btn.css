@@ -9,6 +9,11 @@
   height: calc(2rem * 4);
   font-weight: bold;
   color: inherit;
+  transform: scale(1);
+  transition: 0.2s ease-out;
   background: url('../../assets/add-palette-btn.svg') no-repeat center;
   cursor: pointer;
+}
+.add-palette-btn:hover {
+  transform: scale(1.1);
 }

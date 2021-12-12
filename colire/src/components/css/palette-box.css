@@ -15,9 +15,14 @@
   flex-wrap: wrap;
   align-items: flex-start;
   border-radius: 5px;
+  transform: scale(1);
+  transition: 0.2s ease-out;
   overflow: hidden;
 }
 .palette-box-color {
   width: 2.5rem;
   height: 2rem;
+}
+.palette-box:hover .palette-box-content {
+  transform: scale(1.05);
 }
