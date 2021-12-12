@@ -1,7 +1,7 @@
 .home-main {
   flex-grow: 1;
   width: 1090px;
-  padding: 1em;
+  padding: 1rem 1rem 4rem 1rem;
   align-self: center;
   display: flex;
   flex-wrap: wrap;
