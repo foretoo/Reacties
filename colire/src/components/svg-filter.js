@@ -7,7 +7,7 @@ const SVGFilter = () => {
   const contrast = 0.1
   const offset = { x: 0, y: 25 }
   return (
-    <svg class="filter" xmlns="http://www.w3.org/2000/svg">
+    <svg xmlns="http://www.w3.org/2000/svg" style={{ display: 'none' }}>
       <filter id="filter"
         x="-50%"
         y="-50%"

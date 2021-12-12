@@ -1,9 +1,9 @@
 import { h } from 'preact'
 import './css/header.css'
 
-const Header = ({ className, children }) => {
+const Header = ({ className = '', children = [] }) => {
   return (
-    <header className={className}>
+    <header className={'header ' + className}>
       {children}
     </header>
   )

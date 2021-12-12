@@ -1,22 +1,25 @@
-<svg width="246" height="156" viewBox="0 0 246 156" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect x="200" width="46" height="36" rx="4" fill="white"/>
-<rect x="150" width="46" height="36" rx="4" fill="white"/>
-<rect x="100" width="46" height="36" rx="4" fill="white"/>
-<rect x="50" width="46" height="36" rx="4" fill="white"/>
-<rect width="46" height="36" rx="4" fill="white"/>
-<rect x="200" y="40" width="46" height="36" rx="4" fill="white"/>
-<rect x="150" y="40" width="46" height="36" rx="4" fill="white"/>
-<rect x="100" y="40" width="46" height="36" rx="4" fill="white"/>
-<rect x="50" y="40" width="46" height="36" rx="4" fill="white"/>
-<rect y="40" width="46" height="36" rx="4" fill="white"/>
-<rect x="200" y="80" width="46" height="36" rx="4" fill="white"/>
-<rect x="150" y="80" width="46" height="36" rx="4" fill="white"/>
-<rect x="100" y="80" width="46" height="36" rx="4" fill="white"/>
-<rect x="50" y="80" width="46" height="36" rx="4" fill="white"/>
-<rect y="80" width="46" height="36" rx="4" fill="white"/>
-<rect x="200" y="120" width="46" height="36" rx="4" fill="white"/>
-<rect x="150" y="120" width="46" height="36" rx="4" fill="white"/>
-<rect x="100" y="120" width="46" height="36" rx="4" fill="white"/>
-<rect x="50" y="120" width="46" height="36" rx="4" fill="white"/>
-<rect y="120" width="46" height="36" rx="4" fill="white"/>
+<svg id="add-palette-bg" width="246" height="156" viewBox="0 0 246 156" xmlns="http://www.w3.org/2000/svg">
+  <rect id="rect" width="46" height="36" rx="4" fill="white" />
+  <use href="#rect" x="50" />
+  <use href="#rect" x="100" />
+  <use href="#rect" x="150" />
+  <use href="#rect" x="200" />
+
+  <use href="#rect" y="40" />
+  <use href="#rect" x="50" y="40" />
+  <use href="#rect" x="100" y="40" />
+  <use href="#rect" x="150" y="40" />
+  <use href="#rect" x="200" y="40" />
+
+  <use href="#rect" y="80" />
+  <use href="#rect" x="50" y="80" />
+  <use href="#rect" x="100" y="80" />
+  <use href="#rect" x="150" y="80" />
+  <use href="#rect" x="200" y="80" />
+
+  <use href="#rect" y="120" />
+  <use href="#rect" x="50" y="120" />
+  <use href="#rect" x="100" y="120" />
+  <use href="#rect" x="150" y="120" />
+  <use href="#rect" x="200" y="120" />
 </svg>
