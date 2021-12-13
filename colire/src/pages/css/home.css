@@ -11,24 +11,11 @@
   filter: url(#filter);
 }
 
-@media only screen and (max-width: 1090px) {
-  .home-main {
-    width: 740px;
-  }
-}
-
-@media only screen and (max-width: 740px) {
-  .home-main {
-    width: 390px;
-  }
-}
-
 .home-header {
   width: 100%;
-  margin: 3rem 0 2rem 0;
+  margin: 3rem 0 2rem 5rem;
   display: flex;
   align-items: baseline;
-  visibility: hidden;
 }
 .home-header h1 {
   font-size: 2rem;
@@ -37,4 +24,23 @@
 .home-header span {
   font-style: italic;
   transform: translate(-3.3rem, 1rem);
+}
+
+
+
+@media only screen and (max-width: 1090px) {
+  .home-main {
+    width: 740px;
+  }
+}
+
+
+
+@media only screen and (max-width: 740px) {
+  .home-main {
+    width: 390px;
+  }
+  .home-header {
+    margin: 3rem 0 2rem 2.5rem;
+  }
 }

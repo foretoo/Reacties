@@ -1,5 +1,5 @@
 import { h, Fragment } from 'preact'
-import { useContext, useEffect, useRef } from 'preact/hooks'
+import { useContext } from 'preact/hooks'
 import { Link } from 'react-router-dom'
 import { Context } from '@app'
 import { AddPaletteBtn, Footer, SVGFilter, PaletteBox } from '@components'
@@ -10,26 +10,21 @@ const Home = () => {
   const { state: { palettes } } = useContext(Context)
   const paletteLinks = palettes.map( palette => <PaletteBox {...palette}/> )
 
-  const mainRef = useRef()
-  const headRef = useRef()
-  useEffect(() => {
-    const rect = mainRef.current.getBoundingClientRect()
-    headRef.current.style.marginLeft = rect.left + 110 + 'px'
-    headRef.current.style.visibility = 'visible'
-  }, [])
-
   return (
     <>
-      <header ref={headRef} className='home-header'>
-        <h1>Colllie</h1>
-        <span>yor palette lib</span>
-      </header>
+      <main className='home-main'>
 
-      <main ref={mainRef} className='home-main'>
+        <header className='home-header'>
+          <h1>Colllie</h1>
+          <span>yor palette lib</span>
+        </header>
+
         <Link to='/create-palette'>
           <AddPaletteBtn />
         </Link>
+
         {paletteLinks}
+
       </main>
 
       <Footer>
