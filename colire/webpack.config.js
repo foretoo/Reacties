@@ -48,14 +48,14 @@ module.exports = (env, { mode }) => {
         template: './src/index.html'
       }),
       new MiniCssExtractPlugin({
-        filename: "[name].css" // .[contenthash]
+        filename: "dist/[name].[contenthash].css" // .[contenthash]
       })
     ],
 
     output: {
-      path: path.join(__dirname, 'build'),
-      filename: '[name].[contenthash].js',
-      chunkFilename: ({ chunk }) => lodashHandler(chunk.id) || chunk.name + '.vendor.js',
+      path: path.join(__dirname, ''),
+      filename: 'dist/[name].[contenthash].js',
+      chunkFilename: ({ chunk }) => 'dist/' + (chunk.name || chunk.id) + '.vendor.js',
       hashDigestLength: 16,
     },
 
