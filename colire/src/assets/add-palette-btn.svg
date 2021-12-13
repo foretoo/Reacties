@@ -1,5 +1,19 @@
-<svg id="add-palette-bg" width="246" height="156" viewBox="0 0 246 156" xmlns="http://www.w3.org/2000/svg">
-  <rect id="rect" width="46" height="36" rx="4" fill="white" />
+<svg id="add-palette-bg" width="250" height="160" viewBox="0 0 250 160" xmlns="http://www.w3.org/2000/svg">
+  <symbol
+    id="rect"
+    width="50"
+    height="40"
+    viewbox="0 0 50 40"
+    fill="white" >
+    <rect
+      x="4"
+      y="4"
+      width="42"
+      height="32"
+      rx="5" />
+  </symbol>
+
+  <use href="#rect" />
   <use href="#rect" x="50" />
   <use href="#rect" x="100" />
   <use href="#rect" x="150" />
