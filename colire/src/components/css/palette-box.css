@@ -2,6 +2,7 @@
   width: calc(2.5rem * 5);
   padding: 2.5rem;
   box-sizing: content-box;
+  filter: url(#filter);
 }
 .palette-box-name {
   width: 100%;
