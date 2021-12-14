@@ -8,7 +8,7 @@ const SVGFilter = ({
   saturate = 1
 }) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" style={{ display: 'none' }}>
+    <svg xmlns="http://www.w3.org/2000/svg" style={{ height: 0 }}>
       <filter id="filter"
         x="-50%"
         y="-50%"
