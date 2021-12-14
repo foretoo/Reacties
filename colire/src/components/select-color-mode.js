@@ -8,15 +8,16 @@ const SelectColorMode = () => {
   const { state, dispatch } = useContext(Context)
   const { format: { label } } = state
 
+  const hideSnackbar = () => dispatch({ type: 'COLOR_MODE_HIDE' })
+
   const handleChangeMode = format => {
+    clearTimeout(hideSnackbar)
     dispatch({
       type: 'CHANGE_COLOR_MODE',
       payload: format
     })
     dispatch({ type: 'COLOR_MODE_SHOW' })
-    setTimeout(() => {
-      dispatch({ type: 'COLOR_MODE_HIDE' })
-    }, 1600)
+    setTimeout(hideSnackbar, 1600)
   }
 
   return (
