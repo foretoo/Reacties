@@ -7,8 +7,18 @@ import './css/home.css'
 
 const Home = () => {
 
-  const { state: { palettes } } = useContext(Context)
-  const paletteLinks = palettes.map( palette => <PaletteBox {...palette}/> )
+  const { state: { palettes }, dispatch } = useContext(Context)
+
+  const handleDeletePalette = id => {
+    dispatch({
+      type: 'DELETE_PALETTE',
+      payload: id
+    })
+  }
+
+  const paletteLinks = palettes.map(palette => {
+    return <PaletteBox handleDeletePalette={handleDeletePalette} {...palette} />
+  })
 
   return (
     <>
