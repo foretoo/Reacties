@@ -48,7 +48,7 @@ module.exports = (env, { mode }) => {
         template: './src/index.html'
       }),
       new MiniCssExtractPlugin({
-        filename: "dist/[name].[contenthash].css" // .[contenthash]
+        filename: 'dist/[name]' + (mode === 'development' ? '' : '.[contenthash]') + '.css'
       })
     ],
 
