@@ -32,29 +32,16 @@
 
 
 
-.box-delete-icon {
+.delete-icon {
   position: absolute;
   right: calc(2.5rem - 40px);
   top: 2.5rem;
 }
-.g {
-  transform: scaleX(0);
-  transition: 0.2s ease-out 0.2s;
-}
-.l1, .l2 {
+.use-line {
   transform-origin: center;
-  transform: rotate(0);
+  transform: scale(0);
   transition: 0.2s ease-out;
 }
-.palette-box:hover .g {
-  transform: scaleY(1);
-  transition: 0.2s ease-out;
-}
-.palette-box:hover .l1 {
-  transition: 0.2s ease-out 0.2s;
-  transform: rotate(45deg);
-}
-.palette-box:hover .l2 {
-  transition: 0.2s ease-out 0.2s;
-  transform: rotate(-45deg);
+.palette-box:hover .use-line {
+  transform: scale(1);
 }
