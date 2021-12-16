@@ -2,21 +2,28 @@ import { h } from 'preact'
 import { Link } from 'react-router-dom'
 import './css/palette-box.css'
 
-const PaletteBox = ({ id, paletteName, colors }) => {
+const PaletteBox = ({ id, paletteName, colors, handleDeletePalette }) => {
   const colorList = []
   for (const color in colors) {
     const style = { background: colors[color][500].hex }
     colorList.push(<div class='palette-box-color' style={style}></div>)
   }
   return (
-    <Link to={`/${id}/`} className='palette-box'>
-      <div className='palette-box-name'>{paletteName}</div>
+    <div className='palette-box-container'>
+
+      <Link to={`/${id}/`} className='palette-box'>
+        <div className='palette-box-name'>{paletteName}</div>
+        <div className='palette-box-content'>
+          {colorList}
+        </div>
+      </Link>
 
       <svg className="delete-icon"
         width="40"
         height="40"
         viewBox="0 0 40 40"
-        xmlns="http://www.w3.org/2000/svg">
+        xmlns="http://www.w3.org/2000/svg"
+        onClick={() => handleDeletePalette(id)} >
         <symbol id="line-symbol"
           width="10"
           height="10"
@@ -51,10 +58,7 @@ const PaletteBox = ({ id, paletteName, colors }) => {
             transform="rotate(315)" /></g>
       </svg>
 
-      <div className='palette-box-content'>
-        {colorList}
-      </div>
-    </Link>
+    </div>
   )
 }
 
