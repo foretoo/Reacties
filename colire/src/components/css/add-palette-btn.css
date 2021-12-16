@@ -18,13 +18,14 @@
 
 .add-palette-btn-bg {
   position: absolute;
+  left: 2.5rem;
   bottom: 2.5rem;
   border-radius: 5px;
   transform: scale(1);
   transition: 0.2s ease-out;
   z-index: -1;
 }
-.add-palette-btn-container:hover .add-palette-btn-bg {
+.add-palette-btn:hover + .add-palette-btn-bg {
   transform: scale(1.05);
   filter: url(#filter);
 }
@@ -33,7 +34,7 @@
   transform: scale(0.84, 0.8);
   transition: 0.2s ease-out;
 }
-.add-palette-btn-container:hover .add-palette-btn-bg rect {
+.add-palette-btn:hover + .add-palette-btn-bg rect {
   rx: 0;
   transform: scale(1, 1);
 }

@@ -4,6 +4,7 @@ import './css/add-palette-btn.css'
 const AddPaletteBtn = () => {
   return (
     <div className='add-palette-btn-container'>
+      <input className='add-palette-btn' type='button' value='CREATE PALETTE'></input>
       <svg className="add-palette-btn-bg" width="250" height="160" viewBox="0 0 250 160" xmlns="http://www.w3.org/2000/svg">
         <symbol
           id="rect"
@@ -43,8 +44,6 @@ const AddPaletteBtn = () => {
         <use href="#rect" x="150" y="120" />
         <use href="#rect" x="200" y="120" />
       </svg>
-
-      <input type='button' className='add-palette-btn' value='CREATE PALETTE'></input>
     </div>
   )
 }
