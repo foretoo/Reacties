@@ -45,7 +45,9 @@ module.exports = (env, { mode }) => {
 
     plugins: [
       new HtmlWebPackPlugin({
-        template: './src/index.html'
+        title: 'Colire',
+        meta: { viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no' },
+        minify: false
       }),
       new MiniCssExtractPlugin({
         filename: 'dist/[name]' + (mode === 'development' ? '' : '.[contenthash]') + '.css'
