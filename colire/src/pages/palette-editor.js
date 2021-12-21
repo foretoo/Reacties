@@ -29,8 +29,6 @@ const PaletteEditor = () => {
           <SortablePalette />
         </section>
       </main>
-
-      <Footer />
     </>
   )
 }

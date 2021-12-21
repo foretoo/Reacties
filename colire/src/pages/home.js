@@ -37,10 +37,6 @@ const Home = () => {
 
       </main>
 
-      <Footer>
-        <a href='https://github.com/foretoo'>github.com/foretoo</a>
-      </Footer>
-
       <SVGFilter y={16} blur={16} brightness={2} saturate={1.333} />
     </>
   )

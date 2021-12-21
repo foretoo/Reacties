@@ -39,11 +39,6 @@ const Palette = () => {
         <Overlay />
         <Content />
       </main>
-
-      <Footer>
-        <span>{palette.paletteName}</span>
-        <span>{palette.emoji}</span>
-      </Footer>
     </>
   )
 }
