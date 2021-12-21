@@ -28,8 +28,13 @@ const Palette = () => {
 
   return (
     <>
-      <Header className='page-header'>
-        <Link to='/' className='page-header-link'>Home</Link>
+      <Header>
+        <nav className='nav'>
+          <Link className='nav-root' to='/'>root</Link>
+          <span className='nav-slash'>/</span>
+          <span className='nav-palette-name'>{palette.paletteName}</span>
+          <span className='nav-palette-emoji'>{palette.emoji}</span>
+        </nav>
         {colorID ? null : <Slider id={paletteID} level={palette.activeLevel}/>}
         <SelectColorMode />
       </Header>
