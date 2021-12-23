@@ -1,12 +1,10 @@
 const paletteReducer = (state, action) => {
   switch(action.type) {
     case 'COPY': {
+      const { code, lumClass } = action.payload
       return {
         ...state,
-        copy: {
-          code: action.payload.code,
-          lumClass: action.payload.lumClass
-        }
+        copy: { code, lumClass }
       }
     }
     case 'COPY_OVERLAY_SHOW': {
@@ -69,7 +67,7 @@ const paletteReducer = (state, action) => {
         palettes: newPalettes
       }
     }
-    
+
 
     case 'DELETE_PALETTE': {
       const id = action.payload
