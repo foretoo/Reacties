@@ -39,7 +39,7 @@ const NewPaletteNameForm = () => {
 
     dispatch({
       type: 'CHANGE_PALETTE_NAME',
-      payload: name.replace(/\s\s+/g, ' ').trim()
+      payload: name
     })
   }
   const handleDisplayformState = () => {
@@ -54,8 +54,15 @@ const NewPaletteNameForm = () => {
     })
   }
   const handleSavePalette = () => {
-    if (paletteName) {
-      if (!palettes.some(p => p.id === paletteName.toLowerCase().replace(/ /g, '-'))) {
+    if (paletteName.trim()) {
+
+      const paletteId = paletteName
+        .replace(/\s\s+/g, ' ')
+        .trim()
+        .toLowerCase()
+        .replace(/ /g, '-')
+
+      if (!palettes.some(p => p.id === paletteId)) {
         dispatch({ type: 'SAVE_PALETTE' })
         history.push('/')
       }

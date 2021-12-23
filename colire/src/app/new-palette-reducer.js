@@ -147,7 +147,8 @@ const newPaletteReducer = (state, action) => {
       }
     }
     case 'SAVE_PALETTE': {
-      const { palette, paletteName, emoji } = state.custom
+      let { palette, paletteName, emoji } = state.custom
+      paletteName = paletteName.replace(/\s\s+/g, ' ').trim()
       const newPalette = colorScaler(addLevelProp({
         paletteName,
         id: paletteName.toLowerCase().replace(/ /g, '-'),
