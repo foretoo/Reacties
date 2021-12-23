@@ -2,7 +2,7 @@ import { h, Fragment } from 'preact'
 import { useContext } from 'preact/hooks'
 import { Link } from 'react-router-dom'
 import { Context } from '@app'
-import { AddPaletteBtn, Footer, SVGFilter, PaletteBox } from '@components'
+import { AddPaletteBtn, SVGFilter, PaletteBox } from '@components'
 import { useVar } from '@utils/hooks'
 import './css/home.css'
 

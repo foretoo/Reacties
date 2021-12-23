@@ -2,7 +2,7 @@ import { h, Fragment } from 'preact'
 import { useContext } from 'preact/hooks'
 import { Link } from 'react-router-dom'
 import { Context } from '@app'
-import { Footer, Header, SortablePalette, NewPaletteForm, NewPaletteNameForm } from '@components'
+import { Header, SortablePalette, NewPaletteForm, NewPaletteNameForm } from '@components'
 import './css/palette-editor.css'
 
 const PaletteEditor = () => {
