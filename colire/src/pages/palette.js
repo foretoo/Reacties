@@ -3,7 +3,6 @@ import { useContext } from 'preact/hooks'
 import { Link, useParams } from 'react-router-dom'
 import { Context } from '@app'
 import {
-  Footer,
   Header,
   Overlay,
   PaletteListContent,
@@ -12,18 +11,30 @@ import {
   Slider,
   Snackbar
 } from '@components'
+import { useVar } from '@utils/hooks'
 import './css/page.css'
 
 const Palette = () => {
 
-  const { state } = useContext(Context)
+  const { state, dispatch } = useContext(Context)
   const { paletteID, colorID } = useParams()
   const palette = state.palettes.find(palette => palette.id === paletteID)
 
+  const handleCopy = useVar((code, lumClass) => {
+    dispatch({
+      type: 'COPY',
+      payload: { code, lumClass }
+    })
+    dispatch({ type: 'COPY_OVERLAY_SHOW' })
+    setTimeout(() => {
+      dispatch({ type: 'COPY_OVERLAY_HIDE' })
+    }, 1600)
+  })
+
   const Content = () => (
     colorID
-    ? <ColorListContent colors={palette.colors[colorID]} />
-    : <PaletteListContent colors={palette.colors} activeLevel={palette.activeLevel} />
+    ? <ColorListContent colors={palette.colors[colorID]} handleCopy={handleCopy} />
+    : <PaletteListContent colors={palette.colors} activeLevel={palette.activeLevel} handleCopy={handleCopy} />
   )
 
   return (

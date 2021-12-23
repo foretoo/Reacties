@@ -4,7 +4,7 @@ import { useParams, useHistory } from 'react-router-dom'
 import { Context } from '@app'
 import { ColorBox } from '@components'
 
-const ColorListContent = ({ colors }) => {
+const ColorListContent = ({ colors, handleCopy }) => {
 
   if (!colors) {
     const { state } = useContext(Context)
@@ -16,7 +16,14 @@ const ColorListContent = ({ colors }) => {
 
   const colorsList = []
   for (const level in colors) {
-    colorsList.push(<ColorBox key={level} id={level} contentClass=' color' {...colors[level]} />)
+    colorsList.push(
+      <ColorBox
+        key={level}
+        id={level}
+        contentClass=' color'
+        {...colors[level]}
+        handleCopy={handleCopy} />
+    )
   }
 
   const handleGoBack = () => {
