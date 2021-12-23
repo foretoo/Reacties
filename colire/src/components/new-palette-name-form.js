@@ -3,6 +3,7 @@ import { useState, useContext, useEffect, useRef } from 'preact/hooks'
 import { useHistory } from 'react-router-dom'
 import { Context } from '@app'
 import { EmojiPicker } from '@components'
+import { useVar } from '@utils/hooks'
 
 const NewPaletteNameForm = () => {
 
@@ -24,7 +25,7 @@ const NewPaletteNameForm = () => {
     formClass += ' warn'
   }
 
-  const handleChangePaletteName = e => {
+  const handleChangePaletteName = useVar(e => {
     const name = e.target.value
     if (name) {
       const validName = true
@@ -41,18 +42,17 @@ const NewPaletteNameForm = () => {
       type: 'CHANGE_PALETTE_NAME',
       payload: name
     })
-  }
-  const handleDisplayformState = () => {
-    const displayEmojis = !formState.displayEmojis
-    setFormState(formState => ({ ...formState, displayEmojis }))
-  }
-  const handleSelectEmoji = emoji => {
+  })
+  const handleDisplayformState = useVar(() => {
+    setFormState(formState => ({ ...formState, displayEmojis: !formState.displayEmojis }))
+  })
+  const handleSelectEmoji = useVar(emoji => {
     handleDisplayformState()
     dispatch({
       type: 'CHANGE_PALETTE_EMOJI',
       payload: emoji
     })
-  }
+  })
   const handleSavePalette = () => {
     if (paletteName.trim()) {
 

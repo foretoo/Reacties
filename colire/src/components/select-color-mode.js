@@ -1,6 +1,7 @@
 import { h } from 'preact'
 import { useContext } from 'preact/hooks'
 import { Context } from '@app'
+import { useVar } from '@utils/hooks'
 import './css/select-color-mode.css'
 
 const SelectColorMode = () => {
@@ -8,9 +9,9 @@ const SelectColorMode = () => {
   const { state, dispatch } = useContext(Context)
   const { format: { label } } = state
 
-  const hideSnackbar = () => dispatch({ type: 'COLOR_MODE_HIDE' })
+  const hideSnackbar = useVar(() => dispatch({ type: 'COLOR_MODE_HIDE' }))
 
-  const handleChangeMode = format => {
+  const handleChangeMode = useVar(format => {
     clearTimeout(hideSnackbar)
     dispatch({
       type: 'CHANGE_COLOR_MODE',
@@ -18,7 +19,7 @@ const SelectColorMode = () => {
     })
     dispatch({ type: 'COLOR_MODE_SHOW' })
     setTimeout(hideSnackbar, 1600)
-  }
+  })
 
   return (
     <ul class='color-mode-list'>

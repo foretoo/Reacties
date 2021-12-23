@@ -1,7 +1,7 @@
 import { h } from 'preact'
 import { useContext, useState, useEffect } from 'preact/hooks'
 import { Context } from '@app'
-import { useDynamicImport } from '@utils/hooks'
+import { useDynamicImport, useVar } from '@utils/hooks'
 import chroma from 'chroma-js'
 
 const NewPaletteForm = () => {
@@ -32,7 +32,7 @@ const NewPaletteForm = () => {
     if (!submitClass.includes('warn')) submitClass += ' warn'
   }
 
-  const handleAddColor = () => {
+  const handleAddColor = useVar(() => {
     if (!valid.name || !valid.color) return
 
     const validColor = !palette.some(c => c.color === color.color)
@@ -51,30 +51,30 @@ const NewPaletteForm = () => {
     dispatch({
       type: 'ADD_NEW_COLOR'
     })
-  }
-  const handleChangeColor = ({ hex }) => {
+  })
+  const handleChangeColor = useVar(({ hex }) => {
     dispatch({
       type: 'CHANGE_NEW_COLOR',
       payload: hex
     })
-  }
-  const handleChangeColorName = e => {
+  })
+  const handleChangeColorName = useVar(e => {
     const name = e.target.value
     dispatch({
       type: 'CHANGE_NEW_COLOR_NAME',
       payload: name
     })
-  }
-  const handleRandomColor = () => {
+  })
+  const handleRandomColor = useVar(() => {
     const randomColor = chroma.random()
     const hex = chroma(randomColor).hex()
     handleChangeColor({ hex })
-  }
-  const handleClearPalette = () => {
+  })
+  const handleClearPalette = useVar(() => {
     dispatch({
       type: 'CLEAR_PALETTE'
     })
-  }
+  })
 
 
 

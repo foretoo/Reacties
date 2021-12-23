@@ -3,18 +3,19 @@ import { useContext } from 'preact/hooks'
 import { Link } from 'react-router-dom'
 import { Context } from '@app'
 import { AddPaletteBtn, Footer, SVGFilter, PaletteBox } from '@components'
+import { useVar } from '@utils/hooks'
 import './css/home.css'
 
 const Home = () => {
 
   const { state: { palettes }, dispatch } = useContext(Context)
 
-  const handleDeletePalette = id => {
+  const handleDeletePalette = useVar(id => {
     dispatch({
       type: 'DELETE_PALETTE',
       payload: id
     })
-  }
+  })
 
   const paletteLinks = palettes.map(palette => {
     return <PaletteBox handleDeletePalette={handleDeletePalette} {...palette} />
