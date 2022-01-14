@@ -6,7 +6,7 @@ const PaletteBox = ({ id, paletteName, colors, handleDeletePalette }) => {
   const colorList = []
   for (const color in colors) {
     const style = { background: colors[color][500].hex }
-    colorList.push(<div class='palette-box-color' style={style}></div>)
+    colorList.push(<div className='palette-box-color' style={style}></div>)
   }
   return (
     <div className='palette-box-container'>
