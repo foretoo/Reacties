@@ -1,5 +1,6 @@
 .header {
   width: 100%;
+  min-height: 192px;
   height: calc((100% - 3rem) / 5);
   padding: 1rem;
   display: flex;
