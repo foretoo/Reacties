@@ -1,23 +1,30 @@
 import { h } from 'preact'
 import { useContext } from 'preact/hooks'
 import { Context } from '@app'
-import { SliderNeu } from '@components'
-import './css/slider.css'
+import { useDynamicImport } from '@utils/hooks'
+import 'rc-slider/assets/index.css'
+import './css/rc-slider.css'
 
 const Slider = ({ id, level }) => {
 
   const { dispatch } = useContext(Context)
 
+  const { isLoading, module: Component } = useDynamicImport('Slider', () => import(
+    /* webpackChunkName: "rc-slider" */
+    /* webpackMode: "lazy" */
+    /* webpackPrefetch: true */
+    'rc-slider'
+  ))
+
   const handleChangeLevel = level => {
-    console.log('HEY');
     dispatch({
       type: 'CHANGE_PALETTE_LEVEL',
       payload: { id, level }
     })
   }
 
-  return (
-    <SliderNeu
+  return !isLoading && (
+    <Component
       defaultValue={level}
       min={100}
       max={900}
