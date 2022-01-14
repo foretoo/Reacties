@@ -12,6 +12,7 @@ import PaletteBox from './palette-box'
 import PaletteListContent from './palette-list-content'
 import SelectColorMode from './select-color-mode'
 import Slider from './slider'
+import SliderNeu from './sliderNeu'
 import Snackbar from './snackbar'
 import SortableColorBox from './sortable-color-box'
 import SortablePalette from './sortable-palette'
@@ -32,6 +33,7 @@ export {
   PaletteListContent,
   SelectColorMode,
   Slider,
+  SliderNeu,
   Snackbar,
   SortableColorBox,
   SortablePalette,
