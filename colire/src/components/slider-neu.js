@@ -27,7 +27,8 @@ const SliderNeu = ({
 
   useEffect(() => {
 
-    const width = pathRef.current.getBoundingClientRect().width
+    const pathRect = pathRef.current.getBoundingClientRect()
+    const width = pathRect.width - pathRect.height
     const stepWidth = width / ((max - min) / step)
     const offset = ((defaultValue - min) / step) * stepWidth
     const translate = offset

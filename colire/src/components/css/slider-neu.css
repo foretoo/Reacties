@@ -4,13 +4,13 @@
   --path-size: 6px;
 
   min-width: 200px;
-  height: var(--handler-size);
+  min-height: var(--handler-size);
   display: flex;
 }
 .slider-path {
   position: relative;
   margin: auto;
-  width: calc(100% - 4rem);
+  width: calc(100% - var(--handler-size));
   height: var(--path-size);
   border-radius: calc(var(--path-size) / 2);
   box-shadow:
