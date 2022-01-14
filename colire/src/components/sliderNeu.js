@@ -1,43 +1,63 @@
 import { h } from 'preact'
 import { useState, useEffect, useRef } from 'preact/hooks'
+import { clamp } from '@utils/helpers'
 import './css/slider-neu.css'
 
 const SliderNeu = () => {
 
-  const [ state, setState ] = useState(null)
-  const ref = useRef(null)
+  const initialState = {
+    start: false,
+    pointerX: 0,
+    translate: 0,
+    width: 0,
+  }
+
+  const [ state, setState ] = useState(initialState)
+  const pathRef = useRef(null)
+  const handlerRef = useRef(null)
 
   useEffect(() => {
-    ref.current && 
-      ref.current.addEventListener("pointerdown", handleStart, false);
-      ref.current.addEventListener("pointerup", handleEnd, false);
-      ref.current.addEventListener("pointercancel", handleCancel, false);
-      ref.current.addEventListener("pointermove", handleMove, false);
+    setState(prevState => {
+      const width = pathRef.current.getBoundingClientRect().width
+      return { ...prevState, width }
+    })
+    window.addEventListener("pointerup", handleEnd, false);
+    window.addEventListener("pointercancel", handleEnd, false);
     return () => {
-      ref.current.removeEventListener("pointerdown", handleStart);
-      ref.current.removeEventListener("pointerup", handleEnd);
-      ref.current.removeEventListener("pointercancel", handleCancel);
-      ref.current.removeEventListener("pointermove", handleMove);
+      window.removeEventListener("pointerup", handleEnd);
+      window.removeEventListener("pointercancel", handleEnd);
     }
   }, [])
 
   const handleStart = (e) => {
-    console.log('DOWN—START');
+    handlerRef.current.setPointerCapture(e.pointerId)
+    setState(prevState => ({ ...prevState, start: true, pointerX: e.pageX }))
   }
-  const handleEnd = (e) => {
-    console.log('UP—END');
-  }
-  const handleCancel = (e) => {
-    console.log('CANCEL');
+  const handleEnd = () => {
+    handlerRef.current.releasePointerCapture(e.pointerId);
+    setState(prevState => ({ ...prevState, start: false }))
   }
   const handleMove = (e) => {
-    console.log('MOVE');
+    state.start &&
+    setState(prevState => {
+      const translate = prevState.translate + (e.pageX - prevState.pointerX)
+      return {
+        ...prevState,
+        pointerX: e.pageX,
+        translate: clamp(translate, 0, state.width),
+      }
+    })
   }
 
   return (
-    <div ref={ref} className='slider-container'>
-      <div className='slider-path'></div>
-      <div className='slider-handler'></div>
+    <div className='slider-container'>
+      <div ref={pathRef} className='slider-path'>
+        <div ref={handlerRef} className='slider-handler'
+          style={{ transform: `translate(${state.translate}px)` }}
+          onPointerDown={handleStart}
+          onPointerMove={handleMove} >
+        </div>
+      </div>
     </div>
   )
 
