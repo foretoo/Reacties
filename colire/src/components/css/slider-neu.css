@@ -3,8 +3,8 @@
   --handler-size: 2rem;
   --path-size: 6px;
 
-  width: 100%;
-  height: 3rem;
+  min-width: 200px;
+  height: var(--handler-size);
   display: flex;
 }
 .slider-path {
