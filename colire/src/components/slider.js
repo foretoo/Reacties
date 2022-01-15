@@ -9,7 +9,6 @@ const Slider = ({ id, level }) => {
   const { dispatch } = useContext(Context)
 
   const handleChangeLevel = level => {
-    console.log('HEY');
     dispatch({
       type: 'CHANGE_PALETTE_LEVEL',
       payload: { id, level }
