@@ -33,8 +33,13 @@ const Palette = () => {
 
   const Content = () => (
     colorID
-    ? <ColorListContent colors={palette.colors[colorID]} handleCopy={handleCopy} />
-    : <PaletteListContent colors={palette.colors} activeLevel={palette.activeLevel} handleCopy={handleCopy} />
+    ? <ColorListContent
+        colors={palette.colors[colorID]}
+        handleCopy={handleCopy} />
+    : <PaletteListContent
+        colors={palette.colors}
+        activeLevel={palette.activeLevel}
+        handleCopy={handleCopy} />
   )
 
   return (
