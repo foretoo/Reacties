@@ -46,8 +46,10 @@ const Palette = () => {
           <span className='nav-palette-name'>{palette.paletteName}</span>
           <span className='nav-palette-emoji'>{palette.emoji}</span>
         </nav>
-        {colorID ? null : <Slider id={paletteID} level={palette.activeLevel}/>}
-        <SelectColorMode />
+        <section className='controls'>
+          {colorID ? null : <Slider id={paletteID} level={palette.activeLevel}/>}
+          <SelectColorMode />
+        </section>
       </Header>
 
       <main class='content-container'>
