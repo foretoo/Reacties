@@ -26,6 +26,7 @@ const SliderNeu = ({
     },
     stepWidth: 0,
     stepRatio: 0,
+    stepTotal: 0,
     value: 0,
   }
 
@@ -39,13 +40,14 @@ const SliderNeu = ({
     const { width: handlerWidth }        = handlerRef.current.getBoundingClientRect()
 
     const path          = { width: pathWidth - handlerWidth, x: pathX }
-    const stepRatio     = step / (max - min)
-    const stepWidth     = path.width * stepRatio
+    const stepTotal     = (max - min) / step
+    const stepRatio     = 1 / stepTotal
+    const stepWidth     = path.width / stepTotal
     const offset        = ((defaultValue - min) / step) * stepWidth 
     const translate     = offset
     const handler       = { offset, translate }
 
-    SET({ ...GET, path, handler, stepWidth, stepRatio })
+    SET({ ...GET, path, handler, stepWidth, stepRatio, stepTotal })
 
     window.addEventListener("pointerup", handleEnd, false)
     window.addEventListener("pointercancel", handleEnd, false)
@@ -72,15 +74,13 @@ const SliderNeu = ({
       const pointer     = { ...PREV.pointer, x: e.pageX }
       const delta       = pointer.x - PREV.pointer.x
       const offset      = PREV.handler.offset + delta
-
       const offsetRatio = offset / GET.path.width
-      const stepTotal   = 1 / GET.stepRatio
-      const stepAmount  = clamp(round(offsetRatio / GET.stepRatio), 0, stepTotal)
+      const stepAmount  = clamp(round(offsetRatio / GET.stepRatio), 0, GET.stepTotal)
       const translate   = stepAmount * GET.stepWidth
 
       const handler     = { offset, translate }
       const value       = min + stepAmount * step
-      
+
       if ( value !== PREV.value ) onChange(value)
 
       return { ...PREV, pointer, handler, value }
