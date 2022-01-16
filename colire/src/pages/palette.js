@@ -7,7 +7,7 @@ import {
   Overlay,
   PaletteListContent,
   ColorListContent,
-  SelectColorMode,
+  ModeSwitcher,
   Slider,
   Snackbar
 } from '@components'
@@ -53,7 +53,7 @@ const Palette = () => {
         </nav>
         <section className='controls'>
           {colorID ? null : <Slider id={paletteID} level={palette.activeLevel}/>}
-          <SelectColorMode />
+          <ModeSwitcher />
         </section>
       </Header>
 

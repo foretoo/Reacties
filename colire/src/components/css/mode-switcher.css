@@ -1,0 +1,5 @@
+.switcher-container {
+  display: flex;
+  justify-content: center;
+  width: calc((100% - 2rem) / 5);
+}
