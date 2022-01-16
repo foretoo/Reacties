@@ -6,4 +6,6 @@ const clamp = (num, min, max) => {
   )
 }
 
-export default clamp
+const round = Math.round
+
+export { clamp, round }
