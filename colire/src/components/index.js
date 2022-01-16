@@ -5,6 +5,7 @@ import EmojiPicker from './emoji-picker'
 import Footer from './footer'
 import Header from './header'
 import withMore from './hoc-with-more'
+import ModeSwitcher from './mode-switcher'
 import NewPaletteForm from './new-palette-form'
 import NewPaletteNameForm from './new-palette-name-form'
 import Overlay from './overlay'
@@ -17,6 +18,7 @@ import Snackbar from './snackbar'
 import SortableColorBox from './sortable-color-box'
 import SortablePalette from './sortable-palette'
 import SVGFilter from './svg-filter'
+import Switcher from './switcher'
 
 export {
   AddPaletteBtn,
@@ -26,6 +28,7 @@ export {
   Footer,
   Header,
   withMore,
+  ModeSwitcher,
   NewPaletteForm,
   NewPaletteNameForm,
   Overlay,
@@ -37,5 +40,6 @@ export {
   Snackbar,
   SortableColorBox,
   SortablePalette,
-  SVGFilter
+  SVGFilter,
+  Switcher,
 }
