@@ -1,6 +1,6 @@
 import { h } from 'preact'
 import { useState, useEffect, useRef } from 'preact/hooks'
-import { clamp } from '@utils/helpers'
+import { clamp, round } from '@utils/helpers'
 import './css/slider-neu.css'
 
 const SliderNeu = ({
@@ -23,27 +23,29 @@ const SliderNeu = ({
     handler: {
       offset: 0,
       translate: 0,
-      translateStep: 0,
     },
+    stepWidth: 0,
+    stepRatio: 0,
     value: 0,
   }
 
   const [ GET, SET ] = useState(INIT)
-  const pathRef = useRef()
-  const handlerRef = useRef()
+  const pathRef      = useRef()
+  const handlerRef   = useRef()
 
   useEffect(() => {
 
     const { width: pathWidth, x: pathX } = pathRef.current.getBoundingClientRect()
-    const { width: handlerWidth } = handlerRef.current.getBoundingClientRect()
-    const path = { width: pathWidth - handlerWidth, x: pathX }
+    const { width: handlerWidth }        = handlerRef.current.getBoundingClientRect()
 
-    const translateStep = path.width / ((max - min) / step)
-    const offset = ((defaultValue - min) / step) * translateStep
-    const translate = offset
-    const handler = { offset, translate, translateStep }
+    const path          = { width: pathWidth - handlerWidth, x: pathX }
+    const stepRatio     = step / (max - min)
+    const stepWidth     = path.width * stepRatio
+    const offset        = ((defaultValue - min) / step) * stepWidth 
+    const translate     = offset
+    const handler       = { offset, translate }
 
-    SET({ ...GET, path, handler })
+    SET({ ...GET, path, handler, stepWidth, stepRatio })
 
     window.addEventListener("pointerup", handleEnd, false)
     window.addEventListener("pointercancel", handleEnd, false)
@@ -62,22 +64,24 @@ const SliderNeu = ({
     handlerRef.current.releasePointerCapture(e.pointerId)
     SET(PREV => ({ ...PREV, pointer: { ...PREV.pointer, start: false } }))
   }
-  
+
   const handleMove = (e) => {
     GET.pointer.start &&
-    e.pageX >= GET.path.x &&
-    e.pageX <= GET.path.x + GET.path.width &&
     SET(PREV => {
 
-      const pointer = { ...PREV.pointer, x: e.pageX }
-      const delta = pointer.x - PREV.pointer.x
-      const offset = clamp(PREV.handler.offset + delta, 0, GET.path.width)
-      const steps = Math.round((offset / GET.path.width) / (step / (max - min)))
-      const translate = steps * GET.handler.translateStep
-      const handler = { ...PREV.handler, offset, translate }
+      const pointer     = { ...PREV.pointer, x: e.pageX }
+      const delta       = pointer.x - PREV.pointer.x
+      const offset      = PREV.handler.offset + delta
 
-      const value = min + steps * step
-      if (PREV.value !== value) onChange(value)
+      const offsetRatio = offset / GET.path.width
+      const stepTotal   = 1 / GET.stepRatio
+      const stepAmount  = clamp(round(offsetRatio / GET.stepRatio), 0, stepTotal)
+      const translate   = stepAmount * GET.stepWidth
+
+      const handler     = { offset, translate }
+      const value       = min + stepAmount * step
+      
+      if ( value !== PREV.value ) onChange(value)
 
       return { ...PREV, pointer, handler, value }
     })
