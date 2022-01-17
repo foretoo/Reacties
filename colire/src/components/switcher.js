@@ -7,7 +7,7 @@ const Switcher = ({
   option2 = "off",
   defaultValue = "off",
   onChange = () => {},
-  style = { "--font-size": "16px", "--padding": "10px" }
+  style = { "--font-size": "16px", "--padding": "10px", "--border": "2px" }
 }) => {
 
   catchError(option1, option2, defaultValue)
@@ -46,7 +46,7 @@ const Switcher = ({
     }
   }
 
-  const animation = {
+  const handlerAnimation = {
     width: `${GET.value === option1 ? GET.handler.option1Width : GET.handler.option2Width}px`,
     transform: `translate(${GET.value === option2 ? GET.handler.translate : 0}px)`,
   }
@@ -58,16 +58,16 @@ const Switcher = ({
           ref={option1Ref}
           className={`switch-case${GET.value === option1 ? " active" : ""}`}
           onClick={() => handleSelect(option1)} >
-          {option1.toUpperCase()}
+          {option1}
         </div>
         <div
           ref={option2Ref}
           className={`switch-case${GET.value === option2 ? " active" : ""}`}
           onClick={() => handleSelect(option2)} >
-          {option2.toUpperCase()}
+          {option2}
         </div>
         {GET.handler.mount && (
-          <div className='switch-case switch-handler' style={animation}></div>
+          <div className='switch-case switch-handler' style={handlerAnimation}></div>
         )}
       </div>
     </div>
@@ -84,6 +84,9 @@ const catchError = (option1, option2, defaultValue) => {
   }
   if (option1.trim() === "" || option2.trim() === "") {
     throw Error("options must not be an empty string")
+  }
+  if (option1 === option2) {
+    throw Error("options must not be equal to providing onChange functionality")
   }
   if (defaultValue !== option1 && defaultValue !== option2) {
     throw Error("defaultValue must equals either option1 or option2")
