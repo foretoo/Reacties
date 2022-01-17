@@ -11,7 +11,7 @@ import Overlay from './overlay'
 import PaletteBox from './palette-box'
 import PaletteListContent from './palette-list-content'
 import SliderLevel from './slider-level'
-import SliderNeu from './slider-neu'
+import Slider from './slider'
 import Snackbar from './snackbar'
 import SortableColorBox from './sortable-color-box'
 import SortablePalette from './sortable-palette'
@@ -33,7 +33,7 @@ export {
   PaletteBox,
   PaletteListContent,
   SliderLevel,
-  SliderNeu,
+  Slider,
   Snackbar,
   SortableColorBox,
   SortablePalette,

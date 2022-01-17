@@ -1,9 +1,9 @@
 import { h } from 'preact'
 import { useState, useEffect, useRef } from 'preact/hooks'
 import { clamp, round } from '@utils/helpers'
-import './css/slider-neu.css'
+import './css/slider.css'
 
-const SliderNeu = ({
+const Slider = ({
   min = 0,
   max = 100,
   step = 1,
@@ -101,4 +101,4 @@ const SliderNeu = ({
 
 }
 
-export default SliderNeu
+export default Slider
