@@ -1,5 +1,6 @@
 .switcher-container {
   --height: calc(var(--font-size) + var(--padding) * 2 + var(--border) * 2);
+  font-family: inherit;
 }
 .switcher {
   display: flex;
