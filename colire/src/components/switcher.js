@@ -10,12 +10,7 @@ const Switcher = ({
   style = { "--font-size": "16px", "--padding": "10px" }
 }) => {
 
-  if (option1.trim() === "" || option2.trim() === "") {
-    throw Error("options must not be an empty string")
-  }
-  if (defaultValue !== option1 && defaultValue !== option2) {
-    throw Error("defaultValue must equals either option1 or option2")
-  }
+  catchError(option1, option2, defaultValue)
 
   const [ value, setValue ] = useState(defaultValue)
 
@@ -42,6 +37,22 @@ const Switcher = ({
       </div>
     </div>
   )
+}
+
+const catchError = (option1, option2, defaultValue) => {
+  if (
+    typeof option1 !== "string" ||
+    typeof option2 !== "string" ||
+    typeof defaultValue !== "string"
+  ) {
+    throw Error("options and defaultValue must be typeof string")
+  }
+  if (option1.trim() === "" || option2.trim() === "") {
+    throw Error("options must not be an empty string")
+  }
+  if (defaultValue !== option1 && defaultValue !== option2) {
+    throw Error("defaultValue must equals either option1 or option2")
+  }
 }
 
 export default Switcher
