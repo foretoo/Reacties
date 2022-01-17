@@ -8,15 +8,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  visibility: hidden;
   opacity: 0;
-  transition: visibility 0.2s, opacity 0.2s ease-in;
+  transition: all 0.5s ease;
+  border-radius: 0.5rem;
+  pointer-events: none;
   z-index: 1;
 }
 .overlay.show {
-  visibility: visible;
   opacity: 1;
-  transition: opacity 0.2s ease-out;
 }
 
 .overlay h1 {
@@ -24,7 +23,6 @@
   padding: 0.8rem 1rem;
   text-align: center;
   border-radius: 4px;
-  transition: opacity 0.2s ease;
 }
 .overlay.light h1 {
   color: var(--light-h);
