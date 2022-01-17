@@ -28,18 +28,18 @@ const Switcher = ({
 
   return (
     <div className='switcher-container' style={style}>
-      <ul className='switcher'>
-        <li
+      <div className='switcher'>
+        <div
           className={`switch-case${value === option1 ? " active" : ""}`}
           onClick={() => handleSelect(option1)} >
           {option1.toUpperCase()}
-        </li>
-        <li
+        </div>
+        <div
           className={`switch-case${value === option2 ? " active" : ""}`}
           onClick={() => handleSelect(option2)} >
           {option2.toUpperCase()}
-        </li>
-      </ul>
+        </div>
+      </div>
     </div>
   )
 }
