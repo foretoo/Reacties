@@ -1,5 +1,5 @@
 import { h } from 'preact'
-import { useState } from 'preact/hooks'
+import { useState, useEffect, useRef } from 'preact/hooks'
 import './css/switcher.css'
 
 const Switcher = ({
@@ -12,28 +12,63 @@ const Switcher = ({
 
   catchError(option1, option2, defaultValue)
 
-  const [ value, setValue ] = useState(defaultValue)
+  const INIT = {
+    handler: {
+      option1Width: 0,
+      option2Width: 0,
+      translate: 0,
+      mount: false,
+    },
+    value: defaultValue,
+  }
+
+  const [ GET, SET ] = useState(INIT)
+  const option1Ref = useRef()
+  const option2Ref = useRef()
+
+  useEffect(() => {
+    const option1Rect = option1Ref.current.getBoundingClientRect()
+    const option2Rect = option2Ref.current.getBoundingClientRect()
+
+    const option1Width = option1Rect.width
+    const option2Width = option2Rect.width
+    const translate = option2Rect.x - option1Rect.x
+    const mount = option1Width && option2Width && translate
+    const handler = { option1Width, option2Width, translate, mount }
+
+    SET(PREV => ({ ...PREV, handler }))
+  }, [])
 
   const handleSelect = (option) => {
-    if (option !== value) {
+    if (option !== GET.value) {
       onChange(option)
-      setValue(option)
+      SET(PREV => ({ ...PREV, value: option }))
     }
+  }
+
+  const animation = {
+    width: `${GET.value === option1 ? GET.handler.option1Width : GET.handler.option2Width}px`,
+    transform: `translate(${GET.value === option2 ? GET.handler.translate : 0}px)`,
   }
 
   return (
     <div className='switcher-container' style={style}>
       <div className='switcher'>
         <div
-          className={`switch-case${value === option1 ? " active" : ""}`}
+          ref={option1Ref}
+          className={`switch-case${GET.value === option1 ? " active" : ""}`}
           onClick={() => handleSelect(option1)} >
           {option1.toUpperCase()}
         </div>
         <div
-          className={`switch-case${value === option2 ? " active" : ""}`}
+          ref={option2Ref}
+          className={`switch-case${GET.value === option2 ? " active" : ""}`}
           onClick={() => handleSelect(option2)} >
           {option2.toUpperCase()}
         </div>
+        {GET.handler.mount && (
+          <div className='switch-case switch-handler' style={animation}></div>
+        )}
       </div>
     </div>
   )
