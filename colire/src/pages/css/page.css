@@ -7,3 +7,8 @@
   border-radius: 0.5rem;
   overflow: hidden;
 }
+@media screen and (max-width: 768px) {
+  .content-container {
+    flex-direction: column;
+  }
+}

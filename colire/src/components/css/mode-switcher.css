@@ -1,5 +1,24 @@
 .switcher-container {
   display: flex;
   justify-content: center;
-  width: calc((100% - 2rem) / 5);
+  margin-right: 1rem;
+  width: calc((100% - 2rem) * 0.2);
+}
+
+@media screen and (max-width: 1024px) {
+  .switcher-container {
+    width: calc((100% - 2rem) * 0.4);
+  }
+}
+@media screen and (max-width: 768px) {
+  .switcher-container {
+    width: calc((100% - 2rem) * 0.5);
+  }
+}
+@media screen and (max-width: 428px) {
+  .switcher-container {
+    margin-left: auto;
+    padding-left: 1rem;
+    width: auto;
+  }
 }

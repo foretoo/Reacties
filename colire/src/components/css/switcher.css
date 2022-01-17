@@ -3,6 +3,7 @@
 }
 
 .switcher {
+  flex-shrink: 0;
   display: flex;
   padding: calc(var(--font-size) / 8);
   width: fit-content;
