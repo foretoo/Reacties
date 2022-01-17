@@ -2,9 +2,9 @@ import { h } from 'preact'
 import { useContext } from 'preact/hooks'
 import { Context } from '@app'
 import { Switcher } from '@components'
-import './css/mode-switcher.css'
+import './css/switcher-mode.css'
 
-const ModeSwitcher = () => {
+const SwitcherMode = () => {
 
   const { state, dispatch } = useContext(Context)
   const { format: { label } } = state
@@ -30,4 +30,4 @@ const ModeSwitcher = () => {
   )
 }
 
-export default ModeSwitcher
+export default SwitcherMode
