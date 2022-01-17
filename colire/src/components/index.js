@@ -10,7 +10,7 @@ import NewPaletteNameForm from './new-palette-name-form'
 import Overlay from './overlay'
 import PaletteBox from './palette-box'
 import PaletteListContent from './palette-list-content'
-import Slider from './slider'
+import SliderLevel from './slider-level'
 import SliderNeu from './slider-neu'
 import Snackbar from './snackbar'
 import SortableColorBox from './sortable-color-box'
@@ -32,7 +32,7 @@ export {
   Overlay,
   PaletteBox,
   PaletteListContent,
-  Slider,
+  SliderLevel,
   SliderNeu,
   Snackbar,
   SortableColorBox,

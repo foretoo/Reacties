@@ -8,7 +8,7 @@ import {
   PaletteListContent,
   ColorListContent,
   SwitcherMode,
-  Slider,
+  SliderLevel,
   Snackbar
 } from '@components'
 import { useVar } from '@utils/hooks'
@@ -52,7 +52,7 @@ const Palette = () => {
           <span className='nav-palette-emoji'>{palette.emoji}</span>
         </nav>
         <section className='controls'>
-          {colorID ? null : <Slider id={paletteID} level={palette.activeLevel}/>}
+          {colorID ? null : <SliderLevel id={paletteID} level={palette.activeLevel}/>}
           <SwitcherMode />
         </section>
       </Header>

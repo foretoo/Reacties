@@ -2,9 +2,9 @@ import { h } from 'preact'
 import { useContext } from 'preact/hooks'
 import { Context } from '@app'
 import { SliderNeu } from '@components'
-import './css/slider.css'
+import './css/slider-level.css'
 
-const Slider = ({ id, level }) => {
+const SliderLevel = ({ id, level }) => {
 
   const { dispatch } = useContext(Context)
 
@@ -26,4 +26,4 @@ const Slider = ({ id, level }) => {
   )
 }
 
-export default Slider
+export default SliderLevel
