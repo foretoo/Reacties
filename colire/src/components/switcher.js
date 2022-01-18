@@ -32,7 +32,7 @@ const Switcher = ({
     let translate = 0
     const optionsData = optionsRef.current.reduce((acc, div, i) => {
       const width = div.getBoundingClientRect().width
-      translate = i ? translate + acc[i - 1].width : 0
+      translate += i ? acc[i - 1].width : 0
       return [ ...acc, { value: options[i], width, translate }]
     }, [])
 
