@@ -6,8 +6,7 @@ import './css/switcher-mode.css'
 
 const SwitcherMode = () => {
 
-  const { state, dispatch } = useContext(Context)
-  const { format: { label } } = state
+  const { dispatch } = useContext(Context)
 
   const hideSnackbar = () => dispatch({ type: 'COLOR_MODE_HIDE' })
 
@@ -23,9 +22,7 @@ const SwitcherMode = () => {
 
   return (
     <Switcher
-      option1="RGB"
-      option2="HEX"
-      defaultValue="RGB"
+      options={[ "RGB", "HEX" ]}
       onChange={handleChangeMode} />
   )
 }
