@@ -6,15 +6,21 @@ const Switcher = ({
 
   options = [ "ON", "OFF" ],
   defaultValue = options[0],
-  onChange = value => console.log(`switcher turned ${value}`),
-  style = { "--font-size": "16px", "--padding": "10px", "--border": "2px" },
+  onChange = value => {
+    console.log(`switcher turned ${value}`)
+  },
+  style = {
+    "--font-size": "16px",
+    "--padding": "10px",
+    "--border": "2px"
+  },
 
 }) => {
   checkOptions(options, defaultValue)
 
 
 
-  const INIT = {
+  const initialSwitcher = {
     options: [
       {
         value: "",
@@ -25,7 +31,7 @@ const Switcher = ({
     mounted: false,
     value: defaultValue,
   }
-  const [ GET, SET ] = useState(INIT)
+  const [ switcher, setSwitcher ] = useState(initialSwitcher)
   const optionsRef = useRef([])
 
 
@@ -33,28 +39,32 @@ const Switcher = ({
   useEffect(() => {
     optionsRef.current = optionsRef.current.slice(0, options.length)
 
-    let translate = 0
     const optionsData = optionsRef.current.reduce((arr, div, i) => {
-      const width = div.getBoundingClientRect().width
-      i && (translate += arr[i - 1].width)
+      const { width } = div.getBoundingClientRect()
+      const translate = i ? arr[i-1].translate + arr[i-1].width : 0
       return [ ...arr, { value: options[i], width, translate }]
     }, [])
 
     const mounted = optionsData.every(({ width }) => width > 0 )
 
-    SET(PREV => ({ ...PREV, options: optionsData, mounted }))
-  }, [ options ])
+    setSwitcher(prevSwitcher => ({
+      ...prevSwitcher,
+      options: optionsData,
+      mounted,
+    }))
+  }, [ options, style ])
 
 
 
   const handleSelect = (option) => {
-    if (option !== GET.value) {
+    if (option !== switcher.value) {
       onChange(option)
-      SET(PREV => ({ ...PREV, value: option }))
+      setSwitcher(prevSwitcher => ({ ...prevSwitcher, value: option }))
     }
   }
   const getAnimation = () => {
-    const { width, translate } = GET.options.find(({ value }) => value === GET.value)
+    const option = switcher.options.find(({ value }) => value === switcher.value)
+    const { width, translate } = option
     return {
       width: `${width}px`,
       transform: `translate(${translate}px)`,
@@ -69,12 +79,12 @@ const Switcher = ({
         {options.map((option, i) => (
           <div
             ref={div => optionsRef.current[i] = div}
-            className={`switch-case${GET.value === option ? " active" : ""}`}
+            className={`switch-case${switcher.value === option ? " active" : ""}`}
             onClick={() => handleSelect(option)} >
             {option}
           </div>
         ))}
-        {GET.mounted && (
+        {switcher.mounted && (
           <div className='switch-case switch-handler' style={getAnimation()}></div>
         )}
       </div>
