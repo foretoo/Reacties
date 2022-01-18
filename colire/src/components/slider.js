@@ -95,24 +95,28 @@ const Slider = ({
     <div className='slider-container'>
       <div ref={pathRef} className='slider-path'>
         {GET.mounted && label &&
-          <>
-            <div
-              className='slider-min label'
-              style={{left: `${GET.handler.width/2}px`}} >
-              {min}
-            </div>
-            <div
-              className='slider-max label'
-              style={{right: `${GET.handler.width/2}px`}} >
-              {max}
-            </div>
-          </>
+        <>
+          <div className='slider-min label'
+            style={{
+              left: `${GET.handler.width/2}px`,
+              visibility: GET.value === min ? 'hidden' : 'visible'
+            }} >
+            {min}
+          </div>
+          <div className='slider-max label'
+            style={{
+              right: `${GET.handler.width/2}px`,
+              visibility: GET.value === max ? 'hidden' : 'visible'
+            }} >
+            {max}
+          </div>
+        </>
         }
         <div ref={handlerRef} className='slider-handler'
           style={{ transform: `translate(${GET.handler.translate}px)` }}
           onPointerDown={handleStart}
           onPointerMove={handleMove} >
-          {label && GET.value !== min && GET.value !== max &&
+          {label &&
             <div className='slider-value label'>{GET.value}</div>
           }
         </div>
