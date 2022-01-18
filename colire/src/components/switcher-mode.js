@@ -8,16 +8,13 @@ const SwitcherMode = () => {
 
   const { dispatch } = useContext(Context)
 
-  const hideSnackbar = () => dispatch({ type: 'COLOR_MODE_HIDE' })
-
   const handleChangeMode = format => {
-    clearTimeout(hideSnackbar)
     dispatch({
       type: 'CHANGE_COLOR_MODE',
       payload: format
     })
     dispatch({ type: 'COLOR_MODE_SHOW' })
-    setTimeout(hideSnackbar, 1600)
+    setTimeout(() => dispatch({ type: 'COLOR_MODE_HIDE' }), 1600)
   }
 
   return (
