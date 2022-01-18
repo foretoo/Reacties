@@ -13,9 +13,7 @@
   width: 100%;
   height: var(--path-size);
   border-radius: calc(var(--path-size) / 2);
-  box-shadow:
-    0px 0px 4px #FFFFFF,
-    inset 0px 2px 8px rgba(0, 0, 0, 0.33);
+  box-shadow: inset 0px 2px 8px rgba(0, 0, 0, 0.33);
   
 }
 .slider-handler {

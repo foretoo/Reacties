@@ -11,7 +11,7 @@ const Slider = ({
   defaultValue = 50,
   label = false,
   onChange = value => {
-    console.log(`slider on ${value}`)
+    console.log(`slider-value: ${value}`)
   },
 
 }) => {
@@ -42,7 +42,7 @@ const Slider = ({
 
 
 
-  // refs are ready, get all sizes
+  // refs are ready, get all sizes & set pointer listeners
   useEffect(() => {
     const { width: pathWidth, x: pathX } = pathRef.current.getBoundingClientRect()
     const { width: handlerWidth }        = handlerRef.current.getBoundingClientRect()
