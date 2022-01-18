@@ -21,6 +21,7 @@ const SliderLevel = ({ id, level }) => {
       min={100}
       max={900}
       step={100}
+      label={true}
       onChange={handleChangeLevel}
     />
   )

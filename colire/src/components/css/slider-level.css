@@ -1,6 +1,6 @@
 .slider-container {
   width: calc((100% - 2rem) * 0.4);
-  margin-left: 1rem;
+  margin: 0.7rem 0 0 1rem;
 }
 
 @media screen and (max-width: 1024px) {
