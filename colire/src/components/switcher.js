@@ -3,13 +3,16 @@ import { useState, useEffect, useRef } from 'preact/hooks'
 import './css/switcher.css'
 
 const Switcher = ({
+
   options = [ "ON", "OFF" ],
   defaultValue = options[0],
   onChange = value => console.log(`switcher turned ${value}`),
-  style = { "--font-size": "16px", "--padding": "10px", "--border": "2px" }
-}) => {
+  style = { "--font-size": "16px", "--padding": "10px", "--border": "2px" },
 
+}) => {
   checkOptions(options, defaultValue)
+
+
 
   const INIT = {
     options: [
@@ -22,18 +25,19 @@ const Switcher = ({
     mounted: false,
     value: defaultValue,
   }
-
   const [ GET, SET ] = useState(INIT)
   const optionsRef = useRef([])
+
+
 
   useEffect(() => {
     optionsRef.current = optionsRef.current.slice(0, options.length)
 
     let translate = 0
-    const optionsData = optionsRef.current.reduce((acc, div, i) => {
+    const optionsData = optionsRef.current.reduce((arr, div, i) => {
       const width = div.getBoundingClientRect().width
-      translate += i ? acc[i - 1].width : 0
-      return [ ...acc, { value: options[i], width, translate }]
+      i && (translate += arr[i - 1].width)
+      return [ ...arr, { value: options[i], width, translate }]
     }, [])
 
     const mounted = optionsData.every(({ width }) => width > 0 )
@@ -41,13 +45,14 @@ const Switcher = ({
     SET(PREV => ({ ...PREV, options: optionsData, mounted }))
   }, [ options ])
 
+
+
   const handleSelect = (option) => {
     if (option !== GET.value) {
       onChange(option)
       SET(PREV => ({ ...PREV, value: option }))
     }
   }
-
   const getAnimation = () => {
     const { width, translate } = GET.options.find(({ value }) => value === GET.value)
     return {
@@ -55,6 +60,8 @@ const Switcher = ({
       transform: `translate(${translate}px)`,
     }
   }
+
+
 
   return (
     <div className='switcher-container' style={style}>
@@ -74,6 +81,8 @@ const Switcher = ({
     </div>
   )
 }
+
+
 
 const checkOptions = (options, defaultValue) => {
   if (options.length < 2) {
