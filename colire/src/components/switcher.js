@@ -3,9 +3,9 @@ import { useState, useEffect, useRef } from 'preact/hooks'
 import './css/switcher.css'
 
 const Switcher = ({
-  options = [ "on", "off" ],
+  options = [ "ON", "OFF" ],
   defaultValue = options[0],
-  onChange = () => {},
+  onChange = value => console.log(`switcher turned ${value}`),
   style = { "--font-size": "16px", "--padding": "10px", "--border": "2px" }
 }) => {
 
