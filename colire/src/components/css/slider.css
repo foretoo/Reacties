@@ -32,3 +32,21 @@
 .slider-handler:active {
   cursor: grabbing;
 }
+.label {
+  position: absolute;
+  font-size: 0.7rem;
+}
+.slider-value {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, calc(50% - 2.6rem));
+  color: var(--dark-m);
+}
+.slider-min {
+  transform: translate(-50%, calc(50% - 2.45rem));
+  color: var(--dark-lm);
+}
+.slider-max {
+  transform: translate(50%, calc(50% - 2.45rem));
+  color: var(--dark-lm);
+}

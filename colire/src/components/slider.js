@@ -1,4 +1,4 @@
-import { h } from 'preact'
+import { h, Fragment } from 'preact'
 import { useState, useEffect, useRef } from 'preact/hooks'
 import { clamp, round } from '@utils/helpers'
 import './css/slider.css'
@@ -8,6 +8,7 @@ const Slider = ({
   max = 100,
   step = 1,
   defaultValue = 50,
+  label = false,
   onChange = () => {},
 }) => {
 
@@ -21,13 +22,15 @@ const Slider = ({
       x: 0,
     },
     handler: {
+      width: 0,
       offset: 0,
       translate: 0,
     },
+    mounted: false,
     stepWidth: 0,
     stepRatio: 0,
     stepTotal: 0,
-    value: 0,
+    value: defaultValue,
   }
 
   const [ GET, SET ] = useState(INIT)
@@ -45,9 +48,10 @@ const Slider = ({
     const stepWidth     = path.width / stepTotal
     const offset        = ((defaultValue - min) / step) * stepWidth 
     const translate     = offset
-    const handler       = { offset, translate }
+    const handler       = { width: handlerWidth, offset, translate }
+    const mounted       = true
 
-    SET({ ...GET, path, handler, stepWidth, stepRatio, stepTotal })
+    SET({ ...GET, path, handler, mounted, stepWidth, stepRatio, stepTotal })
 
     window.addEventListener("pointerup", handleEnd, false)
     window.addEventListener("pointercancel", handleEnd, false)
@@ -56,7 +60,7 @@ const Slider = ({
       window.removeEventListener("pointerup", handleEnd)
       window.removeEventListener("pointercancel", handleEnd)
     }
-  }, [])
+  }, [min, max, step])
 
   const handleStart = (e) => {
     handlerRef.current.setPointerCapture(e.pointerId)
@@ -90,10 +94,27 @@ const Slider = ({
   return (
     <div className='slider-container'>
       <div ref={pathRef} className='slider-path'>
+        {GET.mounted && label &&
+          <>
+            <div
+              className='slider-min label'
+              style={{left: `${GET.handler.width/2}px`}} >
+              {min}
+            </div>
+            <div
+              className='slider-max label'
+              style={{right: `${GET.handler.width/2}px`}} >
+              {max}
+            </div>
+          </>
+        }
         <div ref={handlerRef} className='slider-handler'
           style={{ transform: `translate(${GET.handler.translate}px)` }}
           onPointerDown={handleStart}
           onPointerMove={handleMove} >
+          {label && GET.value !== min && GET.value !== max &&
+            <div className='slider-value label'>{GET.value}</div>
+          }
         </div>
       </div>
     </div>
