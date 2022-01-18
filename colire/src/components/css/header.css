@@ -28,6 +28,7 @@ a.nav-root, a.nav-palette-name {
   border-bottom: 1px solid var(--dark-l);
 }
 .nav-palette-name {
+  font-weight: 700;
   color: var(--dark-h);
 }
 .nav-palette-emoji {
