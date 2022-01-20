@@ -1,6 +1,7 @@
 import AddPaletteBtn from './add-palette-btn'
 import ColorBox from './color-box'
 import ColorListContent from './color-list-content'
+import ColorPicker from './color-picker'
 import EmojiPicker from './emoji-picker'
 import Footer from './footer'
 import Header from './header'
@@ -23,6 +24,7 @@ export {
   AddPaletteBtn,
   ColorBox,
   ColorListContent,
+  ColorPicker,
   EmojiPicker,
   Footer,
   Header,
