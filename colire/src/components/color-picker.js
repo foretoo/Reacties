@@ -1,6 +1,6 @@
 import { h } from 'preact'
 import { useState, useEffect, useRef } from 'preact/hooks'
-import { calcAngle } from '@utils/helpers'
+import { calcAngle, angleToColor } from '@utils/helpers'
 import './css/color-picker.css'
 
 const ColorPicker = () => {
@@ -62,7 +62,9 @@ const ColorPicker = () => {
         a: (PREV.picker.a + delta) % 360
       }
       if (picker.a < 0) picker.a += 360
-      return { ...PREV, pointer, picker }
+
+      const value = angleToColor(picker.a)
+      return { pointer, picker, value }
     })
   }
 
@@ -79,7 +81,8 @@ const ColorPicker = () => {
             viewBox="0 0 228 228"
             xmlns="http://www.w3.org/2000/svg" >
             <path d="M154 100a14 14 0 0 0 0 28h68.63a4 4 0 0 1 3.88 4.48a114 114 0 1 1 0-36.96a4 4 0 0 1-3.88 4.48Z" />
-            <path d="M154 122 a8 8 0 0 1 0-16 h70 a4 4 0 0 1 4 4 v8 a4 4 0 0 1-4 4Z" fill="#fff" />
+            <path d="M154 122 a8 8 0 0 1 0-16 h70 a4 4 0 0 1 4 4 v8 a4 4 0 0 1-4 4Z"
+              fill={`rgb(${GET.value[0]}, ${GET.value[1]}, ${GET.value[2]})`} />
             <circle cx='114' cy='114' r='14' fill="#222" />
           </svg>
         </div>
