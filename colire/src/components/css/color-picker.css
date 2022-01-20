@@ -1,6 +1,17 @@
 .color-picker-container {
   margin: auto;
 }
+.log {
+  position: absolute;
+  margin: 1rem;
+}
+.log input {
+  margin: 0.5rem;
+}
+.log .color {
+  width: 100px;
+  height: 100px;
+}
 .picker-colors {
   display: flex;
   width: 320px;
