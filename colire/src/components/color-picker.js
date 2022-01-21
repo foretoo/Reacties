@@ -6,7 +6,7 @@ import './css/color-picker.css'
 
 const ColorPicker = ({
   mode = 'hsl',
-  defaultValue = { h:0, s:100, l:50 },
+  defaultValue = { h:270, s:100, l:50 },
   shift = 90,
 }) => {
 
@@ -19,11 +19,12 @@ const ColorPicker = ({
       origin: { x: 0, y: 0 },
       a: 0,
     },
-    value: defaultValue,
     h: 0,
     s: 100,
     l: 100,
     shift: shift % 360,
+    value: defaultValue,
+    mounted: false,
   }
   const [ GET, SET ] = useState(initialPicker)
   const pickerRef = useRef()
@@ -39,7 +40,10 @@ const ColorPicker = ({
     if (GET.value.hasOwnProperty('h')) ({ h, s, l } = GET.value, a = h)
     else ([ h, s, l ] = chroma(GET.value).hsl(), a = h)
 
-    SET(PREV => ({ ...PREV, handler: { origin, a }, h, s, l }))
+    const handler = { origin, a }
+    const mounted = true
+
+    SET(PREV => ({ ...PREV, handler, h, s, l, mounted }))
 
     window.addEventListener("pointerup", handleEnd, false)
     window.addEventListener("pointercancel", handleEnd, false)
@@ -111,13 +115,13 @@ const ColorPicker = ({
       <div ref={pickerRef} className='color-picker'
         style={{ background:`conic-gradient(
           from ${0.25 + GET.shift / 360}turn,
-          hsl(0, ${GET.s}%, ${GET.l}%),
-          hsl(60, ${GET.s}%, ${GET.l}%),
+          hsl(0,   ${GET.s}%, ${GET.l}%),
+          hsl(60,  ${GET.s}%, ${GET.l}%),
           hsl(120, ${GET.s}%, ${GET.l}%),
           hsl(180, ${GET.s}%, ${GET.l}%),
           hsl(240, ${GET.s}%, ${GET.l}%),
           hsl(300, ${GET.s}%, ${GET.l}%),
-          hsl(0, ${GET.s}%, ${GET.l}%)
+          hsl(0,   ${GET.s}%, ${GET.l}%)
         )` }}
         onPointerDown={handleStart}
         onPointerMove={handleMove} >
@@ -138,23 +142,27 @@ const ColorPicker = ({
                 ? 5 : -1
             }}>B</label>
         </div>
-        <div ref={handlerRef} className='picker-handler'>
-          <svg className='picker-view' xmlns="http://www.w3.org/2000/svg"
-            width="228" height="228" viewBox="0 0 228 228"
-            style={{ transform: `rotate(calc(${GET.handler.a + GET.shift}deg))` }} >
-            <g>
-              <path d="M154 100a14 14 0 0 0 0 28h68.63a4 4 0 0 1 3.88 4.48a114 114 0 1 1 0-36.96a4 4 0 0 1-3.88 4.48Z"
-                fill="#333" />
-              <path d="M154 122 a8 8 0 0 1 0-16 h70 a4 4 0 0 1 4 4 v8 a4 4 0 0 1-4 4Z"
-                fill={`hsl(${GET.h}, ${GET.s}%, ${GET.l}%)`} />
-              <g fill="#222">
-                {/*<circle cx='114' cy='114' r='14' />*/}
-                <path d="M28.06 82.86A16 16 0 0 1 44.06 55.14L87.36 80.14A16 16 0 0 1 71.36 107.86Z" />
-                <path d="M44.06 172.86A16 16 0 0 1 28.06 145.14L71.36 120.14A16 16 0 0 1 87.36 147.86Z" />
+        {GET.mounted &&
+          <div ref={handlerRef} className='picker-handler'>
+            <svg className='picker-view' xmlns="http://www.w3.org/2000/svg"
+              width="100%" height="100%" viewBox="0 0 228 228"
+              style={{ transform: `rotate(calc(${GET.handler.a + GET.shift}deg))` }} >
+              <g>
+                <path d="M154 100a14 14 0 0 0 0 28h68.63a4 4 0 0 1 3.88 4.48a114 114 0 1 1 0-36.96a4 4 0 0 1-3.88 4.48Z"
+                  fill="#333" />
+                <path d="M154 122 a8 8 0 0 1 0-16 h70 a4 4 0 0 1 4 4 v8 a4 4 0 0 1-4 4Z"
+                  fill={`hsl(${GET.h}, ${GET.s}%, ${GET.l}%)`} />
+                <g fill="#222">
+                  <circle cx='114' cy='114' r='14' />
+                  {/*
+                  <path d="M28.06 82.86A16 16 0 0 1 44.06 55.14L87.36 80.14A16 16 0 0 1 71.36 107.86Z" />
+                  <path d="M44.06 172.86A16 16 0 0 1 28.06 145.14L71.36 120.14A16 16 0 0 1 87.36 147.86Z" />
+                  */}
+                </g>
               </g>
-            </g>
-          </svg>
-        </div>
+            </svg>
+          </div>
+        }
       </div>
       <div className='picker-controls'>
         <label>
