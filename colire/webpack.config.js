@@ -1,9 +1,8 @@
 const path = require('path')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const myIP = (process.platform === 'darwin' && '192.168.1.44') ||
-             (process.platform === 'win32' && '192.168.1.51')  ||
-             'localhost'
+const homeIP = '192.168.1.44'
+const katIP = '192.168.0.103'
 const port = '8000'
 
 module.exports = (env, { mode }) => ({
@@ -70,15 +69,7 @@ module.exports = (env, { mode }) => ({
     allowedHosts: 'auto',
     hot: true,
     open: true,
-    host: myIP,
+    host: homeIP,
     port: port
   }
 })
-
-function lodashHandler(id) {
-  const i = id.indexOf('lodash_')
-  if (i !== -1) {
-    const name = id.slice(i + 8, -3)
-    return 'lodash.' + name + '.vendor.js'
-  }
-}
