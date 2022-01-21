@@ -5,7 +5,9 @@ import chroma from 'chroma-js'
 import './css/color-picker.css'
 
 const ColorPicker = ({
-  defaultValue = { h:48, s:96, l:80 }
+  mode = 'hsl',
+  defaultValue = { h:0, s:100, l:50 },
+  shift = 90,
 }) => {
 
   const initialPicker = {
@@ -13,16 +15,19 @@ const ColorPicker = ({
       start: false,
       a: 0,
     },
-    picker: {
+    handler: {
       origin: { x: 0, y: 0 },
       a: 0,
-      s: 100,
-      l: 100,
     },
     value: defaultValue,
+    h: 0,
+    s: 100,
+    l: 100,
+    shift: shift % 360,
   }
   const [ GET, SET ] = useState(initialPicker)
   const pickerRef = useRef()
+  const handlerRef = useRef()
 
   useEffect(() => {
     const pickerRect = pickerRef.current.getBoundingClientRect()
@@ -30,11 +35,11 @@ const ColorPicker = ({
     const y = pickerRect.y + pickerRect.height / 2
     const origin = { x, y }
 
-    let a, s, l
-    if ('h' in GET.value) ({ h: a, s, l } = GET.value)
-    else ([ a, s, l ] = chroma(GET.value).hsl())
+    let a, h, s, l
+    if (GET.value.hasOwnProperty('h')) ({ h, s, l } = GET.value, a = h)
+    else ([ h, s, l ] = chroma(GET.value).hsl(), a = h)
 
-    SET(PREV => ({ ...PREV, picker: { origin, a, s, l } }))
+    SET(PREV => ({ ...PREV, handler: { origin, a }, h, s, l }))
 
     window.addEventListener("pointerup", handleEnd, false)
     window.addEventListener("pointercancel", handleEnd, false)
@@ -45,40 +50,67 @@ const ColorPicker = ({
   }, [])
 
   const handleStart = (e) => {
-    pickerRef.current.setPointerCapture(e.pointerId)
-    const a = calcAngle(
-      e.pageX - GET.picker.origin.x,
-      e.pageY - GET.picker.origin.y
-    )
-    SET(PREV => ({ ...PREV, pointer: { start: true, a } }))
+    SET(PREV => {
+      const a = calcAngle(
+        e.pageX - GET.handler.origin.x,
+        e.pageY - GET.handler.origin.y
+      ) - GET.shift
+      let h = PREV.h
+      if (e.target.className === "color-picker") {
+        pickerRef.current.setPointerCapture(e.pointerId)
+        h = a
+      }
+      if (e.target.className === "picker-handler") {
+        handlerRef.current.setPointerCapture(e.pointerId)
+      }
+      return {
+        ...PREV,
+        pointer: { start: true, a },
+        handler: { ...PREV.handler, a: h },
+        h,
+      }
+    })
   }
   const handleEnd = (e) => {
-    pickerRef.current.releasePointerCapture(e.pointerId)
+    if (e.target.className === "color-picker") {
+      pickerRef.current.releasePointerCapture(e.pointerId)
+    }
+    if (e.target.className === "picker-handler") {
+      handlerRef.current.releasePointerCapture(e.pointerId)
+    }
     SET(PREV => ({ ...PREV, pointer: { ...PREV.pointer, start: false } }))
   }
   const handleMove = (e) => {
-    GET.pointer.start &&
-    SET(PREV => {
-      const pointer = {
-        ...PREV.pointer,
-        a: calcAngle(
-          e.pageX - GET.picker.origin.x,
-          e.pageY - GET.picker.origin.y
-        )
-      }
-      let a = (PREV.picker.a + (pointer.a - PREV.pointer.a)) % 360
-      if (a < 0) a += 360
-      const picker = { ...PREV.picker, a }
+    if (GET.pointer.start) {
+      e.preventDefault()
+      SET(PREV => {
+        const pointer = {
+          ...PREV.pointer,
+          a: calcAngle(
+            e.pageX - GET.handler.origin.x,
+            e.pageY - GET.handler.origin.y
+          ) - GET.shift
+        }
+        let a = (PREV.handler.a + (pointer.a - PREV.pointer.a)) % 360
+        if (a < 0) a += 360
+        const handler = { ...PREV.handler, a }
 
-      return { ...PREV, pointer, picker }
-    })
+        return { ...PREV, pointer, handler, h: a }
+      })
+    }
+  }
+  const handleSat = (e) => {
+    SET(PREV => ({ ...PREV, s: e.target.value }))
+  }
+  const handleLgt = (e) => {
+    SET(PREV => ({ ...PREV, l: e.target.value }))
   }
 
   return (
     <div className='color-picker-container'>
-      <div className='picker-hue'
+      <div ref={pickerRef} className='color-picker'
         style={{ background:`conic-gradient(
-          from 0.25turn,
+          from ${0.25 + GET.shift / 360}turn,
           hsl(0, ${GET.s}%, ${GET.l}%),
           hsl(60, ${GET.s}%, ${GET.l}%),
           hsl(120, ${GET.s}%, ${GET.l}%),
@@ -86,31 +118,57 @@ const ColorPicker = ({
           hsl(240, ${GET.s}%, ${GET.l}%),
           hsl(300, ${GET.s}%, ${GET.l}%),
           hsl(0, ${GET.s}%, ${GET.l}%)
-        )` }} >
-        <div ref={pickerRef} className='picker-handler'
-          style={{ transform: `rotate(${GET.picker.a}deg)` }}
-          onPointerDown={handleStart}
-          onPointerMove={handleMove} >
-          <svg className='picker-view'
-            width="228"
-            height="228"
-            viewBox="0 0 228 228"
-            xmlns="http://www.w3.org/2000/svg" >
-            <path d="M154 100a14 14 0 0 0 0 28h68.63a4 4 0 0 1 3.88 4.48a114 114 0 1 1 0-36.96a4 4 0 0 1-3.88 4.48Z"
-              fill="#333" />
-            <path d="M154 122 a8 8 0 0 1 0-16 h70 a4 4 0 0 1 4 4 v8 a4 4 0 0 1-4 4Z"
-              fill={`hsl(${GET.picker.a}, ${GET.picker.s}%, ${GET.picker.l}%)`} />
-            <g fill="#222">
-              {/*<circle cx='114' cy='114' r='14' />*/}
-              <rect x="140" y="98" width="82" height="32" rx="16"
-                transform-origin="center"
-                transform="rotate(-150)" />
-              <rect x="140" y="98" width="82" height="32" rx="16"
-                transform-origin="center"
-                transform="rotate(150)" />
+        )` }}
+        onPointerDown={handleStart}
+        onPointerMove={handleMove} >
+        <div className='color-picker-labels' style={{ transform: `rotate(${GET.shift}deg)` }}>
+          <label style={{ "--sign":
+              (GET.shift <  180 && GET.shift >= 0) ||
+              (GET.shift < -180)
+                ? -1 : 1
+            }}>R</label>
+          <label style={{ "--sign":
+              (GET.shift <  60  && GET.shift >= -120) ||
+              (GET.shift < -300 || GET.shift >=  240)
+                ? 1 : -5
+            }}>G</label>
+          <label style={{ "--sign":
+              (GET.shift <  300 && GET.shift >=  120) ||
+              (GET.shift < -60  && GET.shift >= -240)
+                ? 5 : -1
+            }}>B</label>
+        </div>
+        <div ref={handlerRef} className='picker-handler'>
+          <svg className='picker-view' xmlns="http://www.w3.org/2000/svg"
+            width="228" height="228" viewBox="0 0 228 228"
+            style={{ transform: `rotate(calc(${GET.handler.a + GET.shift}deg))` }} >
+            <g>
+              <path d="M154 100a14 14 0 0 0 0 28h68.63a4 4 0 0 1 3.88 4.48a114 114 0 1 1 0-36.96a4 4 0 0 1-3.88 4.48Z"
+                fill="#333" />
+              <path d="M154 122 a8 8 0 0 1 0-16 h70 a4 4 0 0 1 4 4 v8 a4 4 0 0 1-4 4Z"
+                fill={`hsl(${GET.h}, ${GET.s}%, ${GET.l}%)`} />
+              <g fill="#222">
+                {/*<circle cx='114' cy='114' r='14' />*/}
+                <path d="M28.06 82.86A16 16 0 0 1 44.06 55.14L87.36 80.14A16 16 0 0 1 71.36 107.86Z" />
+                <path d="M44.06 172.86A16 16 0 0 1 28.06 145.14L71.36 120.14A16 16 0 0 1 87.36 147.86Z" />
+              </g>
             </g>
           </svg>
         </div>
+      </div>
+      <div className='picker-controls'>
+        <label>
+          Saturation
+          <input className="picker-sat" type="range" min="0" max="100" step="1"
+            value={GET.s}
+            onChange={handleSat} />
+        </label>
+        <label>
+          Lightness
+          <input className="picker-lgt" type="range" min="0" max="100" step="1"
+            value={GET.l}
+            onChange={handleLgt} />
+        </label>
       </div>
     </div>
   )
