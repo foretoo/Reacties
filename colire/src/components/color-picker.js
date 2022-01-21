@@ -1,11 +1,11 @@
-import { h, Fragment } from 'preact'
+import { h } from 'preact'
 import { useState, useEffect, useRef } from 'preact/hooks'
-import { calcAngle, angleToColor, colorToAngle } from '@utils/helpers'
+import { calcAngle } from '@utils/helpers'
 import chroma from 'chroma-js'
 import './css/color-picker.css'
 
 const ColorPicker = ({
-  defaultValue = [ 0, 255, 127 ]
+  defaultValue = { h:48, s:96, l:80 }
 }) => {
 
   const initialPicker = {
@@ -16,12 +16,12 @@ const ColorPicker = ({
     picker: {
       origin: { x: 0, y: 0 },
       a: 0,
-      color: [ 255, 255, 255 ],
+      s: 100,
+      l: 100,
     },
     value: defaultValue,
   }
   const [ GET, SET ] = useState(initialPicker)
-  const [ log, setLog ] = useState({ r: 34, g: 67, b: 201 })
   const pickerRef = useRef()
 
   useEffect(() => {
@@ -29,9 +29,12 @@ const ColorPicker = ({
     const x = pickerRect.x + pickerRect.width / 2
     const y = pickerRect.y + pickerRect.height / 2
     const origin = { x, y }
-    const a = chroma(log).hsl()[0]
-    const color = angleToColor(a)
-    SET(PREV => ({ ...PREV, picker: { origin, a, color } }))
+
+    let a, s, l
+    if ('h' in GET.value) ({ h: a, s, l } = GET.value)
+    else ([ a, s, l ] = chroma(GET.value).hsl())
+
+    SET(PREV => ({ ...PREV, picker: { origin, a, s, l } }))
 
     window.addEventListener("pointerup", handleEnd, false)
     window.addEventListener("pointercancel", handleEnd, false)
@@ -63,76 +66,53 @@ const ColorPicker = ({
           e.pageY - GET.picker.origin.y
         )
       }
-      const delta = pointer.a - PREV.pointer.a
-      let a = (PREV.picker.a + delta) % 360
+      let a = (PREV.picker.a + (pointer.a - PREV.pointer.a)) % 360
       if (a < 0) a += 360
-      const color = angleToColor(a)
-      const picker = { ...PREV.picker, a, color }
+      const picker = { ...PREV.picker, a }
 
       return { ...PREV, pointer, picker }
     })
   }
-  const setR = e => {
-    setLog(l => ({ ...l, r: e.target.value }))
-    SET(PREV => {
-      const a = chroma({ ...log, r: e.target.value }).hsl()[0]
-      const color = angleToColor(a)
-      return { ...PREV, picker: { ...PREV.picker, a, color } }
-    })
-  }
-  const setG = e => {
-    setLog(l => ({ ...l, g: e.target.value }))
-    SET(PREV => {
-      const a = chroma({ ...log, g: e.target.value }).hsl()[0]
-      const color = angleToColor(a)
-      return { ...PREV, picker: { ...PREV.picker, a, color } }
-    })
-  }
-  const setB = e => {
-    setLog(l => ({ ...l, b: e.target.value }))
-    SET(PREV => {
-      const a = chroma({ ...log, b: e.target.value }).hsl()[0]
-      const color = angleToColor(a)
-      return { ...PREV, picker: { ...PREV.picker, a, color } }
-    })
-  }
 
   return (
-    <>
-      <div className='log'>
-        <div className='input'>
-          <label>
-            R: <input type='range' min='0' max='255' step='1' value={log.r} onChange={setR} />
-          </label>
-          <label>
-            G: <input type='range' min='0' max='255' step='1' value={log.g} onChange={setG} />
-          </label>
-          <label>
-            B: <input type='range' min='0' max='255' step='1' value={log.b} onChange={setB} />
-          </label>
+    <div className='color-picker-container'>
+      <div className='picker-hue'
+        style={{ background:`conic-gradient(
+          from 0.25turn,
+          hsl(0, ${GET.s}%, ${GET.l}%),
+          hsl(60, ${GET.s}%, ${GET.l}%),
+          hsl(120, ${GET.s}%, ${GET.l}%),
+          hsl(180, ${GET.s}%, ${GET.l}%),
+          hsl(240, ${GET.s}%, ${GET.l}%),
+          hsl(300, ${GET.s}%, ${GET.l}%),
+          hsl(0, ${GET.s}%, ${GET.l}%)
+        )` }} >
+        <div ref={pickerRef} className='picker-handler'
+          style={{ transform: `rotate(${GET.picker.a}deg)` }}
+          onPointerDown={handleStart}
+          onPointerMove={handleMove} >
+          <svg className='picker-view'
+            width="228"
+            height="228"
+            viewBox="0 0 228 228"
+            xmlns="http://www.w3.org/2000/svg" >
+            <path d="M154 100a14 14 0 0 0 0 28h68.63a4 4 0 0 1 3.88 4.48a114 114 0 1 1 0-36.96a4 4 0 0 1-3.88 4.48Z"
+              fill="#333" />
+            <path d="M154 122 a8 8 0 0 1 0-16 h70 a4 4 0 0 1 4 4 v8 a4 4 0 0 1-4 4Z"
+              fill={`hsl(${GET.picker.a}, ${GET.picker.s}%, ${GET.picker.l}%)`} />
+            <g fill="#222">
+              {/*<circle cx='114' cy='114' r='14' />*/}
+              <rect x="140" y="98" width="82" height="32" rx="16"
+                transform-origin="center"
+                transform="rotate(-150)" />
+              <rect x="140" y="98" width="82" height="32" rx="16"
+                transform-origin="center"
+                transform="rotate(150)" />
+            </g>
+          </svg>
         </div>
-        <div className='color' style={{ background: `rgb(${log.r},${log.g},${log.b})` }}></div>
       </div>
-      <div className='color-picker-container'>
-        <div className='picker-colors'>
-          <div ref={pickerRef} className='picker'
-            style={{ transform: `rotate(${GET.picker.a}deg)` }}
-            onPointerDown={handleStart}
-            onPointerMove={handleMove} >
-            <svg className='picker-fill'
-              width="228"
-              height="228"
-              viewBox="0 0 228 228"
-              xmlns="http://www.w3.org/2000/svg" >
-              <path d="M154 100a14 14 0 0 0 0 28h68.63a4 4 0 0 1 3.88 4.48a114 114 0 1 1 0-36.96a4 4 0 0 1-3.88 4.48Z" />
-              <path d="M154 122 a8 8 0 0 1 0-16 h70 a4 4 0 0 1 4 4 v8 a4 4 0 0 1-4 4Z"
-                fill={`rgb(${GET.picker.color[0]}, ${GET.picker.color[1]}, ${GET.picker.color[2]})`} />
-              <circle cx='114' cy='114' r='14' fill="#222" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </>
+    </div>
   )
 }
 
