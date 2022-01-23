@@ -35,29 +35,27 @@
   font-weight: 800;
 }
 .color-picker-labels label:nth-child(1) {
-  top: calc(var(--size) / 2);
-  left: calc(var(--size) + var(--g));
-  transform: translate(-50%, -50%) rotate(calc(90deg * var(--sign)));
+  top: calc(var(--size) + var(--g));
+  left: calc(var(--size) / 2);
+  transform: translate(-50%, -50%) rotate(calc(180deg * var(--sign)));
 }
 .color-picker-labels label:nth-child(2) {
-  top: calc(var(--a) + (var(--size) - var(--a)) / 2 + var(--g) * 0.886);
-  left: calc(var(--size) / 4 - var(--g) / 2);
-  transform: translate(-50%, -50%) rotate(calc(30deg * var(--sign)));
+  top: calc(var(--size) / 4 - var(--g) / 2);
+  left: calc((var(--size) - var(--a)) / 2 - var(--g) * 0.886);
+  transform: translate(-50%, -50%) rotate(calc(-60deg * var(--sign)));
 }
 .color-picker-labels label:nth-child(3) {
-  top: calc((var(--size) - var(--a)) / 2 - var(--g) * 0.886);
-  left: calc(var(--size) / 4 - var(--g) / 2);
-  transform: translate(-50%, -50%) rotate(calc(30deg * var(--sign)));
+  top: calc(var(--size) / 4 - var(--g) / 2);
+  left: calc((var(--size) - var(--a)) / 2 + var(--a) + var(--g) * 0.886);
+  transform: translate(-50%, -50%) rotate(calc(60deg * var(--sign)));
 }
 
 
 
 .picker-handler {
   margin: auto;
-  padding: 6px;
-  width: 240px;
-  height: 240px;
-  background: #222;
+  width: calc(var(--size) * 0.75);
+  height: calc(var(--size) * 0.75);
   border-radius: 50%;
 }
 .picker-handler:hover {
