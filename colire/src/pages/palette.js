@@ -11,7 +11,6 @@ import {
   SliderLevel,
   Snackbar
 } from '@components'
-import { useVar } from '@utils/hooks'
 import './css/page.css'
 
 const Palette = () => {
@@ -20,7 +19,7 @@ const Palette = () => {
   const { paletteID, colorID } = useParams()
   const palette = state.palettes.find(palette => palette.id === paletteID)
 
-  const handleCopy = useVar((code, lumClass) => {
+  const handleCopy = (code, lumClass) => {
     dispatch({
       type: 'COPY',
       payload: { code, lumClass }
@@ -29,7 +28,7 @@ const Palette = () => {
     setTimeout(() => {
       dispatch({ type: 'COPY_OVERLAY_HIDE' })
     }, 1600)
-  })
+  }
 
   const Content = () => (
     colorID
