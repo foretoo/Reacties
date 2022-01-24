@@ -30,8 +30,9 @@ const ColorPicker = ({
     mounted: false,
   }
   const [ GET, SET ] = useState(initialPicker)
-  const pickerRef = useRef()
-  const handlerRef = useRef()
+  const pickerRef    = useRef()
+  const handlerRef   = useRef()
+  const toneRef      = useRef()
 
 
 
@@ -49,30 +50,24 @@ const ColorPicker = ({
     const mounted = true
 
     SET(PREV => ({ ...PREV, handler, h, s, l, mounted }))
-
-    window.addEventListener("pointerup", handleEnd, false)
-    window.addEventListener("pointercancel", handleEnd, false)
-    return () => {
-      window.removeEventListener("pointerup", handleEnd)
-      window.removeEventListener("pointercancel", handleEnd)
-    }
   }, [])
 
 
 
-  /* POINTER START */
-  const handleStart = (e) => {
+  /*-----------*/
+  /* HUE START */
+  const handleHueStart = (e) => {
     SET(PREV => {
       const a = calcAngle(
         e.pageX - GET.handler.origin.x,
         e.pageY - GET.handler.origin.y
       ) - 90 - GET.shift
       let h = PREV.h
-      if (e.target.className === "color-picker") {
+      if (e.target === pickerRef.current) {
         pickerRef.current.setPointerCapture(e.pointerId)
         h = a
       }
-      if (e.target.className === "picker-handler") {
+      if (e.target === handlerRef.current) {
         handlerRef.current.setPointerCapture(e.pointerId)
       }
       return {
@@ -83,22 +78,22 @@ const ColorPicker = ({
       }
     })
   }
-
-  /* POINTER END */
-  const handleEnd = (e) => {
-    if (e.target.className === "color-picker") {
+  /*---------*/
+  /* HUE END */
+  const handleHueEnd = (e) => {
+    if (e.target === pickerRef.current) {
       pickerRef.current.releasePointerCapture(e.pointerId)
     }
-    if (e.target.className === "picker-handler") {
+    if (e.target === handlerRef.current) {
       handlerRef.current.releasePointerCapture(e.pointerId)
     }
     SET(PREV => ({ ...PREV, pointer: { ...PREV.pointer, start: false } }))
   }
-
-  /* POINTER MOVE */
-  const handleMove = (e) => {
-    if (GET.pointer.start) {
-      e.preventDefault()
+  /*----------*/
+  /* HUE MOVE */
+  const handleHueMove = (e) => {
+    GET.pointer.start && (
+      e.preventDefault(),
       SET(PREV => {
         const pointer = {
           ...PREV.pointer,
@@ -113,14 +108,40 @@ const ColorPicker = ({
 
         return { ...PREV, pointer, handler, h: a }
       })
-    }
+    )
   }
 
-  const handleSat = (e) => {
-    SET(PREV => ({ ...PREV, s: e.target.value }))
+
+
+  /*------------*/
+  /* TONE START */
+  const handleToneStart = (e) => {
+    toneRef.current.setPointerCapture(e.pointerId)
+    SET(PREV => ({
+      ...PREV,
+      pointer: { ...PREV.pointer, start: true },
+      s: e.offsetX,
+      l: (50-e.offsetX/2)*2*((50-e.offsetY/2)/50) + (50-e.offsetY/2)*(e.offsetX/50)/2
+    }))
   }
-  const handleLgt = (e) => {
-    SET(PREV => ({ ...PREV, l: e.target.value }))
+  /*------------*/
+  /* TONE START */
+  const handleToneEnd = (e) => {
+    toneRef.current.releasePointerCapture(e.pointerId)
+    SET(PREV => ({ ...PREV, pointer: { ...PREV.pointer, start: false } }))
+  }
+  /*------------*/
+  /* TONE START */
+  const handleToneMove = (e) => {
+    GET.pointer.start && (
+      e.preventDefault(),
+      SET(PREV => ({
+        ...PREV,
+        s: e.offsetX,
+        l: (50-e.offsetX/2)*2*(50-e.offsetY/2)/50 + (50-e.offsetY/2)*(e.offsetX/50)/2
+      }))
+    )
+    
   }
 
 
@@ -131,16 +152,19 @@ const ColorPicker = ({
       <div ref={pickerRef} className='color-picker'
         style={{ background:`conic-gradient(
           from ${0.5 + GET.shift / 360}turn,
-            hsl(0,   ${GET.s}%, ${GET.l}%),
-            hsl(60,  ${GET.s}%, ${GET.l}%),
-            hsl(120, ${GET.s}%, ${GET.l}%),
-            hsl(180, ${GET.s}%, ${GET.l}%),
-            hsl(240, ${GET.s}%, ${GET.l}%),
-            hsl(300, ${GET.s}%, ${GET.l}%),
-            hsl(0,   ${GET.s}%, ${GET.l}%)
+            hsl(0,   100%, 50%),
+            hsl(60,  100%, 50%),
+            hsl(120, 100%, 50%),
+            hsl(180, 100%, 50%),
+            hsl(240, 100%, 50%),
+            hsl(300, 100%, 50%),
+            hsl(0,   100%, 50%)
         )` }}
-        onPointerDown={handleStart}
-        onPointerMove={handleMove} >
+        onPointerDown={handleHueStart}
+        onPointerMove={handleHueMove}
+        onPointerUp={handleHueEnd}
+        onPointerCancel={handleHueEnd} >
+
 
         <div className='color-picker-labels' style={{ transform: `rotate(${GET.shift}deg)` }}>
           <label style={{ "--sign":
@@ -160,6 +184,7 @@ const ColorPicker = ({
             }}>B</label>
         </div>
 
+
         <div ref={handlerRef} className='picker-handler'>
           { GET.mounted &&
           <svg className='picker-handler-view'
@@ -175,7 +200,7 @@ const ColorPicker = ({
               <path d={Array(120).fill("").reduce((path,_,i,a) => {
                 const [ r, deg ] = [ (Math.PI / a.length * 2) * i, (360 / a.length) * i ]
                 if (deg < 12 || deg > 348) return path
-                const [ w, h ] = [ 6, 0.7 ]
+                const [ w, h ] = [ 6, 0.8 ]
                 const [ x, y ] = [
                   r3d(30 + (28 - w) * Math.cos(r) + (h / 2) * Math.sin(r)),
                   r3d(30 + (28 - w) * Math.sin(r) - (h / 2) * Math.cos(r))
@@ -189,29 +214,24 @@ const ColorPicker = ({
                 fill="url(#grad)" />
             </g>
             <path d="M27 43a3 3 0 0 1 6 0v14a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1Z"
-              fill={`hsl(${GET.h}, ${GET.s}%, ${GET.l}%)`} />
+              fill={`hsl(${GET.h}, 100%, 50%)`} />
           </svg> }
         </div>
-
       </div>
-
 
 
       <div className='picker-controls'>
-        <label>
-          Saturation
-          <input className="picker-sat" type="range" min="0" max="100" step="1"
-            value={GET.s}
-            onChange={handleSat} />
-        </label>
-        <label>
-          Lightness
-          <input className="picker-lgt" type="range" min="0" max="100" step="1"
-            value={GET.l}
-            onChange={handleLgt} />
-        </label>
+        <div ref={toneRef} className='picker-tone'
+          style={{ "--hue": GET.h }}
+          onPointerDown={handleToneStart}
+          onPointerMove={handleToneMove}
+          onPointerUp={handleToneEnd}
+          onPointerCancel={handleToneEnd} >
+        </div>
+        <div className='picker-value'
+          style={{ background: `hsl(${GET.h}, ${GET.s}%, ${GET.l}%)` }}>
+        </div>
       </div>
-
     </div>
   )
 }
