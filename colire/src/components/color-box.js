@@ -7,7 +7,7 @@ import "./css/color-box.css"
 
 const ColorBox = ({ name, hex, rgb, button, contentClass, handleCopy }) => {
 
-  const { state, dispatch } = useContext(Context)
+  const { state } = useContext(Context)
 
   const code = state.format.label === "HEX" ? hex : rgb
   const lum = chroma(hex).luminance()
