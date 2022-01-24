@@ -5,7 +5,8 @@
         "es2021": true
     },
     "extends": [
-        "eslint:recommended"
+        "eslint:recommended",
+        "preact"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -88,11 +89,6 @@
             "nonwords": false
         }],
         "switch-colon-spacing": 1,
-        "yield-star-spacing": [ 1, "both" ],
-
-
-
-        "no-unused-vars": 0,
-        "no-prototype-builtins": 0
+        "yield-star-spacing": [ 1, "both" ]
     }
 }
