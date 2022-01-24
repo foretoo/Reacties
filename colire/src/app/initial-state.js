@@ -1,5 +1,5 @@
-import { seedColors } from '@utils/constants'
-import { addLevelProp, colorScaler } from '@utils/helpers'
+import { seedColors } from "@utils/constants"
+import { addLevelProp, colorScaler } from "@utils/helpers"
 
 const palettes = []
 
@@ -11,29 +11,29 @@ for (const palette of seedColors) {
 const initialState = {
   palettes,
   copy: {
-    show: false,
-    code: '',
-    lumClass: ''
+    show:     false,
+    code:     "",
+    lumClass: "",
   },
   format: {
-    show: false,
-    label: 'HEX'
+    show:  false,
+    label: "HEX",
   },
   custom: {
-    palette: seedColors[0].colors,
-    paletteName: '',
-    emoji: '🖖',
-    color: {
-      name: '',
-      color: '#ffffff'
+    palette:     seedColors[0].colors,
+    paletteName: "",
+    emoji:       "🖖",
+    color:       {
+      name:  "",
+      color: "#ffffff",
     },
     hidden: false,
-    valid: {
-      name: true,
-      color: true,
-      warnText: ''
-    }
-  }
+    valid:  {
+      name:     true,
+      color:    true,
+      warnText: "",
+    },
+  },
 }
 
 export default initialState

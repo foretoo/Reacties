@@ -1,6 +1,9 @@
-import { useState, useEffect, useRef } from 'preact/hooks'
+import { useState, useEffect, useRef } from "preact/hooks"
 
-const useDynamicImport = (name = '', upload = () => null) => {
+const useDynamicImport = (
+  name = "",
+  upload = () => {},
+) => {
 
   const uploadRef = useRef(upload)
   useEffect(() => {
@@ -9,32 +12,25 @@ const useDynamicImport = (name = '', upload = () => null) => {
 
   const initState = {
     isLoading: false,
-    module: null,
-    error: null
+    module:    null,
+    error:     null,
   }
   const [ state, setState ] = useState(initState)
 
   useEffect(() => {
     let isMounted = true
-    setState(state => {
-      return { ...state, isLoading: true }
-    })
+    setState((state) => ({ ...state, isLoading: true }))
 
-    upload().then(data => data[name] ? data[name] : data.default)
-      .then(module => {
-        isMounted && setState(state => {
-          return { ...state, module, error: null }
-        })
+    upload()
+      .then((data) => data[name] ? data[name] : data.default)
+      .then((module) => {
+        isMounted && setState((prev) => ({ ...prev, module, error: null }))
       })
-      .catch(error => {
-        isMounted && setState(state => {
-          return { ...state, error, component: null }
-        })
+      .catch((error) => {
+        isMounted && setState((prev) => ({ ...prev, error, component: null }))
       })
       .finally(() => {
-        isMounted && setState(state => {
-          return { ...state, isLoading: false }
-        })
+        isMounted && setState((prev) => ({ ...prev, isLoading: false }))
       })
 
     return () => (isMounted = false)

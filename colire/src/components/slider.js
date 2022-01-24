@@ -1,7 +1,7 @@
-import { h, Fragment } from 'preact'
-import { useState, useEffect, useRef } from 'preact/hooks'
-import { clamp, round } from '@utils/helpers'
-import './css/slider.css'
+import { h, Fragment } from "preact"
+import { useState, useEffect, useRef } from "preact/hooks"
+import { clamp, round } from "@utils/helpers"
+import "./css/slider.css"
 
 const Slider = ({
 
@@ -10,7 +10,7 @@ const Slider = ({
   step = 1,
   defaultValue = 50,
   label = false,
-  onChange = value => {
+  onChange = (value) => {
     console.log(`slider-value: ${value}`)
   },
 
@@ -19,22 +19,22 @@ const Slider = ({
   const INIT = {
     pointer: {
       start: false,
-      x: 0,
+      x:     0,
     },
     path: {
       width: 0,
-      x: 0,
+      x:     0,
     },
     handler: {
-      width: 0,
-      offset: 0,
+      width:     0,
+      offset:    0,
       translate: 0,
     },
-    mounted: false,
+    mounted:   false,
     stepWidth: 0,
     stepRatio: 0,
-    stepMax: 0,
-    value: defaultValue,
+    stepMax:   0,
+    value:     defaultValue,
   }
   const [ GET, SET ] = useState(INIT)
   const pathRef      = useRef()
@@ -47,14 +47,14 @@ const Slider = ({
     const { width: pathWidth, x: pathX } = pathRef.current.getBoundingClientRect()
     const { width: handlerWidth }        = handlerRef.current.getBoundingClientRect()
 
-    const path          = { width: pathWidth - handlerWidth, x: pathX }
-    const stepMax       = (max - min) / step
-    const stepRatio     = 1 / stepMax
-    const stepWidth     = path.width / stepMax
-    const offset        = ((defaultValue - min) / step) * stepWidth 
-    const translate     = offset
-    const handler       = { width: handlerWidth, offset, translate }
-    const mounted       = true
+    const path      = { width: pathWidth - handlerWidth, x: pathX }
+    const stepMax   = (max - min) / step
+    const stepRatio = 1 / stepMax
+    const stepWidth = path.width / stepMax
+    const offset    = ((defaultValue - min) / step) * stepWidth
+    const translate = offset
+    const handler   = { width: handlerWidth, offset, translate }
+    const mounted   = true
 
     SET({ ...GET, path, handler, mounted, stepWidth, stepRatio, stepMax })
 
@@ -64,21 +64,21 @@ const Slider = ({
       window.removeEventListener("pointerup", handleEnd)
       window.removeEventListener("pointercancel", handleEnd)
     }
-  }, [min, max, step])
+  }, [ min, max, step ])
 
 
 
   const handleStart = (e) => {
     handlerRef.current.setPointerCapture(e.pointerId)
-    SET(PREV => ({ ...PREV, pointer: { start: true, x: e.pageX } }))
+    SET((PREV) => ({ ...PREV, pointer: { start: true, x: e.pageX }}))
   }
   const handleEnd = (e) => {
     handlerRef.current.releasePointerCapture(e.pointerId)
-    SET(PREV => ({ ...PREV, pointer: { ...PREV.pointer, start: false } }))
+    SET((PREV) => ({ ...PREV, pointer: { ...PREV.pointer, start: false }}))
   }
   const handleMove = (e) => {
     GET.pointer.start &&
-    SET(PREV => {
+    SET((PREV) => {
 
       const pointer     = { ...PREV.pointer, x: e.pageX }
       const delta       = pointer.x - PREV.pointer.x
@@ -100,32 +100,32 @@ const Slider = ({
 
 
   return (
-    <div className='slider-container'>
-      <div ref={pathRef} className='slider-path'>
+    <div className="slider-container">
+      <div ref={pathRef} className="slider-path">
         {GET.mounted && label &&
         <>
-          <div className='slider-min label'
+          <div className="slider-min label"
             style={{
-              left: `${GET.handler.width/2}px`,
-              visibility: GET.value === min ? 'hidden' : 'visible'
+              left:       `${GET.handler.width / 2}px`,
+              visibility: GET.value === min ? "hidden" : "visible",
             }} >
             {min}
           </div>
-          <div className='slider-max label'
+          <div className="slider-max label"
             style={{
-              right: `${GET.handler.width/2}px`,
-              visibility: GET.value === max ? 'hidden' : 'visible'
+              right:      `${GET.handler.width / 2}px`,
+              visibility: GET.value === max ? "hidden" : "visible",
             }} >
             {max}
           </div>
         </>
         }
-        <div ref={handlerRef} className='slider-handler'
+        <div ref={handlerRef} className="slider-handler"
           style={{ transform: `translate(${GET.handler.translate}px)` }}
           onPointerDown={handleStart}
           onPointerMove={handleMove} >
           {label &&
-            <div className='slider-value label'>{GET.value}</div>
+            <div className="slider-value label">{GET.value}</div>
           }
         </div>
       </div>

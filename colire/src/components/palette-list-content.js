@@ -1,5 +1,5 @@
-import { h } from 'preact'
-import { ColorBox, withMore } from '@components'
+import { h } from "preact"
+import { ColorBox, withMore } from "@components"
 
 const PaletteListContent = ({ colors, activeLevel, handleCopy }) => {
 
@@ -9,9 +9,9 @@ const PaletteListContent = ({ colors, activeLevel, handleCopy }) => {
       <ColorBox
         key={color}
         id={color}
-        contentClass=' palette'
+        contentClass=" palette"
         {...colors[color][activeLevel]}
-        handleCopy={handleCopy} />
+        handleCopy={handleCopy} />,
     )
   }
   return colorsList

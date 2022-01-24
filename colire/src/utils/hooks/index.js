@@ -1,3 +1,3 @@
-import useDynamicImport from './useDynamicImport'
+import useDynamicImport from "./useDynamicImport"
 
 export { useDynamicImport }

@@ -1,19 +1,19 @@
-import { h } from 'preact'
-import { Link } from 'react-router-dom'
-import './css/palette-box.css'
+import { h } from "preact"
+import { Link } from "react-router-dom"
+import "./css/palette-box.css"
 
 const PaletteBox = ({ id, paletteName, colors, handleDeletePalette }) => {
   const colorList = []
   for (const color in colors) {
     const style = { background: colors[color][500].hex }
-    colorList.push(<div className='palette-box-color' style={style}></div>)
+    colorList.push(<div className="palette-box-color" style={style}></div>)
   }
   return (
-    <div className='palette-box-container'>
+    <div className="palette-box-container">
 
-      <Link to={`/${id}/`} className='palette-box'>
-        <div className='palette-box-name'>{paletteName}</div>
-        <div className='palette-box-content'>
+      <Link to={`/${id}/`} className="palette-box">
+        <div className="palette-box-name">{paletteName}</div>
+        <div className="palette-box-content">
           {colorList}
         </div>
       </Link>

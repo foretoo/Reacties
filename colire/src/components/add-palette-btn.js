@@ -1,5 +1,5 @@
-import { h } from 'preact'
-import './css/add-palette-btn.css'
+import { h } from "preact"
+import "./css/add-palette-btn.css"
 
 const AddPaletteBtn = () => {
 
@@ -11,10 +11,10 @@ const AddPaletteBtn = () => {
   }
 
   return (
-    <div className='add-palette-btn-container'>
-      <input className='add-palette-btn'
-        type='button'
-        value='CREATE PALETTE' />
+    <div className="add-palette-btn-container">
+      <input className="add-palette-btn"
+        type="button"
+        value="CREATE PALETTE" />
       <svg className="add-palette-btn-bg"
         width="250"
         height="160"

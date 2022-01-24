@@ -1,10 +1,8 @@
-const clamp = (num, min, max) => {
-  return (
+const clamp = (num, min, max) => (
     num < min ? min
-    : num > max ? max
-      : num
-  )
-}
+  : num > max ? max
+              : num
+)
 
 const round = Math.round
 

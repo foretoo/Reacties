@@ -1,17 +1,17 @@
-import { h } from 'preact'
-import { useContext } from 'preact/hooks'
-import { Context } from '@app'
-import { Slider } from '@components'
-import './css/slider-level.css'
+import { h } from "preact"
+import { useContext } from "preact/hooks"
+import { Context } from "@app"
+import { Slider } from "@components"
+import "./css/slider-level.css"
 
 const SliderLevel = ({ id, level }) => {
 
   const { dispatch } = useContext(Context)
 
-  const handleChangeLevel = level => {
+  const handleChangeLevel = (level) => {
     dispatch({
-      type: 'CHANGE_PALETTE_LEVEL',
-      payload: { id, level }
+      type:    "CHANGE_PALETTE_LEVEL",
+      payload: { id, level },
     })
   }
 

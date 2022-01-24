@@ -1,5 +1,5 @@
-import { h, Fragment } from 'preact'
-import { ColorBox } from '@components'
+import { h, Fragment } from "preact"
+import { ColorBox } from "@components"
 
 const ColorListContent = ({ colors, handleCopy }) => {
 
@@ -9,17 +9,17 @@ const ColorListContent = ({ colors, handleCopy }) => {
       <ColorBox
         key={level}
         id={level}
-        contentClass=' color'
+        contentClass=" color"
         {...colors[level]}
-        handleCopy={handleCopy} />
+        handleCopy={handleCopy} />,
     )
   }
 
   return (
     <>
       {colorsList}
-      <div class='color-box back'>
-        <button class='color-box-button' onClick={() => history.back()}>GO BACK</button>
+      <div class="color-box back">
+        <button class="color-box-button" onClick={() => history.back()}>GO BACK</button>
       </div>
     </>
   )
