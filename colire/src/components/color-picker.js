@@ -1,12 +1,12 @@
 import { h } from "preact"
 import { useState, useEffect, useRef } from "preact/hooks"
-import { calcAngle, r3d } from "@utils/helpers"
+import { clamp, round, calcAngle, r3d } from "@utils/helpers"
 import chroma from "chroma-js"
 import "./css/color-picker.css"
 
 const ColorPicker = ({
   mode = "hsl",
-  defaultValue = { h: 270, s: 100, l: 50 },
+  defaultValue = { h: 135, s: 0.7, l: 0.75 },
   shift = 0,
   size = 320,
 }) => {
@@ -14,13 +14,16 @@ const ColorPicker = ({
 
 
   const initialPicker = {
-    pointer: {
-      start: false,
-      a:     0,
-    },
-    handler: {
+    pointer: 0,
+    hue:     {
+      start:  false,
       origin: { x: 0, y: 0 },
       a:      0,
+    },
+    tone: {
+      start: false,
+      x:     0,
+      y:     0,
     },
     h:       0,
     s:       100,
@@ -37,19 +40,20 @@ const ColorPicker = ({
 
 
   useEffect(() => {
-    const pickerRect = pickerRef.current.getBoundingClientRect()
-    const x = pickerRect.x + pickerRect.width / 2
-    const y = pickerRect.y + pickerRect.height / 2
-    const origin = { x, y }
+    SET((PREV) => {
+      const pickerRect = pickerRef.current.getBoundingClientRect()
+      const origin = {
+        x: pickerRect.x + pickerRect.width / 2,
+        y: pickerRect.y + pickerRect.height / 2,
+      }
+      const [ h, s, l ] = chroma(GET.value).hsl()
+      const [ , x, y ] = chroma(h, s, l, "hsl").hsv()
 
-    let a, h, s, l
-    if (GET.value.hasOwnProperty("h")) ({ h, s, l } = GET.value, a = h)
-    else ([ h, s, l ] = chroma(GET.value).hsl(), a = h)
+      const hue = { ...PREV.hue, origin, a: h }
+      const tone = { ...PREV.tone, x: x * 100, y: 100 - y * 100 }
 
-    const handler = { origin, a }
-    const mounted = true
-
-    SET((PREV) => ({ ...PREV, handler, h, s, l, mounted }))
+      return { ...PREV, hue, tone, h, s: s * 100, l: l * 100, mounted: true }
+    })
   }, [])
 
 
@@ -58,22 +62,22 @@ const ColorPicker = ({
   /* HUE START */
   const handleHueStart = (e) => {
     SET((PREV) => {
-      const a = calcAngle(
-        e.pageX - GET.handler.origin.x,
-        e.pageY - GET.handler.origin.y,
+      const pointer = calcAngle(
+        e.pageX - GET.hue.origin.x,
+        e.pageY - GET.hue.origin.y,
       ) - 90 - GET.shift
       let h = PREV.h
       if (e.target === pickerRef.current) {
         pickerRef.current.setPointerCapture(e.pointerId)
-        h = a
+        h = pointer
       }
       if (e.target === handlerRef.current) {
         handlerRef.current.setPointerCapture(e.pointerId)
       }
       return {
         ...PREV,
-        pointer: { start: true, a },
-        handler: { ...PREV.handler, a: h },
+        pointer,
+        hue: { ...PREV.hue, start: true, a: h },
         h,
       }
     })
@@ -87,26 +91,24 @@ const ColorPicker = ({
     if (e.target === handlerRef.current) {
       handlerRef.current.releasePointerCapture(e.pointerId)
     }
-    SET((PREV) => ({ ...PREV, pointer: { ...PREV.pointer, start: false }}))
+    SET((PREV) => ({ ...PREV, hue: { ...PREV.hue, start: false }}))
   }
   /*----------*/
   /* HUE MOVE */
   const handleHueMove = (e) => {
-    GET.pointer.start && (
+    GET.hue.start && (
       e.preventDefault(),
       SET((PREV) => {
-        const pointer = {
-          ...PREV.pointer,
-          a: calcAngle(
-            e.pageX - GET.handler.origin.x,
-            e.pageY - GET.handler.origin.y,
-          ) - 90 - GET.shift,
-        }
-        let a = (PREV.handler.a + (pointer.a - PREV.pointer.a)) % 360
-        if (a < 0) a += 360
-        const handler = { ...PREV.handler, a }
+        const pointer = calcAngle(
+          e.pageX - GET.hue.origin.x,
+          e.pageY - GET.hue.origin.y,
+        ) - 90 - GET.shift
 
-        return { ...PREV, pointer, handler, h: a }
+        let a = (PREV.hue.a + (pointer - PREV.pointer)) % 360
+        if (a < 0) a += 360
+        const hue = { ...PREV.hue, a }
+
+        return { ...PREV, pointer, hue, h: a }
       })
     )
   }
@@ -117,39 +119,44 @@ const ColorPicker = ({
   /* TONE START */
   const handleToneStart = (e) => {
     toneRef.current.setPointerCapture(e.pointerId)
-    const [ xVal, yVal ] = [ 50 - e.offsetX / 2, 50 - e.offsetY / 2 ]
-    SET((PREV) => ({
-      ...PREV,
-      pointer: { ...PREV.pointer, start: true },
-      s:       e.offsetX,
-      l:       xVal * 2 * (yVal / 50) + yVal / 2 * (e.offsetX / 50),
-    }))
+    SET((PREV) => {
+      const tone = {
+        start: true,
+        x:     clamp(round(e.offsetX), 0, 100),
+        y:     clamp(round(e.offsetY), 0, 100),
+      }
+      const [ , s, l ] = chroma(PREV.h, tone.x / 100, (100 - tone.y) / 100, "hsv").hsl()
+      return { ...PREV, tone, s: s * 100, l: l * 100 }
+    })
   }
   /*------------*/
   /* TONE START */
   const handleToneEnd = (e) => {
     toneRef.current.releasePointerCapture(e.pointerId)
-    SET((PREV) => ({ ...PREV, pointer: { ...PREV.pointer, start: false }}))
+    SET((PREV) => ({ ...PREV, tone: { ...PREV.tone, start: false }}))
   }
   /*------------*/
   /* TONE START */
   const handleToneMove = (e) => {
-    if (GET.pointer.start) {
+    if (GET.tone.start) {
       e.preventDefault()
-      const [ xVal, yVal ] = [ 50 - e.offsetX / 2, 50 - e.offsetY / 2 ]
-      SET((PREV) => ({
-        ...PREV,
-        s: e.offsetX,
-        l: xVal * 2 * (yVal / 50) + yVal / 2 * (e.offsetX / 50),
-      }))
+      SET((PREV) => {
+        const tone = {
+          ...PREV.tone,
+          x: clamp(round(e.offsetX), 0, 100),
+          y: clamp(round(e.offsetY), 0, 100),
+        }
+        const [ , s, l ] = chroma(PREV.h, tone.x / 100, (100 - tone.y) / 100, "hsv").hsl()
+        return { ...PREV, tone, s: s * 100, l: l * 100 }
+      })
     }
-
   }
 
 
 
   return (
-    <div className="color-picker-container" style={{ "--size": `${size}px` }}>
+    <div className="color-picker-container"
+      style={{ "--size": `${size}px`, "--hue": GET.h }}>
 
       <div ref={pickerRef} className="color-picker"
         style={{ background: `conic-gradient(
@@ -189,7 +196,7 @@ const ColorPicker = ({
           <svg className="picker-handler-view"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 60 60"
-            style={{ transform: `rotate(${GET.handler.a + GET.shift}deg)` }} >
+            style={{ transform: `rotate(${GET.hue.a + GET.shift}deg)` }} >
             <circle cx="30" cy="30" r="30" fill="#2a2a2a" />
             <g transform="rotate(90,30,30)">
               <radialGradient id="grad">
@@ -221,15 +228,22 @@ const ColorPicker = ({
 
       <div className="picker-controls">
         <div ref={toneRef} className="picker-tone"
-          style={{ "--hue": GET.h }}
           onPointerDown={handleToneStart}
           onPointerMove={handleToneMove}
           onPointerUp={handleToneEnd}
           onPointerCancel={handleToneEnd} >
+          <div className="picker-tone-point"
+            style={{
+              top:        `${GET.tone.y}px`,
+              left:       `${GET.tone.x}px`,
+              background: `hsl(${GET.h}, ${GET.s}%, ${GET.l}%)`,
+            }} >
+          </div>
         </div>
-        <div className="picker-value"
+        <button className="picker-value"
           style={{ background: `hsl(${GET.h}, ${GET.s}%, ${GET.l}%)` }}>
-        </div>
+          ADD
+        </button>
       </div>
     </div>
   )
