@@ -1,14 +1,12 @@
 import { h } from "preact"
 import { useState, useEffect, useRef } from "preact/hooks"
-import "./css/switcher.css"
+import "./switcher.css"
 
 const Switcher = ({
 
   options = [ "ON", "OFF" ],
   defaultValue = options[0],
-  onChange = (value) => {
-    console.log(`switcher turned ${value}`)
-  },
+  onChange = (value) => console.log(value),
   style = {
     "--font-size": "16px",
     "--padding":   "10px",

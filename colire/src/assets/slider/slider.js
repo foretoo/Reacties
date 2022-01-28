@@ -1,7 +1,9 @@
 import { h, Fragment } from "preact"
 import { useState, useEffect, useRef } from "preact/hooks"
-import { clamp, round } from "@utils/helpers"
-import "./css/slider.css"
+import "./slider.css"
+
+const clamp = (num, min, max) => num < min ? min : num > max ? max : num
+const round = Math.round
 
 const Slider = ({
 
@@ -10,9 +12,7 @@ const Slider = ({
   step = 1,
   defaultValue = 50,
   label = false,
-  onChange = (value) => {
-    console.log(`slider-value: ${value}`)
-  },
+  onChange = (value) => console.log(value),
 
 }) => {
 

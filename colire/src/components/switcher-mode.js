@@ -1,7 +1,7 @@
 import { h } from "preact"
 import { useContext } from "preact/hooks"
 import { Context } from "@app"
-import { Switcher } from "@components"
+import { Switcher } from "@assets"
 import "./css/switcher-mode.css"
 
 const SwitcherMode = () => {

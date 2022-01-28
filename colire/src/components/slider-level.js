@@ -1,7 +1,7 @@
 import { h } from "preact"
 import { useContext } from "preact/hooks"
 import { Context } from "@app"
-import { Slider } from "@components"
+import { Slider } from "@assets"
 import "./css/slider-level.css"
 
 const SliderLevel = ({ id, level }) => {
