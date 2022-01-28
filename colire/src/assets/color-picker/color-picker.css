@@ -16,6 +16,7 @@
 .color-picker {
   position: relative;
   display: flex;
+  margin-bottom: 2rem;
   width: var(--size);
   height: var(--size);
   border-radius: 50%;
@@ -73,21 +74,12 @@
   height: 100%;
 }
 .picker-handler-view > path {
+  fill: hsl(var(--hue), 100%, 50%);
   filter: drop-shadow( 0 0 1.618px hsl(var(--hue), 100%, 33%));
 }
 
 
 
-.picker-controls {
-  display: flex;
-  margin-top: 2rem;
-}
-.picker-controls > * {
-  margin: 1rem;
-  display: flex;
-  flex-direction: column;
-  font-size: 0.8rem;
-}
 .picker-tone {
   width: 100px;
   height: 100px;
