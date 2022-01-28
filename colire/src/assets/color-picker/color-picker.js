@@ -7,7 +7,7 @@ const Context = createContext()
 
 const ColorPicker = ({
 
-  color = { h: 135, s: 0.7, l: 0.75 },
+  color = "#fff",
   shift = 0,
   size = 320,
   onChange = (color) => console.log(color.hex),
@@ -42,7 +42,7 @@ const ColorPicker = ({
       y:       0,
       ref:     useRef(),
     },
-    hsl: [ 0, 0, 0 ],
+    hsl: [ 0, 1, 1 ],
     shift: shift % 360,
     mounted: false,
     handleChange,
