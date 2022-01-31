@@ -9,6 +9,7 @@ import NewPaletteForm from "./new-palette-form"
 import NewPaletteNameForm from "./new-palette-name-form"
 import Overlay from "./overlay"
 import PaletteBox from "./palette-box"
+import PaletteEditorForm from "./palette-editor-form"
 import PaletteListContent from "./palette-list-content"
 import Picker from "./picker"
 import SliderLevel from "./slider-level"
@@ -30,6 +31,7 @@ export {
   NewPaletteNameForm,
   Overlay,
   PaletteBox,
+  PaletteEditorForm,
   PaletteListContent,
   Picker,
   SliderLevel,
