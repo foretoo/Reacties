@@ -1,0 +1,53 @@
+.new-palette-form {
+  flex-shrink: 0;
+  margin-left: 0;
+  padding: 1rem;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  transition: margin-left 0.5s ease-out;
+  background: #fff;
+  border-top: 1px solid var(--dark-l);
+  border-bottom: 1px solid var(--dark-l);
+}
+.new-palette-form.hidden {
+  margin-left: -320px;
+}
+.new-palette-form > * {
+  margin-bottom: 1.5rem;
+}
+
+.new-palette-input-name {
+  padding: 0.5rem 0.8rem;
+  width: 100%;
+  font-size: 0.8rem;
+  border-radius: 0.5rem;
+}
+.new-palette-input-name.light {
+  color: var(--light-h);
+}
+.new-palette-input-name::placeholder {
+  color: var(--dark-m);
+}
+.new-palette-input-name.light::placeholder {
+  color: var(--light-m);
+}
+
+.submit {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+.submit .warn-info {
+  display: none;
+  width: 50%;
+  font-size: 0.7rem;
+  color: var(--warn)
+}
+.submit.warn .warn-info {
+  display: inline;
+}
+.submit.warn .new-palette-button {
+  color: var(--dark-l);
+}

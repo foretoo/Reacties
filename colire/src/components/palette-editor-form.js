@@ -8,6 +8,7 @@ import {
   HueHandler,
   ToneHandler,
 } from "@assets"
+import "./css/palette-editor-form.css"
 
 const PaletteEditorForm = () => {
 
@@ -15,14 +16,12 @@ const PaletteEditorForm = () => {
   const { color, palette, hidden, valid } = state.custom
 
   let formClass = "new-palette-form",
-      lumClass = "new-palette-button",
       inputClass = "new-palette-input-name",
       submitClass = "submit"
 
   if (hidden) formClass += " hidden"
-  if (chroma(color.color).luminance() < 0.333) lumClass += " light"
-  if (!valid.name || valid.warnText) (inputClass += " warn", submitClass += " warn")
-  if (!valid.color && !submitClass.includes("warn")) submitClass += " warn"
+  if (chroma(color.color).luminance() < 0.333) inputClass += " light"
+  if (valid.warnText) submitClass += " warn"
 
   const handleAddColor = () => {
     if (!valid.name || !valid.color) return
@@ -73,17 +72,15 @@ const PaletteEditorForm = () => {
       <Button name="Random" onClick={handleRandomColor} />
       <HueHandler />
       <ToneHandler />
-      <input class={inputClass}
+      <input className={inputClass}
         type="text"
         value={color.name}
         placeholder="color name"
+        style={{ backgroundColor: color.color }}
         onChange={handleChangeColorName} />
-      <div class={submitClass}>
-        <Button className={lumClass}
-          name="Add"
-          style={{ backgroundColor: color.color }}
-          onClick={handleAddColor} />
-        <p class="warn-info">{valid.warnText}</p>
+      <div className={submitClass}>
+        <Button name="Add" onClick={handleAddColor} />
+        <p className="warn-info">{valid.warnText}</p>
       </div>
     </ColorPicker>
   )
