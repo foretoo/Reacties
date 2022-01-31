@@ -68,7 +68,7 @@ const ColorPicker = ({
 
       return { ...PREV, hue, tone, hsl, mounted: true }
     })
-  }, [])
+  }, [ color, shift, size, onChange, children ])
 
 
 
