@@ -11,7 +11,6 @@ import Overlay from "./overlay"
 import PaletteBox from "./palette-box"
 import PaletteEditorForm from "./palette-editor-form"
 import PaletteListContent from "./palette-list-content"
-import Picker from "./picker"
 import SliderLevel from "./slider-level"
 import Snackbar from "./snackbar"
 import SortableColorBox from "./sortable-color-box"
@@ -33,7 +32,6 @@ export {
   PaletteBox,
   PaletteEditorForm,
   PaletteListContent,
-  Picker,
   SliderLevel,
   Snackbar,
   SortableColorBox,
