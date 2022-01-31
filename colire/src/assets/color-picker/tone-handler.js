@@ -1,12 +1,12 @@
 import { h } from "preact"
-import { useContext, useRef } from "preact/hooks"
+import { useContext } from "preact/hooks"
 import { Context } from "./color-picker"
 import { clamp, round } from "./utils"
 import chroma from "chroma-js"
 
 const ToneHandler = () => {
 
-  const { GET, SET } = useContext(Context)
+  const { GET, SET, HSL, setHSL } = useContext(Context)
 
   /*------------*/
   /* TONE START */
@@ -20,10 +20,11 @@ const ToneHandler = () => {
         y:     clamp(round(e.offsetY), 0, 100),
       }
       if (tone.x !== PREV.tone.x || tone.y !== PREV.tone.y) {
-        const hsl = chroma(PREV.hsl[0], tone.x / 100, (100 - tone.y) / 100, "hsv").hsl()
-        if (isNaN(hsl[0])) (hsl[0] = PREV.hsl[0])
+        const hsl = chroma(HSL[0], tone.x / 100, (100 - tone.y) / 100, "hsv").hsl()
+        if (isNaN(hsl[0])) (hsl[0] = HSL[0])
+        setHSL(hsl)
         GET.handleChange(hsl)
-        return { ...PREV, tone, hsl }
+        return { ...PREV, tone }
       }
     })
   }
@@ -44,10 +45,11 @@ const ToneHandler = () => {
           x: clamp(round(e.offsetX), 0, 100),
           y: clamp(round(e.offsetY), 0, 100),
         }
-        const hsl = chroma(PREV.hsl[0], tone.x / 100, (100 - tone.y) / 100, "hsv").hsl()
-        if (isNaN(hsl[0])) (hsl[0] = PREV.hsl[0])
+        const hsl = chroma(HSL[0], tone.x / 100, (100 - tone.y) / 100, "hsv").hsl()
+        if (isNaN(hsl[0])) (hsl[0] = HSL[0])
+        setHSL(hsl)
         GET.handleChange(hsl)
-        return { ...PREV, tone, hsl }
+        return { ...PREV, tone }
       })
     }
   }
@@ -62,7 +64,7 @@ const ToneHandler = () => {
         style={{
           top:        `${GET.tone.y}px`,
           left:       `${GET.tone.x}px`,
-          background: `hsl(${GET.hsl[0]}, ${GET.hsl[1] * 100}%, ${GET.hsl[2] * 100}%)`,
+          background: `hsl(${HSL[0]}, ${HSL[1] * 100}%, ${HSL[2] * 100}%)`,
         }} >
       </div>
     </div>

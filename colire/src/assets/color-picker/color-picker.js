@@ -32,7 +32,6 @@ const ColorPicker = ({
     hue:     {
       start:      false,
       origin:     { x: 0, y: 0 },
-      a:          0,
       pickerRef:  useRef(),
       handlerRef: useRef(),
     },
@@ -42,11 +41,12 @@ const ColorPicker = ({
       y:       0,
       ref:     useRef(),
     },
-    hsl: [ 0, 1, 1 ],
     shift: shift % 360,
     mounted: false,
     handleChange,
   }
+  const HSL = useRef([ 0, 1, 1 ])
+  const setHSL = (hsl) => (HSL.current = hsl)
   const [ GET, SET ] = useState(initialPicker)
 
 
@@ -55,7 +55,8 @@ const ColorPicker = ({
     SET((PREV) => {
       const _color = chroma(color)
       let hsl = _color.hsl()
-      if (isNaN(hsl[0])) (hsl[0] = color.hasOwnProperty("h") ? color.h : 0)
+      if (isNaN(hsl[0])) hsl[0] = color.hasOwnProperty("h") ? color.h : 0
+      else setHSL(hsl)
       const [ , x, y ] = _color.hsv()
 
       const pickerRect = GET.hue.pickerRef.current.getBoundingClientRect()
@@ -63,19 +64,22 @@ const ColorPicker = ({
         x: pickerRect.x + pickerRect.width / 2,
         y: pickerRect.y + pickerRect.height / 2,
       }
-      const hue = { ...PREV.hue, origin, a: hsl[0] }
-      const tone = { ...PREV.tone, x: x * 100, y: 100 - y * 100 }
 
-      return { ...PREV, hue, tone, hsl, mounted: true }
+      return {
+        ...PREV,
+        hue: { ...PREV.hue, origin },
+        tone: { ...PREV.tone, x: x * 100, y: 100 - y * 100 },
+        mounted: true
+      }
     })
   }, [ color, shift, size, onChange, children ])
 
 
 
   return (
-    <Context.Provider value={{ GET, SET }}>
+    <Context.Provider value={{ GET, SET, HSL: HSL.current, setHSL }}>
       <div className="color-picker-container"
-        style={{ "--size": `${size}px`, "--hue": GET.hsl[0] }}>
+        style={{ "--size": `${size}px`, "--hue": HSL.current[0] }}>
 
         {children}
 
