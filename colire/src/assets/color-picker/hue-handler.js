@@ -1,70 +1,90 @@
 import { h } from "preact"
-import { useContext } from "preact/hooks"
+import { useContext, useState, useEffect, useRef } from "preact/hooks"
 import { Context } from "./color-picker"
 import { calc_angle, round_dec } from "./utils"
 
-const HueHandler = () => {
+const HueHandler = ({ shift = 0, size = 240 }) => {
 
-  const { GET, SET, handleChange } = useContext(Context)
+  const { GET, handleChange } = useContext(Context)
+  const initHue = {
+    origin:  { x: 0, y: 0 },
+    pointer: 0,
+    shift:   0,
+  }
+  const [ hue, setHue ] = useState(initHue)
+  const pickerRef  = useRef()
+  const handlerRef = useRef()
+
+  useEffect(() => {
+    !GET.start && setHue((prev) => {
+      const shift = shift % 360
+      const pickerRect = pickerRef.current.getBoundingClientRect()
+      const origin = {
+        x: pickerRect.x + pickerRect.width / 2,
+        y: pickerRect.y + pickerRect.height / 2,
+      }
+      return { ...prev, origin, shift }
+    })
+  }, [ shift, size ])
 
   /*-----------*/
   /* HUE START */
+  /*-----------*/
   const handleHueStart = (e) => {
-    SET((PREV) => {
-      const pointer = calc_angle(
-        e.pageX - GET.hue.x,
-        e.pageY - GET.hue.y,
-      ) - 90 - GET.shift
+    const pointer = calc_angle(
+      e.pageX - hue.origin.x,
+      e.pageY - hue.origin.y,
+    ) - 90 - shift
 
-      let hsl = PREV.hsl
-      if (pointer !== hsl[0]) {
-        if (e.target === GET.pickerRef.current) {
-          GET.pickerRef.current.setPointerCapture(e.pointerId)
-          hsl[0] = pointer
-          handleChange(hsl)
-        }
-        if (e.target === GET.handlerRef.current)
-          GET.handlerRef.current.setPointerCapture(e.pointerId)
-
-        return { ...PREV, pointer, hsl, start: true }
+    const hsl = GET.hsl
+    if (pointer !== hsl[0]) {
+      if (e.target === pickerRef.current) {
+        pickerRef.current.setPointerCapture(e.pointerId)
+        hsl[0] = pointer
+        handleChange("START", hsl)
       }
-      return { ...PREV, start: true }
-    })
+      if (e.target === handlerRef.current) {
+        handlerRef.current.setPointerCapture(e.pointerId)
+        handleChange("START")
+      }
+      setHue((prev) => ({ ...prev, pointer }))
+    }
+    else handleChange("START")
   }
   /*---------*/
   /* HUE END */
+  /*---------*/
   const handleHueEnd = (e) => {
-    if (e.target === GET.pickerRef.current)
-      GET.pickerRef.current.releasePointerCapture(e.pointerId)
-    if (e.target === GET.handlerRef.current)
-      GET.handlerRef.current.releasePointerCapture(e.pointerId)
-    SET((PREV) => ({ ...PREV, start: false }))
+    if (e.target === pickerRef.current)
+      pickerRef.current.releasePointerCapture(e.pointerId)
+    if (e.target === handlerRef.current)
+      handlerRef.current.releasePointerCapture(e.pointerId)
+    handleChange("END")
   }
   /*----------*/
   /* HUE MOVE */
+  /*----------*/
   const handleHueMove = (e) => {
-    GET.start && (
-      e.preventDefault(),
-      SET((PREV) => {
-        const pointer = calc_angle(
-          e.pageX - GET.hue.x,
-          e.pageY - GET.hue.y,
-        ) - 90 - GET.shift
+    if (GET.start) {
+      e.preventDefault()
+      const pointer = calc_angle(
+        e.pageX - hue.origin.x,
+        e.pageY - hue.origin.y,
+      ) - 90 - shift
 
-        let a = (PREV.hsl[0] + (pointer - PREV.pointer)) % 360
-        if (a < 0) a += 360
-        const hsl = [ a, PREV.hsl[1], PREV.hsl[2] ]
-        handleChange(hsl)
-
-        return { ...PREV, pointer, hsl }
-      })
-    )
+      let a = (GET.hsl[0] + (pointer - hue.pointer)) % 360
+      if (a < 0) a += 360
+      const hsl = [ a, GET.hsl[1], GET.hsl[2] ]
+      handleChange("MOVE", hsl)
+      setHue((prev) => ({ ...prev, pointer }))
+    }
   }
 
   return (
-    <div ref={GET.pickerRef} className="color-picker"
-      style={{ background: `conic-gradient(
-        from ${0.5 + GET.shift / 360}turn,
+    <div ref={pickerRef} className="color-picker"
+      style={{
+        background: `conic-gradient(
+          from ${0.5 + shift / 360}turn,
           hsl(0,   100%, 50%),
           hsl(60,  100%, 50%),
           hsl(120, 100%, 50%),
@@ -72,7 +92,9 @@ const HueHandler = () => {
           hsl(240, 100%, 50%),
           hsl(300, 100%, 50%),
           hsl(0,   100%, 50%)
-      )` }}
+        )`,
+        "--hueSize": `${size}px`,
+      }}
       onPointerDown={handleHueStart}
       onPointerMove={handleHueMove}
       onPointerUp={handleHueEnd}
@@ -80,27 +102,27 @@ const HueHandler = () => {
 
 
       <div className="color-picker-labels"
-        style={{ transform: `rotate(${GET.shift}deg)` }} >
+        style={{ transform: `rotate(${shift}deg)` }} >
         <label style={{ "--sign":
-            (GET.shift >=  -90 && GET.shift <   90) ||
-            (GET.shift >=  270 || GET.shift < -270)
+            (shift >=  -90 && shift <   90) ||
+            (shift >=  270 || shift < -270)
               ? 0 : 1 }}>R</label>
         <label style={{ "--sign":
-            (GET.shift >=  -30 && GET.shift <  150) ||
-            (GET.shift >=  330 || GET.shift < -210)
+            (shift >=  -30 && shift <  150) ||
+            (shift >=  330 || shift < -210)
               ? 1 : -2 }}>G</label>
         <label style={{ "--sign":
-            (GET.shift >= -150 && GET.shift <   30) ||
-            (GET.shift >=  210 || GET.shift < -330)
+            (shift >= -150 && shift <   30) ||
+            (shift >=  210 || shift < -330)
               ? 1 : -2 }}>B</label>
       </div>
 
 
-      <div ref={GET.handlerRef} className="picker-handler">
+      <div ref={handlerRef} className="picker-handler">
         <svg className="picker-handler-view"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 60 60"
-          style={{ transform: `rotate(${GET.hsl[0] + GET.shift}deg)` }} >
+          style={{ transform: `rotate(${GET.hsl[0] + shift}deg)` }} >
           <circle cx="30" cy="30" r="30" fill="#2a2a2a" />
           <g transform="rotate(90,30,30)">
             <radialGradient id="grad">
@@ -108,8 +130,8 @@ const HueHandler = () => {
               <stop stop-color="#0a0a0a" offset="100%" />
             </radialGradient>
             <path d={Array(120).fill("").reduce((path, _, i, arr) => {
-              const [ rad, deg ] = [ (Math.PI / arr.length * 2) * i, (360 / arr.length) * i ]
-              if (deg < 12 || deg > 348) return path
+              const rad = (Math.PI / arr.length * 2) * i
+              if (rad < 0.209 || rad > 6.074) return path
               const [ w, h ] = [ 6, 0.8 ]
               const [ x, y ] = [
                 round_dec(30 + (28 - w) * Math.cos(rad) + (h / 2) * Math.sin(rad), 3),
@@ -121,8 +143,8 @@ const HueHandler = () => {
                     `l${round_dec(-h * Math.sin(rad), 3)} ${round_dec( h * Math.cos(rad), 3)}` +
                     `l${round_dec(-w * Math.cos(rad), 3)} ${round_dec(-w * Math.sin(rad), 3)}` +
                     `Z`
-              }, "")}
-              fill="url(#grad)" />
+            }, "")}
+            fill="url(#grad)" />
           </g>
           <path d="M27 43a3 3 0 0 1 6 0v14a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1Z" />
         </svg>

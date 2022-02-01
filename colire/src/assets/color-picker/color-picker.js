@@ -1,23 +1,53 @@
 import { h, createContext } from "preact"
-import { useState, useEffect, useRef } from "preact/hooks"
+import { useState, useEffect } from "preact/hooks"
 import chroma from "chroma-js"
 import "./color-picker.css"
 
 const Context = createContext()
 
 const ColorPicker = ({
-
   color = "#fff",
-  shift = 0,
-  size = 320,
   onChange = (color) => console.log(color.hex),
   children,
-
 }) => {
 
-  const handleChange = (hsl) => {
+  const init = {
+    start: false,
+    hsl:   [ 0, 0, 1, 1 ],
+  }
+  const [ GET, SET ] = useState(init)
+
+  useEffect(() => {
+    !GET.start && SET((prev) => {
+      const hsl = chroma(color).hsl()
+      if (isNaN(hsl[0])) hsl[0] = color.hasOwnProperty("h") ? color.h : 0
+      return { ...prev, hsl }
+    })
+  }, [ color ])
+
+
+
+  const handleChange = (mode, hsl) => {
+    switch (mode) {
+      case "START":
+        if (hsl) {
+          SET({ start: true, hsl })
+          output(hsl)
+        }
+        else SET((prev) => ({ ...prev, start: true }))
+        break
+      case "END":
+        SET((prev) => ({ ...prev, start: false }))
+        break
+      case "MOVE":
+        SET((prev) => ({ ...prev, hsl }))
+        output(hsl)
+        break
+    }
+  }
+  const output = (hsl) => {
     const color = chroma(hsl, "hsl")
-    const [ h, s, l ] = color.hsl()
+    const [ h, s, l ] = hsl
     const [ r, g, b ] = color.rgb()
     const hex = color.hex()
     onChange({
@@ -27,48 +57,11 @@ const ColorPicker = ({
     })
   }
 
-  const initialPicker = {
-    pickerRef:  useRef(),
-    handlerRef: useRef(),
-    tonerRef:   useRef(),
-    hue:        { x: 0, y: 0 },
-    tone:       { x: 0, y: 0 },
-    start:      false,
-    pointer:    0,
-    hsl:        [ 0, 0, 1, 1 ],
-    shift:      shift % 360,
-    mounted:    false,
-  }
-  const [ GET, SET ] = useState(initialPicker)
-
-
-
-  useEffect(() => {
-    if (!GET.start) {
-      SET((PREV) => {
-        const _color = chroma(color)
-        let hsl = _color.hsl()
-        if (isNaN(hsl[0])) hsl[0] = color.hasOwnProperty("h") ? color.h : 0
-        const [ , x, y ] = _color.hsv()
-
-        const tone = { x: x * 100, y: 100 - y * 100 }
-        const pickerRect = GET.pickerRef.current.getBoundingClientRect()
-        const hue = {
-          x: pickerRect.x + pickerRect.width / 2,
-          y: pickerRect.y + pickerRect.height / 2,
-        }
-
-        return { ...PREV, hue, tone, hsl, mounted: true }
-      })
-    }
-  }, [ color, shift, size, onChange, children ])
-
 
 
   return (
-    <Context.Provider value={{ GET, SET, handleChange }}>
-      <div className="color-picker-container"
-        style={{ "--size": `${size}px`, "--hue": GET.hsl[0] }}>
+    <Context.Provider value={{ GET, handleChange }}>
+      <div className="color-picker-container" style={{ "--hue": GET.hsl[0] }}>
 
         {children}
 

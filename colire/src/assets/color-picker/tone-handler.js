@@ -1,69 +1,78 @@
 import { h } from "preact"
-import { useContext } from "preact/hooks"
+import { useContext, useState, useEffect, useRef } from "preact/hooks"
 import { Context } from "./color-picker"
 import { clamp } from "./utils"
 import chroma from "chroma-js"
 
-const ToneHandler = () => {
+const ToneHandler = ({ size = 100 }) => {
 
-  const { GET, SET, handleChange } = useContext(Context)
+  const { GET, handleChange } = useContext(Context)
+  const [ point, setPoint ] = useState({ x: 0, y: 0 })
+  const tonerRef = useRef()
 
-  /*------------*/
-  /* TONE START */
-  const handleToneStart = (e) => {
-    GET.tonerRef.current.setPointerCapture(e.pointerId)
-    SET((PREV) => {
-      const tone = {
-        x: clamp(e.offsetX, 0, 100),
-        y: clamp(e.offsetY, 0, 100),
-      }
-      if (tone.x !== PREV.tone.x || tone.y !== PREV.tone.y) {
-        const [ h, s, v ] = [ PREV.hsl[0], tone.x / 100, (100 - tone.y) / 100 ]
-        const hsl = chroma(h, s, v, "hsv").hsl()
-        if (isNaN(hsl[0])) (hsl[0] = PREV.hsl[0])
-        handleChange(hsl)
-
-        return { ...PREV, tone, hsl, start: true }
-      }
-      return { ...PREV, start: true }
+  useEffect(() => {
+    !GET.start && setPoint(() => {
+      const [ , x, y ] = chroma(...GET.hsl, "hsl").hsv()
+      return { x: x * size, y: size - y * size }
     })
-  }
+  }, [ size, GET.hsl ])
+
   /*------------*/
   /* TONE START */
+  /*------------*/
+  const handleToneStart = (e) => {
+    tonerRef.current.setPointerCapture(e.pointerId)
+    const currentPoint = {
+      x: clamp(e.offsetX, 0, size),
+      y: clamp(e.offsetY, 0, size),
+    }
+
+    if (currentPoint.x !== point.x || currentPoint.y !== point.y) {
+      const hsv = [ GET.hsl[0], currentPoint.x / size, (size - currentPoint.y) / size ]
+      const hsl = chroma(...hsv, "hsv").hsl()
+      if (isNaN(hsl[0])) hsl[0] = GET.hsl[0]
+      handleChange("START", hsl)
+      setPoint(currentPoint)
+    }
+    else handleChange("START")
+  }
+  /*----------*/
+  /* TONE END */
+  /*----------*/
   const handleToneEnd = (e) => {
-    GET.tonerRef.current.releasePointerCapture(e.pointerId)
-    SET((PREV) => ({ ...PREV, start: false }))
+    tonerRef.current.releasePointerCapture(e.pointerId)
+    handleChange("END")
   }
-  /*------------*/
-  /* TONE START */
+  /*-----------*/
+  /* TONE MOVE */
+  /*-----------*/
   const handleToneMove = (e) => {
     if (GET.start) {
       e.preventDefault()
-      SET((PREV) => {
-        const tone = {
-          x: clamp(e.offsetX, 0, 100),
-          y: clamp(e.offsetY, 0, 100),
-        }
-        const [ h, s, v ] = [ PREV.hsl[0], tone.x / 100, (100 - tone.y) / 100 ]
-        const hsl = chroma(h, s, v, "hsv").hsl()
-        if (isNaN(hsl[0])) (hsl[0] = PREV.hsl[0])
-        handleChange(hsl)
+      const currentPoint = {
+        x: clamp(e.offsetX, 0, size),
+        y: clamp(e.offsetY, 0, size),
+      }
 
-        return { ...PREV, tone, hsl }
-      })
+      const hsv = [ GET.hsl[0], currentPoint.x / size, (size - currentPoint.y) / size ]
+      const hsl = chroma(...hsv, "hsv").hsl()
+      if (isNaN(hsl[0])) hsl[0] = GET.hsl[0]
+      handleChange("MOVE", hsl)
+      setPoint(currentPoint)
     }
   }
 
   return (
-    <div ref={GET.tonerRef} className="picker-tone"
+    <div ref={tonerRef} className="picker-tone"
+      style={{ "--toneSize": `${size}px` }}
       onPointerDown={handleToneStart}
       onPointerMove={handleToneMove}
       onPointerUp={handleToneEnd}
       onPointerCancel={handleToneEnd} >
       <div className="picker-tone-point"
         style={{
-          top:        `${GET.tone.y}px`,
-          left:       `${GET.tone.x}px`,
+          top:        `${point.y}px`,
+          left:       `${point.x}px`,
           background: `hsl(${GET.hsl[0]}, ${GET.hsl[1] * 100}%, ${GET.hsl[2] * 100}%)`,
         }} >
       </div>
