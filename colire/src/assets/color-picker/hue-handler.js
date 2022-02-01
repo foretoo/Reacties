@@ -5,65 +5,64 @@ import { calc_angle, round_dec } from "./utils"
 
 const HueHandler = () => {
 
-  const { GET, SET, HSL, setHSL } = useContext(Context)
+  const { GET, SET, handleChange } = useContext(Context)
 
   /*-----------*/
   /* HUE START */
   const handleHueStart = (e) => {
     SET((PREV) => {
       const pointer = calc_angle(
-        e.pageX - GET.hue.origin.x,
-        e.pageY - GET.hue.origin.y,
+        e.pageX - GET.hue.x,
+        e.pageY - GET.hue.y,
       ) - 90 - GET.shift
 
-      if (pointer !== HSL[0]) {
-        if (e.target === GET.hue.pickerRef.current) {
-          GET.hue.pickerRef.current.setPointerCapture(e.pointerId)
-          setHSL([ pointer, HSL[1], HSL[2] ])
-          GET.handleChange([ pointer, HSL[1], HSL[2] ])
+      let hsl = PREV.hsl
+      if (pointer !== hsl[0]) {
+        if (e.target === GET.pickerRef.current) {
+          GET.pickerRef.current.setPointerCapture(e.pointerId)
+          hsl[0] = pointer
+          handleChange(hsl)
         }
-        if (e.target === GET.hue.handlerRef.current) {
-          GET.hue.handlerRef.current.setPointerCapture(e.pointerId)
-        }
+        if (e.target === GET.handlerRef.current)
+          GET.handlerRef.current.setPointerCapture(e.pointerId)
 
-        return { ...PREV, pointer, hue: { ...PREV.hue, start: true }}
+        return { ...PREV, pointer, hsl, start: true }
       }
+      return { ...PREV, start: true }
     })
   }
   /*---------*/
   /* HUE END */
   const handleHueEnd = (e) => {
-    if (e.target === GET.hue.pickerRef.current) {
-      GET.hue.pickerRef.current.releasePointerCapture(e.pointerId)
-    }
-    if (e.target === GET.hue.handlerRef.current) {
-      GET.hue.handlerRef.current.releasePointerCapture(e.pointerId)
-    }
-    SET((PREV) => ({ ...PREV, hue: { ...PREV.hue, start: false }}))
+    if (e.target === GET.pickerRef.current)
+      GET.pickerRef.current.releasePointerCapture(e.pointerId)
+    if (e.target === GET.handlerRef.current)
+      GET.handlerRef.current.releasePointerCapture(e.pointerId)
+    SET((PREV) => ({ ...PREV, start: false }))
   }
   /*----------*/
   /* HUE MOVE */
   const handleHueMove = (e) => {
-    GET.hue.start && (
+    GET.start && (
       e.preventDefault(),
       SET((PREV) => {
         const pointer = calc_angle(
-          e.pageX - GET.hue.origin.x,
-          e.pageY - GET.hue.origin.y,
+          e.pageX - GET.hue.x,
+          e.pageY - GET.hue.y,
         ) - 90 - GET.shift
 
-        let a = (HSL[0] + (pointer - PREV.pointer)) % 360
+        let a = (PREV.hsl[0] + (pointer - PREV.pointer)) % 360
         if (a < 0) a += 360
-        setHSL([ a, HSL[1], HSL[2] ])
-        GET.handleChange([ a, HSL[1], HSL[2] ])
+        const hsl = [ a, PREV.hsl[1], PREV.hsl[2] ]
+        handleChange(hsl)
 
-        return { ...PREV, pointer }
+        return { ...PREV, pointer, hsl }
       })
     )
   }
 
   return (
-    <div ref={GET.hue.pickerRef} className="color-picker"
+    <div ref={GET.pickerRef} className="color-picker"
       style={{ background: `conic-gradient(
         from ${0.5 + GET.shift / 360}turn,
           hsl(0,   100%, 50%),
@@ -97,11 +96,11 @@ const HueHandler = () => {
       </div>
 
 
-      <div ref={GET.hue.handlerRef} className="picker-handler">
+      <div ref={GET.handlerRef} className="picker-handler">
         <svg className="picker-handler-view"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 60 60"
-          style={{ transform: `rotate(${HSL[0] + GET.shift}deg)` }} >
+          style={{ transform: `rotate(${GET.hsl[0] + GET.shift}deg)` }} >
           <circle cx="30" cy="30" r="30" fill="#2a2a2a" />
           <g transform="rotate(90,30,30)">
             <radialGradient id="grad">
@@ -122,8 +121,8 @@ const HueHandler = () => {
                     `l${round_dec(-h * Math.sin(rad), 3)} ${round_dec( h * Math.cos(rad), 3)}` +
                     `l${round_dec(-w * Math.cos(rad), 3)} ${round_dec(-w * Math.sin(rad), 3)}` +
                     `Z`
-            }, "")}
-            fill="url(#grad)" />
+              }, "")}
+              fill="url(#grad)" />
           </g>
           <path d="M27 43a3 3 0 0 1 6 0v14a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1Z" />
         </svg>
