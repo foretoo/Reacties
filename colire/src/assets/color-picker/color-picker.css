@@ -92,17 +92,10 @@
 }
 .picker-tone-point {
   position: absolute;
-  width: 1rem;
-  height: 1rem;
+  width: 1.2rem;
+  height: 1.2rem;
   border-radius: 50%;
   border: 2px solid var(--light-h);
   transform: translate(-50%, -50%);
-}
-.picker-value {
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 20px;
-  border-radius: 10px;
+  pointer-events: none;
 }
