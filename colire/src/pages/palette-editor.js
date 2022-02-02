@@ -5,7 +5,7 @@ import { Context } from "@app"
 import {
   Header,
   SortablePalette,
-  NewPaletteForm,
+  PaletteEditorForm,
   NewPaletteNameForm,
 } from "@components"
 import "./css/palette-editor.css"
@@ -32,7 +32,7 @@ const PaletteEditor = () => {
       </Header>
 
       <main class="new-palette-container">
-        <NewPaletteForm />
+        <PaletteEditorForm />
         <section class="new-palette-content">
           <SortablePalette />
         </section>

@@ -1,7 +1,8 @@
 .new-palette-container {
   flex-grow: 1;
   display: flex;
-  background: var(--dark-l);
+  gap: 1rem;
+  padding: 0 1rem;
 }
 
 
@@ -11,6 +12,8 @@
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
+  border-radius: 0.5rem;
+  overflow: hidden;
 }
 
 
