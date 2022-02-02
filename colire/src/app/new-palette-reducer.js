@@ -23,7 +23,7 @@ const newPaletteReducer = (state, action) => {
           ...state.custom,
           valid: {
             ...valid,
-            warnText: "Enter a color name.",
+            warnText: "Enter a color name.\n",
           },
         },
       }
@@ -54,10 +54,10 @@ const newPaletteReducer = (state, action) => {
     const colorIsValid = !palette.some((c) => c.color === color)
     const warnText =
         colorIsValid ?
-          valid.warnText.replace("Color should be unique.", "").trim() :
+          valid.warnText.replace("Color should be unique.", "") :
           valid.warnText.includes("Color should be unique.") ?
             valid.warnText :
-            valid.warnText.concat("Color should be unique. ")
+            valid.warnText.concat("Color should be unique.\n")
 
     return {
       ...state,
@@ -81,14 +81,14 @@ const newPaletteReducer = (state, action) => {
     const nameIsValid = !palette.some((c) => c.name === nameValue)
     let warnText =
       nameValue ?
-        valid.warnText.replace("Enter a color name.", "").trim() :
-        "Enter a color name. "
+        valid.warnText.replace("Enter a color name.", "") :
+        "Enter a color name.\n"
     warnText =
         nameIsValid ?
-          warnText.replace("Name should be unique.", "").trim() :
+          warnText.replace("Name should be unique.", "") :
           valid.warnText.includes("Name should be unique.") ?
             valid.warnText :
-            warnText.concat("Name should be unique. ")
+            warnText.concat("Name should be unique.\n")
 
     return {
       ...state,
