@@ -15,8 +15,8 @@ const PaletteEditorForm = () => {
   const { state, dispatch } = useContext(Context)
   const { color, palette, hidden, valid } = state.custom
 
-  let formClass = "new-palette-form",
-      inputClass = "new-palette-input-name",
+  let formClass = "editor-form",
+      inputClass = "editor-color-name",
       submitClass = "submit"
 
   if (hidden) formClass += " hidden"
@@ -24,7 +24,7 @@ const PaletteEditorForm = () => {
   if (valid.warnText) submitClass += " warn"
 
   const handleAddColor = () => {
-    if (!valid.name || !valid.color) return
+    if (!valid.name) return
 
     const validColor = !palette.some((c) => c.color === color.color)
     if (!validColor) {
@@ -68,19 +68,30 @@ const PaletteEditorForm = () => {
   }
 
   return (
-    <ColorPicker color={color.color} onChange={handleChangeColor} >
-      <Button name="Random" onClick={handleRandomColor} />
-      <HueHandler />
-      <ToneHandler />
-      <input className={inputClass}
-        type="text"
-        value={color.name}
-        placeholder="color name"
-        style={{ backgroundColor: color.color }}
-        onChange={handleChangeColorName} />
+    <ColorPicker className={formClass}
+      color={color.color}
+      onChange={handleChangeColor} >
+      <div>
+        <Button name="Random" onClick={handleRandomColor} />
+        <Button name="Clear" onClick={handleClearPalette} />
+      </div>
+      <HueHandler size={320} />
+      <div>
+        <ToneHandler size={150} />
+        <input className={inputClass}
+          type="text"
+          value={color.name}
+          placeholder="color name"
+          style={{
+            backgroundColor: color.color,
+            width: "150px",
+            padding: "120px 10px 10px 10px"
+          }}
+          onChange={handleChangeColorName} />
+      </div>
       <div className={submitClass}>
         <Button name="Add" onClick={handleAddColor} />
-        <p className="warn-info">{valid.warnText}</p>
+        <p className="warn-info">{valid.warnText.trim()}</p>
       </div>
     </ColorPicker>
   )
