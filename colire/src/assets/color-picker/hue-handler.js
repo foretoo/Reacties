@@ -5,55 +5,50 @@ import { calc_angle, round_dec } from "./utils"
 
 const HueHandler = ({ shift = 0, size = 240 }) => {
 
-  const { GET, handleChange } = useContext(Context)
+  const { hsl, start, handleChange } = useContext(Context)
   const initHue = {
     origin:  { x: 0, y: 0 },
     pointer: 0,
-    shift:   0,
+    shift:   shift % 360,
   }
   const [ hue, setHue ] = useState(initHue)
   const pickerRef  = useRef()
   const handlerRef = useRef()
 
   useEffect(() => {
-    !GET.start && setHue((prev) => {
-      const shift = shift % 360
-      const pickerRect = pickerRef.current.getBoundingClientRect()
-      const origin = {
-        x: pickerRect.x + pickerRect.width / 2,
-        y: pickerRect.y + pickerRect.height / 2,
-      }
-      return { ...prev, origin, shift }
-    })
-  }, [ shift, size ])
+    const pickerRect = pickerRef.current.getBoundingClientRect()
+    const origin = {
+      x: pickerRect.x + pickerRect.width / 2,
+      y: pickerRect.y + pickerRect.height / 2,
+    }
+    setHue((prev) => ({ ...prev, origin }))
+  }, [ size ])
 
-  /*-----------*/
-  /* HUE START */
-  /*-----------*/
+  /*-----------------*/
+  /*    HUE START    */
+  /*-----------------*/
   const handleHueStart = (e) => {
-    const pointer = calc_angle(
+    const currentPointer = calc_angle(
       e.pageX - hue.origin.x,
       e.pageY - hue.origin.y,
-    ) - 90 - shift
+    ) - 90 - hue.shift
 
-    const hsl = GET.hsl
-    if (pointer !== hsl[0]) {
+    if (currentPointer !== hsl[0]) {
       if (e.target === pickerRef.current) {
         pickerRef.current.setPointerCapture(e.pointerId)
-        hsl[0] = pointer
-        handleChange("START", hsl)
+        handleChange("START", [ currentPointer, hsl[1], hsl[2] ])
       }
       if (e.target === handlerRef.current) {
         handlerRef.current.setPointerCapture(e.pointerId)
         handleChange("START")
       }
-      setHue((prev) => ({ ...prev, pointer }))
+      setHue((prev) => ({ ...prev, pointer: currentPointer }))
     }
     else handleChange("START")
   }
-  /*---------*/
-  /* HUE END */
-  /*---------*/
+  /*---------------*/
+  /*    HUE END    */
+  /*---------------*/
   const handleHueEnd = (e) => {
     if (e.target === pickerRef.current)
       pickerRef.current.releasePointerCapture(e.pointerId)
@@ -61,22 +56,21 @@ const HueHandler = ({ shift = 0, size = 240 }) => {
       handlerRef.current.releasePointerCapture(e.pointerId)
     handleChange("END")
   }
-  /*----------*/
-  /* HUE MOVE */
-  /*----------*/
+  /*----------------*/
+  /*    HUE MOVE    */
+  /*----------------*/
   const handleHueMove = (e) => {
-    if (GET.start) {
+    if (start) {
       e.preventDefault()
-      const pointer = calc_angle(
+      const currentPointer = calc_angle(
         e.pageX - hue.origin.x,
         e.pageY - hue.origin.y,
-      ) - 90 - shift
+      ) - 90 - hue.shift
 
-      let a = (GET.hsl[0] + (pointer - hue.pointer)) % 360
+      let a = (hsl[0] + (currentPointer - hue.pointer)) % 360
       if (a < 0) a += 360
-      const hsl = [ a, GET.hsl[1], GET.hsl[2] ]
-      handleChange("MOVE", hsl)
-      setHue((prev) => ({ ...prev, pointer }))
+      handleChange("MOVE", [ a, hsl[1], hsl[2] ])
+      setHue((prev) => ({ ...prev, pointer: currentPointer }))
     }
   }
 
@@ -84,7 +78,7 @@ const HueHandler = ({ shift = 0, size = 240 }) => {
     <div ref={pickerRef} className="color-picker"
       style={{
         background: `conic-gradient(
-          from ${0.5 + shift / 360}turn,
+          from ${0.5 + hue.shift / 360}turn,
           hsl(0,   100%, 50%),
           hsl(60,  100%, 50%),
           hsl(120, 100%, 50%),
@@ -102,18 +96,18 @@ const HueHandler = ({ shift = 0, size = 240 }) => {
 
 
       <div className="color-picker-labels"
-        style={{ transform: `rotate(${shift}deg)` }} >
+        style={{ transform: `rotate(${hue.shift}deg)` }} >
         <label style={{ "--sign":
-            (shift >=  -90 && shift <   90) ||
-            (shift >=  270 || shift < -270)
+            (hue.shift >=  -90 && hue.shift <   90) ||
+            (hue.shift >=  270 || hue.shift < -270)
               ? 0 : 1 }}>R</label>
         <label style={{ "--sign":
-            (shift >=  -30 && shift <  150) ||
-            (shift >=  330 || shift < -210)
+            (hue.shift >=  -30 && hue.shift <  150) ||
+            (hue.shift >=  330 || hue.shift < -210)
               ? 1 : -2 }}>G</label>
         <label style={{ "--sign":
-            (shift >= -150 && shift <   30) ||
-            (shift >=  210 || shift < -330)
+            (hue.shift >= -150 && hue.shift <   30) ||
+            (hue.shift >=  210 || hue.shift < -330)
               ? 1 : -2 }}>B</label>
       </div>
 
@@ -122,7 +116,7 @@ const HueHandler = ({ shift = 0, size = 240 }) => {
         <svg className="picker-handler-view"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 60 60"
-          style={{ transform: `rotate(${GET.hsl[0] + shift}deg)` }} >
+          style={{ transform: `rotate(${hsl[0] + hue.shift}deg)` }} >
           <circle cx="30" cy="30" r="30" fill="#2a2a2a" />
           <g transform="rotate(90,30,30)">
             <radialGradient id="grad">

@@ -6,20 +6,20 @@ import chroma from "chroma-js"
 
 const ToneHandler = ({ size = 100 }) => {
 
-  const { GET, handleChange } = useContext(Context)
+  const { hsl, start, handleChange } = useContext(Context)
   const [ point, setPoint ] = useState({ x: 0, y: 0 })
   const tonerRef = useRef()
 
   useEffect(() => {
-    !GET.start && setPoint(() => {
-      const [ , x, y ] = chroma(...GET.hsl, "hsl").hsv()
+    !start && setPoint(() => {
+      const [ , x, y ] = chroma(...hsl, "hsl").hsv()
       return { x: x * size, y: size - y * size }
     })
-  }, [ size, GET.hsl ])
+  }, [ size, hsl ])
 
-  /*------------*/
-  /* TONE START */
-  /*------------*/
+  /*------------------*/
+  /*----TONE START----*/
+  /*------------------*/
   const handleToneStart = (e) => {
     tonerRef.current.setPointerCapture(e.pointerId)
     const currentPoint = {
@@ -28,36 +28,36 @@ const ToneHandler = ({ size = 100 }) => {
     }
 
     if (currentPoint.x !== point.x || currentPoint.y !== point.y) {
-      const hsv = [ GET.hsl[0], currentPoint.x / size, (size - currentPoint.y) / size ]
-      const hsl = chroma(...hsv, "hsv").hsl()
-      if (isNaN(hsl[0])) hsl[0] = GET.hsl[0]
-      handleChange("START", hsl)
+      const hsv = [ hsl[0], currentPoint.x / size, (size - currentPoint.y) / size ]
+      const newHSL = chroma(...hsv, "hsv").hsl()
+      if (isNaN(hsl[0])) newHSL[0] = hsl[0]
+      handleChange("START", newHSL)
       setPoint(currentPoint)
     }
     else handleChange("START")
   }
-  /*----------*/
-  /* TONE END */
-  /*----------*/
+  /*----------------*/
+  /*----TONE END----*/
+  /*----------------*/
   const handleToneEnd = (e) => {
     tonerRef.current.releasePointerCapture(e.pointerId)
     handleChange("END")
   }
-  /*-----------*/
-  /* TONE MOVE */
-  /*-----------*/
+  /*-----------------*/
+  /*----TONE MOVE----*/
+  /*-----------------*/
   const handleToneMove = (e) => {
-    if (GET.start) {
+    if (start) {
       e.preventDefault()
       const currentPoint = {
         x: clamp(e.offsetX, 0, size),
         y: clamp(e.offsetY, 0, size),
       }
 
-      const hsv = [ GET.hsl[0], currentPoint.x / size, (size - currentPoint.y) / size ]
-      const hsl = chroma(...hsv, "hsv").hsl()
-      if (isNaN(hsl[0])) hsl[0] = GET.hsl[0]
-      handleChange("MOVE", hsl)
+      const hsv = [ hsl[0], currentPoint.x / size, (size - currentPoint.y) / size ]
+      const newHSL = chroma(...hsv, "hsv").hsl()
+      if (isNaN(hsl[0])) newHSL[0] = hsl[0]
+      handleChange("MOVE", newHSL)
       setPoint(currentPoint)
     }
   }
@@ -73,7 +73,7 @@ const ToneHandler = ({ size = 100 }) => {
         style={{
           top:        `${point.y}px`,
           left:       `${point.x}px`,
-          background: `hsl(${GET.hsl[0]}, ${GET.hsl[1] * 100}%, ${GET.hsl[2] * 100}%)`,
+          background: `hsl(${hsl[0]}, ${hsl[1] * 100}%, ${hsl[2] * 100}%)`,
         }} >
       </div>
     </div>

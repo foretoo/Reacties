@@ -11,17 +11,14 @@ const ColorPicker = ({
   children,
 }) => {
 
-  const init = {
-    start: false,
-    hsl:   [ 0, 0, 1, 1 ],
-  }
-  const [ GET, SET ] = useState(init)
+  const [ start, setStart ] = useState(false)
+  const [ hsl, setHsl ] = useState([ 0, 0, 1, 1 ])
 
   useEffect(() => {
-    !GET.start && SET((prev) => {
+    !start && setHsl(() => {
       const hsl = chroma(color).hsl()
       if (isNaN(hsl[0])) hsl[0] = color.hasOwnProperty("h") ? color.h : 0
-      return { ...prev, hsl }
+      return hsl
     })
   }, [ color ])
 
@@ -31,16 +28,17 @@ const ColorPicker = ({
     switch (mode) {
       case "START":
         if (hsl) {
-          SET({ start: true, hsl })
+          setStart(true)
+          setHsl(hsl)
           output(hsl)
         }
-        else SET((prev) => ({ ...prev, start: true }))
+        else setStart(true)
         break
       case "END":
-        SET((prev) => ({ ...prev, start: false }))
+        setStart(false)
         break
       case "MOVE":
-        SET((prev) => ({ ...prev, hsl }))
+        setHsl(hsl)
         output(hsl)
         break
     }
@@ -60,8 +58,8 @@ const ColorPicker = ({
 
 
   return (
-    <Context.Provider value={{ GET, handleChange }}>
-      <div className="color-picker-container" style={{ "--hue": GET.hsl[0] }}>
+    <Context.Provider value={{ hsl, start, handleChange }}>
+      <div className="color-picker-container" style={{ "--hue": hsl[0] }}>
 
         {children}
 
