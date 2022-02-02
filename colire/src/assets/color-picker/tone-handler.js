@@ -1,79 +1,83 @@
 import { h } from "preact"
-import { useContext, useState, useEffect, useRef } from "preact/hooks"
+import { useContext, useEffect } from "preact/hooks"
 import { Context } from "./color-picker"
 import { clamp } from "./utils"
 import chroma from "chroma-js"
 
 const ToneHandler = ({ size = 100 }) => {
 
-  const { hsl, start, handleChange } = useContext(Context)
-  const [ point, setPoint ] = useState({ x: 0, y: 0 })
-  const tonerRef = useRef()
+  const { GET, SET, handleChange } = useContext(Context)
 
   useEffect(() => {
-    !start && setPoint(() => {
-      const [ , x, y ] = chroma(...hsl, "hsl").hsv()
-      return { x: x * size, y: size - y * size }
-    })
-  }, [ size, hsl ])
+    SET((PREV) => ({ ...PREV, tone: { ...PREV.tone, size }}))
+  }, [ size ])
 
   /*------------------*/
   /*----TONE START----*/
   /*------------------*/
   const handleToneStart = (e) => {
-    tonerRef.current.setPointerCapture(e.pointerId)
-    const currentPoint = {
-      x: clamp(e.offsetX, 0, size),
-      y: clamp(e.offsetY, 0, size),
+    GET.tonerRef.current.setPointerCapture(e.pointerId)
+    const point = {
+      x: clamp(e.offsetX, 0, GET.tone.size),
+      y: clamp(e.offsetY, 0, GET.tone.size),
     }
-
-    if (currentPoint.x !== point.x || currentPoint.y !== point.y) {
-      const hsv = [ hsl[0], currentPoint.x / size, (size - currentPoint.y) / size ]
-      const newHSL = chroma(...hsv, "hsv").hsl()
-      if (isNaN(hsl[0])) newHSL[0] = hsl[0]
-      handleChange("START", newHSL)
-      setPoint(currentPoint)
+    if (
+      point.x !== GET.tone.point.x ||
+      point.y !== GET.tone.point.y
+    ) {
+      const hsv = [
+        GET.hsl[0],
+        point.x / GET.tone.size,
+        (GET.tone.size - point.y) / GET.tone.size,
+      ]
+      const hsl = chroma(...hsv, "hsv").hsl()
+      if (isNaN(hsl[0])) hsl[0] = GET.hsl[0]
+      handleChange(hsl)
+      SET((PREV) => ({ ...PREV, hsl, start: true, tone: { ...PREV.tone, point }}))
     }
-    else handleChange("START")
+    else SET((PREV) => ({ ...PREV, start: true }))
   }
   /*----------------*/
   /*----TONE END----*/
   /*----------------*/
   const handleToneEnd = (e) => {
-    tonerRef.current.releasePointerCapture(e.pointerId)
-    handleChange("END")
+    GET.tonerRef.current.releasePointerCapture(e.pointerId)
+    SET((PREV) => ({ ...PREV, start: false }))
   }
   /*-----------------*/
   /*----TONE MOVE----*/
   /*-----------------*/
   const handleToneMove = (e) => {
-    if (start) {
+    if (GET.start) {
       e.preventDefault()
-      const currentPoint = {
-        x: clamp(e.offsetX, 0, size),
-        y: clamp(e.offsetY, 0, size),
+      const point = {
+        x: clamp(e.offsetX, 0, GET.tone.size),
+        y: clamp(e.offsetY, 0, GET.tone.size),
       }
-
-      const hsv = [ hsl[0], currentPoint.x / size, (size - currentPoint.y) / size ]
-      const newHSL = chroma(...hsv, "hsv").hsl()
-      if (isNaN(hsl[0])) newHSL[0] = hsl[0]
-      handleChange("MOVE", newHSL)
-      setPoint(currentPoint)
+      const hsv = [
+        GET.hsl[0],
+        point.x / GET.tone.size,
+        (GET.tone.size - point.y) / GET.tone.size,
+      ]
+      const hsl = chroma(...hsv, "hsv").hsl()
+      if (isNaN(hsl[0])) hsl[0] = GET.hsl[0]
+      handleChange(hsl)
+      SET((PREV) => ({ ...PREV, tone: { ...PREV.tone, point }, hsl }))
     }
   }
 
   return (
-    <div ref={tonerRef} className="picker-tone"
-      style={{ "--toneSize": `${size}px` }}
+    <div ref={GET.tonerRef} className="picker-tone"
+      style={{ "--toneSize": `${GET.tone.size}px` }}
       onPointerDown={handleToneStart}
       onPointerMove={handleToneMove}
       onPointerUp={handleToneEnd}
       onPointerCancel={handleToneEnd} >
       <div className="picker-tone-point"
         style={{
-          top:        `${point.y}px`,
-          left:       `${point.x}px`,
-          background: `hsl(${hsl[0]}, ${hsl[1] * 100}%, ${hsl[2] * 100}%)`,
+          top:        `${GET.tone.point.y}px`,
+          left:       `${GET.tone.point.x}px`,
+          background: `hsl(${GET.hsl[0]}, ${GET.hsl[1] * 100}%, ${GET.hsl[2] * 100}%)`,
         }} >
       </div>
     </div>

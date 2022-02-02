@@ -1,5 +1,5 @@
 import { h, createContext } from "preact"
-import { useState, useEffect } from "preact/hooks"
+import { useState, useEffect, useRef } from "preact/hooks"
 import chroma from "chroma-js"
 import "./color-picker.css"
 
@@ -11,39 +11,50 @@ const ColorPicker = ({
   children,
 }) => {
 
-  const [ start, setStart ] = useState(false)
-  const [ hsl, setHsl ] = useState([ 0, 0, 1, 1 ])
+  const initPicker = {
+    hue: {
+      size:   240,
+      origin: { x: 0, y: 0 },
+      shift:  0,
+    },
+    tone: {
+      size:  100,
+      point: { x: 0, y: 0 },
+    },
+    hsl:     [ 0, 0, 1, 1 ],
+    start:   false,
+    pointer: 0,
+
+    pickerRef:  useRef(),
+    handlerRef: useRef(),
+    tonerRef:   useRef(),
+  }
+  const [ GET, SET ] = useState(initPicker)
 
   useEffect(() => {
-    !start && setHsl(() => {
-      const hsl = chroma(color).hsl()
+    !GET.start && SET((PREV) => {
+      const _color = chroma(color)
+      const hsl = _color.hsl()
       if (isNaN(hsl[0])) hsl[0] = color.hasOwnProperty("h") ? color.h : 0
-      return hsl
+      const [ , x, y ] = _color.hsv()
+      const point = { x: x * PREV.tone.size, y: PREV.tone.size - y * PREV.tone.size }
+      const pickerRect = GET.pickerRef.current.getBoundingClientRect()
+      const origin = {
+        x: pickerRect.x + PREV.hue.size / 2,
+        y: pickerRect.y + PREV.hue.size / 2,
+      }
+      return {
+        ...PREV,
+        hue:  { ...PREV.hue, origin },
+        tone: { ...PREV.tone, point },
+        hsl,
+      }
     })
   }, [ color ])
 
 
 
-  const handleChange = (mode, hsl) => {
-    switch (mode) {
-      case "START":
-        if (hsl) {
-          setStart(true)
-          setHsl(hsl)
-          output(hsl)
-        }
-        else setStart(true)
-        break
-      case "END":
-        setStart(false)
-        break
-      case "MOVE":
-        setHsl(hsl)
-        output(hsl)
-        break
-    }
-  }
-  const output = (hsl) => {
+  const handleChange = (hsl) => {
     const color = chroma(hsl, "hsl")
     const [ h, s, l ] = hsl
     const [ r, g, b ] = color.rgb()
@@ -58,8 +69,8 @@ const ColorPicker = ({
 
 
   return (
-    <Context.Provider value={{ hsl, start, handleChange }}>
-      <div className="color-picker-container" style={{ "--hue": hsl[0] }}>
+    <Context.Provider value={{ GET, SET, handleChange }}>
+      <div className="color-picker-container" style={{ "--hue": GET.hsl[0] }}>
 
         {children}
 
