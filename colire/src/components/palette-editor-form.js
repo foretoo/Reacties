@@ -8,6 +8,7 @@ import {
   HueHandler,
   ToneHandler,
 } from "@assets"
+import { SwitcherMode } from "@components"
 import "./css/palette-editor-form.css"
 
 const PaletteEditorForm = () => {
@@ -73,9 +74,9 @@ const PaletteEditorForm = () => {
       onChange={handleChangeColor} >
       <div>
         <Button name="Random" onClick={handleRandomColor} />
-        <Button name="Clear" onClick={handleClearPalette} />
+        <SwitcherMode />
       </div>
-      <HueHandler size={320} />
+      <HueHandler size={240} style={{ margin: "auto 0" }} />
       <div>
         <ToneHandler size={150} />
         <input className={inputClass}
