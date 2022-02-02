@@ -62,9 +62,10 @@ const HueHandler = ({
     }
   }
 
+  const classList = "picker" + (className && ` ${className}`)
+
   return (
-    <div ref={GET.pickerRef}
-      className={ className ? `color-picker ${className}` : "color-picker" }
+    <div ref={GET.pickerRef} className={classList}
       style={{
         background: `conic-gradient(
           from ${0.5 + GET.hue.shift / 360}turn,
@@ -86,7 +87,7 @@ const HueHandler = ({
       onPointerCancel={handleHueEnd} >
 
 
-      <div className="color-picker-labels"
+      <div className="picker-labels"
         style={{ transform: `rotate(${GET.hue.shift}deg)` }} >
         <label style={{ "--sign":
             (GET.hue.shift >=  -90 && GET.hue.shift <   90) ||

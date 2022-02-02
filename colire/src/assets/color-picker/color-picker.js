@@ -8,7 +8,9 @@ const Context = createContext()
 const ColorPicker = ({
   color = "#fff",
   onChange = (color) => console.log(color.hex),
-  children,
+  children = [],
+  className = "",
+  style = {},
 }) => {
 
   const initPicker = {
@@ -67,10 +69,11 @@ const ColorPicker = ({
   }
 
 
+  const classList = "picker-container" + (className && ` ${className}`)
 
   return (
     <Context.Provider value={{ GET, SET, handleChange }}>
-      <div className="color-picker-container" style={{ "--hue": GET.hsl[0] }}>
+      <div className={classList} style={{ "--hue": GET.hsl[0], ...style }}>
 
         {children}
 

@@ -70,9 +70,10 @@ const ToneHandler = ({
     }
   }
 
+  const classList = "picker-tone" + (className && ` ${className}`)
+
   return (
-    <div ref={GET.tonerRef}
-      className={ className ? `picker-tone ${className}` : "picker-tone" }
+    <div ref={GET.tonerRef} className={classList}
       style={{ "--toneSize": `${GET.tone.size}px`, ...style }}
       onPointerDown={handleToneStart}
       onPointerMove={handleToneMove}
