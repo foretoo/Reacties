@@ -38,7 +38,7 @@ const ColorPicker = ({
       if (isNaN(hsl[0])) hsl[0] = color.hasOwnProperty("h") ? color.h : 0
       const [ , x, y ] = _color.hsv()
       const point = { x: x * PREV.tone.size, y: PREV.tone.size - y * PREV.tone.size }
-      const pickerRect = GET.pickerRef.current.getBoundingClientRect()
+      const pickerRect = PREV.pickerRef.current.getBoundingClientRect()
       const origin = {
         x: pickerRect.x + PREV.hue.size / 2,
         y: pickerRect.y + PREV.hue.size / 2,
@@ -50,7 +50,7 @@ const ColorPicker = ({
         hsl,
       }
     })
-  }, [ color ])
+  }, [ color, GET.hue.size, GET.tone.size ])
 
 
 

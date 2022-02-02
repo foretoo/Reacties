@@ -4,7 +4,11 @@ import { Context } from "./color-picker"
 import { clamp } from "./utils"
 import chroma from "chroma-js"
 
-const ToneHandler = ({ size = 100 }) => {
+const ToneHandler = ({
+  size = 100,
+  className = "",
+  style = {},
+}) => {
 
   const { GET, SET, handleChange } = useContext(Context)
 
@@ -67,8 +71,9 @@ const ToneHandler = ({ size = 100 }) => {
   }
 
   return (
-    <div ref={GET.tonerRef} className="picker-tone"
-      style={{ "--toneSize": `${GET.tone.size}px` }}
+    <div ref={GET.tonerRef}
+      className={ className ? `picker-tone ${className}` : "picker-tone" }
+      style={{ "--toneSize": `${GET.tone.size}px`, ...style }}
       onPointerDown={handleToneStart}
       onPointerMove={handleToneMove}
       onPointerUp={handleToneEnd}

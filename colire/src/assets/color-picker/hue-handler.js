@@ -3,18 +3,18 @@ import { useContext, useEffect } from "preact/hooks"
 import { Context } from "./color-picker"
 import { calc_angle, round_dec } from "./utils"
 
-const HueHandler = ({ size = 240, shift = 0 }) => {
+const HueHandler = ({
+  size = 240,
+  shift = 0,
+  className = "",
+  style = {},
+  font = "",
+}) => {
 
   const { GET, SET, handleChange } = useContext(Context)
 
   useEffect(() => {
-    const pickerRect = GET.pickerRef.current.getBoundingClientRect()
-    const origin = {
-      x: pickerRect.x + size / 2,
-      y: pickerRect.y + size / 2,
-    }
-    const hue = { size, origin, shift: shift % 360 }
-    SET((PREV) => ({ ...PREV, hue }))
+    SET((PREV) => ({ ...PREV, hue: { ...GET.hue, size, shift: shift % 360 } }))
   }, [ size, shift ])
 
   /*-----------------*/
@@ -26,15 +26,12 @@ const HueHandler = ({ size = 240, shift = 0 }) => {
       e.pageY - GET.hue.origin.y,
     ) - 90 - GET.hue.shift
     const hsl = GET.hsl
-    if (pointer !== GET.hsl[0]) {
-      if (e.target === GET.pickerRef.current) {
-        GET.pickerRef.current.setPointerCapture(e.pointerId)
-        hsl[0] = pointer
-        handleChange(hsl)
-      }
-      if (e.target === GET.handlerRef.current)
-        GET.handlerRef.current.setPointerCapture(e.pointerId)
+    if (e.target === GET.pickerRef.current) {
+      GET.pickerRef.current.setPointerCapture(e.pointerId)
+      if (pointer !== hsl[0]) (hsl[0] = pointer, handleChange(hsl))
     }
+    if (e.target === GET.handlerRef.current)
+      GET.handlerRef.current.setPointerCapture(e.pointerId)
     SET((PREV) => ({ ...PREV, hsl, start: true, pointer }))
   }
   /*---------------*/
@@ -45,7 +42,7 @@ const HueHandler = ({ size = 240, shift = 0 }) => {
       GET.pickerRef.current.releasePointerCapture(e.pointerId)
     if (e.target === GET.handlerRef.current)
       GET.handlerRef.current.releasePointerCapture(e.pointerId)
-      SET((PREV) => ({ ...PREV, start: false }))
+    SET((PREV) => ({ ...PREV, start: false }))
   }
   /*----------------*/
   /*    HUE MOVE    */
@@ -66,7 +63,8 @@ const HueHandler = ({ size = 240, shift = 0 }) => {
   }
 
   return (
-    <div ref={GET.pickerRef} className="color-picker"
+    <div ref={GET.pickerRef}
+      className={ className ? `color-picker ${className}` : "color-picker" }
       style={{
         background: `conic-gradient(
           from ${0.5 + GET.hue.shift / 360}turn,
@@ -79,6 +77,8 @@ const HueHandler = ({ size = 240, shift = 0 }) => {
           hsl(   0, 100%, 50% )
         )`,
         "--hueSize": `${GET.hue.size}px`,
+        "--font": font,
+        ...style,
       }}
       onPointerDown={handleHueStart}
       onPointerMove={handleHueMove}

@@ -1,7 +1,4 @@
 .color-picker-container {
-  
-  --font: 800 18px sans-serif;
-
   padding: 40px;
   border: 2px solid var(--dark-l);
   border-radius: 10px;
@@ -10,9 +7,10 @@
 
 
 .color-picker {
-  --hueSize: 320px;
+  --hueSize: 240px;
   --a: calc(var(--hueSize) * 0.886);
   --m: 20px;
+  --font: 800 18px sans-serif;
 
   position: relative;
   display: flex;
