@@ -19,6 +19,7 @@ const SwitcherMode = () => {
 
   return (
     <Switcher
+      className="switcher-mode"
       options={[ "RGB", "HEX" ]}
       onChange={handleChangeMode} />
   )

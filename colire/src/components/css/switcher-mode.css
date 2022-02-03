@@ -1,4 +1,4 @@
-.switcher-container {
+.switcher-mode {
   display: flex;
   justify-content: center;
   margin-right: 1rem;
@@ -6,17 +6,17 @@
 }
 
 @media screen and (max-width: 1024px) {
-  .switcher-container {
+  .switcher-mode {
     width: calc((100% - 2rem) * 0.4);
   }
 }
 @media screen and (max-width: 768px) {
-  .switcher-container {
+  .switcher-mode {
     width: calc((100% - 2rem) * 0.5);
   }
 }
 @media screen and (max-width: 428px) {
-  .switcher-container {
+  .switcher-mode {
     margin-left: auto;
     padding-left: 1rem;
     width: auto;
