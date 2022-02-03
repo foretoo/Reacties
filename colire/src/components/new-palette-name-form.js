@@ -2,6 +2,7 @@ import { h, Fragment } from "preact"
 import { useState, useContext, useEffect, useRef } from "preact/hooks"
 import { useHistory } from "react-router-dom"
 import { Context } from "@app"
+import { Button } from "@assets"
 import { EmojiPicker } from "@components"
 
 const NewPaletteNameForm = () => {
@@ -77,6 +78,11 @@ const NewPaletteNameForm = () => {
       setFormState((formState) => ({ ...formState, validName, warnText }))
     }
   }
+  const handleClearPalette = () => {
+    dispatch({
+      type: "CLEAR_PALETTE",
+    })
+  }
 
   return (
     <>
@@ -90,7 +96,8 @@ const NewPaletteNameForm = () => {
           <div ref={emojiButtonRef} onClick={handleDisplayformState}>{emoji}</div>
         </div>
         <div class="warn-info">{formState.warnText}</div>
-        <button onClick={handleSavePalette}>Save palette</button>
+        <Button name="Save" onClick={handleSavePalette} />
+        <Button name="Clear" onClick={handleClearPalette} />
       </div>
       <div class="hiddenHelper" ref={divRef}></div>
     </>

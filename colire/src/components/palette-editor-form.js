@@ -62,11 +62,6 @@ const PaletteEditorForm = () => {
     const hex = chroma(randomColor).hex()
     handleChangeColor({ hex })
   }
-  const handleClearPalette = () => {
-    dispatch({
-      type: "CLEAR_PALETTE",
-    })
-  }
 
   return (
     <ColorPicker className={formClass}
