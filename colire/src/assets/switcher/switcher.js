@@ -7,6 +7,7 @@ const Switcher = ({
   options = [ "ON", "OFF" ],
   defaultValue = options[0],
   onChange = (value) => console.log(value),
+  className = "",
   style = {
     "--font-size": "16px",
     "--padding":   "10px",
@@ -71,8 +72,10 @@ const Switcher = ({
 
 
 
+  const classList = "switcher-container" + (className && ` ${className}`)
+
   return (
-    <div className="switcher-container" style={style}>
+    <div className={classList} style={style}>
       <div className="switcher">
         {options.map((option, i) => (
           <div
