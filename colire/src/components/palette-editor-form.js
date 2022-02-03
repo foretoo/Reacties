@@ -7,8 +7,8 @@ import {
   ColorPicker,
   HueHandler,
   ToneHandler,
+  Switcher,
 } from "@assets"
-import { SwitcherMode } from "@components"
 import "./css/palette-editor-form.css"
 
 const PaletteEditorForm = () => {
@@ -74,7 +74,7 @@ const PaletteEditorForm = () => {
       onChange={handleChangeColor} >
       <div>
         <Button name="Random" onClick={handleRandomColor} />
-        <SwitcherMode />
+        <Switcher options={[ "RGB", "HEX" ]} />
       </div>
       <HueHandler size={240} style={{ margin: "auto 0" }} />
       <div>
