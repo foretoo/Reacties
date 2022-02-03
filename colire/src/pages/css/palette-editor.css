@@ -23,13 +23,13 @@ svg.burger-icon {
   stroke: var(--dark-h);
   cursor: pointer;
 }
-.new-palette-header .nav {
-  width: calc(320px - 1rem);
-}
 .palette-name-form {
   flex-grow: 1;
   display: flex;
+  justify-content: baseline;
   align-items: center;
+  gap: 1rem;
+  padding: 0 1rem;
 }
 .palette-name-form .warn-info {
   display: none;
@@ -42,30 +42,21 @@ svg.burger-icon {
   display: block;
 }
 .input-palette-name {
-  flex-grow: 1;
   display: flex;
   align-items: center;
+  width: 414px;
+  height: 3rem;
+  border-radius: 0.5rem;
+  border: 2px solid var(--dark-l);
 }
 .input-palette-name input {
+  flex-grow: 1;
   margin-left: 1rem;
-  min-width: 230px;
+  background-color: transparent;
 }
 .input-palette-name div {
   padding: 1rem;
   cursor: pointer;
-}
-.palette-name-form > button {
-  margin-left: 1rem;
-  padding: 0.5rem 0.8rem;
-  font-size: 0.8rem;
-  color: var(--dark-h);
-  border: 1px solid var(--dark-l);
-  border-radius: 4px;
-  background: var(--dark-l);
-}
-.palette-name-form > button:hover {
-  border: 1px solid var(--dark-m);
-  background: white;
 }
 
 .new-palette-header > .hiddenHelper {
