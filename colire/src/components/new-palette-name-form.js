@@ -96,8 +96,13 @@ const NewPaletteNameForm = () => {
           <div ref={emojiButtonRef} onClick={handleDisplayformState}>{emoji}</div>
         </div>
         <div class="warn-info">{formState.warnText}</div>
-        <Button name="Save" onClick={handleSavePalette} />
-        <Button name="Clear" onClick={handleClearPalette} />
+        <Button name="Save"
+          type="idle"
+          onClick={handleSavePalette}
+          style={{ marginLeft: "1rem" }} />
+        <Button name="Clear"
+          type="idle"
+          onClick={handleClearPalette} />
       </div>
       <div class="hiddenHelper" ref={divRef}></div>
     </>
