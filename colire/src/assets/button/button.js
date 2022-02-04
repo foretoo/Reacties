@@ -1,11 +1,23 @@
 import { h } from "preact"
 import "./button.css"
 
-const Button = ({ name, className, style, attrs, onClick }) => {
-  const _className = `button` + (className ? ` ${className}` : ``)
+const Button = ({
+  name = "button",
+  type = "",
+  className = "",
+  style = {},
+  attrs = {},
+  onClick = () => {},
+}) => {
+  
+  const classList =
+    `button` +
+    (type && ` ${type}`) +
+    (className && ` ${className}`)
+
   return (
     <button {...attrs}
-      className={_className}
+      className={classList}
       style={style}
       onClick={onClick} >
       {name.toUpperCase()}
