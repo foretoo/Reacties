@@ -1,5 +1,5 @@
 import { h } from "preact"
-import { useContext, useState, useEffect } from "preact/hooks"
+import { useContext, useEffect } from "preact/hooks"
 import { Context } from "./color-picker"
 import { clamp } from "./utils"
 import chroma from "chroma-js"
