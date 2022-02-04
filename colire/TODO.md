@@ -1,23 +1,44 @@
-### COMMON
-- add widgets folder
-- edit-palette-form to widget
+***Common***
+============
 
+  - [ ] add widgets folder
+  - [ ] edit-palette-form to widget
+  - [ ] palette-content-list & color-content-list to widget
+  - [ ] add dark theme
+  - [ ] add localStorage support to store app state
+` `  
+` `  
+` `  
+` `  
 
+***Pages***
+===========
 
-### EDIT PALETTE PAGE
-- edit-palette-name-form
-- edit-palette header
-- emoji-picker
-- validate form in component (clear reducer)
-- style palette view with respect to its colors quantity
+  ### EDIT-PALETTE
+  - [ ] change home to root
+  - [ ] fix emoji-picker
+  - [ ] validate form in component (clear reducer)
+  - [ ] style palette view with respect to its colors quantity
+  - [ ] add mobile
+  - [x] ~~edit-palette-name-form~~
+  - [x] ~~edit-palette header~~
 
+  ### PALETTE
+  - [ ] display color names on mouse hover
+  - [ ] restyle color subpage
 
+  ### HOME
+  - [ ] create-palette-link fix hover effect
+` `  
+` `  
+` `  
+` `  
 
-### PALETTE PAGE
-- display color names on mouse hover
-- restyle color subpage
+***Assets***
+============
 
+  ### COLOR-PICKER
+  - [ ] hue: calc origin from width/height onle —> calc pointer angle from offset
 
-
-### HOME PAGE
-- create-palette-link fix hover effect
+  ### BUTTON
+  - [x] ~~add idle style type~~
