@@ -39,6 +39,13 @@
 
   ### COLOR-PICKER
   - [ ] hue: calc origin from width/height onle —> calc pointer angle from offset
+  - [ ] hue: animation via keyframes, direction setted by
+  ```js
+  const delta = pointer - PREV.pointer
+  const sign = Math.sign(delta)
+  const dir = Math.abs(delta) < 180 ? -1 * sign : 1 * sign
+  const duration = delta / 180 + 0.2
+  ```
 
   ### BUTTON
   - [x] ~~add idle style type~~
