@@ -1,5 +1,5 @@
 import { h } from "preact"
-import { useContext, useEffect } from "preact/hooks"
+import { useContext, useState, useEffect } from "preact/hooks"
 import { Context } from "./color-picker"
 import { calc_angle, round_dec } from "./utils"
 
@@ -21,10 +21,10 @@ const HueHandler = ({
   /*    HUE START    */
   /*-----------------*/
   const handleHueStart = (e) => {
-    const pointer = calc_angle(
+    const pointer = (calc_angle(
       e.pageX - GET.hue.origin.x,
       e.pageY - GET.hue.origin.y,
-    ) - 90 - GET.hue.shift
+    ) - 90 - GET.hue.shift + 360) % 360
     const hsl = GET.hsl
     if (e.target === GET.pickerRef.current) {
       GET.pickerRef.current.setPointerCapture(e.pointerId)
@@ -42,7 +42,7 @@ const HueHandler = ({
       GET.pickerRef.current.releasePointerCapture(e.pointerId)
     if (e.target === GET.handlerRef.current)
       GET.handlerRef.current.releasePointerCapture(e.pointerId)
-    SET((PREV) => ({ ...PREV, start: false }))
+    SET((PREV) => ({ ...PREV, start: false, moving: false }))
   }
   /*----------------*/
   /*    HUE MOVE    */
@@ -50,19 +50,20 @@ const HueHandler = ({
   const handleHueMove = (e) => {
     if (GET.start) {
       e.preventDefault()
-      const pointer = calc_angle(
+      const pointer = (calc_angle(
         e.pageX - GET.hue.origin.x,
         e.pageY - GET.hue.origin.y,
-      ) - 90 - GET.hue.shift
+      ) - 90 - GET.hue.shift + 360) % 360
       let a = (GET.hsl[0] + (pointer - GET.pointer)) % 360
       if (a < 0) a += 360
       const hsl = [ a, GET.hsl[1], GET.hsl[2] ]
       handleChange(hsl)
-      SET((PREV) => ({ ...PREV, hsl, pointer }))
+      SET((PREV) => ({ ...PREV, hsl, pointer, moving: true }))
     }
   }
 
-  const classList = "picker" + (className && ` ${className}`)
+  const classList = `picker` + (className && ` ${className}`)
+  console.log(GET.hsl[0]);
 
   return (
     <div ref={GET.pickerRef} className={classList}
@@ -108,7 +109,10 @@ const HueHandler = ({
         <svg className="picker-handler-view"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 60 60"
-          style={{ transform: `rotate(${GET.hsl[0] + GET.hue.shift}deg)` }} >
+          style={{
+            transform: `rotate(${GET.hsl[0] + GET.hue.shift}deg)`,
+            transition: GET.moving ? "none" : "0.2s",
+          }} >
           <circle cx="30" cy="30" r="30" fill="#2a2a2a" />
           <g transform="rotate(90,30,30)">
             <radialGradient id="grad">

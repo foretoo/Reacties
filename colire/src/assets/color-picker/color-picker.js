@@ -25,6 +25,7 @@ const ColorPicker = ({
     },
     hsl:     [ 0, 0, 1, 1 ],
     start:   false,
+    moving:  false,
     pointer: 0,
 
     pickerRef:  useRef(),
@@ -65,6 +66,7 @@ const ColorPicker = ({
       rgb: { r, g, b },
       hsl: { h, s, l },
       hex,
+      moving: GET.moving,
     })
   }
 

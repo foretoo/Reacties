@@ -11,7 +11,6 @@ const ToneHandler = ({
 }) => {
 
   const { GET, SET, handleChange } = useContext(Context)
-  const [ isMoving, setMoving ] = useState(false)
 
   useEffect(() => {
     SET((PREV) => ({ ...PREV, tone: { ...PREV.tone, size }}))
@@ -47,8 +46,7 @@ const ToneHandler = ({
   /*----------------*/
   const handleToneEnd = (e) => {
     GET.tonerRef.current.releasePointerCapture(e.pointerId)
-    setMoving(false)
-    SET((PREV) => ({ ...PREV, start: false }))
+    SET((PREV) => ({ ...PREV, start: false, moving: false }))
   }
   /*-----------------*/
   /*----TONE MOVE----*/
@@ -56,7 +54,6 @@ const ToneHandler = ({
   const handleToneMove = (e) => {
     if (GET.start) {
       e.preventDefault()
-      setMoving(true)
       const point = {
         x: clamp(e.offsetX, 0, GET.tone.size),
         y: clamp(e.offsetY, 0, GET.tone.size),
@@ -69,7 +66,7 @@ const ToneHandler = ({
       const hsl = chroma(...hsv, "hsv").hsl()
       if (isNaN(hsl[0])) hsl[0] = GET.hsl[0]
       handleChange(hsl)
-      SET((PREV) => ({ ...PREV, tone: { ...PREV.tone, point }, hsl }))
+      SET((PREV) => ({ ...PREV, tone: { ...PREV.tone, point }, hsl, moving: true }))
     }
   }
 
@@ -89,7 +86,7 @@ const ToneHandler = ({
             `calc(-50% + ${GET.tone.point.y}px)`  +
           `)`,
           background: `hsl(${GET.hsl[0]}, ${GET.hsl[1] * 100}%, ${GET.hsl[2] * 100}%)`,
-          transition: isMoving ? "none" : "0.2s"
+          transition: GET.moving ? "none" : "0.2s"
         }} >
       </div>
     </div>
