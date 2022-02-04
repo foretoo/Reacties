@@ -13,6 +13,8 @@ const Slider = ({
   defaultValue = 50,
   label = false,
   onChange = (value) => console.log(value),
+  className = "",
+  style = {},
 
 }) => {
 
@@ -99,8 +101,10 @@ const Slider = ({
 
 
 
+  const classList = "slider-container" + (className && ` ${className}`)
+
   return (
-    <div className="slider-container">
+    <div className={classList} style={style}>
       <div ref={pathRef} className="slider-path">
         {GET.mounted && label &&
         <>

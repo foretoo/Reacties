@@ -1,20 +1,20 @@
-.slider-container {
+.slider-level {
   width: calc((100% - 2rem) * 0.4);
   margin: 0.7rem 0 0 1rem;
 }
 
 @media screen and (max-width: 1024px) {
-  .slider-container {
+  .slider-level {
     width: calc((100% - 2rem) * 0.6);
   }
 }
 @media screen and (max-width: 768px) {
-  .slider-container {
+  .slider-level {
     width: calc((100% - 2rem) * 0.5);
   }
 }
 @media screen and (max-width: 428px) {
-  .slider-container {
+  .slider-level {
     flex-grow: 1;
     width: auto;
   }

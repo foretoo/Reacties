@@ -16,7 +16,7 @@ const SliderLevel = ({ id, level }) => {
   }
 
   return (
-    <Slider
+    <Slider className="slider-level"
       defaultValue={level}
       min={100}
       max={900}
