@@ -1,5 +1,5 @@
 import { h } from "preact"
-import { useContext } from "preact/hooks"
+import { useContext, useState } from "preact/hooks"
 import { Context } from "@app"
 import chroma from "chroma-js"
 import {
@@ -15,6 +15,7 @@ const PaletteEditorForm = () => {
 
   const { state, dispatch } = useContext(Context)
   const { color, palette, hidden, valid } = state.custom
+  const [ pickerMoving, setPickerMoving ] = useState(false)
 
   let formClass = "editor-form",
       inputClass = "editor-color-name",
@@ -44,7 +45,8 @@ const PaletteEditorForm = () => {
       type: "ADD_NEW_COLOR",
     })
   }
-  const handleChangeColor = ({ hex }) => {
+  const handleChangeColor = ({ hex, moving }) => {
+    setPickerMoving(moving)
     dispatch({
       type:    "CHANGE_NEW_COLOR",
       payload: hex,
@@ -81,7 +83,8 @@ const PaletteEditorForm = () => {
           style={{
             backgroundColor: color.color,
             width: "150px",
-            padding: "120px 10px 10px 10px"
+            padding: "120px 10px 10px 10px",
+            transition: pickerMoving ? "none" : "0.2s",
           }}
           onChange={handleChangeColorName} />
       </div>
