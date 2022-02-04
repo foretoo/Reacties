@@ -1,5 +1,5 @@
 import { h } from "preact"
-import { useContext, useEffect } from "preact/hooks"
+import { useContext, useState, useEffect } from "preact/hooks"
 import { Context } from "./color-picker"
 import { clamp } from "./utils"
 import chroma from "chroma-js"
@@ -11,6 +11,7 @@ const ToneHandler = ({
 }) => {
 
   const { GET, SET, handleChange } = useContext(Context)
+  const [ isMoving, setMoving ] = useState(false)
 
   useEffect(() => {
     SET((PREV) => ({ ...PREV, tone: { ...PREV.tone, size }}))
@@ -46,6 +47,7 @@ const ToneHandler = ({
   /*----------------*/
   const handleToneEnd = (e) => {
     GET.tonerRef.current.releasePointerCapture(e.pointerId)
+    setMoving(false)
     SET((PREV) => ({ ...PREV, start: false }))
   }
   /*-----------------*/
@@ -54,6 +56,7 @@ const ToneHandler = ({
   const handleToneMove = (e) => {
     if (GET.start) {
       e.preventDefault()
+      setMoving(true)
       const point = {
         x: clamp(e.offsetX, 0, GET.tone.size),
         y: clamp(e.offsetY, 0, GET.tone.size),
@@ -70,7 +73,7 @@ const ToneHandler = ({
     }
   }
 
-  const classList = "picker-tone" + (className && ` ${className}`)
+  const classList = `picker-tone` + (className && ` ${className}`)
 
   return (
     <div ref={GET.tonerRef} className={classList}
@@ -81,9 +84,12 @@ const ToneHandler = ({
       onPointerCancel={handleToneEnd} >
       <div className="picker-tone-point"
         style={{
-          top:        `${GET.tone.point.y}px`,
-          left:       `${GET.tone.point.x}px`,
+          transform: `translate(` +
+            `calc(-50% + ${GET.tone.point.x}px),` +
+            `calc(-50% + ${GET.tone.point.y}px)`  +
+          `)`,
           background: `hsl(${GET.hsl[0]}, ${GET.hsl[1] * 100}%, ${GET.hsl[2] * 100}%)`,
+          transition: isMoving ? "none" : "0.2s"
         }} >
       </div>
     </div>
