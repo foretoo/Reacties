@@ -48,6 +48,7 @@
   const duration = delta / 90 + 0.2
   ```
   and the run build
+- [ ] OR try matrix transformation
 
 ### BUTTON
 - [x] ~~add idle style type~~
