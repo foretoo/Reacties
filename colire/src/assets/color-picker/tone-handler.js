@@ -86,7 +86,6 @@ const ToneHandler = ({
             `calc(-50% + ${GET.tone.point.y}px)`  +
           `)`,
           background: `hsl(${GET.hsl[0]}, ${GET.hsl[1] * 100}%, ${GET.hsl[2] * 100}%)`,
-          transition: GET.moving ? "none" : "0.2s"
         }} >
       </div>
     </div>

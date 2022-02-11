@@ -25,10 +25,10 @@ const HueHandler = ({
       e.pageX - GET.hue.origin.x,
       e.pageY - GET.hue.origin.y,
     ) - 90 - GET.hue.shift + 360) % 360
-    const hsl = GET.hsl
+    const hsl = [ ...GET.hsl ]
     if (e.target === GET.pickerRef.current) {
       GET.pickerRef.current.setPointerCapture(e.pointerId)
-      if (pointer !== hsl[0]) (hsl[0] = pointer, handleChange(hsl))
+      if (pointer !== hsl[0]) ( hsl[0] = pointer, handleChange(hsl) )
     }
     if (e.target === GET.handlerRef.current)
       GET.handlerRef.current.setPointerCapture(e.pointerId)
@@ -108,10 +108,7 @@ const HueHandler = ({
         <svg className="picker-handler-view"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 60 60"
-          style={{
-            transform:  get_matrix(GET.hsl[0] + GET.hue.shift),
-            transition: GET.moving ? "none" : "0.2s",
-          }} >
+          style={{ transform:  get_matrix(GET.hsl[0] + GET.hue.shift) }} >
           <circle cx="30" cy="30" r="30" fill="#2a2a2a" />
           <g transform="rotate(90,30,30)">
             <radialGradient id="grad">
