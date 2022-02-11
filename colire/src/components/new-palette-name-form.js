@@ -1,4 +1,4 @@
-import { h, Fragment } from "preact"
+import { h, Fragment, createRef } from "preact"
 import { useState, useContext, useEffect, useRef } from "preact/hooks"
 import { useHistory } from "react-router-dom"
 import { Context } from "@app"
@@ -9,16 +9,33 @@ const NewPaletteNameForm = () => {
 
   const { state, dispatch } = useContext(Context)
   const { palettes, custom: { paletteName, emoji }} = state
-  const [ formState, setFormState ] = useState({ displayEmojis: false, emojisOffset: 0, validName: true, warnText: "" })
+
+  const initForm = {
+    displayEmojis: false,
+    emojisOffset:  { x: 0, y: 0 },
+    validName:     true,
+    warnText:      "",
+  }
+  const [ formState, setFormState ] = useState(initForm)
   const inputRef = useRef()
   const divRef = useRef()
   const emojiButtonRef = useRef()
   const history = useHistory()
 
   useEffect(() => {
-    const emojisOffset = emojiButtonRef.current.offsetLeft + "px"
-    setFormState((formState) => ({ ...formState, emojisOffset }))
+    const { offsetLeft: x, offsetTop: y } = emojiButtonRef.current
+    setFormState((formState) => ({ ...formState, emojisOffset: { x, y }}))
+    window.addEventListener("click", handleClick, false)
   }, [])
+
+  const handleClick = (e) => {
+    setFormState(prev => {
+      if (prev.displayEmojis && !e.path.includes(emojiButtonRef.current)) {
+        return { ...prev, displayEmojis: !prev.displayEmojis }
+      }
+      return prev
+    })
+  }
 
   let formClass = "palette-name-form"
   if (!formState.validName) {
@@ -88,9 +105,12 @@ const NewPaletteNameForm = () => {
     <>
       <div class={formClass}>
         <EmojiPicker
-          style={{ left: formState.emojisOffset, visibility: formState.displayEmojis ? "visible" : "hidden" }}
-          handleSelectEmoji={handleSelectEmoji}
-        />
+          style={{
+            top:  formState.emojisOffset.y,
+            left: formState.emojisOffset.x,
+            visibility: formState.displayEmojis ? "visible" : "hidden"
+          }}
+          handleSelectEmoji={handleSelectEmoji} />
         <div class="input-palette-name">
           <input ref={inputRef} value={paletteName} type="text" placeholder="Enter palette name..." onChange={handleChangePaletteName} />
           <div ref={emojiButtonRef} onClick={handleDisplayformState}>{emoji}</div>

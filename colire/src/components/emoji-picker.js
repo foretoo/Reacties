@@ -5,18 +5,18 @@ import "./css/emoji-picker.css"
 const EmojiPicker = ({ style, handleSelectEmoji }) => {
 
   const list = emojiList.map((e) => (
-    <ul
+    <li
       className="emoji"
       onClick={() => handleSelectEmoji(e)}
     >
       {e}
-    </ul>
+    </li>
   ))
 
   return (
-    <li className="emoji-picker" style={style}>
+    <ul className="emoji-picker" style={style}>
       {list}
-    </li>
+    </ul>
   )
 }
 
