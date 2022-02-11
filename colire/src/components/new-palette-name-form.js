@@ -37,11 +37,6 @@ const NewPaletteNameForm = () => {
     })
   }
 
-  let formClass = "palette-name-form"
-  if (!formState.validName) {
-    formClass += " warn"
-  }
-
   const handleChangePaletteName = (e) => {
     const name = e.target.value
     if (name) {
@@ -100,6 +95,8 @@ const NewPaletteNameForm = () => {
       type: "CLEAR_PALETTE",
     })
   }
+
+  const formClass = "palette-name-form" + (!formState.validName ? " warn" : "")
 
   return (
     <>
