@@ -74,7 +74,11 @@ const ToneHandler = ({
 
   return (
     <div ref={GET.tonerRef} className={classList}
-      style={{ "--toneSize": `${GET.tone.size}px`, ...style }}
+      style={{
+        "--toneSize": `${GET.tone.size}px`,
+        "--toneDur":  GET.moving ? "none" : "0.3s",
+        ...style
+      }}
       onPointerDown={handleToneStart}
       onPointerMove={handleToneMove}
       onPointerUp={handleToneEnd}

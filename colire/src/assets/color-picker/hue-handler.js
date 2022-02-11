@@ -14,7 +14,7 @@ const HueHandler = ({
   const { GET, SET, handleChange } = useContext(Context)
 
   useEffect(() => {
-    SET((PREV) => ({ ...PREV, hue: { ...GET.hue, size, shift: shift % 360 } }))
+    SET((PREV) => ({ ...PREV, hue: { ...GET.hue, size, shift: shift % 360 }}))
   }, [ size, shift ])
 
   /*-----------------*/
@@ -108,7 +108,10 @@ const HueHandler = ({
         <svg className="picker-handler-view"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 60 60"
-          style={{ transform:  get_matrix(GET.hsl[0] + GET.hue.shift) }} >
+          style={{
+            transform:  get_matrix(GET.hsl[0] + GET.hue.shift),
+            "--hueDur": GET.moving ? "none" : "0.3s",
+          }} >
           <circle cx="30" cy="30" r="30" fill="#2a2a2a" />
           <g transform="rotate(90,30,30)">
             <radialGradient id="grad">
