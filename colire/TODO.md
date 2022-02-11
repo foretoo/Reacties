@@ -39,16 +39,7 @@
 
 ### COLOR-PICKER
 - [ ] hue: calc origin from width/height only —> calc pointer angle from offsetX/Y
-- [ ] hue: animation via keyframes with respect to direction setted by:
-
-  ```js
-  const delta = pointer - PREV.pointer
-  const sign = Math.sign(delta)
-  const dir = Math.abs(delta) < 180 ? -1 * sign : 1 * sign
-  const duration = delta / 90 + 0.2
-  ```
-  and the run build
-- [ ] OR try matrix transformation
+- [x] ~~hue: animation via matrix transformation~~
 
 ### BUTTON
 - [x] ~~add idle style type~~

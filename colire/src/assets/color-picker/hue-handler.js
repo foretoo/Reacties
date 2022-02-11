@@ -1,7 +1,7 @@
 import { h } from "preact"
 import { useContext, useEffect } from "preact/hooks"
 import { Context } from "./color-picker"
-import { calc_angle, round_dec } from "./utils"
+import { calc_angle, get_matrix, round_dec } from "./utils"
 
 const HueHandler = ({
   size = 240,
@@ -109,7 +109,7 @@ const HueHandler = ({
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 60 60"
           style={{
-            transform: `rotate(${GET.hsl[0] + GET.hue.shift}deg)`,
+            transform:  get_matrix(GET.hsl[0] + GET.hue.shift),
             transition: GET.moving ? "none" : "0.2s",
           }} >
           <circle cx="30" cy="30" r="30" fill="#2a2a2a" />
