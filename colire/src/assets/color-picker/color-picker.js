@@ -71,7 +71,7 @@ const ColorPicker = ({
   }
 
 
-  const classList = `picker-container` + (className && ` ${className}`)
+  const classList = `picker-container` + (className.length ? ` ${className}` : ``)
 
   return (
     <Context.Provider value={{ GET, SET, handleChange }}>

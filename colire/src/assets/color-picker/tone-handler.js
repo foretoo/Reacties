@@ -70,7 +70,7 @@ const ToneHandler = ({
     }
   }
 
-  const classList = `picker-tone` + (className && ` ${className}`)
+  const classList = `picker-tone` + (className.length ? ` ${className}` : ``)
 
   return (
     <div ref={GET.tonerRef} className={classList}

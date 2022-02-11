@@ -62,7 +62,7 @@ const HueHandler = ({
     }
   }
 
-  const classList = `picker` + (className && ` ${className}`)
+  const classList = `picker` + (className.length ? ` ${className}` : ``)
 
   return (
     <div ref={GET.pickerRef} className={classList}
