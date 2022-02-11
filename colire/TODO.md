@@ -39,6 +39,7 @@
 
 ### COLOR-PICKER
 - [ ] hue: calc origin from width/height only —> calc pointer angle from offsetX/Y
+- [ ] fix: layout shift on init
 - [x] ~~hue: animation via matrix transformation~~
 
 ### BUTTON
