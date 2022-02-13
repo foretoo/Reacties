@@ -1,4 +1,4 @@
-.new-palette-container {
+.edit-palette-container {
   flex-grow: 1;
   display: flex;
   gap: 1rem;
@@ -7,7 +7,7 @@
 
 
 
-.new-palette-content {
+.edit-palette-content {
   flex-grow: 1;
   display: flex;
   flex-wrap: wrap;
@@ -59,7 +59,7 @@ svg.burger-icon {
   cursor: pointer;
 }
 
-.new-palette-header > .hiddenHelper {
+.edit-palette-header > .hiddenHelper {
   position: absolute;
   visibility: hidden;
   white-space: pre;
