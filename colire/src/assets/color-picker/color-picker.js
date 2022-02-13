@@ -14,11 +14,6 @@ const ColorPicker = ({
 }) => {
 
   const initPicker = {
-    hue: {
-      size:   240,
-      origin: { x: 0, y: 0 },
-      shift:  0,
-    },
     tone: {
       size:  100,
       point: { x: 0, y: 0 },
@@ -27,10 +22,6 @@ const ColorPicker = ({
     start:   false,
     moving:  false,
     pointer: 0,
-
-    pickerRef:  useRef(),
-    handlerRef: useRef(),
-    tonerRef:   useRef(),
   }
   const [ GET, SET ] = useState(initPicker)
 
@@ -41,19 +32,12 @@ const ColorPicker = ({
       if (isNaN(hsl[0])) hsl[0] = color.hasOwnProperty("h") ? color.h : 0
       const [ , x, y ] = _color.hsv()
       const point = { x: x * PREV.tone.size, y: PREV.tone.size - y * PREV.tone.size }
-      const pickerRect = PREV.pickerRef.current.getBoundingClientRect()
-      const origin = {
-        x: pickerRect.x + PREV.hue.size / 2,
-        y: pickerRect.y + PREV.hue.size / 2,
-      }
-      return {
-        ...PREV,
-        hue:  { ...PREV.hue, origin },
+      return { ...PREV,
         tone: { ...PREV.tone, point },
         hsl,
       }
     })
-  }, [ color, GET.hue.size, GET.tone.size ])
+  }, [ color, GET.tone.size ])
 
 
 
