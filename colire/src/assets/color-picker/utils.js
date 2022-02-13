@@ -1,10 +1,19 @@
 const round = Math.round
 
-const clamp = (num, min, max) => num < min ? min : num > max ? max : num
+const clamp = (num, min, max) =>
+  num < min ? min : num > max ? max : num
 
-const round_dec = (n, d) => round((n + Number.EPSILON) * (10 * d)) / (10 * d)
+const round_dec = (num, dec) =>
+  round((num + Number.EPSILON) * (10 * dec)) / (10 * dec)
 
-const calc_angle = (x, y) => (Math.atan2(y, x) * (180 / Math.PI) + 360) % 360
+const calc_angle = (x, y, size, shift) => {
+  const [ _x, _y ] = [ x - size / 2, y - size / 2 ]
+  // get native pointer angle in [ 0, ..., 360 ]
+  let result = (Math.atan2(_y, _x) * (180 / Math.PI) + 360) % 360
+  // get (native - designed - shift) angle in [ 0, ..., 360 ]
+  result = (result - 90 - shift + 360) % 360
+  return result
+}
 
 const get_matrix = (deg) => {
   const rad = deg * Math.PI / 180
