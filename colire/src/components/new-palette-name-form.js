@@ -1,4 +1,4 @@
-import { h, Fragment, createRef } from "preact"
+import { h, Fragment } from "preact"
 import { useState, useContext, useEffect, useRef } from "preact/hooks"
 import { useHistory } from "react-router-dom"
 import { Context } from "@app"
@@ -17,8 +17,6 @@ const NewPaletteNameForm = () => {
     warnText:      "",
   }
   const [ formState, setFormState ] = useState(initForm)
-  const inputRef = useRef()
-  const divRef = useRef()
   const emojiButtonRef = useRef()
   const history = useHistory()
 
@@ -27,7 +25,6 @@ const NewPaletteNameForm = () => {
     setFormState((formState) => ({ ...formState, emojisOffset: { x, y }}))
     window.addEventListener("click", handleClick, false)
   }, [])
-
   const handleClick = (e) => {
     setFormState(prev => {
       if (prev.displayEmojis && !e.path.includes(emojiButtonRef.current)) {
@@ -44,11 +41,6 @@ const NewPaletteNameForm = () => {
       const warnText = ""
       setFormState((formState) => ({ ...formState, validName, warnText }))
     }
-
-    divRef.current.innerHTML = name
-    inputRef.current.style.width = divRef.current.clientWidth + "px"
-    const emojisOffset = emojiButtonRef.current.offsetLeft + "px"
-    setFormState((formState) => ({ ...formState, emojisOffset }))
 
     dispatch({
       type:    "CHANGE_PALETTE_NAME",
@@ -109,7 +101,7 @@ const NewPaletteNameForm = () => {
           }}
           handleSelectEmoji={handleSelectEmoji} />
         <div class="input-palette-name">
-          <input ref={inputRef} value={paletteName} type="text" placeholder="Enter palette name..." onChange={handleChangePaletteName} />
+          <input value={paletteName} type="text" placeholder="Enter palette name..." onChange={handleChangePaletteName} />
           <div ref={emojiButtonRef} onClick={handleDisplayformState}>{emoji}</div>
         </div>
         <div class="warn-info">{formState.warnText}</div>
@@ -121,7 +113,6 @@ const NewPaletteNameForm = () => {
           type="idle"
           onClick={handleClearPalette} />
       </div>
-      <div class="hiddenHelper" ref={divRef}></div>
     </>
   )
 }
