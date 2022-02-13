@@ -15,18 +15,18 @@
 ===========
 
 ### EDIT-PALETTE
+- [ ] add mobile
+- [ ] style palette view with respect to its colors quantity
+- [ ] change burger icon
+- [ ] validate form in component (clear reducer)
 - [x] ~~change home to root~~
 - [x] ~~fix emoji-picker~~
-- [ ] validate form in component (clear reducer)
-- [ ] style palette view with respect to its colors quantity
-- [ ] add mobile
-- [ ] change burger icon
 - [x] ~~edit-palette-name-form~~
 - [x] ~~edit-palette header~~
 
 ### PALETTE
-- [ ] display color names on mouse hover
 - [ ] restyle color subpage
+- [ ] display color names on mouse hover
 
 ### HOME
 - [ ] create-palette-link fix hover effect
@@ -39,8 +39,8 @@
 ============
 
 ### COLOR-PICKER
-- [ ] hue: calc origin from width/height only —> calc pointer angle from offsetX/Y
 - [ ] fix: layout shift on init
+- [ ] hue: calc origin from width/height only —> calc pointer angle from offsetX/Y
 - [x] ~~hue: animation via matrix transformation~~
 
 ### SLIDER
