@@ -27,7 +27,6 @@ const ColorPicker = ({
     hsl:     getHSL(color),
     start:   false,
     moving:  false,
-    pointer: 0,
   }
   const [ GET, SET ] = useState(initPicker)
 

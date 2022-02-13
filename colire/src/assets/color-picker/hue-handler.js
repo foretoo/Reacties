@@ -12,6 +12,7 @@ const HueHandler = ({
 }) => {
 
   const { GET, SET, handleChange } = useContext(Context)
+  const pointerRef = useRef(GET.hsl[0])
   const pickerRef  = useRef()
   const handlerRef = useRef()
 
@@ -32,7 +33,8 @@ const HueHandler = ({
       handlerRef.current.setPointerCapture(e.pointerId)
     }
 
-    SET((PREV) => ({ ...PREV, hsl, start: true, pointer }))
+    pointerRef.current = pointer
+    SET((PREV) => ({ ...PREV, hsl, start: true }))
   }
   /*---------------*/
   /*    HUE END    */
@@ -58,14 +60,15 @@ const HueHandler = ({
       }
       if (e.target === handlerRef.current) {
         pointer = calc_angle(e.offsetX, e.offsetY, size * 0.75, shift)
-        hue = (GET.hsl[0] + (pointer - GET.pointer)) % 360
+        hue = (GET.hsl[0] + (pointer - pointerRef.current)) % 360
       }
 
       if (hue < 0) hue += 360
       const hsl = [ hue, GET.hsl[1], GET.hsl[2] ]
 
+      pointerRef.current = pointer
+      SET((PREV) => ({ ...PREV, hsl, moving: true }))
       handleChange(hsl)
-      SET((PREV) => ({ ...PREV, hsl, pointer, moving: true }))
     }
   }
 
