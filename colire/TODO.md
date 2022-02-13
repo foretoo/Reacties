@@ -15,11 +15,12 @@
 ===========
 
 ### EDIT-PALETTE
-- [ ] change home to root
-- [ ] fix emoji-picker
+- [x] ~~change home to root~~
+- [x] ~~fix emoji-picker~~
 - [ ] validate form in component (clear reducer)
 - [ ] style palette view with respect to its colors quantity
 - [ ] add mobile
+- [ ] change burger icon
 - [x] ~~edit-palette-name-form~~
 - [x] ~~edit-palette header~~
 
@@ -41,6 +42,9 @@
 - [ ] hue: calc origin from width/height only —> calc pointer angle from offsetX/Y
 - [ ] fix: layout shift on init
 - [x] ~~hue: animation via matrix transformation~~
+
+### SLIDER
+- [ ] make slider path clickable to set slider value instantly
 
 ### BUTTON
 - [x] ~~add idle style type~~
