@@ -1,6 +1,6 @@
 import { addLevelProp, colorScaler } from "@utils/helpers"
 
-const newPaletteReducer = (state, action) => {
+const editPaletteReducer = (state, action) => {
   switch (action.type) {
   case "DELETE_COLOR": {
     const color = action.payload
@@ -186,4 +186,4 @@ const newPaletteReducer = (state, action) => {
   }
 }
 
-export default newPaletteReducer
+export default editPaletteReducer

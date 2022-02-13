@@ -1,7 +1,7 @@
 import App from "./app"
 import { Context, ContextProvider } from "./context"
 import initialState from "./initial-state"
-import newPaletteReducer from "./new-palette-reducer"
+import editPaletteReducer from "./edit-palette-reducer"
 import paletteReducer from "./palette-reducer"
 import reducer from "./reducers"
 
@@ -10,7 +10,7 @@ export {
   Context,
   ContextProvider,
   initialState,
-  newPaletteReducer,
+  editPaletteReducer,
   paletteReducer,
   reducer,
 }
