@@ -13,12 +13,18 @@ const ColorPicker = ({
   style = {},
 }) => {
 
+  const getHSL = (color) => {
+    const hsl = chroma(color).hsl()
+    if (isNaN(hsl[0])) hsl[0] = color.hasOwnProperty("h") ? color.h : 0
+    return hsl
+  }
+
   const initPicker = {
     tone: {
       size:  100,
       point: { x: 0, y: 0 },
     },
-    hsl:     [ 0, 0, 1, 1 ],
+    hsl:     getHSL(color),
     start:   false,
     moving:  false,
     pointer: 0,
