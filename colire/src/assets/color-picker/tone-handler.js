@@ -23,8 +23,8 @@ const ToneHandler = ({
   const handleToneStart = (e) => {
     tonerRef.current.setPointerCapture(e.pointerId)
     const point = {
-      x: clamp(e.offsetX, 0, GET.tone.size),
-      y: clamp(e.offsetY, 0, GET.tone.size),
+      x: clamp(e.offsetX, 0, size),
+      y: clamp(e.offsetY, 0, size),
     }
     if (
       point.x !== GET.tone.point.x ||
@@ -32,13 +32,14 @@ const ToneHandler = ({
     ) {
       const hsv = [
         GET.hsl[0],
-        point.x / GET.tone.size,
-        (GET.tone.size - point.y) / GET.tone.size,
+        point.x / size,
+        (size - point.y) / size,
       ]
       const hsl = chroma(...hsv, "hsv").hsl()
       if (isNaN(hsl[0])) hsl[0] = GET.hsl[0]
+
+      SET((PREV) => ({ ...PREV, hsl, tone: { ...PREV.tone, point }, start: true }))
       handleChange(hsl)
-      SET((PREV) => ({ ...PREV, hsl, start: true, tone: { ...PREV.tone, point }}))
     }
     else SET((PREV) => ({ ...PREV, start: true }))
   }
@@ -56,18 +57,19 @@ const ToneHandler = ({
     if (GET.start) {
       e.preventDefault()
       const point = {
-        x: clamp(e.offsetX, 0, GET.tone.size),
-        y: clamp(e.offsetY, 0, GET.tone.size),
+        x: clamp(e.offsetX, 0, size),
+        y: clamp(e.offsetY, 0, size),
       }
       const hsv = [
         GET.hsl[0],
-        point.x / GET.tone.size,
-        (GET.tone.size - point.y) / GET.tone.size,
+        point.x / size,
+        (size - point.y) / size,
       ]
       const hsl = chroma(...hsv, "hsv").hsl()
       if (isNaN(hsl[0])) hsl[0] = GET.hsl[0]
+      
+      SET((PREV) => ({ ...PREV, hsl, tone: { ...PREV.tone, point }, moving: true }))
       handleChange(hsl)
-      SET((PREV) => ({ ...PREV, tone: { ...PREV.tone, point }, hsl, moving: true }))
     }
   }
 
@@ -76,7 +78,7 @@ const ToneHandler = ({
   return (
     <div ref={tonerRef} className={classList}
       style={{
-        "--toneSize": `${GET.tone.size}px`,
+        "--toneSize": `${size}px`,
         "--toneDur":  GET.moving ? "none" : "0.3s",
         ...style
       }}
@@ -84,15 +86,17 @@ const ToneHandler = ({
       onPointerMove={handleToneMove}
       onPointerUp={handleToneEnd}
       onPointerCancel={handleToneEnd} >
-      <div className="picker-tone-point"
-        style={{
-          transform: `translate(` +
-            `calc(-50% + ${GET.tone.point.x}px),` +
-            `calc(-50% + ${GET.tone.point.y}px)`  +
-          `)`,
-          background: `hsl(${GET.hsl[0]}, ${GET.hsl[1] * 100}%, ${GET.hsl[2] * 100}%)`,
-        }} >
-      </div>
+      { GET.tone.point && (
+        <div className="picker-tone-point"
+          style={{
+            transform: `translate(` +
+              `calc(-50% + ${GET.tone.point.x}px),` +
+              `calc(-50% + ${GET.tone.point.y}px)`  +
+            `)`,
+            background: `hsl(${GET.hsl[0]}, ${GET.hsl[1] * 100}%, ${GET.hsl[2] * 100}%)`,
+          }} >
+        </div>
+      )}
     </div>
   )
 

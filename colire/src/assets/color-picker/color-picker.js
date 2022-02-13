@@ -18,13 +18,17 @@ const ColorPicker = ({
     if (isNaN(hsl[0])) hsl[0] = color.hasOwnProperty("h") ? color.h : 0
     return hsl
   }
+  const getTonePoint = (hsl, size) => {
+    const [ , x, y ] = chroma(...hsl, "hsl").hsv()
+    return { x: x * size, y: size - y * size }
+  }
 
   const initPicker = {
-    tone: {
-      size:  100,
-      point: { x: 0, y: 0 },
-    },
     hsl:     getHSL(color),
+    tone: {
+      size:  0,
+      point: null,
+    },
     start:   false,
     moving:  false,
   }
@@ -32,17 +36,18 @@ const ColorPicker = ({
 
   useEffect(() => {
     !GET.start && SET((PREV) => {
-      const _color = chroma(color)
-      const hsl = _color.hsl()
-      if (isNaN(hsl[0])) hsl[0] = color.hasOwnProperty("h") ? color.h : 0
-      const [ , x, y ] = _color.hsv()
-      const point = { x: x * PREV.tone.size, y: PREV.tone.size - y * PREV.tone.size }
-      return { ...PREV,
-        tone: { ...PREV.tone, point },
-        hsl,
-      }
+      const hsl  = getHSL(color)
+      const point = getTonePoint(hsl, PREV.tone.size)
+      return { ...PREV, hsl, tone: { ...PREV.tone, point }}
     })
-  }, [ color, GET.tone.size ])
+  }, [ color ])
+
+  useEffect(() => {
+    SET((PREV) => {
+      const point = getTonePoint(PREV.hsl, PREV.tone.size)
+      return { ...PREV, tone: { ...PREV.tone, point }}
+    })
+  }, [ GET.tone.size ])
 
 
 
