@@ -1,0 +1,10 @@
+.theme-switcher {
+  display: flex;
+  gap: 1rem;
+}
+.theme-option {
+  cursor: pointer;
+}
+.theme-option.active {
+  color: var(--dark-h);
+}

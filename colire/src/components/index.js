@@ -16,6 +16,7 @@ import SortableColorBox from "./sortable-color-box"
 import SortablePalette from "./sortable-palette"
 import SVGFilter from "./svg-filter"
 import SwitcherMode from "./switcher-mode"
+import SwitcherTheme from "./switcher-theme"
 
 export {
   AddPaletteBtn,
@@ -36,4 +37,5 @@ export {
   SortablePalette,
   SVGFilter,
   SwitcherMode,
+  SwitcherTheme,
 }

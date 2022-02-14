@@ -1,7 +1,7 @@
 import { h, Fragment } from "preact"
 import { Switch, Route } from "react-router-dom"
 import { Home, Palette, PaletteEditor } from "@pages"
-import { Footer } from "@components"
+import { Footer, SwitcherTheme } from "@components"
 
 const App = () => (
   <>
@@ -11,6 +11,7 @@ const App = () => (
       <Route path="/:paletteID/:colorID?" component={Palette} />
     </Switch>
     <Footer>
+      <SwitcherTheme />
       <a href="https://github.com/foretoo" target="_blank">github.com/foretoo</a>
     </Footer>
   </>

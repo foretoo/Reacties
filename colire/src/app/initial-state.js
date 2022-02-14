@@ -34,6 +34,7 @@ const initialState = {
       warnText: "",
     },
   },
+  theme: "auto",
 }
 
 export default initialState
