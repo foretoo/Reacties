@@ -92,7 +92,7 @@ const NewPaletteNameForm = () => {
 
   return (
     <>
-      <div class={formClass}>
+      <div className={formClass}>
         <EmojiPicker
           style={{
             top:  formState.emojisOffset.y,
@@ -100,11 +100,11 @@ const NewPaletteNameForm = () => {
             visibility: formState.displayEmojis ? "visible" : "hidden"
           }}
           handleSelectEmoji={handleSelectEmoji} />
-        <div class="input-palette-name">
+        <div className="input-palette-name">
           <input value={paletteName} type="text" placeholder="Enter palette name..." onChange={handleChangePaletteName} />
           <div ref={emojiButtonRef} onClick={handleDisplayformState}>{emoji}</div>
         </div>
-        <div class="warn-info">{formState.warnText}</div>
+        <div className="warn-info">{formState.warnText}</div>
         <Button name="Save"
           type="idle"
           onClick={handleSavePalette}

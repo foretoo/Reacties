@@ -8,7 +8,10 @@ const withMore = (List) => (props) => {
       e.stopPropagation()
       history.push(Component.props.id)
     }
-    Component.props.button = <button class="color-box-info-more" onClick={handleColorPage}>MORE</button>
+    Component.props.button =
+      <button className="color-box-info-more" onClick={handleColorPage}>
+        MORE
+      </button>
     return Component
   })
   return WrappedList

@@ -16,9 +16,9 @@ const PaletteEditor = () => {
 
   return (
     <>
-      <Header class="edit-palette-header">
-        <div class="nav">
-          <svg class="burger-icon"
+      <Header className="edit-palette-header">
+        <div className="nav">
+          <svg className="burger-icon"
             width="20" height="20"
             viewBox="0 0 20 20"
             fill="none"
@@ -31,9 +31,9 @@ const PaletteEditor = () => {
         <NewPaletteNameForm />
       </Header>
 
-      <main class="edit-palette-container">
+      <main className="edit-palette-container">
         <PaletteEditorForm />
-        <section class="edit-palette-content">
+        <section className="edit-palette-content">
           <SortablePalette />
         </section>
       </main>

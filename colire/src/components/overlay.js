@@ -12,7 +12,7 @@ const Overlay = () => {
 
   return (
     <section
-      class={"overlay" + showClass + lumClass}
+      className={"overlay" + showClass + lumClass}
       style={{ background: code }}
     >
       <h1>Copied</h1>

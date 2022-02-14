@@ -18,8 +18,8 @@ const ColorListContent = ({ colors, handleCopy }) => {
   return (
     <>
       {colorsList}
-      <div class="color-box back">
-        <button class="color-box-button" onClick={() => history.back()}>GO BACK</button>
+      <div className="color-box back">
+        <button className="color-box-button" onClick={() => history.back()}>GO BACK</button>
       </div>
     </>
   )

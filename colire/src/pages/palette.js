@@ -56,7 +56,7 @@ const Palette = () => {
         </section>
       </Header>
 
-      <main class="content-container">
+      <main className="content-container">
         <Snackbar />
         <Overlay />
         <Content />

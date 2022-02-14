@@ -10,7 +10,7 @@ const Snackbar = () => {
   const snackbarShowClass = state.format.show ? " show" : ""
 
   return (
-    <div class={"snackbar" + snackbarShowClass}>
+    <div className={"snackbar" + snackbarShowClass}>
       Format changed to {state.format.label}
     </div>
   )
