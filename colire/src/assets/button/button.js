@@ -4,6 +4,7 @@ import "./button.css"
 const Button = ({
   name = "button",
   type = "",
+  size = 40,
   className = "",
   style = {},
   attrs = {},
@@ -12,13 +13,13 @@ const Button = ({
   
   const classList =
     `button` +
-    (type && ` ${type}`) +
-    (className && ` ${className}`)
+    (type ? ` ${type}` : ``) +
+    (className ? ` ${className}` : ``)
 
   return (
     <button {...attrs}
       className={classList}
-      style={style}
+      style={{ ...style, "--butSize": `${size}px` }}
       onClick={onClick} >
       {name.toUpperCase()}
     </button>
