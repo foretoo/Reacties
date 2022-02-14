@@ -10,7 +10,9 @@ const App = () => (
       <Route path="/create-palette" component={PaletteEditor} />
       <Route path="/:paletteID/:colorID?" component={Palette} />
     </Switch>
-    <Footer />
+    <Footer>
+      <a href="https://github.com/foretoo" target="_blank">github.com/foretoo</a>
+    </Footer>
   </>
 )
 
