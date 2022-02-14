@@ -18,7 +18,7 @@ const SwitcherTheme = () => {
     .map(option => (
       <li
         className={`theme-option` + (option === theme ? ` active` : ``)}
-        onClick={() => handleChangeMode(option)} >
+        onClick={option === theme ? null : () => handleChangeMode(option)} >
         {option}
       </li>
     ))
