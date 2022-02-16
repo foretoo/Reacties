@@ -11,9 +11,11 @@
   flex-grow: 1;
   display: flex;
   flex-wrap: wrap;
-  align-content: flex-start;
   border-radius: 0.5rem;
   overflow: hidden;
+}
+.edit-palette-content > .color-box {
+  height: 25%;
 }
 
 
@@ -26,7 +28,7 @@ svg.burger-icon {
 .palette-name-form {
   flex-grow: 1;
   display: flex;
-  justify-content: baseline;
+  justify-items: baseline;
   align-items: center;
   gap: 1rem;
   padding: 0 1rem;

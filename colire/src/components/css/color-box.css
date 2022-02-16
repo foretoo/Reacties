@@ -6,12 +6,6 @@
   position: relative;
   overflow: hidden;
 }
-.color-box.palette {
-  height: 25%;
-}
-.color-box.color {
-  height: 50%;
-}
 
 @media only screen and (max-width: 768px) {
   .color-box {
