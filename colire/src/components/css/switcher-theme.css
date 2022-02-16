@@ -9,3 +9,6 @@
   color: var(--dark-h);
   cursor: default;
 }
+.dark-theme .theme-option.active {
+  color: var(--light-h);
+}

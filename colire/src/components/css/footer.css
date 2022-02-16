@@ -12,3 +12,6 @@
   font-size: 0.6rem;
   color: var(--dark-m-l);
 }
+.dark-theme .footer * {
+  color: var(--light-m)
+}

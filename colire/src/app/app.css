@@ -1,0 +1,9 @@
+.app {
+    display: flex;
+    flex-direction: column;
+    background: var(--dark-l);
+    overflow-y: auto;
+}
+.app.dark-theme {
+    background: var(--dark-h);
+}
