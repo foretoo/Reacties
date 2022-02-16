@@ -9,8 +9,8 @@
   --light-l: rgba(255, 255, 255, 0.25);
   --dark-h: rgba(0, 0, 0, 0.75);
   --dark-m: rgba(0, 0, 0, 0.5);
-  --dark-ml: rgba(0, 0, 0, 0.4);
-  --dark-lm: rgba(0, 0, 0, 0.2);
+  --dark-m-l: rgba(0, 0, 0, 0.4);
+  --dark-l-m: rgba(0, 0, 0, 0.2);
   --dark-l: rgba(0, 0, 0, 0.1);
   --warn: rgba(159, 63, 63, 1);
 }
@@ -24,17 +24,11 @@
   line-height: 1rem;
   box-sizing: border-box;
 }
-html, body, #root {
+html, body, #root, .app {
   width: 100%;
   height: 100%;
   position: fixed;
   overflow: hidden;
-}
-#root {
-  display: flex;
-  flex-direction: column;
-  background-color: var(--dark-l);
-  overflow-y: auto;
 }
 a {
   text-decoration: none;

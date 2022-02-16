@@ -14,7 +14,7 @@
   height: 4rem;
   padding: 1.25rem 1rem;
   gap: 0.5rem;
-  border-bottom: 1px solid var(--dark-lm);
+  border-bottom: 1px solid var(--dark-l-m);
   background-color: white;
 }
 .nav-root,

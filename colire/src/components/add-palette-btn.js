@@ -19,13 +19,12 @@ const AddPaletteBtn = () => {
         width="250"
         height="160"
         viewBox="0 0 250 160"
+        fill="white"
         xmlns="http://www.w3.org/2000/svg" >
 
         <symbol id="rect"
           width="50"
-          height="40"
-          viewbox="0 0 50 40"
-          fill="white" >
+          height="40" >
           <rect
             x="0"
             y="0"
