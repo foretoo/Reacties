@@ -26,7 +26,7 @@ const NewPaletteNameForm = () => {
     window.addEventListener("click", handleClick, false)
   }, [])
   const handleClick = (e) => {
-    setFormState(prev => {
+    setFormState((prev) => {
       if (prev.displayEmojis && !e.path.includes(emojiButtonRef.current)) {
         return { ...prev, displayEmojis: !prev.displayEmojis }
       }
@@ -47,11 +47,11 @@ const NewPaletteNameForm = () => {
       payload: name,
     })
   }
-  const handleDisplayformState = () => {
+  const handleDisplayFormState = () => {
     setFormState((formState) => ({ ...formState, displayEmojis: !formState.displayEmojis }))
   }
   const handleSelectEmoji = (emoji) => {
-    handleDisplayformState()
+    handleDisplayFormState()
     dispatch({
       type:    "CHANGE_PALETTE_EMOJI",
       payload: emoji,
@@ -95,14 +95,14 @@ const NewPaletteNameForm = () => {
       <div className={formClass}>
         <EmojiPicker
           style={{
-            top:  formState.emojisOffset.y,
-            left: formState.emojisOffset.x,
-            visibility: formState.displayEmojis ? "visible" : "hidden"
+            top:        formState.emojisOffset.y,
+            left:       formState.emojisOffset.x,
+            visibility: formState.displayEmojis ? "visible" : "hidden",
           }}
           handleSelectEmoji={handleSelectEmoji} />
         <div className="input-palette-name">
           <input value={paletteName} type="text" placeholder="Enter palette name..." onChange={handleChangePaletteName} />
-          <div ref={emojiButtonRef} onClick={handleDisplayformState}>{emoji}</div>
+          <div ref={emojiButtonRef} onClick={handleDisplayFormState}>{emoji}</div>
         </div>
         <div className="warn-info">{formState.warnText}</div>
         <Button name="Save"
