@@ -1,11 +1,11 @@
 ***Common***
 ============
 
+- [ ] ! add localStorage support to store app state
 - [ ] add widgets folder
 - [ ] move edit-palette-form to widget
 - [ ] move palette/color-content-list to widget folder
-- [ ] !!! add dark theme
-- [ ] ! add localStorage support to store app state
+- [x] ~~add dark theme~~
 ` `  
 ` `  
 ` `  
@@ -15,11 +15,11 @@
 ===========
 
 ### EDIT-PALETTE
-- [ ] !!! fix color-picker hide animation
 - [ ] !!! add mobile
 - [ ] ! style palette view with respect to its colors quantity
 - [ ] change burger icon
 - [ ] validate form in component (clear reducer)
+- [x] ~~fix color-picker hide animation~~
 - [x] ~~change home to root~~
 - [x] ~~fix emoji-picker~~
 - [x] ~~edit-palette-name-form~~
@@ -30,7 +30,7 @@
 - [ ] display color names on mouse hover
 
 ### HOME
-- [ ] create-palette-link fix hover effect
+- [ ] create-palette-link fix hover effect (wiggling & on dark-mode)
 ` `  
 ` `  
 ` `  
