@@ -107,25 +107,28 @@ const Slider = ({
     <div className={classList} style={style}>
       <div ref={pathRef} className="slider-path">
         {GET.mounted && label &&
-        <>
-          <div className="slider-min label"
-            style={{
-              left:       `${GET.handler.width / 2}px`,
-              visibility: GET.value === min ? "hidden" : "visible",
-            }} >
-            {min}
-          </div>
-          <div className="slider-max label"
-            style={{
-              right:      `${GET.handler.width / 2}px`,
-              visibility: GET.value === max ? "hidden" : "visible",
-            }} >
-            {max}
-          </div>
-        </>
+          <>
+            <div className="slider-min label"
+              style={{
+                left:       `${GET.handler.width / 2}px`,
+                visibility: GET.value === min ? "hidden" : "visible",
+              }} >
+              {min}
+            </div>
+            <div className="slider-max label"
+              style={{
+                right:      `${GET.handler.width / 2}px`,
+                visibility: GET.value === max ? "hidden" : "visible",
+              }} >
+              {max}
+            </div>
+          </>
         }
         <div ref={handlerRef} className="slider-handler"
-          style={{ transform: `translate(${GET.handler.translate}px)` }}
+          style={{
+            transform:  `translate(${GET.handler.translate}px)`,
+            visibility: GET.mounted ? `visible` : `hidden`,
+          }}
           onPointerDown={handleStart}
           onPointerMove={handleMove} >
           {label &&
@@ -139,3 +142,5 @@ const Slider = ({
 }
 
 export default Slider
+
+{ /*  */ }
