@@ -1,6 +1,4 @@
 .editor-form {
-  flex-grow: 0;
-  flex-shrink: 0;
   margin-left: 0;
   display: flex;
   flex-direction: column;
@@ -10,7 +8,7 @@
   transition: margin-left 0.5s ease-out;
 }
 .editor-form.hidden {
-  margin-left: -100%;
+  margin-left: -434px;
 }
 
 .editor-form > div:nth-child(1),

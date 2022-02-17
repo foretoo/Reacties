@@ -18,14 +18,14 @@ const PaletteEditor = () => {
     <>
       <Header className="edit-palette-header">
         <div className="nav">
-          <svg className="burger-icon"
+          {/* <svg className="burger-icon"
             width="20" height="20"
             viewBox="0 0 20 20"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             onClick={() => dispatch({ type: "TOGGLE_NEW_COLOR_FORM" })} >
             <path d="M18 10H2M18 4H2M18 16H2" strokeWidth="2" strokeLinecap="round"/>
-          </svg>
+          </svg> */}
           <Link className="nav-root" to="/">root</Link>
         </div>
         <NewPaletteNameForm />

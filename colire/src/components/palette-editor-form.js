@@ -69,12 +69,12 @@ const PaletteEditorForm = () => {
     <ColorPicker className={formClass}
       color={color.color}
       onChange={handleChangeColor} >
-      <div>
+      <div style={{ marginBottom: "20px" }}>
         <Button name="Random" onClick={handleRandomColor} />
         <Switcher options={[ "RGB", "HEX" ]} />
       </div>
-      <HueHandler size={240} style={{ margin: "auto 0" }} />
-      <div>
+      <HueHandler size={240} />
+      <div style={{ marginTop: "40px" }}>
         <ToneHandler size={150} />
         <input className={inputClass}
           type="text"

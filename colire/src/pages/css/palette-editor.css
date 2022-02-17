@@ -29,9 +29,9 @@ svg.burger-icon {
   flex-grow: 1;
   display: flex;
   justify-items: baseline;
-  align-items: center;
+  align-items: flex-end;
   gap: 1rem;
-  padding: 0 1rem;
+  padding: 1rem;
 }
 .palette-name-form .warn-info {
   display: none;
