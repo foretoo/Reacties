@@ -33,12 +33,29 @@ const Palette = () => {
   const Content = () => (
     colorID
       ? <ColorListContent
-        colors={palette.colors[colorID]}
-        handleCopy={handleCopy} />
+          id={colorID}
+          name={palette.colors[colorID].name}
+          levels={palette.colors[colorID].levels}
+          handleCopy={handleCopy} />
       : <PaletteListContent
-        colors={palette.colors}
-        activeLevel={palette.activeLevel}
-        handleCopy={handleCopy} />
+          colors={palette.colors}
+          activeLevel={palette.activeLevel}
+          handleCopy={handleCopy} />
+  )
+  const Navigation = () => (
+    colorID
+      ? <>
+          <Link to={`/${paletteID}/`}>
+            <span className="nav-palette-name">{palette.paletteName}</span>
+            <span className="nav-palette-emoji">{palette.emoji}</span>
+          </Link>
+          <span className="nav-slash">/</span>
+          <span className="nav-palette-name active">{palette.colors[colorID].name}</span>
+        </>
+      : <>
+          <span className="nav-palette-name active">{palette.paletteName}</span>
+          <span className="nav-palette-emoji">{palette.emoji}</span>
+        </>
   )
 
   return (
@@ -47,8 +64,7 @@ const Palette = () => {
         <nav className="nav">
           <Link className="nav-root" to="/">root</Link>
           <span className="nav-slash">/</span>
-          <span className="nav-palette-name">{palette.paletteName}</span>
-          <span className="nav-palette-emoji">{palette.emoji}</span>
+          <Navigation />
         </nav>
         <section className="controls">
           {colorID ? null : <SliderLevel id={paletteID} level={palette.activeLevel}/>}
