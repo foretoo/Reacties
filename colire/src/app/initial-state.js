@@ -1,12 +1,22 @@
 import { seedColors } from "@utils/constants"
-import { addLevelProp, colorScaler } from "@utils/helpers"
+import {
+  addLevelProp,
+  colorScaler,
+  getScheme,
+  matchDarkTheme,
+} from "@utils/helpers"
 
 const palettes = []
-
 for (const palette of seedColors) {
   const newPalette = colorScaler(addLevelProp(palette))
   palettes.push(newPalette)
 }
+
+const localStorageTheme = getScheme()
+const switcherTheme = localStorageTheme ? localStorageTheme : "auto"
+const actualTheme =
+    localStorageTheme ? localStorageTheme
+  : matchDarkTheme()  ? "dark" : "light"
 
 const initialState = {
   palettes,
@@ -34,7 +44,8 @@ const initialState = {
       warnText: "",
     },
   },
-  theme: "auto",
+  switcherTheme,
+  actualTheme,
 }
 
 export default initialState

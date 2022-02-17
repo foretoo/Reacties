@@ -7,7 +7,7 @@ import "./css/home.css"
 
 const Home = () => {
 
-  const { state: { palettes, theme }, dispatch } = useContext(Context)
+  const { state: { palettes, actualTheme }, dispatch } = useContext(Context)
 
   const handleDeletePalette = (id) => {
     dispatch({
@@ -38,11 +38,11 @@ const Home = () => {
       </main>
 
       <SVGFilter
-        y          = {theme === "dark" ?  8    : 16}
-        blur       = {theme === "dark" ?  12   : 16}
-        brightness = {theme === "dark" ?  0.5  : 2}
-        intercept  = {theme === "dark" ? -0.1  : 0.2}
-        saturate   = {theme === "dark" ?  1    : 1.333} />
+        y          = {actualTheme === "dark" ?  8    : 16}
+        blur       = {actualTheme === "dark" ?  12   : 16}
+        brightness = {actualTheme === "dark" ?  0.75  : 2}
+        intercept  = {actualTheme === "dark" ? -0.1  : 0.2}
+        saturate   = {actualTheme === "dark" ?  1    : 1.333} />
     </>
   )
 }

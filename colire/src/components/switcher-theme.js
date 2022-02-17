@@ -5,7 +5,7 @@ import "./css/switcher-theme.css"
 
 const SwitcherTheme = () => {
 
-  const { state: { theme }, dispatch } = useContext(Context)
+  const { state: { switcherTheme }, dispatch } = useContext(Context)
 
   const handleChangeMode = (theme) => {
     dispatch({
@@ -17,8 +17,8 @@ const SwitcherTheme = () => {
   const themes = [ "dark", "auto", "light" ]
     .map((option) => (
       <li
-        className={`theme-option` + (option === theme ? ` active` : ``)}
-        onClick={option === theme ? null : () => handleChangeMode(option)} >
+        className={`theme-option` + (option === switcherTheme ? ` active` : ``)}
+        onClick={option === switcherTheme ? null : () => handleChangeMode(option)} >
         {option}
       </li>
     ))

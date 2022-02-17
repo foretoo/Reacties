@@ -7,9 +7,9 @@ import { Footer, SwitcherTheme } from "@components"
 import "./app.css"
 
 const App = () => {
-  const { state: { theme }} = useContext(Context)
+  const { state: { actualTheme }} = useContext(Context)
   return (
-    <div className={`app` + (theme === `dark` ? ` dark-theme` : ``)}>
+    <div className={`app` + (actualTheme === `dark` ? ` dark-theme` : ``)}>
       <Switch>
         <Route path="/" exact component={Home}/>
         <Route path="/create-palette" component={PaletteEditor}/>
