@@ -1,4 +1,4 @@
-import { h, Fragment } from "preact"
+import { h } from "preact"
 import { Switch, Route } from "react-router-dom"
 import { useContext } from "preact/hooks"
 import { Context } from "@app"
