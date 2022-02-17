@@ -5,6 +5,7 @@ const SVGFilter = ({
   y = 0,
   blur = 10,
   brightness = 1,
+  intercept = 0,
   saturate = 1,
 }) => (
   <svg xmlns="http://www.w3.org/2000/svg" style={{ height: 0 }}>
@@ -18,9 +19,9 @@ const SVGFilter = ({
       color-interpolation-filters="linearRGB" >
 
       <feComponentTransfer in="SourceGraphic" result="brightness">
-        <feFuncR type="linear" slope={brightness} intercept={0.1} />
-        <feFuncG type="linear" slope={brightness} intercept={0.1} />
-        <feFuncB type="linear" slope={brightness} intercept={0.1} />
+        <feFuncR type="linear" slope={brightness} intercept={intercept} />
+        <feFuncG type="linear" slope={brightness} intercept={intercept} />
+        <feFuncB type="linear" slope={brightness} intercept={intercept} />
       </feComponentTransfer>
 
       <feColorMatrix in="brightness"
@@ -47,3 +48,4 @@ const SVGFilter = ({
 )
 
 export default SVGFilter
+//values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0"
