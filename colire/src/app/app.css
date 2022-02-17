@@ -5,5 +5,5 @@
     overflow-y: auto;
 }
 .app.dark-theme {
-    background: var(--dark-h);
+    background: var(--dark);
 }

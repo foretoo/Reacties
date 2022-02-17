@@ -19,6 +19,9 @@
   font-size: 0.9rem;
   color: var(--dark-h);
 }
+.dark-theme .palette-box-name {
+  color: var(--light-h);
+}
 .palette-box-content {
   display: flex;
   flex-wrap: wrap;

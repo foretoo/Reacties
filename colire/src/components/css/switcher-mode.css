@@ -22,3 +22,23 @@
     width: auto;
   }
 }
+
+
+
+.dark-theme .switcher {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.dark-theme .switch-case {
+  color: var(--light-m);
+}
+.dark-theme .switch-case.active {
+  color: var(--dark-h);
+}
+.dark-theme .switch-handler {
+  background-color: var(--light);
+  box-shadow:
+    0px
+    calc(var(--height) / 10)
+    calc(var(--height) / 5)
+    rgba(255, 255, 255, 0.25);
+}

@@ -14,22 +14,33 @@
   height: 4rem;
   padding: 1.25rem 1rem;
   gap: 0.5rem;
+  color: var(--dark-m);
   border-bottom: 1px solid var(--dark-l-m);
   background-color: white;
+}
+.dark-theme .header .nav {
+  color: var(--light-m);
+  background-color: var(--light-xl);
+  border-bottom: 1px solid var(--dark);
 }
 .nav-root,
 .nav-slash,
 .nav-palette-name,
 .nav-palette-emoji {
   line-height: calc(1rem - 1px);
-  color: var(--dark-m);
 }
-a.nav-root, a.nav-palette-name {
+.nav a {
   border-bottom: 1px solid var(--dark-l);
+}
+.dark-theme .nav a {
+  border-bottom: 1px solid var(--light-l);
 }
 .nav-palette-name {
   font-weight: 700;
   color: var(--dark-h);
+}
+.dark-theme .nav-palette-name {
+  color: var(--light);
 }
 .nav-palette-emoji {
   font-size: 1.25rem;

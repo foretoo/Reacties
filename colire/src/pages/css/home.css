@@ -24,6 +24,9 @@
   font-style: italic;
   transform: translate(-3.3rem, 1rem);
 }
+.dark-theme .home-header {
+  color: var(--light);
+}
 
 
 

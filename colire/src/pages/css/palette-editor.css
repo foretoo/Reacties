@@ -51,7 +51,12 @@ svg.burger-icon {
   border-radius: 0.5rem;
   border: 2px solid var(--dark-l);
 }
+.dark-theme .input-palette-name {
+  color: var(--light-h);
+  border: 2px solid var(--light-xl);
+}
 .input-palette-name input {
+  color: inherit;
   flex-grow: 1;
   margin-left: 1rem;
   background-color: transparent;
