@@ -5,7 +5,7 @@ import "./css/palette-box.css"
 const PaletteBox = ({ id, paletteName, colors, handleDeletePalette }) => {
   const colorList = []
   for (const color in colors) {
-    const style = { background: colors[color][500].hex }
+    const style = { background: colors[color].levels[4].hex }
     colorList.push(<div className="palette-box-color" style={style}></div>)
   }
   return (

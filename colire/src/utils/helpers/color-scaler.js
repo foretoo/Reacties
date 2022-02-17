@@ -20,15 +20,14 @@ const colorScaler = (palette) => {
     colors: {},
   }
   for (const color of palette.colors) {
-    const name = color.name.toLowerCase().replace(/ /g, "-")
-    newPalette.colors[name] = {}
+    const id = color.name.toLowerCase().replace(/ /g, "-")
+    newPalette.colors[id] = { name: color.name, levels: []}
     const scale = getScale(color.color, levels.length).reverse()
-    for (const i in scale) {
-      newPalette.colors[name][levels[i]] = {
-        name: `${color.name} ${levels[i]}`,
-        hex:  scale[i],
-        rgb:  chroma(scale[i]).css(),
-      }
+    for (const hex of scale) {
+      newPalette.colors[id].levels.push({
+        hex,
+        rgb: chroma(hex).css(),
+      })
     }
   }
   return newPalette

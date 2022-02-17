@@ -4,13 +4,15 @@ import { ColorBox, withMore } from "@components"
 const PaletteListContent = ({ colors, activeLevel, handleCopy }) => {
 
   const colorsList = []
-  for (const color in colors) {
+  for (const colorID in colors) {
     colorsList.push(
       <ColorBox
-        key={color}
-        id={color}
+        key={colorID}
+        id={colorID}
+        name={colors[colorID].name}
+        level={activeLevel}
         contentClass=" palette"
-        {...colors[color][activeLevel]}
+        {...colors[colorID].levels[(activeLevel / 100) - 1]}
         handleCopy={handleCopy} />,
     )
   }
