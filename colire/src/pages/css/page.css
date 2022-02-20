@@ -3,6 +3,8 @@
   flex-grow: 1;
   display: flex;
   margin: 0 1rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
 }
 
 .palette-content {
@@ -12,8 +14,6 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  border-radius: 0.5rem;
-  overflow: hidden;
 }
 .color-content {
   position: absolute;
