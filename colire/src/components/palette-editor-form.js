@@ -69,13 +69,23 @@ const PaletteEditorForm = () => {
     <ColorPicker className={formClass}
       color={color.color}
       onChange={handleChangeColor} >
-      <div style={{ marginBottom: "20px" }}>
+      <div>
         <Button name="Random" onClick={handleRandomColor} />
         <Switcher options={[ "RGB", "HEX" ]} />
       </div>
-      <HueHandler size={240} />
-      <div style={{ marginTop: "40px" }}>
-        <ToneHandler size={150} />
+      <input className="editor-color-name"
+          type="number"
+          placeholder="color code"
+          style={{
+            alignSelf: "flex-end",
+            width: "122px",
+            padding: "10px",
+          }} />
+      <HueHandler
+        size={180}
+        style={{ marginBottom: "40px", marginTop: "20px" }} />
+      <div>
+        <ToneHandler size={100} />
         <input className={inputClass}
           type="text"
           value={color.name}
@@ -83,7 +93,7 @@ const PaletteEditorForm = () => {
           style={{
             backgroundColor: color.color,
             width: "150px",
-            padding: "120px 10px 10px 10px",
+            padding: "70px 10px 10px 10px",
             transition: pickerMoving ? "none" : "0.2s",
           }}
           onChange={handleChangeColorName} />

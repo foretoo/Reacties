@@ -12,9 +12,9 @@
 }
 
 .editor-form > div:nth-child(1),
-.editor-form > div:nth-child(3) {
+.editor-form > div:nth-child(4) {
   display: flex;
-  gap: 1.5rem;
+  gap: 1rem;
   justify-content: space-between;
   width: 100%;
 }
