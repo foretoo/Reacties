@@ -7,26 +7,7 @@ const paletteReducer = (state, action) => {
       copy: { code, lumClass },
     }
   }
-  case "COPY_OVERLAY_SHOW": {
-    return {
-      ...state,
-      copy: {
-        ...state.copy,
-        show: true,
-      },
-    }
-  }
-  case "COPY_OVERLAY_HIDE": {
-    return {
-      ...state,
-      copy: {
-        ...state.copy,
-        show: false,
-      },
-    }
-  }
-
-
+  
   case "CHANGE_COLOR_MODE": {
     return {
       ...state,
@@ -35,25 +16,6 @@ const paletteReducer = (state, action) => {
       },
     }
   }
-  case "COLOR_MODE_SHOW": {
-    return {
-      ...state,
-      format: {
-        ...state.format,
-        show: true,
-      },
-    }
-  }
-  case "COLOR_MODE_HIDE": {
-    return {
-      ...state,
-      format: {
-        ...state.format,
-        show: false,
-      },
-    }
-  }
-
 
   case "CHANGE_PALETTE_LEVEL": {
     const newPalettes = state.palettes.map((palette) => {
