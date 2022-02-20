@@ -1,5 +1,6 @@
 .color-box {
   width: 20%;
+  padding: 0.4rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -15,16 +16,19 @@
     width: 25%;
     height: 20%;
   }
+  .color-box.color {
+    flex-direction: row-reverse;
+  }
 }
 
 
 
 /*    INFO    */
 .color-box-info {
-  min-height: 28px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
+  gap: 0.5rem;
   opacity: 0;
   transition: 0.5s;
 }
@@ -32,14 +36,12 @@
   opacity: 1;
 }
 .color-box-info-name {
-  margin-left: 8px;
   font-family: 'IBM Plex Mono', monospace;
   font-style: italic;
   font-size: 0.6rem;
   line-height: 0.6rem;
 }
 .color-box-info-more {
-  margin: 4px;
   padding: 4px 6px;
   border-radius: 2px;
   font-size: 0.6rem;
@@ -72,11 +74,6 @@
   transition: 0.5s;
 }
 .color-box:hover .color-box-button {
-  opacity: 1;
-}
-.back .color-box-button {
-  color: var(--dark-h);
-  border: 1px solid var(--dark-l);
   opacity: 1;
 }
 .light .color-box-button {
