@@ -6,20 +6,19 @@ import "./css/switcher-mode.css"
 
 const SwitcherMode = () => {
 
-  const { dispatch } = useContext(Context)
+  const { state: { format }, dispatch } = useContext(Context)
 
   const handleChangeMode = (format) => {
     dispatch({
       type:    "CHANGE_COLOR_MODE",
       payload: format,
     })
-    dispatch({ type: "COLOR_MODE_SHOW" })
-    setTimeout(() => dispatch({ type: "COLOR_MODE_HIDE" }), 1600)
   }
 
   return (
     <Switcher
       className="switcher-mode"
+      defaultValue={format}
       options={[ "RGB", "HEX" ]}
       onChange={handleChangeMode} />
   )
