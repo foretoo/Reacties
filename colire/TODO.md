@@ -17,7 +17,7 @@
 ### EDIT-PALETTE
 - [ ] !!! add mobile
 - [ ] ! style palette view with respect to its colors quantity
-- [ ] change burger icon
+- [ ] ! change burger icon
 - [ ] validate form in component (clear reducer)
 - [x] ~~fix color-picker hide animation~~
 - [x] ~~change home to root~~
@@ -26,11 +26,12 @@
 - [x] ~~edit-palette header~~
 
 ### PALETTE
-- [ ] !!! restyle color subpage
-- [ ] display color names on mouse hover
+- [ ] !!! add export & edit & delete buttons
+- [x] ~~restyle color subpage~~
+- [x] ~~display color names on mouse hover~~
 
 ### HOME
-- [ ] create-palette-link fix hover effect (wiggling & on dark-mode)
+- [ ] ! fix create-palette-link hover effect (wiggling & on dark-mode)
 ` `  
 ` `  
 ` `  
