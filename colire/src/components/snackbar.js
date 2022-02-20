@@ -17,6 +17,7 @@ const Snackbar = () => {
       tl.to(ref.current, { top: "-60px" }, "+=1")
     }
     mounted.current = true
+    return () => tl.kill()
   }, [ format ])
 
   return (
