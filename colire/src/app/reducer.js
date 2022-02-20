@@ -1,4 +1,4 @@
-import { paletteReducer, editPaletteReducer, themeReducer } from "@app"
+import { paletteReducer, editPaletteReducer, themeReducer } from "./reducers"
 
 const reduceReducers = (...reducers) => (state, action) =>
   reducers.reduce((acc, nextReducer) => nextReducer(acc, action), state)
