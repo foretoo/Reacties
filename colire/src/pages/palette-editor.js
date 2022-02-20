@@ -26,7 +26,10 @@ const PaletteEditor = () => {
             onClick={() => dispatch({ type: "TOGGLE_NEW_COLOR_FORM" })} >
             <path d="M18 10H2M18 4H2M18 16H2" strokeWidth="2" strokeLinecap="round"/>
           </svg> */}
-          <Link className="nav-root" to="/">root</Link>
+          <Link className="nav-link" to="/">root</Link>
+          <span className="nav-slash">/</span>
+          <span className="nav-palette-name">Create palette</span>
+          <span className="nav-palette-emoji">🧑‍🎨</span>
         </div>
         <NewPaletteNameForm />
       </Header>

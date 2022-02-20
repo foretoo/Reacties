@@ -15,9 +15,9 @@ import "./css/page.css"
 
 const Palette = () => {
 
-  const { state, dispatch } = useContext(Context)
+  const { state: { palettes }, dispatch } = useContext(Context)
   const { paletteID, colorID } = useParams()
-  const palette = state.palettes.find((palette) => palette.id === paletteID)
+  const palette = palettes.find((palette) => palette.id === paletteID)
 
   const handleCopy = (code, lumClass) => {
     dispatch({
@@ -32,37 +32,39 @@ const Palette = () => {
 
   const Content = () => (
     colorID
-      ? <ColorListContent
-          id={colorID}
-          name={palette.colors[colorID].name}
-          levels={palette.colors[colorID].levels}
-          handleCopy={handleCopy} />
-      : <PaletteListContent
+    ? <ColorListContent
+        id={colorID}
+        name={palette.colors[colorID].name}
+        levels={palette.colors[colorID].levels}
+        handleCopy={handleCopy} />
+    : <div className="palette-content">
+        <PaletteListContent
           colors={palette.colors}
           activeLevel={palette.activeLevel}
           handleCopy={handleCopy} />
+      </div>
   )
   const Navigation = () => (
     colorID
-      ? <>
-          <Link to={`/${paletteID}/`}>
-            <span className="nav-palette-name">{palette.paletteName}</span>
-            <span className="nav-palette-emoji">{palette.emoji}</span>
-          </Link>
-          <span className="nav-slash">/</span>
-          <span className="nav-palette-name active">{palette.colors[colorID].name}</span>
-        </>
-      : <>
-          <span className="nav-palette-name active">{palette.paletteName}</span>
+    ? <>
+        <Link to={`/${paletteID}/`}>
+          <span>{palette.paletteName}</span>
           <span className="nav-palette-emoji">{palette.emoji}</span>
-        </>
+        </Link>
+        <span className="nav-slash">/</span>
+        <span className="nav-palette-name">{palette.colors[colorID].name}</span>
+      </>
+    : <>
+        <span className="nav-palette-name">{palette.paletteName}</span>
+        <span className="nav-palette-emoji">{palette.emoji}</span>
+      </>
   )
 
   return (
     <>
       <Header>
         <nav className="nav">
-          <Link className="nav-root" to="/">root</Link>
+          <Link className="nav-link" to="/">root</Link>
           <span className="nav-slash">/</span>
           <Navigation />
         </nav>
