@@ -4,7 +4,7 @@ const paletteReducer = (state, action) => {
     const { code, lumClass } = action.payload
     return {
       ...state,
-      copy: { code, lumClass },
+      overlay: { code, lumClass },
     }
   }
   

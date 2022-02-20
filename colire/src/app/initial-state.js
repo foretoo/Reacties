@@ -20,7 +20,7 @@ const actualTheme =
 
 const initialState = {
   palettes,
-  copy: {
+  overlay: {
     code:     "",
     lumClass: "",
   },

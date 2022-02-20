@@ -6,7 +6,7 @@ import { gsap } from "gsap"
 
 const Overlay = () => {
 
-  const { state: { copy: { lumClass, code }}} = useContext(Context)
+  const { state: { overlay: { lumClass, code }}} = useContext(Context)
   const ref = useRef(null)
   const mounted = useRef(false)
   const tl = gsap.timeline({ defaults: { duration: 0.5 }})
