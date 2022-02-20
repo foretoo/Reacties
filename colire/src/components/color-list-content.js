@@ -2,7 +2,6 @@ import { h, Fragment } from "preact"
 import { ColorBox } from "@components"
 
 const ColorListContent = ({ id, name, levels, handleCopy }) => {
-  console.log(levels);
 
   const lightLevels = [],
         darkLevels  = []
