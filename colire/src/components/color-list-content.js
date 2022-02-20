@@ -1,28 +1,52 @@
 import { h, Fragment } from "preact"
-import { useHistory } from "react-router-dom"
 import { ColorBox } from "@components"
 
 const ColorListContent = ({ id, name, levels, handleCopy }) => {
+  console.log(levels);
 
-  const history = useHistory()
+  const lightLevels = [],
+        darkLevels  = []
 
-  const colorsList = levels.map((level, i) => (
-    <ColorBox
-      key={`${id}-${level}`}
-      name={name}
-      level={(i + 1) * 100}
-      contentClass=" color"
-      {...level}
-      handleCopy={handleCopy} />
-  ))
+  levels.forEach((level, i) => {
+    if (i < 4)
+      lightLevels.push(
+        <ColorBox
+          key={`${id}-${(i + 1) * 100}`}
+          name={name}
+          level={(i + 1) * 100}
+          contentClass=" color"
+          {...level}
+          handleCopy={handleCopy} />
+      )
+    else if (i > 4)
+      darkLevels.push(
+        <ColorBox
+          key={`${id}-${(i + 1) * 100}`}
+          name={name}
+          level={(i + 1) * 100}
+          contentClass=" color"
+          {...level}
+          handleCopy={handleCopy} />
+      )
+  })
 
   return (
-    <>
-      {colorsList}
-      <div className="color-box back">
-        <button className="color-box-button" onClick={history.goBack}>GO BACK</button>
+    <div className="color-content">
+      <div className="light-levels">
+        {lightLevels}
       </div>
-    </>
+      <div className="init-color">
+        <ColorBox
+          name={name}
+          level={500}
+          contentClass=" color"
+          {...levels[4]}
+          handleCopy={handleCopy} />
+      </div>
+      <div className="dark-levels">
+        {darkLevels}
+      </div>
+    </div>
   )
 }
 

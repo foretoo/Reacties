@@ -3,19 +3,16 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  position: relative;
   overflow: hidden;
+}
+.color-box.color {
+  flex-grow: 1;
+  width: auto;
 }
 
 @media only screen and (max-width: 768px) {
-  .color-box {
-    width: 25%;
-  }
   .color-box.palette {
-    height: 20%;
-  }
-  .color-box.color {
-    width: 50%;
+    width: 25%;
     height: 20%;
   }
 }
@@ -24,10 +21,15 @@
 
 /*    INFO    */
 .color-box-info {
-  min-height: 28px;;
+  min-height: 28px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  opacity: 0;
+  transition: 0.5s;
+}
+.color-box:hover .color-box-info {
+  opacity: 1;
 }
 .color-box-info-name {
   margin-left: 8px;
@@ -67,10 +69,10 @@
   border-radius: 2px;
   font-size: 0.8rem;
   opacity: 0;
+  transition: 0.5s;
 }
 .color-box:hover .color-box-button {
   opacity: 1;
-  transition: 0.5s;
 }
 .back .color-box-button {
   color: var(--dark-h);
