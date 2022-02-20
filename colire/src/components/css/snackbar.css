@@ -8,4 +8,5 @@
   color: var(--light-h);
   border-radius: 4px;
   background: var(--dark-m);
+  pointer-events: none;
 }

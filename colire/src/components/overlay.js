@@ -13,10 +13,12 @@ const Overlay = () => {
 
   useEffect(() => {
     if (mounted.current) {
-      tl.to(ref.current, { opacity: "1" })
+      tl.to(ref.current, { opacity: "1", pointerEvents: "all" })
       tl.to(ref.current, { opacity: "0" }, "+=1")
+      tl.set(ref.current, { pointerEvents: "none" })
     }
     mounted.current = true
+    return () => tl.kill()
   }, [ overlay ])
 
   return (
