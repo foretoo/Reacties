@@ -2,7 +2,6 @@ import {
   paletteReducer,
   editPaletteReducer,
   themeReducer,
-  animationReducer
 } from "./reducers"
 
 const reduceReducers = (...reducers) => (state, action) =>
@@ -12,5 +11,4 @@ export default reduceReducers(
   paletteReducer,
   editPaletteReducer,
   themeReducer,
-  animationReducer,
 )

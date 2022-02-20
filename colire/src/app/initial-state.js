@@ -21,14 +21,10 @@ const actualTheme =
 const initialState = {
   palettes,
   copy: {
-    show:     false,
     code:     "",
     lumClass: "",
   },
-  format: {
-    show:  false,
-    label: "HEX",
-  },
+  format: "HEX",
   custom: {
     palette:     seedColors[0].colors,
     paletteName: "",

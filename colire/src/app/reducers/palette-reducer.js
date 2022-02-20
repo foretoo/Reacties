@@ -11,9 +11,7 @@ const paletteReducer = (state, action) => {
   case "CHANGE_COLOR_MODE": {
     return {
       ...state,
-      format: {
-        label: action.payload,
-      },
+      format: action.payload,
     }
   }
 

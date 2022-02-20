@@ -9,7 +9,7 @@ const ColorBox = ({ name, hex, rgb, level, button, contentClass, handleCopy }) =
 
   const { state } = useContext(Context)
 
-  const code = state.format.label === "HEX" ? hex : rgb
+  const code = state.format === "HEX" ? hex : rgb
   const lum = chroma(hex).luminance()
   const lumClass = lum < 0.333 ? " light" : " dark"
 

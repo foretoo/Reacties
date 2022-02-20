@@ -1,5 +1,5 @@
 import { h, Fragment } from "preact"
-import { useContext } from "preact/hooks"
+import { useContext, useRef } from "preact/hooks"
 import { Link, useParams } from "react-router-dom"
 import { Context } from "@app"
 import {
@@ -19,16 +19,12 @@ const Palette = () => {
   const { paletteID, colorID } = useParams()
   const palette = palettes.find((palette) => palette.id === paletteID)
 
-  const handleCopy = (code, lumClass) => {
+  const handleCopy = useRef((code, lumClass) => {
     dispatch({
       type:    "COPY",
       payload: { code, lumClass },
     })
-    dispatch({ type: "COPY_OVERLAY_SHOW" })
-    setTimeout(() => {
-      dispatch({ type: "COPY_OVERLAY_HIDE" })
-    }, 1600)
-  }
+  })
 
   const Content = () => (
     colorID
@@ -36,12 +32,12 @@ const Palette = () => {
         id={colorID}
         name={palette.colors[colorID].name}
         levels={palette.colors[colorID].levels}
-        handleCopy={handleCopy} />
+        handleCopy={handleCopy.current} />
     : <div className="palette-content">
         <PaletteListContent
           colors={palette.colors}
           activeLevel={palette.activeLevel}
-          handleCopy={handleCopy} />
+          handleCopy={handleCopy.current} />
       </div>
   )
   const Navigation = () => (
@@ -75,9 +71,9 @@ const Palette = () => {
       </Header>
 
       <main className="content-container">
-        <Snackbar />
-        <Overlay />
         <Content />
+        <Overlay />
+        <Snackbar />
       </main>
     </>
   )
