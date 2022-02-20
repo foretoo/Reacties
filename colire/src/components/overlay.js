@@ -6,7 +6,7 @@ import { gsap } from "gsap"
 
 const Overlay = () => {
 
-  const { state: { overlay: { lumClass, code }}} = useContext(Context)
+  const { state: { overlay }} = useContext(Context)
   const ref = useRef(null)
   const mounted = useRef(false)
   const tl = gsap.timeline({ defaults: { duration: 0.5 }})
@@ -17,15 +17,15 @@ const Overlay = () => {
       tl.to(ref.current, { opacity: "0" }, "+=1")
     }
     mounted.current = true
-  }, [ code ])
+  }, [ overlay ])
 
   return (
     <section
       ref={ref}
-      className={"overlay" + lumClass}
-      style={{ background: code }} >
+      className={"overlay" + overlay.lumClass}
+      style={{ background: overlay.code }} >
       <h1>Copied</h1>
-      <span>{code}</span>
+      <span>{overlay.code}</span>
     </section>
   )
 }
