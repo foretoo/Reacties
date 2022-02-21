@@ -1,18 +1,17 @@
 import { h } from "preact"
-import { useContext } from "preact/hooks"
-import { Context } from "@app"
+import { useConst, useCtx } from "@utils/hooks"
 import "./css/switcher-theme.css"
 
 const SwitcherTheme = () => {
 
-  const { state: { switcherTheme }, dispatch } = useContext(Context)
+  const { state: { switcherTheme }, dispatch } = useCtx()
 
-  const handleChangeMode = (theme) => {
+  const handleChangeMode = useConst((theme) => {
     dispatch({
       type:    "CHANGE_THEME",
       payload: theme,
     })
-  }
+  })
 
   const themes = [ "dark", "auto", "light" ]
     .map((option) => (
