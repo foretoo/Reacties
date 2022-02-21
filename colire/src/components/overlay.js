@@ -1,15 +1,15 @@
 import { h } from "preact"
-import { useContext, useEffect, useRef } from "preact/hooks"
-import { Context } from "@app"
-import "./css/overlay.css"
 import { gsap } from "gsap"
+import { useEffect, useRef } from "preact/hooks"
+import { useConst, useCtx } from "@utils/hooks"
+import "./css/overlay.css"
 
 const Overlay = () => {
 
-  const { state: { overlay }} = useContext(Context)
+  const { state: { overlay }} = useCtx()
   const ref = useRef(null)
   const mounted = useRef(false)
-  const tl = gsap.timeline({ defaults: { duration: 0.5 }})
+  const tl = useConst(gsap.timeline({ defaults: { duration: 0.5 }}))
 
   useEffect(() => {
     if (mounted.current) {
