@@ -7,8 +7,7 @@
   overflow: hidden;
 }
 .color-box.color {
-  flex-grow: 1;
-  width: auto;
+  width: calc((100vw - 2rem) / 9);
 }
 
 @media only screen and (max-width: 768px) {
@@ -17,6 +16,8 @@
     height: 20%;
   }
   .color-box.color {
+    width: 100%;
+    flex-grow: 1;
     flex-direction: row-reverse;
   }
 }

@@ -41,4 +41,11 @@
   .dark-levels {
     flex-direction: column;
   }
+  .light-levels,
+  .dark-levels {
+    height: calc((100% - 2rem) * 4 / 9);
+  }
+  .init-color {
+    height: calc((100% - 2rem) / 9);
+  }
 }
