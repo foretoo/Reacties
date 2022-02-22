@@ -1,7 +1,7 @@
 import { h, Fragment } from "preact"
-import { useContext, useRef } from "preact/hooks"
-import { Link, useParams } from "react-router-dom"
-import { Context } from "@app"
+import { Link, useParams, useHistory } from "react-router-dom"
+import { useCtx, useConst } from "@utils/hooks"
+import { Button } from "@assets"
 import {
   Header,
   Overlay,
@@ -15,15 +15,23 @@ import "./css/page.css"
 
 const Palette = () => {
 
-  const { state: { palettes }, dispatch } = useContext(Context)
+  const history = useHistory()
+  const { state: { palettes }, dispatch } = useCtx()
   const { paletteID, colorID } = useParams()
   const palette = palettes.find((palette) => palette.id === paletteID)
 
-  const handleCopy = useRef((code, lumClass) => {
+  const handleCopy = useConst((code, lumClass) => {
     dispatch({
       type:    "COPY",
       payload: { code, lumClass },
     })
+  })
+  const handleDeletePalette = useConst(() => {
+    dispatch({
+      type:    "DELETE_PALETTE",
+      payload: paletteID,
+    })
+    history.push("/")
   })
 
   const Content = () => (
@@ -32,12 +40,12 @@ const Palette = () => {
         id={colorID}
         name={palette.colors[colorID].name}
         levels={palette.colors[colorID].levels}
-        handleCopy={handleCopy.current} />
+        handleCopy={handleCopy} />
     : <div className="palette-content">
         <PaletteListContent
           colors={palette.colors}
           activeLevel={palette.activeLevel}
-          handleCopy={handleCopy.current} />
+          handleCopy={handleCopy} />
       </div>
   )
   const Navigation = () => (
@@ -59,11 +67,18 @@ const Palette = () => {
   return (
     <>
       <Header>
-        <nav className="nav">
-          <Link className="nav-link" to="/">root</Link>
-          <span className="nav-slash">/</span>
-          <Navigation />
-        </nav>
+        <div className="header-container">
+          <nav className="header-nav">
+            <Link className="nav-link" to="/">root</Link>
+            <span className="nav-slash">/</span>
+            <Navigation />
+          </nav>
+          <div >
+            <Button name="Export" type="idle" />
+            <Button name="Edit" type="idle" />
+            <Button name="Delete" type="idle" onClick={handleDeletePalette} />
+          </div>
+        </div>
         <section className="controls">
           {colorID ? null : <SliderLevel id={paletteID} level={palette.activeLevel}/>}
           <SwitcherMode />

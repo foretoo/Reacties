@@ -1,6 +1,6 @@
 import { h, Fragment } from "preact"
 import { Link } from "react-router-dom"
-import { useCtx, useConst } from "@utils/hooks"
+import { useCtx } from "@utils/hooks"
 import { AddPaletteBtn, SVGFilter, PaletteBox } from "@components"
 import "./css/home.css"
 
@@ -8,15 +8,8 @@ const Home = () => {
 
   const { state: { palettes, actualTheme }, dispatch } = useCtx()
 
-  const handleDeletePalette = useConst((id) => {
-    dispatch({
-      type:    "DELETE_PALETTE",
-      payload: id,
-    })
-  })
-
   const paletteLinks = palettes.map((palette) => (
-    <PaletteBox handleDeletePalette={handleDeletePalette} {...palette} />
+    <PaletteBox {...palette} />
   ))
 
   return (
