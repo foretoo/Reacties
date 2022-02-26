@@ -5,10 +5,10 @@ import EmojiPicker from "./emoji-picker"
 import Footer from "./footer"
 import Header from "./header"
 import withMore from "./hoc-with-more"
-import NewPaletteNameForm from "./new-palette-name-form"
 import Overlay from "./overlay"
 import PaletteBox from "./palette-box"
 import PaletteEditorForm from "./palette-editor-form"
+import PaletteEditorNameForm from "./palette-editor-name-form"
 import PaletteListContent from "./palette-list-content"
 import SliderLevel from "./slider-level"
 import Snackbar from "./snackbar"
@@ -26,7 +26,7 @@ export {
   Footer,
   Header,
   withMore,
-  NewPaletteNameForm,
+  PaletteEditorNameForm,
   Overlay,
   PaletteBox,
   PaletteEditorForm,

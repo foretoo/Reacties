@@ -6,7 +6,7 @@ import { getID } from "@utils/helpers"
 import { Button } from "@assets"
 import { EmojiPicker } from "@components"
 
-const NewPaletteNameForm = ({ paletteID }) => {
+const PaletteEditorNameForm = ({ paletteID }) => {
 
   const { state: { palettes, editor }, dispatch } = useCtx()
   let name, palette, emoji
@@ -132,4 +132,4 @@ const NewPaletteNameForm = ({ paletteID }) => {
   )
 }
 
-export default NewPaletteNameForm
+export default PaletteEditorNameForm

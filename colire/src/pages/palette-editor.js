@@ -5,7 +5,7 @@ import {
   Header,
   SortablePalette,
   PaletteEditorForm,
-  NewPaletteNameForm,
+  PaletteEditorNameForm,
 } from "@components"
 import "./css/palette-editor.css"
 
@@ -52,7 +52,7 @@ const PaletteEditor = () => {
             <Navigation />
           </nav>
         </div>
-        <NewPaletteNameForm paletteID={paletteID} />
+        <PaletteEditorNameForm paletteID={paletteID} />
       </Header>
 
       <main className="edit-palette-container">
