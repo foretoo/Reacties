@@ -1,22 +1,29 @@
 import addLevelProp from "./add-level-prop"
 import colorScaler from "./color-scaler"
-import { calcAngle, clamp, round, r3d } from "./math"
+import getID from "./get-id"
 import {
   getScheme,
   saveScheme,
   clearScheme,
   matchDarkTheme
 } from "./local-storage-helper"
-
-export {
-  addLevelProp,
-  colorScaler,
+import {
   calcAngle,
   clamp,
   round,
   r3d,
+} from "./math"
+
+export {
+  addLevelProp,
+  colorScaler,
+  getID,
   getScheme,
   saveScheme,
   clearScheme,
   matchDarkTheme,
+  calcAngle,
+  clamp,
+  round,
+  r3d,
 }
