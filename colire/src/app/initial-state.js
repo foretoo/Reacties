@@ -20,18 +20,17 @@ const actualTheme =
 
 const initialState = {
   palettes,
-  overlay: {
-    code:     "",
-    lumClass: "",
-  },
   format: "HEX",
-  custom: {
-    palette:     seedColors[0].colors,
-    paletteName: "",
-    emoji:       "🖖",
-    color:       {
-      name:  "",
-      color: "#ffffff",
+  editor: {
+    toEdit:   {},
+    toCreate: {
+      palette: seedColors[0].colors,
+      name:    "",
+      emoji:   "🖖",
+      color:   {
+        name:  "",
+        color: "#ffffff",
+      },
     },
     hidden: false,
     valid:  {

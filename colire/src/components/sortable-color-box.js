@@ -4,7 +4,7 @@ import { Context } from "@app"
 import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 
-const SortableColorBox = ({ name, color, lum }) => {
+const SortableColorBox = ({ name, color, lum, handleDeleteColor }) => {
 
   const { dispatch } = useContext(Context)
   const { listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: name })
@@ -22,7 +22,7 @@ const SortableColorBox = ({ name, color, lum }) => {
       <svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"
         fill="none"
         className="icon-trash"
-        onClick={() => dispatch({ type: "DELETE_COLOR", payload: color })}
+        onClick={() => handleDeleteColor(name)}
       >
         <path d="M18.5 7.5H11.5M14.5 14.5H12C10.9691 14.5 10.1744 14.2639 9.77816 14.1161M9.77816 14.1161L9.5 10.5C9.5 10.5 10.5 11.5 12 11.5H18C19.5 11.5 20.5 10.5 20.5 10.5L19.5 23.5H10.5L9.77816 14.1161Z" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>

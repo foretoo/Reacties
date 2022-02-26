@@ -1,4 +1,5 @@
 import { h, Fragment } from "preact"
+import { useState } from "preact/hooks"
 import { Link, useParams, useHistory } from "react-router-dom"
 import { useCtx, useConst } from "@utils/hooks"
 import { Button } from "@assets"
@@ -20,11 +21,10 @@ const Palette = () => {
   const { paletteID, colorID } = useParams()
   const palette = palettes.find((palette) => palette.id === paletteID)
 
+  const [ overlay, setOverlay ] = useState({ code: "", lumClass: "" })
+
   const handleCopy = useConst((code, lumClass) => {
-    dispatch({
-      type:    "COPY",
-      payload: { code, lumClass },
-    })
+    setOverlay({ code, lumClass })
   })
   const handleDeletePalette = useConst(() => {
     dispatch({
@@ -52,14 +52,14 @@ const Palette = () => {
     colorID
     ? <>
         <Link to={`/${paletteID}/`}>
-          <span>{palette.paletteName}</span>
-          <span className="nav-palette-emoji">{palette.emoji}</span>
+          <span>{palette.name}</span>
         </Link>
+        <span className="nav-palette-emoji">{palette.emoji}</span>
         <span className="nav-slash">/</span>
         <span className="nav-palette-name">{palette.colors[colorID].name}</span>
       </>
     : <>
-        <span className="nav-palette-name">{palette.paletteName}</span>
+        <span className="nav-palette-name">{palette.name}</span>
         <span className="nav-palette-emoji">{palette.emoji}</span>
       </>
   )
@@ -74,9 +74,13 @@ const Palette = () => {
             <Navigation />
           </nav>
           <div >
-            <Button name="Export" type="idle" />
-            <Button name="Edit" type="idle" />
-            <Button name="Delete" type="idle" onClick={handleDeletePalette} />
+            <Button name="Export" type="idle" size={35} />
+            {!colorID &&
+            <>
+              <Button name="Edit" type="idle" size={35} onClick={() => history.push("edit")} />
+              <Button name="Delete" type="idle" size={35} onClick={handleDeletePalette} />
+            </>
+            }
           </div>
         </div>
         <section className="controls">
@@ -87,7 +91,7 @@ const Palette = () => {
 
       <main className="content-container">
         <Content />
-        <Overlay />
+        <Overlay code={overlay.code} lumClass={overlay.lumClass} />
         <Snackbar />
       </main>
     </>

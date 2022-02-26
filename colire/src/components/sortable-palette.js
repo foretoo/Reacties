@@ -1,25 +1,19 @@
 import { h, Fragment } from "preact"
-import { useContext } from "preact/hooks"
-import { Context } from "@app"
 import chroma from "chroma-js"
 import { DndContext, closestCenter, PointerSensor, useSensor } from "@dnd-kit/core"
 import { SortableContext, arrayMove } from "@dnd-kit/sortable"
 import { SortableColorBox } from "@components"
+import { useCtx } from "@utils/hooks"
 import "./css/color-box.css"
 
 
-const SortablePalette = () => {
+const SortablePalette = ({ paletteID }) => {
 
-  const { state, dispatch } = useContext(Context)
-  const { palette } = state.custom
+  const { state: { editor }, dispatch } = useCtx()
+  let palette
+  if (paletteID) ({ toEdit: { palette }} = editor)
+  else ({ toCreate: { palette }} = editor)
   const names = []
-
-  const paletteList = palette.map((c) => {
-    const { name, color } = c
-    names.push(name)
-    const lumClass = chroma(color).luminance() < 0.333 ? " light" : " dark"
-    return <SortableColorBox key={name} id={name} name={name} color={color} lum={lumClass} />
-  })
 
   const pointerSensor = useSensor(PointerSensor, {
     activationConstraint: {
@@ -34,11 +28,33 @@ const SortablePalette = () => {
       const newOrder = arrayMove(names, oldIndex, newIndex)
 
       dispatch({
-        type:    "CHANGE_PALETTE",
+        type:    "CHANGE_PALETTE_ORDER",
         payload: newOrder,
+        paletteID,
       })
     }
   }
+  const handleDeleteColor = (name) => {
+    dispatch({
+      type: "DELETE_COLOR",
+      payload: name,
+      paletteID,
+    })
+  }
+
+  const paletteList = palette.map((c) => {
+    const { name, color } = c
+    names.push(name)
+    const lumClass = chroma(color).luminance() < 0.333 ? " light" : " dark"
+    return (
+      <SortableColorBox
+        key={name}
+        name={name}
+        color={color}
+        lum={lumClass}
+        handleDeleteColor={handleDeleteColor} />
+    )
+  })
 
   return (
     <DndContext sensors={[ pointerSensor ]} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>

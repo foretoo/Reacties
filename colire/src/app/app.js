@@ -13,6 +13,7 @@ const App = () => {
       <Switch>
         <Route path="/" exact component={Home}/>
         <Route path="/create-palette" component={PaletteEditor}/>
+        <Route path="/:paletteID/edit" component={PaletteEditor}/>
         <Route path="/:paletteID/:colorID?" component={Palette}/>
       </Switch>
       <Footer>

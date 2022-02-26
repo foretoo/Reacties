@@ -5,10 +5,12 @@ import { Context } from "@app"
 import { Button } from "@assets"
 import { EmojiPicker } from "@components"
 
-const NewPaletteNameForm = () => {
+const NewPaletteNameForm = ({ paletteID }) => {
 
-  const { state, dispatch } = useContext(Context)
-  const { palettes, custom: { paletteName, emoji }} = state
+  const { state: { palettes, editor }, dispatch } = useContext(Context)
+  let name, emoji
+  if (paletteID) ({ toEdit: { name, emoji }} = editor)
+  else ({ toCreate: { name, emoji }} = editor)
 
   const initForm = {
     displayEmojis: false,
@@ -24,6 +26,7 @@ const NewPaletteNameForm = () => {
     const { offsetLeft: x, offsetTop: y } = emojiButtonRef.current
     setFormState((formState) => ({ ...formState, emojisOffset: { x, y }}))
     window.addEventListener("click", handleClick, false)
+    return () => window.removeEventListener("click", handleClick)
   }, [])
   const handleClick = (e) => {
     setFormState((prev) => {
@@ -45,6 +48,7 @@ const NewPaletteNameForm = () => {
     dispatch({
       type:    "CHANGE_PALETTE_NAME",
       payload: name,
+      paletteID,
     })
   }
   const handleDisplayFormState = () => {
@@ -55,19 +59,40 @@ const NewPaletteNameForm = () => {
     dispatch({
       type:    "CHANGE_PALETTE_EMOJI",
       payload: emoji,
+      paletteID,
     })
   }
   const handleSavePalette = () => {
-    if (paletteName.trim()) {
+    if (name.trim()) {
 
-      const paletteId = paletteName
+      const paletteId = name
         .replace(/\s\s+/g, " ")
         .trim()
         .toLowerCase()
         .replace(/ /g, "-")
 
-      if (!palettes.some((p) => p.id === paletteId)) {
-        dispatch({ type: "SAVE_PALETTE" })
+      if (paletteID) {
+        if (
+          paletteId === paletteID ||
+          paletteId !== paletteID && !palettes.some((p) => p.id === paletteId)
+        ) {
+          dispatch({
+            type: "SAVE_PALETTE",
+            paletteID,
+          })
+          history.push("/")
+        }
+        else {
+          const validName = false
+          const warnText = "Palette name should be unique"
+          setFormState((formState) => ({ ...formState, validName, warnText }))
+        }
+      }
+      else if (!palettes.some((p) => p.id === paletteId)) {
+        dispatch({
+          type: "SAVE_PALETTE",
+          paletteID,
+        })
         history.push("/")
       }
       else {
@@ -85,6 +110,7 @@ const NewPaletteNameForm = () => {
   const handleClearPalette = () => {
     dispatch({
       type: "CLEAR_PALETTE",
+      paletteID,
     })
   }
 
@@ -101,7 +127,7 @@ const NewPaletteNameForm = () => {
           }}
           handleSelectEmoji={handleSelectEmoji} />
         <div className="input-palette-name">
-          <input value={paletteName} type="text" placeholder="Enter palette name..." onChange={handleChangePaletteName} />
+          <input value={name} type="text" placeholder="Enter palette name..." onChange={handleChangePaletteName} />
           <div ref={emojiButtonRef} onClick={handleDisplayFormState}>{emoji}</div>
         </div>
         <div className="warn-info">{formState.warnText}</div>
