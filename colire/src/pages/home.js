@@ -30,10 +30,10 @@ const Home = () => {
       </main>
 
       <SVGFilter
-        y          = {actualTheme === "dark" ?  8    : 16}
+        y          = {actualTheme === "dark" ?  8    : 12}
         blur       = {actualTheme === "dark" ?  12   : 16}
         brightness = {actualTheme === "dark" ?  0.75 : 2}
-        intercept  = {actualTheme === "dark" ? -0.1  : 0.2}
+        intercept  = {actualTheme === "dark" ? -0.1  : 0.1}
         saturate   = {actualTheme === "dark" ?  1    : 1.333} />
     </>
   )
