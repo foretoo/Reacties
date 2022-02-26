@@ -20,21 +20,24 @@
   position: absolute;
   left: 2.5rem;
   bottom: 2.5rem;
+  fill: white;
   border-radius: 5px;
   transform: scale(1);
-  transition: 0.2s ease-out;
+  transition: 0.2s ease;
   z-index: -1;
 }
 .add-palette-btn:hover + .add-palette-btn-bg {
   transform: scale(1.05);
   filter: url(#filter);
 }
-.add-palette-btn-bg rect {
-  transform-origin: center;
-  transform: scale(0.84, 0.8);
-  transition: 0.2s ease-out;
+
+.dark-theme .add-palette-btn-bg {
+  fill: #444;
+  background-color: #4440;
 }
-.add-palette-btn:hover + .add-palette-btn-bg rect {
-  rx: 0;
-  transform: scale(1, 1);
+.dark-theme .add-palette-btn:hover + .add-palette-btn-bg {
+  background-color: #444f;
+}
+.dark-theme .add-palette-btn {
+  color: white;
 }
