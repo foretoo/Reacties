@@ -16,7 +16,7 @@ const PaletteEditor = () => {
   if (paletteID && editor.toEdit.id !== paletteID) {
     dispatch({
       type: "INIT_EDIT_PALETTE",
-      payload: paletteID
+      paletteID
     })
     return null
   }

@@ -359,10 +359,9 @@ const editPaletteReducer = (state, action) => {
   }
 
   case "INIT_EDIT_PALETTE": {
-    const paletteID = action.payload
     const { colors, name, emoji, id } =
       state.palettes.find((palette) => (
-        palette.id === paletteID
+        palette.id === action.paletteID
       ))
     const palette = []
     for (let id in colors) {
