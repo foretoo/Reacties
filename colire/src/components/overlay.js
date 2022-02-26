@@ -1,15 +1,13 @@
 import { h } from "preact"
 import { gsap } from "gsap"
 import { useEffect, useRef } from "preact/hooks"
-import { useConst, useCtx } from "@utils/hooks"
 import "./css/overlay.css"
 
-const Overlay = () => {
+const Overlay = ({ code, lumClass }) => {
 
-  const { state: { overlay }} = useCtx()
   const ref = useRef(null)
   const mounted = useRef(false)
-  const tl = useConst(gsap.timeline({ defaults: { duration: 0.5 }}))
+  const tl = gsap.timeline({ defaults: { duration: 0.5 }})
 
   useEffect(() => {
     if (mounted.current) {
@@ -19,15 +17,15 @@ const Overlay = () => {
     }
     mounted.current = true
     return () => tl.kill()
-  }, [ overlay ])
+  }, [ code ])
 
   return (
     <section
       ref={ref}
-      className={"overlay" + overlay.lumClass}
-      style={{ background: overlay.code }} >
+      className={"overlay" + lumClass}
+      style={{ background: code }} >
       <h1>Copied</h1>
-      <span>{overlay.code}</span>
+      <span>{code}</span>
     </section>
   )
 }
