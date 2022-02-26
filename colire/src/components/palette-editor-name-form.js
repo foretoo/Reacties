@@ -81,7 +81,7 @@ const PaletteEditorNameForm = ({ paletteID }) => {
         curPaletteIdIsUnique
       ) {
         dispatch({ type: "SAVE_PALETTE", paletteID })
-        history.push("/")
+        history.push(`/${curPaletteID}/`)
       }
       else
         setFormState((prev) => {
