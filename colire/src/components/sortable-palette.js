@@ -7,12 +7,10 @@ import { useCtx } from "@utils/hooks"
 import "./css/color-box.css"
 
 
-const SortablePalette = ({ paletteID }) => {
+const SortablePalette = ({ target }) => {
 
   const { state: { editor }, dispatch } = useCtx()
-  let palette
-  if (paletteID) ({ palette } = editor.toEdit)
-  else ({ palette } = editor.toCreate)
+  const { palette } = editor[target]
   const names = []
 
   const pointerSensor = useSensor(PointerSensor, {
@@ -29,16 +27,14 @@ const SortablePalette = ({ paletteID }) => {
 
       dispatch({
         type:    "CHANGE_PALETTE_ORDER",
-        payload: newOrder,
-        paletteID,
+        payload: { newOrder, target },
       })
     }
   }
   const handleDeleteColor = (name) => {
     dispatch({
       type: "DELETE_COLOR",
-      payload: name,
-      paletteID,
+      payload: { name, target },
     })
   }
 

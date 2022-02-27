@@ -6,12 +6,10 @@ import { getID } from "@utils/helpers"
 import { Button } from "@assets"
 import { EmojiPicker } from "@components"
 
-const PaletteEditorNameForm = ({ paletteID }) => {
+const PaletteEditorNameForm = ({ paletteID, target }) => {
 
   const { state: { palettes, editor }, dispatch } = useCtx()
-  let name, palette, emoji
-  if (paletteID) ({ name, palette, emoji } = editor.toEdit)
-  else ({ name, palette, emoji } = editor.toCreate)
+  const { name, palette, emoji } = editor[target]
 
   const initForm = {
     displayEmojis: false,
@@ -37,6 +35,9 @@ const PaletteEditorNameForm = ({ paletteID }) => {
       return prev
     })
   }
+  const handleDisplayFormState = () => {
+    setFormState((prev) => ({ ...prev, displayEmojis: !prev.displayEmojis }))
+  }
 
   const handleChangePaletteName = (e) => {
     const name = e.target.value
@@ -48,19 +49,14 @@ const PaletteEditorNameForm = ({ paletteID }) => {
 
     dispatch({
       type:    "CHANGE_PALETTE_NAME",
-      payload: name,
-      paletteID,
+      payload: { name, target },
     })
-  }
-  const handleDisplayFormState = () => {
-    setFormState((prev) => ({ ...prev, displayEmojis: !prev.displayEmojis }))
   }
   const handleSelectEmoji = (emoji) => {
     handleDisplayFormState()
     dispatch({
       type:    "CHANGE_PALETTE_EMOJI",
-      payload: emoji,
-      paletteID,
+      payload: { emoji, target },
     })
   }
   const handleSavePalette = () => {
@@ -80,7 +76,10 @@ const PaletteEditorNameForm = ({ paletteID }) => {
         ) ||
         curPaletteIdIsUnique
       ) {
-        dispatch({ type: "SAVE_PALETTE", paletteID })
+        dispatch({
+          type: "SAVE_PALETTE",
+          payload: target,
+        })
         history.push( paletteID ? `/${curPaletteID}/` : `/` )
       }
       else
@@ -100,7 +99,7 @@ const PaletteEditorNameForm = ({ paletteID }) => {
   const handleClearPalette = () => {
     dispatch({
       type: "CLEAR_PALETTE",
-      paletteID,
+      payload: target,
     })
   }
 

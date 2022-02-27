@@ -11,12 +11,10 @@ import {
 } from "@assets"
 import "./css/palette-editor-form.css"
 
-const PaletteEditorForm = ({ paletteID }) => {
+const PaletteEditorForm = ({ target }) => {
   
   const { state: { editor }, dispatch } = useContext(Context)
-  let color, palette, hidden, valid
-  if (paletteID) ({ toEdit: { color, palette }, hidden, valid } = editor)
-  else ({ toCreate: { color, palette }, hidden, valid } = editor)
+  const { [target]: { color, palette }, hidden, valid } = editor
 
   const [ pickerMoving, setPickerMoving ] = useState(false)
 
@@ -33,36 +31,32 @@ const PaletteEditorForm = ({ paletteID }) => {
     if (!validColor || !valid.name) {
       dispatch({
         type:    "CHANGE_NEW_COLOR_NAME",
-        payload: color.name,
-        paletteID,
+        payload: { name: color.name, target },
       })
       dispatch({
         type:    "CHANGE_NEW_COLOR",
-        payload: color.color,
-        paletteID,
+        payload: { color: color.color, target },
       })
       return
     }
 
     dispatch({
       type: "ADD_NEW_COLOR",
-      paletteID,
+      payload: target,
     })
   }
   const handleChangeColor = ({ hex, moving }) => {
     setPickerMoving(moving)
     dispatch({
       type:    "CHANGE_NEW_COLOR",
-      payload: hex,
-      paletteID,
+      payload: { color: hex, target },
     })
   }
   const handleChangeColorName = (e) => {
     const name = e.target.value
     dispatch({
       type:    "CHANGE_NEW_COLOR_NAME",
-      payload: name,
-      paletteID,
+      payload: { name, target },
     })
   }
   const handleRandomColor = () => {

@@ -3,319 +3,150 @@ import { addLevelProp, colorScaler } from "@utils/helpers"
 const editPaletteReducer = (state, action) => {
   switch (action.type) {
   case "DELETE_COLOR": {
-    const name = action.payload
-
-    let palette
-    if (action.paletteID) ({ toEdit: { palette }} = state.editor)
-    else ({ toCreate: { palette }} = state.editor)
+    const { name, target } = action.payload
+    const { palette } = state.editor[target]
 
     const newPalette = palette.filter((c) => c.name !== name)
 
-    if (action.paletteID) {
-      return {
-        ...state,
-        editor: {
-          ...state.editor,
-          toEdit: {
-            ...state.editor.toEdit,
-            palette: newPalette,
-          },
+    return { ...state,
+      editor: { ...state.editor,
+        [target]: { ...state.editor[target],
+          palette: newPalette,
         },
-      }
-    }
-    else {
-      return {
-        ...state,
-        editor: {
-          ...state.editor,
-          toCreate: {
-            ...state.editor.toCreate,
-            palette: newPalette,
-          },
-        },
-      }
+      },
     }
   }
+  case "CHANGE_PALETTE_ORDER": {
+    const { newOrder, target } = action.payload
+    const { palette } = state.editor[target]
+
+    const newPalette = newOrder.map((c) => palette.find((_c) => c === _c.name))
+    
+    return { ...state,
+      editor: { ...state.editor,
+        [target]: { ...state.editor[target],
+          palette: newPalette,
+        },
+      },
+    }
+  }
+
   case "ADD_NEW_COLOR": {
-    let palette, color, valid
-    if (action.paletteID) ({ toEdit: { palette, color }, valid } = state.editor)
-    else ({ toCreate: { palette, color }, valid } = state.editor)
+    const target = action.payload
+    const { [target]: { palette, color }, valid } = state.editor
 
     if (!color.name.trim()) {
-      return {
-        ...state,
-        editor: {
-          ...state.editor,
-          valid: {
-            ...valid,
+      return { ...state,
+        editor: { ...state.editor,
+          valid: { ...valid,
             warnText: "Enter a color name.\n",
           },
         },
       }
     }
 
-    if (action.paletteID)
-      return {
-        ...state,
-        editor: {
-          ...state.editor,
-          toEdit: {
-            ...state.editor.toEdit,
-            palette: palette.concat({
-              name:  color.name.replace(/\s\s+/g, " ").trim(),
-              color: color.color,
-            }),
-            color: {
-              ...color,
-              name: "",
-            },
-          },
-          valid: {
-            ...valid,
-            color:    true,
-            warnText: "",
+    return { ...state,
+      editor: { ...state.editor,
+        [target]: { ...state.editor[target],
+          palette: palette.concat({
+            name:  color.name.replace(/\s\s+/g, " ").trim(),
+            color: color.color,
+          }),
+          color: { ...color,
+            name: "",
           },
         },
-      }
-    else
-      return {
-        ...state,
-        editor: {
-          ...state.editor,
-          toCreate: {
-            ...state.editor.toCreate,
-            palette: palette.concat({
-              name:  color.name.replace(/\s\s+/g, " ").trim(),
-              color: color.color,
-            }),
-            color: {
-              ...color,
-              name: "",
-            },
-          },
-          valid: {
-            ...valid,
-            color:    true,
-            warnText: "",
-          },
+        valid: { ...valid,
+          color:    true,
+          warnText: "",
         },
-      }
+      },
+    }
   }
   case "CHANGE_NEW_COLOR": {
-    const color = action.payload
-
-    let palette, valid
-    if (action.paletteID) ({ toEdit: { palette }, valid } = state.editor)
-    else ({ toCreate: { palette }, valid } = state.editor)
-
+    const { color, target } = action.payload
+    const { [target]: { palette }, valid } = state.editor
     const colorIsValid = !palette.some((c) => c.color === color)
-    const warnText =
-        colorIsValid ?
-          valid.warnText.replace("Color should be unique.", "") :
-          valid.warnText.includes("Color should be unique.") ?
-            valid.warnText :
-            valid.warnText.concat("Color should be unique.\n")
 
+    const warnText = colorIsValid
+      ? valid.warnText.replace("Color should be unique.", "")
+      : valid.warnText.includes("Color should be unique.")
+        ? valid.warnText
+        : valid.warnText.concat("Color should be unique.\n")
 
-    if (action.paletteID)
-      return {
-        ...state,
-        editor: {
-          ...state.editor,
-          toEdit: {
-            ...state.editor.toEdit,
-            color: {
-              ...state.editor.toEdit.color,
-              color,
-            },
-          },
-          valid: {
-            ...valid,
-            color: colorIsValid,
-            warnText,
+    return { ...state,
+      editor: { ...state.editor,
+        [target]: { ...state.editor[target],
+          color: { ...state.editor[target].color,
+            color,
           },
         },
-      }
-    else
-      return {
-        ...state,
-        editor: {
-          ...state.editor,
-          toCreate: {
-            ...state.editor.toCreate,
-            color: {
-              ...state.editor.toCreate.color,
-              color,
-            },
-          },
-          valid: {
-            ...valid,
-            color: colorIsValid,
-            warnText,
-          },
+        valid: { ...valid,
+          color: colorIsValid,
+          warnText,
         },
-      }
+      },
+    }
   }
   case "CHANGE_NEW_COLOR_NAME": {
-    const name = action.payload
-    
-    let palette, valid
-    if (action.paletteID) ({ toEdit: { palette }, valid } = state.editor)
-    else ({ toCreate: { palette }, valid } = state.editor)
-
+    const { name, target } = action.payload
+    const { [target]: { palette }, valid } = state.editor
     const nameIsValid = !palette.some((c) => {
       return normSpaces(c.name.toLowerCase()) === normSpaces(name.toLowerCase())
     })
 
-    let warnText =
-      name
+    let warnText = name
       ? valid.warnText.replace("Enter a color name.", "")
       : "Enter a color name.\n"
-    warnText =
-      nameIsValid
+    warnText = nameIsValid
       ? warnText.replace("Name should be unique.", "")
       : valid.warnText.includes("Name should be unique.")
         ? valid.warnText
         : warnText.concat("Name should be unique.\n")
 
-    if (action.paletteID)
-      return {
-        ...state,
-        editor: {
-          ...state.editor,
-          toEdit: {
-            ...state.editor.toEdit,
-            color: {
-              ...state.editor.toEdit.color,
-              name,
-            },
-          },
-          valid: {
-            ...valid,
-            name: nameIsValid,
-            warnText,
+    return { ...state,
+      editor: { ...state.editor,
+        [target]: { ...state.editor[target],
+          color: { ...state.editor[target].color,
+            name,
           },
         },
-      }
-    else
-      return {
-        ...state,
-        editor: {
-          ...state.editor,
-          toCreate: {
-            ...state.editor.toCreate,
-            color: {
-              ...state.editor.toCreate.color,
-              name,
-            },
-          },
-          valid: {
-            ...valid,
-            name: nameIsValid,
-            warnText,
-          },
+        valid: { ...valid,
+          name: nameIsValid,
+          warnText,
         },
-      }
-  }
-  case "TOGGLE_NEW_COLOR_FORM": {
-    const { hidden } = state.editor
-    return {
-      ...state,
-      editor: {
-        ...state.editor,
-        hidden: !hidden,
       },
     }
   }
-  case "CHANGE_PALETTE_ORDER": {
-    const newOrder = action.payload
-    
-    let palette
-    if (action.paletteID) ({ toEdit: { palette }} = state.editor)
-    else ({ toCreate: { palette }} = state.editor)
 
-    const newPalette = newOrder.map((c) => palette.find((_c) => c === _c.name))
-    if (action.paletteID)
-      return {
-        ...state,
-        editor: {
-          ...state.editor,
-          toEdit: {
-            ...state.editor.toEdit,
-            palette: newPalette,
-          },
-        },
-      }
-    else
-      return {
-        ...state,
-        editor: {
-          ...state.editor,
-          toCreate: {
-            ...state.editor.toCreate,
-            palette: newPalette,
-          },
-        },
-      }
-  }
   case "CHANGE_PALETTE_NAME": {
-    const name = action.payload
-    if (action.paletteID)
-      return {
-        ...state,
-        editor: {
-          ...state.editor,
-          toEdit: {
-            ...state.editor.toEdit,
-            name,
-          },
+    const { name, target } = action.payload
+    return { ...state,
+      editor: { ...state.editor,
+        [target]: { ...state.editor[target],
+          name,
         },
-      }
-    else
-      return {
-        ...state,
-        editor: {
-          ...state.editor,
-          toCreate: {
-            ...state.editor.toCreate,
-            name,
-          },
-        },
-      }
+      },
+    }
   }
   case "CHANGE_PALETTE_EMOJI": {
-    const emoji = action.payload
-    if (action.paletteID)
-      return {
-        ...state,
-        editor: {
-          ...state.editor,
-          toEdit: {
-            ...state.editor.toEdit,
-            emoji,
-          },
+    const { emoji, target } = action.payload
+    return { ...state,
+      editor: { ...state.editor,
+        [target]: { ...state.editor[target],
+          emoji,
         },
       }
-    else
-      return {
-        ...state,
-        editor: {
-          ...state.editor,
-          toCreate: {
-            ...state.editor.toCreate,
-            emoji,
-          },
-        },
-      }
+    }
   }
   case "SAVE_PALETTE": {
-    let palette, name, emoji, id
-    if (action.paletteID) ({ palette, name, emoji, id } = state.editor.toEdit)
-    else ({ palette, name, emoji } = state.editor.toCreate)
+    const target = action.payload
+    const { palette, name, emoji, id } = state.editor[target]
 
-    name = name.replace(/\s\s+/g, " ").trim()
-    const newPalette = setPalette(palette, name, emoji, id)
+    const newPalette =
+      setPalette(palette, name.replace(/\s\s+/g, " ").trim(), emoji, id)
     let palettes = []
+
     if (id) {
       const i = state.palettes.findIndex((palette) => palette.id === id)
       palettes = [
@@ -327,56 +158,42 @@ const editPaletteReducer = (state, action) => {
     else {
       palettes = state.palettes.concat(newPalette)
     }
+
     return {
       ...state,
       palettes,
-      editor: getInitEditor(state, action.paletteID),
+      editor: getInitEditor(state, target === "toEdit"),
     }
   }
   case "CLEAR_PALETTE": {
-    if (action.paletteID)
-      return {
-        ...state,
-        editor: {
-          ...state.editor,
-          toEdit: {
-            ...state.editor.toEdit,
-            palette: [],
-          },
+    const target = action.payload
+    return { ...state,
+      editor: { ...state.editor,
+        [target]: { ...state.editor[target],
+          palette: [],
         },
-      }
-    else
-      return {
-        ...state,
-        editor: {
-          ...state.editor,
-          toCreate: {
-            ...state.editor.toCreate,
-            palette: [],
-          },
-        },
-      }
+      },
+    }
   }
 
+  case "TOGGLE_COLOR_FORM": {
+    const { hidden } = state.editor
+    return { ...state,
+      editor: { ...state.editor,
+        hidden: !hidden,
+      },
+    }
+  }
   case "INIT_EDIT_PALETTE": {
-    const { colors, name, emoji, id } =
-      state.palettes.find((palette) => (
-        palette.id === action.paletteID
-      ))
-    const palette = colors.map(({ name, levels }) => ({
-      name, color: levels[4].hex
-    }))
+    const paletteID = action.payload
+    const { colors, name, emoji, id } = state.palettes.find((palette) => palette.id === paletteID)
+    const palette = colors.map(({ name, levels }) => ({ name, color: levels[4].hex }))
+    const color = { name: "", color: "#ffffff" }
     return {
       ...state,
       editor: {
         ...state.editor,
-        toEdit: {
-          color: { name: "", color: "#ffffff" },
-          palette,
-          name,
-          emoji,
-          id,
-        },
+        toEdit: { color, palette, name, emoji, id },
       },
     }
   }
@@ -392,9 +209,9 @@ const normSpaces = (str) => {
   return str.replace(/\s\s+/g, " ").trim()
 }
 
-const getInitEditor = (state, isPaletteID) => ({
+const getInitEditor = (state, isPalettePage) => ({
   toEdit:   {},
-  toCreate: isPaletteID ? state.editor.toCreate : {
+  toCreate: isPalettePage ? state.editor.toCreate : {
     palette: [],
     name:    "",
     emoji:   "🖖",

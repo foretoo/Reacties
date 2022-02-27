@@ -12,24 +12,25 @@ import "./css/palette-editor.css"
 const PaletteEditor = () => {
   const { paletteID } = useParams()
   const { state: { palettes, editor }, dispatch } = useCtx()
+  const target = paletteID ? "toEdit" : "toCreate"
 
   if (paletteID && editor.toEdit.id !== paletteID) {
     dispatch({
       type: "INIT_EDIT_PALETTE",
-      paletteID
+      payload: paletteID,
     })
     return null
   }
 
   const Navigation = () => {
     if (paletteID) {
-      const palette = palettes.find((palette) => palette.id === paletteID)
+      const { name, emoji } = palettes.find((palette) => palette.id === paletteID)
       return (
         <>
           <Link to={`/${paletteID}/`}>
-            <span>{palette.name}</span>
+            <span>{name}</span>
           </Link>
-          <span className="nav-palette-emoji">{palette.emoji}</span>
+          <span className="nav-palette-emoji">{emoji}</span>
           <span className="nav-slash">/</span>
           <span className="nav-palette-name">edit</span>
         </>
@@ -52,13 +53,13 @@ const PaletteEditor = () => {
             <Navigation />
           </nav>
         </div>
-        <PaletteEditorNameForm paletteID={paletteID} />
+        <PaletteEditorNameForm paletteID={paletteID} target={target} />
       </Header>
 
       <main className="edit-palette-container">
-        <PaletteEditorForm paletteID={paletteID} />
+        <PaletteEditorForm target={target} />
         <section className="edit-palette-content">
-          <SortablePalette paletteID={paletteID} />
+          <SortablePalette target={target} />
         </section>
       </main>
     </>
