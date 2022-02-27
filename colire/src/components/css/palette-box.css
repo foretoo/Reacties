@@ -1,8 +1,6 @@
 .palette-box-container {
   width: calc(2.5rem * 5 + 2.5rem * 2);
   position: relative;
-  filter: url(#filter);
-  -webkit-filter: url(#filter);
 }
 .palette-box {
   width: 100%;
@@ -27,12 +25,7 @@
   flex-wrap: wrap;
   align-items: flex-start;
   border-radius: 5px;
-  transform: scale(1);
-  transition: 0.2s ease-out;
   overflow: hidden;
-}
-.palette-box-container:hover .palette-box-content {
-  transform: scale(1.05);
 }
 
 
@@ -40,21 +33,4 @@
 .palette-box-color {
   width: 2.5rem;
   height: 2rem;
-}
-
-
-
-.delete-icon {
-  position: absolute;
-  right: calc(2.5rem - 40px);
-  top: 2.5rem;
-  cursor: pointer;
-}
-.use-line {
-  transform-origin: center;
-  transform: scale(0);
-  transition: 0.2s ease-out;
-}
-.palette-box-container:hover .use-line {
-  transform: scale(1);
 }
