@@ -11,8 +11,8 @@ const SortablePalette = ({ paletteID }) => {
 
   const { state: { editor }, dispatch } = useCtx()
   let palette
-  if (paletteID) ({ toEdit: { palette }} = editor)
-  else ({ toCreate: { palette }} = editor)
+  if (paletteID) ({ palette } = editor.toEdit)
+  else ({ palette } = editor.toCreate)
   const names = []
 
   const pointerSensor = useSensor(PointerSensor, {
