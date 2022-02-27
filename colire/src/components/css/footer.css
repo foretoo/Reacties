@@ -12,6 +12,9 @@
   font-size: 0.6rem;
   color: var(--dark-m-l);
 }
+.footer a:focus-visible {
+  outline: 4px solid white;
+}
 .dark-theme .footer * {
   color: var(--light-m)
 }

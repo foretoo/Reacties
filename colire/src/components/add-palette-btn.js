@@ -52,6 +52,7 @@ const AddPaletteBtn = () => {
   return (
     <div className="add-palette-btn-container">
       <input className="add-palette-btn"
+        tabIndex={-1}
         type="button"
         value="CREATE PALETTE"
         onMouseEnter={handleMouseEnter}

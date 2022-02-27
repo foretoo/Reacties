@@ -5,6 +5,9 @@
 .theme-option {
   cursor: pointer;
 }
+.theme-option:focus-visible {
+  outline: 4px solid white;
+}
 .theme-option.active {
   color: var(--dark-h);
   cursor: default;

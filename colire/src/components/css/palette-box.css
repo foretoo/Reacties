@@ -7,6 +7,9 @@
   padding: 2.5rem;
   display: block;
 }
+.palette-box:focus-visible > .palette-box-content {
+  outline: 4px solid white;
+}
 
 
 
