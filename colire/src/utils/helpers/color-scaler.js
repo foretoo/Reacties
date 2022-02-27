@@ -15,22 +15,16 @@ const getScale = (hexColor, numOfColors) => (
 )
 
 const colorScaler = (palette) => {
-  const newPalette = {
-    ...palette,
-    colors: {},
-  }
-  for (const color of palette.colors) {
-    const id = color.name.toLowerCase().replace(/ /g, "-")
-    newPalette.colors[id] = { name: color.name, levels: []}
-    const scale = getScale(color.color, levels.length).reverse()
-    for (const hex of scale) {
-      newPalette.colors[id].levels.push({
-        hex,
-        rgb: chroma(hex).css(),
-      })
-    }
-  }
-  return newPalette
+  const colors = palette.colors.map((color) => {
+    const scale = getScale(color.color, 9).reverse()
+    const name = color.name
+    const id = name.toLowerCase().replace(/ /g, "-")
+    const levels = scale.map((hex) => ({
+      hex, rgb: chroma(hex).css()
+    }))
+    return { id, name, levels }
+  })
+  return { ...palette, colors }
 }
 
 export default colorScaler

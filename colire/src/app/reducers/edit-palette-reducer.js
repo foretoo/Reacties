@@ -363,12 +363,9 @@ const editPaletteReducer = (state, action) => {
       state.palettes.find((palette) => (
         palette.id === action.paletteID
       ))
-    const palette = []
-    for (let id in colors) {
-      const { name } = colors[id]
-      const color = colors[id].levels[4].hex
-      palette.push({ name, color })
-    }
+    const palette = colors.map(({ name, levels }) => ({
+      name, color: levels[4].hex
+    }))
     return {
       ...state,
       editor: {

@@ -20,6 +20,7 @@
 - [ ] ! style palette view with respect to its colors quantity
 - [ ] ! change burger icon
 - [ ] validate form in component (clear reducer)
+- [x] ~~fix: if name of color is number it moves to the start of a palette~~
 - [x] ~~handle save empty palette~~
 - [x] ~~add /paletteID/edit route~~
 - [x] ~~fix color-picker hide animation~~
@@ -29,11 +30,13 @@
 - [x] ~~edit-palette header~~
 
 ### PALETTE
+- [ ] export
 - [x] ~~add export & edit & delete buttons~~
 - [x] ~~restyle color subpage~~
 - [x] ~~display color names on mouse hover~~
 
 ### HOME
+- [ ] shadow on create-palette button hover effect (in dark theme)
 - [x] ~~fix create-palette-link hover effect (wiggling & on dark-mode)~~
 ` `  
 ` `  

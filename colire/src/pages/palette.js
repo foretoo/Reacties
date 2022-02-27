@@ -34,20 +34,27 @@ const Palette = () => {
     history.push("/")
   })
 
-  const Content = () => (
-    colorID
-    ? <ColorListContent
-        id={colorID}
-        name={palette.colors[colorID].name}
-        levels={palette.colors[colorID].levels}
-        handleCopy={handleCopy} />
-    : <div className="palette-content">
-        <PaletteListContent
-          colors={palette.colors}
-          activeLevel={palette.activeLevel}
+  const Content = () => {
+    if (colorID) {
+      const color = palette.colors.find(c => c.id === colorID)
+      return (
+        <ColorListContent
+          id={color.id}
+          name={color.name}
+          levels={color.levels}
           handleCopy={handleCopy} />
-      </div>
-  )
+      )
+    }
+    else
+      return (
+        <div className="palette-content">
+          <PaletteListContent
+            colors={palette.colors}
+            activeLevel={palette.activeLevel}
+            handleCopy={handleCopy} />
+        </div>
+      )
+  }
   const Navigation = () => (
     colorID
     ? <>
