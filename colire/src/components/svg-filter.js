@@ -1,6 +1,7 @@
 import { h } from "preact"
 
 const SVGFilter = ({
+  id = "filter",
   x = 0,
   y = 0,
   blur = 10,
@@ -8,8 +9,8 @@ const SVGFilter = ({
   intercept = 0,
   saturate = 1,
 }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" style={{ height: 0 }}>
-    <filter id="filter"
+  <svg xmlns="http://www.w3.org/2000/svg" style={{ height: 0, width: 0 }}>
+    <filter id={id}
       x="-50%"
       y="-50%"
       width="200%"
