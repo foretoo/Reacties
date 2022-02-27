@@ -17,6 +17,7 @@
     "@dnd-kit/core": "^4.0.3",
     "@dnd-kit/sortable": "^5.1.0",
     "@dnd-kit/utilities": "^3.0.1",
+    "bowser": "^2.11.0",
     "chroma-js": "^2.1.0",
     "preact": "^10.5.3",
     "react-copy-to-clipboard": "^5.0.2",

@@ -1,12 +1,13 @@
 import gsap from "gsap"
 import { h } from "preact"
-import { useEffect, useRef } from "preact/hooks"
+import { useState, useEffect, useRef } from "preact/hooks"
 import { useCtx } from "@utils/hooks"
 import "./css/add-palette-btn.css"
 
 const AddPaletteBtn = () => {
 
-  const { state: { actualTheme }} = useCtx()
+  const { state: { actualTheme, agent }} = useCtx()
+  const [ hover, setHover ] = useState(false)
   const rectRef = useRef(null)
   const svgRef  = useRef(null)
 
@@ -27,6 +28,7 @@ const AddPaletteBtn = () => {
     gsap.defaults({ duration: 0.3 })
   }, [ actualTheme ])
   const handleMouseEnter = () => {
+    setHover(true)
     gsap.to(rectRef.current, {
       attr: { rx: 0 }, scale: 1, ease: "power1.out"
     })
@@ -35,6 +37,7 @@ const AddPaletteBtn = () => {
     })
   }
   const handleMouseLeave = () => {
+    setHover(false)
     gsap.to(rectRef.current, {
       attr: { rx: 5 }, scaleX: 0.84, scaleY: 0.8, ease: "power1.in"
     })
@@ -43,16 +46,19 @@ const AddPaletteBtn = () => {
     })
   }
 
+  const isChrome = agent.name === "Chrome"
+  const filter   = isChrome && hover ? "url(#filter)" : "none"
+
   return (
-    <div className="add-palette-btn-container"
-      style={{ filter: "none" }}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave} >
+    <div className="add-palette-btn-container">
       <input className="add-palette-btn"
         type="button"
-        value="CREATE PALETTE" />
+        value="CREATE PALETTE"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave} />
       <svg ref={svgRef}
         className="add-palette-btn-bg"
+        style={{ filter }}
         width="250"
         height="160"
         viewBox="0 0 250 160"

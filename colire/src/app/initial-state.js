@@ -1,3 +1,4 @@
+import Bowser from "bowser"
 import { seedColors } from "@utils/constants"
 import {
   addLevelProp,
@@ -5,6 +6,12 @@ import {
   getScheme,
   matchDarkTheme,
 } from "@utils/helpers"
+
+
+
+const { browser: { name }, platform: { type }} =
+  Bowser.getParser(window.navigator.userAgent).parsedResult
+const agent = { name, type }
 
 const palettes = []
 for (const palette of seedColors) {
@@ -41,6 +48,7 @@ const initialState = {
   },
   switcherTheme,
   actualTheme,
+  agent,
 }
 
 export default initialState
