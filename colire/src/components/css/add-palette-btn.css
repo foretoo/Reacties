@@ -22,21 +22,14 @@
   bottom: 2.5rem;
   fill: white;
   border-radius: 5px;
-  transform: scale(1);
-  transition: 0.2s ease;
   z-index: -1;
 }
 .add-palette-btn:hover + .add-palette-btn-bg {
-  transform: scale(1.05);
   filter: url(#filter);
 }
 
 .dark-theme .add-palette-btn-bg {
   fill: #444;
-  background-color: #4440;
-}
-.dark-theme .add-palette-btn:hover + .add-palette-btn-bg {
-  background-color: #444f;
 }
 .dark-theme .add-palette-btn {
   color: white;
