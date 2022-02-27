@@ -44,12 +44,13 @@ const AddPaletteBtn = () => {
   }
 
   return (
-    <div className="add-palette-btn-container">
+    <div className="add-palette-btn-container"
+      style={{ filter: "none" }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave} >
       <input className="add-palette-btn"
         type="button"
-        value="CREATE PALETTE"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave} />
+        value="CREATE PALETTE" />
       <svg ref={svgRef}
         className="add-palette-btn-bg"
         width="250"

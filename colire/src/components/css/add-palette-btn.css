@@ -24,9 +24,6 @@
   border-radius: 5px;
   z-index: -1;
 }
-.add-palette-btn:hover + .add-palette-btn-bg {
-  filter: url(#filter);
-}
 
 .dark-theme .add-palette-btn-bg {
   fill: #444;
