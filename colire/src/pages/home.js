@@ -6,7 +6,7 @@ import "./css/home.css"
 
 const Home = () => {
 
-  const { state: { palettes, actualTheme }, dispatch } = useCtx()
+  const { state: { palettes, actualTheme }} = useCtx()
 
   const paletteLinks = palettes.map((palette) => (
     <PaletteBox {...palette} />
@@ -33,7 +33,7 @@ const Home = () => {
         y          = {actualTheme === "dark" ?  8    : 12}
         blur       = {actualTheme === "dark" ?  12   : 16}
         brightness = {actualTheme === "dark" ?  0.75 : 2}
-        intercept  = {actualTheme === "dark" ? -0.1  : 0.1}
+        intercept  = {actualTheme === "dark" ? -0.06 : 0.1}
         saturate   = {actualTheme === "dark" ?  1    : 1.333} />
     </>
   )

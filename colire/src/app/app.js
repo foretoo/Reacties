@@ -1,13 +1,12 @@
 import { h } from "preact"
 import { Switch, Route } from "react-router-dom"
-import { useContext } from "preact/hooks"
-import { Context } from "@app"
+import { useCtx } from "@utils/hooks"
 import { Home, Palette, PaletteEditor } from "@pages"
 import { Footer, SwitcherTheme } from "@components"
 import "./app.css"
 
 const App = () => {
-  const { state: { actualTheme }} = useContext(Context)
+  const { state: { actualTheme }} = useCtx()
   return (
     <div className={`app` + (actualTheme === `dark` ? ` dark-theme` : ``)}>
       <Switch>

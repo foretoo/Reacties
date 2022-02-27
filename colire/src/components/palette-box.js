@@ -2,7 +2,7 @@ import { h } from "preact"
 import { Link } from "react-router-dom"
 import "./css/palette-box.css"
 
-const PaletteBox = ({ id, name, colors, handleDeletePalette }) => {
+const PaletteBox = ({ id, name, colors }) => {
   const colorList = []
   for (const color in colors) {
     const style = { background: colors[color].levels[4].hex }
