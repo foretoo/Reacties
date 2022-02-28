@@ -74,7 +74,7 @@ const Palette = () => {
             <span className="nav-slash">/</span>
             <Navigation />
           </nav>
-          <div >
+          <div className="menu">
             <Button name="Export" type="idle" size={35} />
             {!colorID &&
             <>
@@ -84,11 +84,12 @@ const Palette = () => {
             }
           </div>
         </div>
-        <section className="controls">
-          {colorID ? null : <SliderLevel id={paletteID} level={palette.activeLevel}/>}
-          <SwitcherMode />
-        </section>
       </Header>
+
+      <aside className="controls">
+        {colorID ? null : <SliderLevel id={paletteID} level={palette.activeLevel}/>}
+        <SwitcherMode />
+      </aside>
 
       <main className="content-container">
         <Content />

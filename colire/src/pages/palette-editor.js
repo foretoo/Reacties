@@ -95,7 +95,7 @@ const PaletteEditor = () => {
 
   return (
     <>
-      <Header className="edit-palette-header">
+      <Header>
         <div className="header-container">
           <nav className="header-nav">
             <Link className="nav-link" to="/">root</Link>

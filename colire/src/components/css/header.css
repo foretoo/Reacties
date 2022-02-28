@@ -2,6 +2,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  margin-bottom: 1rem;
 }
 
 .header-container {
@@ -17,6 +18,8 @@
   background-color: var(--light-xl);
   border-bottom: 1px solid var(--dark);
 }
+
+
 
 .header-nav {
   display: flex;
@@ -49,12 +52,4 @@
 .nav-palette-emoji {
   transform: scale(1.25);
   color: black;
-}
-
-
-.header .controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
 }

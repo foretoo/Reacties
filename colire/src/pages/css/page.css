@@ -6,6 +6,15 @@
   border-radius: 0.5rem;
   overflow: hidden;
 }
+.controls {
+  min-height: 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 1rem 1rem 1rem;
+}
+
+
 
 .palette-content {
   position: absolute;
@@ -14,6 +23,9 @@
   display: grid;
   grid-template: repeat(4, 1fr) / repeat(5, 1fr);
 }
+
+
+
 .color-content {
   position: absolute;
   width: 100%;
