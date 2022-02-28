@@ -77,7 +77,7 @@ const PaletteEditorForm = ({ target }) => {
           type="number"
           placeholder="color code" />
       <HueHandler
-        size={180}
+        size={150}
         style={{ marginBottom: "40px", marginTop: "20px" }} />
       <div>
         <ToneHandler size={100} style={{ flexShrink: 0 }} />
