@@ -1,18 +1,13 @@
-.editor-form {
-  margin-left: 0;
+.pick-color-form {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
   border: 2px solid var(--dark-l);
-  transition: margin-left 0.5s ease-out;
-}
-.editor-form.hidden {
-  margin-left: -434px;
 }
 
-.editor-form > div:nth-child(1),
-.editor-form > div:nth-child(4) {
+.pick-color-form > div:nth-child(1),
+.pick-color-form > div:nth-child(4) {
   display: flex;
   gap: 1rem;
   justify-content: space-between;
@@ -22,6 +17,8 @@
 
 
 .editor-color-name {
+  width: 100%;
+  padding: 0.5rem;
   font-size: 0.8rem;
   border-radius: 0.5rem;
 }
@@ -61,7 +58,7 @@
 
 
 
-.dark-theme .editor-form {
+.dark-theme .pick-color-form {
   border: 2px solid var(--light-xl);
 }
 .dark-theme .picker-labels {

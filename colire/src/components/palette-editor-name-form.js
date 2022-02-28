@@ -1,25 +1,14 @@
 import { h, Fragment } from "preact"
 import { useState, useEffect, useRef } from "preact/hooks"
-import { useHistory } from "react-router-dom"
 import { useCtx } from "@utils/hooks"
-import { getID } from "@utils/helpers"
-import { Button } from "@assets"
 import { EmojiPicker } from "@components"
 
-const PaletteEditorNameForm = ({ paletteID, target }) => {
+const PaletteEditorNameForm = ({ target, setWarn }) => {
 
-  const { state: { palettes, editor }, dispatch } = useCtx()
-  const { name, palette, emoji } = editor[target]
-
-  const initForm = {
-    displayEmojis: false,
-    emojisOffset:  { x: 0, y: 0 },
-    validName:     true,
-    warnText:      "",
-  }
-  const [ formState, setFormState ] = useState(initForm)
+  const { state: { editor }, dispatch } = useCtx()
+  const { name, emoji } = editor[target]
+  const [ formState, setFormState ] = useState({ displayEmojis: false, emojisOffset: { x: 0, y: 0 }})
   const emojiButtonRef = useRef()
-  const history = useHistory()
 
   useEffect(() => {
     const { offsetLeft: x, offsetTop: y } = emojiButtonRef.current
@@ -28,12 +17,11 @@ const PaletteEditorNameForm = ({ paletteID, target }) => {
     return () => window.removeEventListener("click", handleClick)
   }, [])
   const handleClick = (e) => {
-    setFormState((prev) => {
-      if (prev.displayEmojis && !e.path.includes(emojiButtonRef.current)) {
-        return { ...prev, displayEmojis: !prev.displayEmojis }
-      }
-      return prev
-    })
+    setFormState((prev) => (
+      prev.displayEmojis && !e.path.includes(emojiButtonRef.current)
+        ? { ...prev, displayEmojis: !prev.displayEmojis }
+        : prev
+    ))
   }
   const handleDisplayFormState = () => {
     setFormState((prev) => ({ ...prev, displayEmojis: !prev.displayEmojis }))
@@ -41,12 +29,7 @@ const PaletteEditorNameForm = ({ paletteID, target }) => {
 
   const handleChangePaletteName = (e) => {
     const name = e.target.value
-    if (name) {
-      const validName = true
-      const warnText = ""
-      setFormState((prev) => ({ ...prev, validName, warnText }))
-    }
-
+    if (name.trim()) setWarn("")
     dispatch({
       type:    "CHANGE_PALETTE_NAME",
       payload: { name, target },
@@ -57,49 +40,6 @@ const PaletteEditorNameForm = ({ paletteID, target }) => {
     dispatch({
       type:    "CHANGE_PALETTE_EMOJI",
       payload: { emoji, target },
-    })
-  }
-  const handleSavePalette = () => {
-    if (!palette.length) {
-      setFormState((prev) => {
-        const warnText = "Palette is empty\n"
-        return { ...prev, warnText }
-      })
-    }
-    else if (name.trim()) {
-      const curPaletteID = getID(name)
-      const curPaletteIdIsUnique = !palettes.some((p) => p.id === curPaletteID)
-      if (
-        paletteID && (
-          curPaletteID === paletteID ||
-          curPaletteID !== paletteID && curPaletteIdIsUnique
-        ) ||
-        curPaletteIdIsUnique
-      ) {
-        dispatch({
-          type: "SAVE_PALETTE",
-          payload: target,
-        })
-        history.push( paletteID ? `/${curPaletteID}/` : `/` )
-      }
-      else
-        setFormState((prev) => {
-          const validName = false
-          const warnText = "Palette name should be unique\n"
-          return { ...prev, validName, warnText }
-        })
-    }
-    else
-      setFormState((prev) => {
-        const validName = false
-        const warnText = "Enter palette name\n"
-        return { ...prev, validName, warnText }
-      })
-  }
-  const handleClearPalette = () => {
-    dispatch({
-      type: "CLEAR_PALETTE",
-      payload: target,
     })
   }
 
@@ -117,15 +57,6 @@ const PaletteEditorNameForm = ({ paletteID, target }) => {
           <input value={name} type="text" placeholder="Enter palette name..." onChange={handleChangePaletteName} />
           <div ref={emojiButtonRef} onClick={handleDisplayFormState}>{emoji}</div>
         </div>
-        <div className="warn-info" >
-          {formState.warnText}
-        </div>
-        <Button name="Save"
-          type="idle"
-          onClick={handleSavePalette} />
-        <Button name="Clear"
-          type="idle"
-          onClick={handleClearPalette} />
       </div>
     </>
   )

@@ -1,6 +1,9 @@
 import { h, Fragment } from "preact"
-import { Link, useParams } from "react-router-dom"
+import { useState } from "preact/hooks"
+import { Link, useHistory, useParams } from "react-router-dom"
 import { useCtx } from "@utils/hooks"
+import { getID } from "@utils/helpers"
+import { Button } from "@assets"
 import {
   Header,
   SortablePalette,
@@ -10,17 +13,22 @@ import {
 import "./css/palette-editor.css"
 
 const PaletteEditor = () => {
+
   const { paletteID } = useParams()
   const { state: { palettes, editor }, dispatch } = useCtx()
-  const target = paletteID ? "toEdit" : "toCreate"
 
   if (paletteID && editor.toEdit.id !== paletteID) {
     dispatch({
-      type: "INIT_EDIT_PALETTE",
+      type:    "INIT_EDIT_PALETTE",
       payload: paletteID,
     })
     return null
   }
+
+  const history = useHistory()
+  const target = paletteID ? "toEdit" : "toCreate"
+  const { palette, name } = editor[target]
+  const [ warn, setWarn ] = useState("")
 
   const Navigation = () => {
     if (paletteID) {
@@ -43,6 +51,36 @@ const PaletteEditor = () => {
       </>
     )
   }
+
+  const handleSavePalette = () => {
+    if (!palette.length) setWarn("Palette is empty")
+    else if (name.trim()) {
+      const curPaletteID = getID(name)
+      const curPaletteIdIsUnique = !palettes.some((p) => p.id === curPaletteID)
+      if (
+        paletteID && (
+          curPaletteID === paletteID ||
+          curPaletteID !== paletteID && curPaletteIdIsUnique
+        ) ||
+        curPaletteIdIsUnique
+      ) {
+        dispatch({
+          type:    "SAVE_PALETTE",
+          payload: target,
+        })
+        history.push( paletteID ? `/${curPaletteID}/` : `/` )
+      }
+      else setWarn("Palette name should be unique")
+    }
+    else setWarn("Enter palette name")
+  }
+  const handleClearPalette = () => {
+    dispatch({
+      type:    "CLEAR_PALETTE",
+      payload: target,
+    })
+  }
+
   return (
     <>
       <Header className="edit-palette-header">
@@ -53,14 +91,33 @@ const PaletteEditor = () => {
             <Navigation />
           </nav>
         </div>
-        <PaletteEditorNameForm paletteID={paletteID} target={target} />
       </Header>
 
       <main className="edit-palette-container">
-        <PaletteEditorForm target={target} />
-        <section className="edit-palette-content">
-          <SortablePalette target={target} />
+
+        <aside className="edit-palette-form">
+          <PaletteEditorNameForm target={target} setWarn={setWarn} />
+          <PaletteEditorForm target={target} />
+        </aside>
+
+        <section className="edit-palette-view">
+
+          <div className="edit-palette-menu">
+            <div className="warn-info" >{warn}</div>
+            <Button name="Save"
+              type="idle"
+              onClick={handleSavePalette} />
+            <Button name="Clear"
+              type="idle"
+              onClick={handleClearPalette} />
+          </div>
+
+          <div className="edit-palette-content">
+            <SortablePalette target={target} />
+          </div>
+
         </section>
+
       </main>
     </>
   )

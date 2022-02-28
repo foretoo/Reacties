@@ -18,7 +18,7 @@ const PaletteEditorForm = ({ target }) => {
 
   const [ pickerMoving, setPickerMoving ] = useState(false)
 
-  let formClass = "editor-form",
+  let formClass = "pick-color-form",
       inputClass = "editor-color-name",
       submitClass = "submit"
 
@@ -75,25 +75,20 @@ const PaletteEditorForm = ({ target }) => {
       </div>
       <input className="editor-color-name"
           type="number"
-          placeholder="color code"
-          style={{
-            alignSelf: "flex-end",
-            width: "122px",
-            padding: "10px",
-          }} />
+          placeholder="color code" />
       <HueHandler
         size={180}
         style={{ marginBottom: "40px", marginTop: "20px" }} />
       <div>
-        <ToneHandler size={100} />
+        <ToneHandler size={100} style={{ flexShrink: 0 }} />
         <input className={inputClass}
           type="text"
           value={color.name}
           placeholder="color name"
           style={{
-            backgroundColor: color.color,
-            width: "150px",
+            width: "129px",
             padding: "70px 10px 10px 10px",
+            backgroundColor: color.color,
             transition: pickerMoving ? "none" : "0.2s",
           }}
           onChange={handleChangeColorName} />
