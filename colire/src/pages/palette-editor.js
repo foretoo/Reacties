@@ -1,6 +1,7 @@
 import { h, Fragment } from "preact"
-import { useState } from "preact/hooks"
+import { useState, useRef, useLayoutEffect } from "preact/hooks"
 import { Link, useHistory, useParams } from "react-router-dom"
+import gsap from "gsap"
 import { useCtx } from "@utils/hooks"
 import { getID } from "@utils/helpers"
 import { Button } from "@assets"
@@ -29,6 +30,17 @@ const PaletteEditor = () => {
   const target = paletteID ? "toEdit" : "toCreate"
   const { palette, name } = editor[target]
   const [ warn, setWarn ] = useState("")
+  const [ width, setWidth ] = useState(0)
+  const formRef = useRef(null)
+
+  useLayoutEffect(() => {
+    setWidth(formRef.current.offsetWidth)
+    gsap.set(formRef.current, { marginLeft: -formRef.current.offsetWidth - 20 })
+  }, [])
+  const toggleForm = () => {
+    const margin = formRef.current.style.marginLeft
+    gsap.to(formRef.current, { marginLeft: margin === "0px" ? -width - 20 : 0 })
+  }
 
   const Navigation = () => {
     if (paletteID) {
@@ -95,7 +107,7 @@ const PaletteEditor = () => {
 
       <main className="edit-palette-container">
 
-        <aside className="edit-palette-form">
+        <aside ref={formRef} className="edit-palette-form">
           <PaletteEditorNameForm target={target} setWarn={setWarn} />
           <PaletteEditorForm target={target} />
         </aside>
@@ -103,6 +115,9 @@ const PaletteEditor = () => {
         <section className="edit-palette-view">
 
           <div className="edit-palette-menu">
+            <Button name="🌈"
+              type="minor"
+              onClick={toggleForm} />
             <div className="warn-info" >{warn}</div>
             <Button name="Save"
               type="idle"
