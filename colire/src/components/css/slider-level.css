@@ -1,16 +1,16 @@
 .slider-level {
-  width: calc((100% - 2rem) * 0.4);
-  margin: 0.7rem 0 0 1rem;
+  width: calc(100% * 0.4);
+  margin-top: 0.7rem;
 }
 
 @media screen and (max-width: 1024px) {
   .slider-level {
-    width: calc((100% - 2rem) * 0.6);
+    width: calc(100% * 0.6);
   }
 }
 @media screen and (max-width: 768px) {
   .slider-level {
-    width: calc((100% - 2rem) * 0.5);
+    width: calc(100% * 0.5);
   }
 }
 @media screen and (max-width: 428px) {

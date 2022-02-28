@@ -3,7 +3,7 @@
   --handler-size: 2rem;
   --path-size: 6px;
 
-  min-width: 200px;
+  min-width: 100px;
   min-height: var(--handler-size);
   display: flex;
 }

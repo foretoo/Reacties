@@ -20,6 +20,7 @@ const Palette = () => {
   const { state: { palettes }, dispatch } = useCtx()
   const { paletteID, colorID } = useParams()
   const palette = palettes.find((palette) => palette.id === paletteID)
+  const color = colorID ? palette.colors.find(c => c.id === colorID) : null
 
   const [ overlay, setOverlay ] = useState({ code: "", lumClass: "" })
 
@@ -34,27 +35,20 @@ const Palette = () => {
     history.push("/")
   })
 
-  const Content = () => {
-    if (colorID) {
-      const color = palette.colors.find(c => c.id === colorID)
-      return (
-        <ColorListContent
-          id={color.id}
-          name={color.name}
-          levels={color.levels}
+  const Content = () => (
+    colorID
+    ? <ColorListContent
+        id={color.id}
+        name={color.name}
+        levels={color.levels}
+        handleCopy={handleCopy} />
+    : <div className="palette-content">
+        <PaletteListContent
+          colors={palette.colors}
+          activeLevel={palette.activeLevel}
           handleCopy={handleCopy} />
-      )
-    }
-    else
-      return (
-        <div className="palette-content">
-          <PaletteListContent
-            colors={palette.colors}
-            activeLevel={palette.activeLevel}
-            handleCopy={handleCopy} />
-        </div>
-      )
-  }
+      </div>
+  )
   const Navigation = () => (
     colorID
     ? <>
@@ -63,7 +57,7 @@ const Palette = () => {
         </Link>
         <span className="nav-palette-emoji">{palette.emoji}</span>
         <span className="nav-slash">/</span>
-        <span className="nav-palette-name">{palette.colors[colorID].name}</span>
+        <span className="nav-palette-name">{color.name}</span>
       </>
     : <>
         <span className="nav-palette-name">{palette.name}</span>
