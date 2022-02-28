@@ -60,7 +60,7 @@
   height: 3rem;
 }
 .edit-palette-menu > .warn-info {
-  margin-right: auto;
+  margin-left: auto;
   font-size: 0.7rem;
   color: var(--warn);
 }

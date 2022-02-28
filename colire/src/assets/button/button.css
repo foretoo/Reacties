@@ -13,7 +13,11 @@
   box-shadow: none;
 }
 .button.minor {
-  border: 1px solid var(--dark-m);
+  border: 2px solid var(--dark-l);
   background: transparent;
   box-shadow: none;
+}
+.dark-theme .button.minor {
+  background: transparent;
+  border: 2px solid var(--light-l);
 }
