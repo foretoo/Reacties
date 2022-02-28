@@ -11,21 +11,20 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
+  display: grid;
+  grid-template: repeat(4, 1fr) / repeat(5, 1fr);
 }
 .color-content {
   position: absolute;
   width: 100%;
   height: 100%;
-  display: flex;
+  display: grid;
+  grid-template: auto / 4fr 1fr 4fr;
   gap: 1rem;
 }
 .light-levels,
 .init-color,
 .dark-levels {
-  flex-grow: 1;
   display: flex;
   border-radius: 0.5rem;
   overflow: hidden;
@@ -34,18 +33,16 @@
 
 
 @media screen and (max-width: 768px) {
-  .palette-content,
-  .color-content,
+  .palette-content {
+    grid-template: repeat(5, 1fr) / repeat(4, 1fr);
+    grid-auto-flow: column;
+  }
+  .color-content {
+    grid-template: 4fr 1fr 4fr / auto;
+  }
   .light-levels,
   .init-color,
   .dark-levels {
     flex-direction: column;
-  }
-  .light-levels,
-  .dark-levels {
-    height: calc((100% - 2rem) * 4 / 9);
-  }
-  .init-color {
-    height: calc((100% - 2rem) / 9);
   }
 }

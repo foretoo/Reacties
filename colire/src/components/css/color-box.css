@@ -1,22 +1,13 @@
 .color-box {
-  width: 20%;
   padding: 0.4rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
 }
-.color-box.color {
-  width: calc((100vw - 2rem) / 9);
-}
 
 @media only screen and (max-width: 768px) {
-  .color-box.palette {
-    width: 25%;
-    height: 20%;
-  }
   .color-box.color {
-    width: 100%;
     flex-grow: 1;
     flex-direction: row-reverse;
   }
