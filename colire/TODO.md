@@ -16,10 +16,13 @@
 ===========
 
 ### EDIT-PALETTE
-- [ ] !!! add mobile
+
 - [ ] ! style palette view with respect to its colors quantity
-- [ ] ! change burger icon
 - [ ] validate form in component (clear reducer)
+- [ ] add undo button
+- [ ] fix hue handler size depends on window width
+- [x] ~~change burger icon~~
+- [x] ~~add mobile~~
 - [x] ~~fix: if name of color is number it moves to the start of a palette~~
 - [x] ~~handle save empty palette~~
 - [x] ~~add /paletteID/edit route~~
@@ -30,6 +33,8 @@
 - [x] ~~edit-palette header~~
 
 ### PALETTE
+
+- [ ] fix header size on mobile
 - [ ] export
 - [x] ~~add export & edit & delete buttons~~
 - [x] ~~restyle color subpage~~
