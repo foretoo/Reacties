@@ -11,7 +11,8 @@ import {
 
 const { browser: { name }, platform: { type }} =
   Bowser.getParser(window.navigator.userAgent).parsedResult
-const agent = { name, type }
+const width = document.body.offsetWidth
+const agent = { name, type, width }
 
 const palettes = []
 for (const palette of seedColors) {

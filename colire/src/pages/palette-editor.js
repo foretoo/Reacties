@@ -16,7 +16,7 @@ import "./css/palette-editor.css"
 const PaletteEditor = () => {
 
   const { paletteID } = useParams()
-  const { state: { palettes, editor }, dispatch } = useCtx()
+  const { state: { palettes, editor, agent }, dispatch } = useCtx()
 
   if (paletteID && editor.toEdit.id !== paletteID) {
     dispatch({
@@ -35,11 +35,15 @@ const PaletteEditor = () => {
 
   useLayoutEffect(() => {
     setWidth(formRef.current.offsetWidth)
-    gsap.set(formRef.current, { marginLeft: -formRef.current.offsetWidth - 20 })
+    const marginLeft = (paletteID && agent.width < 769)
+      ? -formRef.current.offsetWidth
+      : 0 
+    gsap.set(formRef.current, { marginLeft })
   }, [])
   const toggleForm = () => {
-    const margin = formRef.current.style.marginLeft
-    gsap.to(formRef.current, { marginLeft: margin === "0px" ? -width - 20 : 0 })
+    const marginLeft =
+      formRef.current.style.marginLeft === "0px" ? -width : 0
+    gsap.to(formRef.current, { marginLeft })
   }
 
   const Navigation = () => {

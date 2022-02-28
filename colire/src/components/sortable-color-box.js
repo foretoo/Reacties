@@ -1,12 +1,9 @@
 import { h } from "preact"
-import { useContext } from "preact/hooks"
-import { Context } from "@app"
 import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 
 const SortableColorBox = ({ name, color, lum, handleDeleteColor }) => {
 
-  const { dispatch } = useContext(Context)
   const { listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: name })
 
   const style = {
@@ -14,6 +11,7 @@ const SortableColorBox = ({ name, color, lum, handleDeleteColor }) => {
     transition,
     backgroundColor: color,
     zIndex:          isDragging ? 100 : "auto",
+    touchAction:     "none",
   }
 
   return (
