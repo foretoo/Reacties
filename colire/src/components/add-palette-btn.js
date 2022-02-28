@@ -18,32 +18,25 @@ const AddPaletteBtn = () => {
     }
   }
 
-  const bg = actualTheme === "dark" ? [ "#4440", "#444f" ] : [ "#fff0", "#ffff" ]
+  const bg = actualTheme === "dark"
+    ? [ "#4440", "#444f" ]
+    : [ "#fff0", "#ffff" ]
 
   useEffect(() => {
-    gsap.set(rectRef.current, {
-      scaleX: 0.84, scaleY: 0.8, transformOrigin: "center"
-    })
+    gsap.set(rectRef.current, { scaleX: 0.84, scaleY: 0.8, transformOrigin: "center" })
     gsap.set(svgRef.current, { backgroundColor: bg[0] })
-    gsap.defaults({ duration: 0.3 })
   }, [ actualTheme ])
   const handleMouseEnter = () => {
     setHover(true)
-    gsap.to(rectRef.current, {
-      attr: { rx: 0 }, scale: 1, ease: "power1.out"
-    })
-    gsap.to(svgRef.current, {
-      backgroundColor: bg[1], scale: 1.05, ease: "power1.in"
-    })
+    gsap.to(rectRef.current, { attr: { rx: 0 }, scale: 1, ease: "power1.out", duration: 0.3 })
+    gsap.to(svgRef.current, { scale: 1.05, ease: "power1.in", duration: 0.3 })
+    gsap.to(svgRef.current, { backgroundColor: bg[1], ease: "power1.in", duration: 0.5 })
   }
   const handleMouseLeave = () => {
     setHover(false)
-    gsap.to(rectRef.current, {
-      attr: { rx: 5 }, scaleX: 0.84, scaleY: 0.8, ease: "power1.in"
-    })
-    gsap.to(svgRef.current, {
-      backgroundColor: bg[0], scale: 1, ease: "power1.out"
-    })
+    gsap.to(rectRef.current, { attr: { rx: 5 }, scaleX: 0.84, scaleY: 0.8, ease: "power1.in", duration: 0.3 })
+    gsap.to(svgRef.current, { scale: 1, ease: "power1.out", duration: 0.3 })
+    gsap.to(svgRef.current, { backgroundColor: bg[0], ease: "power1.out", duration: 0.1 })
   }
 
   const isChrome = agent.name === "Chrome"
