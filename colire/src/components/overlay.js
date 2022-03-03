@@ -3,7 +3,7 @@ import { gsap } from "gsap"
 import { useEffect, useRef } from "preact/hooks"
 import "./css/overlay.css"
 
-const Overlay = ({ code, lumClass }) => {
+const Overlay = ({ code, lumClass, force }) => {
 
   const ref = useRef(null)
   const mounted = useRef(false)
@@ -17,7 +17,7 @@ const Overlay = ({ code, lumClass }) => {
     }
     mounted.current = true
     return () => tl.kill()
-  }, [ code ])
+  }, [ force ])
 
   return (
     <section
