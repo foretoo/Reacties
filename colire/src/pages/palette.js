@@ -1,13 +1,10 @@
 import { h, Fragment } from "preact"
-import { useState } from "preact/hooks"
 import { Link, useParams, useHistory } from "react-router-dom"
 import { useCtx, useConst } from "@utils/hooks"
 import { Button } from "@assets"
 import {
   Header,
-  Overlay,
-  PaletteListContent,
-  ColorListContent,
+  Content,
   SwitcherMode,
   SliderLevel,
   Snackbar,
@@ -22,11 +19,9 @@ const Palette = () => {
   const palette = palettes.find((palette) => palette.id === paletteID)
   const color = colorID ? palette.colors.find(c => c.id === colorID) : null
 
-  const [ overlay, setOverlay ] = useState({ code: "", lumClass: "" })
+  
 
-  const handleCopy = useConst((code, lumClass) => {
-    setOverlay({ code, lumClass })
-  })
+  
   const handleDeletePalette = useConst(() => {
     dispatch({
       type:    "DELETE_PALETTE",
@@ -35,27 +30,14 @@ const Palette = () => {
     history.push("/")
   })
 
-  const Content = () => (
-    colorID
-    ? <ColorListContent
-        id={color.id}
-        name={color.name}
-        levels={color.levels}
-        handleCopy={handleCopy} />
-    : <div className="palette-content">
-        <PaletteListContent
-          colors={palette.colors}
-          activeLevel={palette.activeLevel}
-          handleCopy={handleCopy} />
-      </div>
-  )
+  
   const Navigation = () => (
     colorID
     ? <>
         <Link to={`/${paletteID}/`}>
           <span>{palette.name}</span>
+          <span className="nav-palette-emoji">{palette.emoji}</span>
         </Link>
-        <span className="nav-palette-emoji">{palette.emoji}</span>
         <span className="nav-slash">/</span>
         <span className="nav-palette-name">{color.name}</span>
       </>
@@ -90,8 +72,7 @@ const Palette = () => {
       </aside>
 
       <main className="content-container">
-        <Content />
-        <Overlay code={overlay.code} lumClass={overlay.lumClass} />
+        <Content palette={palette} color={color} />
         <Snackbar />
       </main>
     </>
