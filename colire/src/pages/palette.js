@@ -14,14 +14,12 @@ import "./css/page.css"
 const Palette = () => {
 
   const history = useHistory()
-  const { state: { palettes }, dispatch } = useCtx()
   const { paletteID, colorID } = useParams()
+
+  const { state: { palettes }, dispatch } = useCtx()
   const palette = palettes.find((palette) => palette.id === paletteID)
-  const color = colorID ? palette.colors.find(c => c.id === colorID) : null
+  const color   = colorID ? palette.colors.find(c => c.id === colorID) : null
 
-  
-
-  
   const handleDeletePalette = useConst(() => {
     dispatch({
       type:    "DELETE_PALETTE",

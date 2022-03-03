@@ -2,7 +2,7 @@ import { h } from "preact"
 import "./css/header.css"
 
 const Header = ({ className = "", children = [] }) => (
-  <header className={"header " + className}>
+  <header className={`header` + (className ? ` ${className}` : ``)}>
     {children}
   </header>
 )
