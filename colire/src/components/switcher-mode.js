@@ -1,5 +1,5 @@
 import { h } from "preact"
-import { useContext } from "preact/hooks"
+import { useContext, useRef } from "preact/hooks"
 import { Context } from "@app"
 import { Switcher } from "@assets"
 import "./css/switcher-mode.css"
@@ -8,19 +8,20 @@ const SwitcherMode = () => {
 
   const { state: { format }, dispatch } = useContext(Context)
 
-  const handleChangeMode = (format) => {
+  const handleChangeMode = useRef((format) => {
     dispatch({
       type:    "CHANGE_COLOR_MODE",
       payload: format,
     })
-  }
+  })
+  const modes = useRef([ "RGB", "HEX" ])
 
   return (
     <Switcher
       className="switcher-mode"
       defaultValue={format}
-      options={[ "RGB", "HEX" ]}
-      onChange={handleChangeMode} />
+      options={modes.current}
+      onChange={handleChangeMode.current} />
   )
 }
 

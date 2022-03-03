@@ -1,4 +1,5 @@
 import { h } from "preact"
+import { memo } from 'preact/compat'
 import { useState, useEffect, useRef } from "preact/hooks"
 import "./switcher.css"
 
@@ -8,11 +9,7 @@ const Switcher = ({
   defaultValue = options[0],
   onChange = (value) => console.log(value),
   className = "",
-  style = {
-    "--font-size": "16px",
-    "--padding":   "10px",
-    "--border":    "2px",
-  },
+  style,
 
 }) => {
   checkOptions(options, defaultValue)
@@ -28,7 +25,6 @@ const Switcher = ({
       },
     ],
     mounted: false,
-    value:   defaultValue,
   }
   const [ switcher, setSwitcher ] = useState(initialSwitcher)
   const optionsRef = useRef([])
@@ -37,51 +33,40 @@ const Switcher = ({
 
   useEffect(() => {
     optionsRef.current = optionsRef.current.slice(0, options.length)
-
     const optionsData = optionsRef.current.reduce((arr, div, i) => {
       const { width } = div.getBoundingClientRect()
       const translate = i ? arr[i - 1].translate + arr[i - 1].width : 0
       return [ ...arr, { value: options[i], width, translate }]
     }, [])
-
-    const mounted = optionsData.every(({ width }) => width > 0 )
-
-    setSwitcher((prevSwitcher) => ({
-      ...prevSwitcher,
-      options: optionsData,
-      mounted,
-    }))
+    setSwitcher({ options: optionsData, mounted: true })
   }, [ options, style ])
 
 
 
-  const handleSelect = (option) => {
-    if (option !== switcher.value) {
-      onChange(option)
-      setSwitcher((prevSwitcher) => ({ ...prevSwitcher, value: option }))
-    }
-  }
   const getAnimation = () => {
-    const option = switcher.options.find(({ value }) => value === switcher.value)
+    const option = switcher.options.find(({ value }) => value === defaultValue)
     const { width, translate } = option
     return {
       width:     `${width}px`,
       transform: `translate(${translate}px)`,
     }
   }
-
-
-
   const classList = "switcher-container" + (className && ` ${className}`)
 
   return (
-    <div className={classList} style={style}>
+    <div className={classList}
+      style={{
+        "--font-size": "16px",
+        "--padding":   "10px",
+        "--border":    "2px",
+        ...style,
+    }}>
       <div className="switcher">
         {options.map((option, i) => (
           <div
             ref={(div) => optionsRef.current[i] = div}
-            className={`switch-case${switcher.value === option ? " active" : ""}`}
-            onClick={() => handleSelect(option)} >
+            className={`switch-case${defaultValue === option ? " active" : ""}`}
+            onClick={defaultValue === option ? null : () => onChange(option)} >
             {option}
           </div>
         ))}
@@ -116,4 +101,4 @@ const checkOptions = (options, defaultValue) => {
   }
 }
 
-export default Switcher
+export default memo(Switcher)

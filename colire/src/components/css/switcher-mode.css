@@ -11,11 +11,6 @@
 }
 @media screen and (max-width: 768px) {
   .switcher-mode {
-    width: calc(100% * 0.5);
-  }
-}
-@media screen and (max-width: 428px) {
-  .switcher-mode {
     margin-left: auto;
     padding-left: 1rem;
     width: auto;
