@@ -68,21 +68,19 @@ const Palette = () => {
   return (
     <>
       <Header>
-        <div className="header-container">
-          <nav className="header-nav">
-            <Link className="nav-link" to="/">root</Link>
-            <span className="nav-slash">/</span>
-            <Navigation />
-          </nav>
-          <div className="menu">
-            <Button name="Export" type="idle" size={35} />
-            {!colorID &&
-            <>
-              <Button name="Edit" type="idle" size={35} onClick={() => history.push("edit")} />
-              <Button name="Delete" type="idle" size={35} onClick={handleDeletePalette} />
-            </>
-            }
-          </div>
+        <nav className="header-nav">
+          <Link className="nav-link" to="/">root</Link>
+          <span className="nav-slash">/</span>
+          <Navigation />
+        </nav>
+        <div className="header-menu">
+          <Button name="Export" type="idle" size={35} />
+          {!colorID &&
+          <>
+            <Button name="Edit" type="idle" size={35} onClick={() => history.push("edit")} />
+            <Button name="Delete" type="idle" size={35} onClick={handleDeletePalette} />
+          </>
+          }
         </div>
       </Header>
 
