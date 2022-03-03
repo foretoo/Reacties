@@ -13,7 +13,7 @@ import {
 } from "@components"
 import "./css/palette-editor.css"
 
-const PaletteEditor = () => {
+const Editor = () => {
 
   const { paletteID } = useParams()
   const { state: { palettes, editor, agent }, dispatch } = useCtx()
@@ -142,4 +142,4 @@ const PaletteEditor = () => {
   )
 }
 
-export default PaletteEditor
+export default Editor

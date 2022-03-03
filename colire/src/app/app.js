@@ -1,7 +1,7 @@
 import { h } from "preact"
 import { Switch, Route } from "react-router-dom"
 import { useCtx } from "@utils/hooks"
-import { Home, Palette, PaletteEditor } from "@pages"
+import { Home, Palette, Editor } from "@pages"
 import { Footer, SwitcherTheme } from "@components"
 import "./app.css"
 
@@ -11,8 +11,8 @@ const App = () => {
     <div className={`app` + (actualTheme === `dark` ? ` dark-theme` : ``)}>
       <Switch>
         <Route path="/" exact component={Home}/>
-        <Route path="/create-palette" component={PaletteEditor}/>
-        <Route path="/:paletteID/edit" component={PaletteEditor}/>
+        <Route path="/create-palette" component={Editor}/>
+        <Route path="/:paletteID/edit" component={Editor}/>
         <Route path="/:paletteID/:colorID?" component={Palette}/>
       </Switch>
       <Footer>
