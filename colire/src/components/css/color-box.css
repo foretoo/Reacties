@@ -1,14 +1,14 @@
 .color-box {
-  padding: 0.4rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
 }
-
+.color-box.color {
+  flex-grow: 1;
+}
 @media only screen and (max-width: 768px) {
   .color-box.color {
-    flex-grow: 1;
     flex-direction: row-reverse;
   }
 }
@@ -18,6 +18,7 @@
 /*    INFO    */
 .color-box-info {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-end;
   gap: 0.5rem;
@@ -84,10 +85,12 @@
 /* ICON_TRASH */
 .icon-trash {
   align-self: flex-end;
-  visibility: hidden;
+  opacity: 0;
+  transition: 0.5s;
+  cursor: pointer;
 }
 .color-box:hover .icon-trash {
-  visibility: visible;
+  opacity: 1;
 }
 .dark .icon-trash {
   stroke: var(--dark-h);

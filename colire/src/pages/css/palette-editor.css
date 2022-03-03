@@ -59,14 +59,17 @@
 }
 .edit-palette-content {
   flex-grow: 1;
+  min-width: 313px;
   display: grid;
   grid-template: repeat(4, 1fr) / repeat(5, 1fr);
   border-radius: 0.5rem;
   overflow: hidden;
 }
 .edit-palette-content .color-box {
-  width: 100%;
-  height: 100%;
+  cursor: grab;
+}
+.edit-palette-content .color-box:active {
+  cursor: grabbing;
 }
 
 @media screen and (max-width: 768px) {

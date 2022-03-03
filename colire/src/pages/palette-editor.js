@@ -53,8 +53,8 @@ const PaletteEditor = () => {
         <>
           <Link to={`/${paletteID}/`}>
             <span>{name}</span>
+            <span className="nav-palette-emoji">{emoji}</span>
           </Link>
-          <span className="nav-palette-emoji">{emoji}</span>
           <span className="nav-slash">/</span>
           <span className="nav-palette-name">edit</span>
         </>
