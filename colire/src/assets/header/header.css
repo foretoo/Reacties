@@ -1,0 +1,23 @@
+.header {
+  margin-bottom: 1rem;
+  min-height: 3rem;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: white;
+  border-bottom: 1px solid var(--dark-l-m);
+  overflow-x: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.header::-webkit-scrollbar {
+  display: none;
+}
+.header * {
+  width: max-content;
+}
+.dark-theme .header {
+  background-color: #333;
+  border-bottom: 1px solid var(--dark);
+}

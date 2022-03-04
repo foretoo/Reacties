@@ -1,5 +1,5 @@
 import { h } from "preact"
-import "./css/header.css"
+import "./header.css"
 
 const Header = ({ className = "", children = [] }) => (
   <header className={`header` + (className ? ` ${className}` : ``)}>
