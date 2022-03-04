@@ -2,9 +2,6 @@ import { h, Fragment } from "preact"
 import { useState, useEffect, useRef } from "preact/hooks"
 import "./slider.css"
 
-const clamp = (num, min, max) => num < min ? min : num > max ? max : num
-const round = Math.round
-
 const Slider = ({
 
   min = 0,
@@ -71,30 +68,32 @@ const Slider = ({
 
 
   const handleStart = (e) => {
+    e.preventDefault()
     handlerRef.current.setPointerCapture(e.pointerId)
-    SET((PREV) => ({ ...PREV, pointer: { start: true, x: e.pageX }}))
+    if (e.target === handlerRef.current) {
+      SET((PREV) => ({ ...PREV, pointer: { start: true, x: e.pageX }}))
+    }
+    else 
+      SET((PREV) => {
+        const pointer = { start: true, x: e.pageX }
+        const offset  = e.pageX - PREV.path.x - PREV.handler.width / 2
+        const { handler, value } = calcSlider(PREV, offset, min, step )
+        if ( value !== PREV.value ) onChange(value)
+        return { ...PREV, pointer, handler, value }
+      })
   }
   const handleEnd = (e) => {
     handlerRef.current.releasePointerCapture(e.pointerId)
     SET((PREV) => ({ ...PREV, pointer: { ...PREV.pointer, start: false }}))
   }
   const handleMove = (e) => {
+    e.preventDefault()
     GET.pointer.start &&
     SET((PREV) => {
-
-      const pointer     = { ...PREV.pointer, x: e.pageX }
-      const delta       = pointer.x - PREV.pointer.x
-      const offset      = PREV.handler.offset + delta
-      const offsetRatio = offset / GET.path.width
-      const stepActual  = round(offsetRatio / GET.stepRatio)
-      const stepClamped = clamp(stepActual, 0, GET.stepMax)
-      const translate   = stepClamped * GET.stepWidth
-
-      const handler     = { offset, translate }
-      const value       = min + stepClamped * step
-
+      const pointer = { ...PREV.pointer, x: e.pageX }
+      const offset  = PREV.handler.offset + (pointer.x - PREV.pointer.x)
+      const { handler, value } = calcSlider(PREV, offset, min, step )
       if ( value !== PREV.value ) onChange(value)
-
       return { ...PREV, pointer, handler, value }
     })
   }
@@ -104,7 +103,10 @@ const Slider = ({
   const classList = "slider-container" + (className && ` ${className}`)
 
   return (
-    <div className={classList} style={style}>
+    <div className={classList}
+      style={style}
+      onPointerDown={handleStart}
+      onPointerMove={handleMove} >
       <div ref={pathRef} className="slider-path">
         {GET.mounted && label &&
           <>
@@ -128,9 +130,7 @@ const Slider = ({
           style={{
             transform:  `translate(${GET.handler.translate}px)`,
             visibility: GET.mounted ? `visible` : `hidden`,
-          }}
-          onPointerDown={handleStart}
-          onPointerMove={handleMove} >
+          }}>
           {label &&
             <div className="slider-value label">{GET.value}</div>
           }
@@ -138,9 +138,18 @@ const Slider = ({
       </div>
     </div>
   )
-
 }
 
 export default Slider
 
-{ /*  */ }
+const calcSlider = (PREV, offset, min, step) => {
+  const offsetRatio = offset / PREV.path.width
+  const stepActual  = Math.round(offsetRatio / PREV.stepRatio)
+  const stepClamped = clamp(stepActual, 0, PREV.stepMax)
+  const translate   = stepClamped * PREV.stepWidth
+  const handler     = { ...PREV.handler, offset, translate }
+  const value       = min + stepClamped * step
+  return { handler, value }
+}
+
+const clamp = (num, min, max) => num < min ? min : num > max ? max : num

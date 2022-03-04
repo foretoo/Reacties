@@ -6,6 +6,7 @@
   min-width: 100px;
   min-height: var(--handler-size);
   display: flex;
+  cursor: pointer;
 }
 .slider-path {
   position: relative;
@@ -32,6 +33,7 @@
 .label {
   position: absolute;
   font-size: 0.7rem;
+  pointer-events: none;
 }
 .slider-value {
   top: 50%;
