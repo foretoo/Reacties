@@ -7,7 +7,7 @@ import chroma from "chroma-js"
 const ToneHandler = ({
   size = 100,
   className = "",
-  style = {},
+  style,
 }) => {
 
   const { GET, SET, handleChange } = useContext(Context)

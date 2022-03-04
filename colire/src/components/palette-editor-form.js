@@ -80,7 +80,7 @@ const PaletteEditorForm = ({ target }) => {
         size={150}
         style={{ marginBottom: "40px", marginTop: "20px" }} />
       <div>
-        <ToneHandler size={100} style={{ flexShrink: 0 }} />
+        <ToneHandler size={100} />
         <input className={inputClass}
           type="text"
           value={color.name}

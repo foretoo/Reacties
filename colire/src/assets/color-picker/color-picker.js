@@ -10,7 +10,7 @@ const ColorPicker = ({
   onChange = (color) => console.log(color.hex),
   children = [],
   className = "",
-  style = {},
+  style,
 }) => {
 
   const getHSL = (color) => {
@@ -35,15 +35,15 @@ const ColorPicker = ({
   const [ GET, SET ] = useState(initPicker)
 
   useEffect(() => {
-    !GET.start && SET((PREV) => {
-      const hsl  = getHSL(color)
+    !GET.start && GET.tone.size && SET((PREV) => {
+      const hsl = getHSL(color)
       const point = getTonePoint(hsl, PREV.tone.size)
       return { ...PREV, hsl, tone: { ...PREV.tone, point }}
     })
   }, [ color ])
 
   useEffect(() => {
-    SET((PREV) => {
+    GET.tone.size && SET((PREV) => {
       const point = getTonePoint(PREV.hsl, PREV.tone.size)
       return { ...PREV, tone: { ...PREV.tone, point }}
     })
