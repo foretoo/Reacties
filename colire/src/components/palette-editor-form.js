@@ -1,5 +1,5 @@
 import { h } from "preact"
-import { useState, useRef, useEffect } from "preact/hooks"
+import { useState, useEffect } from "preact/hooks"
 import chroma from "chroma-js"
 import {
   Button,
@@ -8,7 +8,7 @@ import {
   ToneHandler,
   Switcher,
 } from "@assets"
-import { useCtx } from "@utils/hooks"
+import { useCtx, useConst } from "@utils/hooks"
 import { throttle } from "@utils/helpers"
 import "./css/palette-editor-form.css"
 
@@ -47,11 +47,11 @@ const PaletteEditorForm = ({ target }) => {
       payload: target,
     })
   }
-  const throttleChangeColor = useRef(throttle(
+  const throttleChangeColor = useConst(throttle(
     (hex) => dispatch({
       type:    "CHANGE_NEW_COLOR",
       payload: { color: hex, target },
-    }), 333 )).current
+    }), 333 ))
   useEffect(() => throttleChangeColor(pickedColor), [ pickedColor ])
   const handleChangeColor = ({ hex, moving }) => {
     setPickerMoving(moving)
@@ -93,7 +93,7 @@ const PaletteEditorForm = ({ target }) => {
           style={{
             width: "129px",
             padding: "70px 10px 10px 10px",
-            backgroundColor: color.color,
+            backgroundColor: pickedColor,
             transition: pickerMoving ? "none" : "0.2s",
           }}
           onChange={handleChangeColorName} />
