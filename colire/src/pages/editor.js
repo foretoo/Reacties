@@ -96,7 +96,7 @@ const Editor = () => {
             <Button name="🌈"
               type="minor"
               onClick={toggleForm} />
-            <div className="warn-info" >{warn}</div>
+            <div className="warn-info">{warn}</div>
             <Button name="Save"
               type="idle"
               onClick={handleSavePalette} />
