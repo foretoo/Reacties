@@ -13,6 +13,7 @@ import {
   round,
   r3d,
 } from "./math"
+import throttle from "./throttle"
 
 export {
   addLevelProp,
@@ -26,4 +27,5 @@ export {
   clamp,
   round,
   r3d,
+  throttle,
 }

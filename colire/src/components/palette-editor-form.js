@@ -1,6 +1,5 @@
 import { h } from "preact"
-import { useContext, useState } from "preact/hooks"
-import { Context } from "@app"
+import { useState, useRef, useEffect } from "preact/hooks"
 import chroma from "chroma-js"
 import {
   Button,
@@ -9,14 +8,17 @@ import {
   ToneHandler,
   Switcher,
 } from "@assets"
+import { useCtx } from "@utils/hooks"
+import { throttle } from "@utils/helpers"
 import "./css/palette-editor-form.css"
 
 const PaletteEditorForm = ({ target }) => {
   
-  const { state: { editor }, dispatch } = useContext(Context)
+  const { state: { editor }, dispatch } = useCtx()
   const { [target]: { color, palette }, hidden, valid } = editor
 
   const [ pickerMoving, setPickerMoving ] = useState(false)
+  const [ pickedColor, setPickedColor ] = useState("#fff")
 
   let formClass = "pick-color-form",
       inputClass = "editor-color-name",
@@ -45,12 +47,15 @@ const PaletteEditorForm = ({ target }) => {
       payload: target,
     })
   }
-  const handleChangeColor = ({ hex, moving }) => {
-    setPickerMoving(moving)
-    dispatch({
+  const throttleChangeColor = useRef(throttle(
+    (hex) => dispatch({
       type:    "CHANGE_NEW_COLOR",
       payload: { color: hex, target },
-    })
+    }), 333 )).current
+  useEffect(() => throttleChangeColor(pickedColor), [ pickedColor ])
+  const handleChangeColor = ({ hex, moving }) => {
+    setPickerMoving(moving)
+    setPickedColor(hex)
   }
   const handleChangeColorName = (e) => {
     const name = e.target.value
@@ -67,7 +72,7 @@ const PaletteEditorForm = ({ target }) => {
 
   return (
     <ColorPicker className={formClass}
-      color={color.color}
+      color={pickedColor}
       onChange={handleChangeColor} >
       <div>
         <Button name="Random" onClick={handleRandomColor} />
