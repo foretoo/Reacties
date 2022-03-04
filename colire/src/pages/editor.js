@@ -1,13 +1,13 @@
 import { h, Fragment } from "preact"
 import { useState, useRef, useLayoutEffect } from "preact/hooks"
-import { Link, useHistory, useParams } from "react-router-dom"
+import { useHistory, useParams } from "react-router-dom"
 import gsap from "gsap"
 import { useCtx } from "@utils/hooks"
 import { getID } from "@utils/helpers"
 import { Button } from "@assets"
 import {
-  Header,
   SortablePalette,
+  PageHeader,
   PaletteEditorForm,
   PaletteEditorNameForm,
 } from "@components"
@@ -28,7 +28,7 @@ const Editor = () => {
 
   const history = useHistory()
   const target = paletteID ? "toEdit" : "toCreate"
-  const { palette, name } = editor[target]
+  const { palette, name, emoji, id } = editor[target]
   const [ warn, setWarn ] = useState("")
   const [ width, setWidth ] = useState(0)
   const formRef = useRef(null)
@@ -46,27 +46,7 @@ const Editor = () => {
     gsap.to(formRef.current, { marginLeft })
   }
 
-  const Navigation = () => {
-    if (paletteID) {
-      const { name, emoji } = palettes.find((palette) => palette.id === paletteID)
-      return (
-        <>
-          <Link to={`/${paletteID}/`}>
-            <span>{name}</span>
-            <span className="nav-palette-emoji">{emoji}</span>
-          </Link>
-          <span className="nav-slash">/</span>
-          <span className="nav-palette-name">edit</span>
-        </>
-      )
-    }
-    else return (
-      <>
-        <span className="nav-palette-name">Create palette</span>
-        <span className="nav-palette-emoji">🧑‍🎨</span>
-      </>
-    )
-  }
+
 
   const handleSavePalette = () => {
     if (!palette.length) setWarn("Palette is empty")
@@ -99,15 +79,9 @@ const Editor = () => {
 
   return (
     <>
-      <Header>
-        <div className="header-container">
-          <nav className="header-nav">
-            <Link className="nav-link" to="/">root</Link>
-            <span className="nav-slash">/</span>
-            <Navigation />
-          </nav>
-        </div>
-      </Header>
+      <PageHeader
+        palette={paletteID ? { name, emoji, id } : null}
+        editor={true} />
 
       <main className="edit-palette-container">
 

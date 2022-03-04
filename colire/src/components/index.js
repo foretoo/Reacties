@@ -4,9 +4,9 @@ import ColorListContent from "./color-list-content"
 import Content from "./content"
 import EmojiPicker from "./emoji-picker"
 import Footer from "./footer"
-import Header from "./header"
 import withMore from "./hoc-with-more"
 import Overlay from "./overlay"
+import PageHeader from "./page-header"
 import PaletteBox from "./palette-box"
 import PaletteEditorForm from "./palette-editor-form"
 import PaletteEditorNameForm from "./palette-editor-name-form"
@@ -26,10 +26,10 @@ export {
   Content,
   EmojiPicker,
   Footer,
-  Header,
   withMore,
   PaletteEditorNameForm,
   Overlay,
+  PageHeader,
   PaletteBox,
   PaletteEditorForm,
   PaletteListContent,
