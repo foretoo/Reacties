@@ -156,7 +156,7 @@ const editPaletteReducer = (state, action) => {
       ]
     }
     else {
-      palettes = state.palettes.concat(newPalette)
+      palettes = [ newPalette, ...state.palettes ]
     }
 
     return {
