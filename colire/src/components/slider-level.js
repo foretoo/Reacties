@@ -1,12 +1,11 @@
 import { h } from "preact"
-import { useContext } from "preact/hooks"
-import { Context } from "@app"
+import { usePalettesDispatch } from "@app/ctx"
 import { Slider } from "@assets"
 import "./css/slider-level.css"
 
 const SliderLevel = ({ id, level }) => {
 
-  const { dispatch } = useContext(Context)
+  const { dispatch } = usePalettesDispatch()
 
   const handleChangeLevel = (level) => {
     dispatch({

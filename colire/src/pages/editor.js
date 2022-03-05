@@ -2,7 +2,7 @@ import { h, Fragment } from "preact"
 import { useState, useRef, useLayoutEffect } from "preact/hooks"
 import { useHistory, useParams } from "react-router-dom"
 import gsap from "gsap"
-import { useAgent } from "@app/ctx"
+import { useAgent, usePalettes, usePalettesDispatch } from "@app/ctx"
 import { useCtx } from "@utils/hooks"
 import { getID } from "@utils/helpers"
 import { Button } from "@assets"
@@ -17,11 +17,13 @@ import "./css/palette-editor.css"
 const Editor = () => {
 
   const { paletteID } = useParams()
-  const { state: { palettes, editor }, dispatch } = useCtx()
+  const { state: { editor }, dispatch: dispatchEditor } = useCtx()
+  const { palettes } = usePalettes()
+  const { dispatch: dispatchPalettes } = usePalettesDispatch()
   const { agent } = useAgent()
 
   if (paletteID && editor.toEdit.id !== paletteID) {
-    dispatch({
+    dispatchEditor({
       type:    "INIT_EDIT_PALETTE",
       payload: paletteID,
     })
@@ -62,9 +64,13 @@ const Editor = () => {
         ) ||
         curPaletteIdIsUnique
       ) {
-        dispatch({
+        dispatchEditor({
           type:    "SAVE_PALETTE",
           payload: target,
+        })
+        dispatchPalettes({
+          type:    "SAVE_PALETTE",
+          payload: { colors, name, emoji, id },
         })
         history.push( paletteID ? `/${curPaletteID}/` : `/` )
       }
@@ -73,7 +79,7 @@ const Editor = () => {
     else setWarn("Enter palette name")
   }
   const handleClearPalette = () => {
-    dispatch({
+    dispatchEditor({
       type:    "CLEAR_PALETTE",
       payload: target,
     })

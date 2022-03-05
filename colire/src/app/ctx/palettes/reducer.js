@@ -1,3 +1,5 @@
+import { addLevelProp, colorScaler } from "@utils/helpers"
+
 const reducer = (state, action) => {
   switch (action.type) {
 
@@ -23,6 +25,26 @@ const reducer = (state, action) => {
       const palettes = state.palettes.filter((palette) => palette.id !== id)
       return { ...state, palettes }
     }
+
+    case "SAVE_PALETTE": {
+      const { colors, name, emoji, id } = action.payload
+      const palette = setPalette(colors, name, emoji)
+
+      let palettes = []
+      if (id) {
+        const i = state.palettes.findIndex((palette) => palette.id === id)
+        palettes = [
+          ...state.palettes.slice(0, i),
+          palette,
+          ...state.palettes.slice(i + 1, state.palettes.length),
+        ]
+      }
+      else {
+        palettes = [ palette, ...state.palettes ]
+      }
+  
+      return { ...state, palettes }
+    }
     
     default:
       return state
@@ -30,3 +52,15 @@ const reducer = (state, action) => {
 }
 
 export default reducer
+
+const setPalette = (colors, name, emoji) =>
+  colorScaler(addLevelProp({
+    id: name
+          .replace(/\s\s+/g, " ")
+          .trim()
+          .toLowerCase()
+          .replace(/ /g, "-"),
+    name,
+    colors,
+    emoji,
+}))

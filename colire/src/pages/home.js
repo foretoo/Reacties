@@ -1,13 +1,12 @@
 import { h, Fragment } from "preact"
 import { Link } from "react-router-dom"
-import { useAgent } from "@app/ctx"
-import { useCtx } from "@utils/hooks"
+import { useAgent, usePalettes } from "@app/ctx"
 import { AddPaletteBtn, SVGFilter, PaletteBox } from "@components"
 import "./css/home.css"
 
 const Home = () => {
 
-  const { state: { palettes }} = useCtx()
+  const { palettes } = usePalettes()
   const { actualTheme } = useAgent()
 
   const paletteLinks = palettes.map((palette) => (

@@ -1,12 +1,12 @@
 import { h } from "preact"
 import { gsap } from "gsap"
 import { useEffect, useRef } from "preact/hooks"
-import { useCtx } from "@utils/hooks"
+import { usePalettes } from "@app/ctx"
 import "./css/snackbar.css"
 
 const Snackbar = () => {
 
-  const { state: { format }} = useCtx()
+  const { format } = usePalettes()
   const ref = useRef(null)
   const mounted = useRef(false)
   const tl = gsap.timeline({ defaults: { duration: 0.5 }})

@@ -1,14 +1,15 @@
 import { h, Fragment } from "preact"
 import { Link, useHistory } from "react-router-dom"
 import { useAgent } from "@app/ctx"
-import { useCtx, useConst } from "@utils/hooks"
+import { usePalettesDispatch } from "@app/ctx"
+import { useConst } from "@utils/hooks"
 import { Button, Header } from "@assets"
 import "./css/header.css"
 
 const PageHeader = ({ palette, color, editor }) => {
 
   const history = useHistory()
-  const { dispatch } = useCtx()
+  const { dispatch } = usePalettesDispatch()
   const { agent: { width }} = useAgent()
 
   const handleDeletePalette = useConst(() => {

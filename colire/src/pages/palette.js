@@ -1,6 +1,6 @@
 import { h, Fragment } from "preact"
 import { useParams } from "react-router-dom"
-import { useCtx } from "@utils/hooks"
+import { usePalettes } from "@app/ctx"
 import {
   Content,
   PageHeader,
@@ -14,7 +14,7 @@ const Palette = () => {
 
   const { paletteID, colorID } = useParams()
 
-  const { state: { palettes }} = useCtx()
+  const { palettes } = usePalettes()
   const palette = palettes.find((palette) => palette.id === paletteID)
   const color   = colorID ? palette.colors.find(c => c.id === colorID) : null
 
