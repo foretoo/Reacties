@@ -1,5 +1,4 @@
 import {
-  paletteReducer,
   editPaletteReducer,
 } from "./reducers"
 
@@ -11,6 +10,5 @@ const reduceReducers = (...reducers) =>
     )
 
 export default reduceReducers(
-  paletteReducer,
   editPaletteReducer,
 )
