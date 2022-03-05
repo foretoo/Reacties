@@ -5,7 +5,7 @@ import "./css/slider-level.css"
 
 const SliderLevel = ({ id, level }) => {
 
-  const { dispatch } = usePalettesDispatch()
+  const dispatch = usePalettesDispatch()
 
   const handleChangeLevel = (level) => {
     dispatch({

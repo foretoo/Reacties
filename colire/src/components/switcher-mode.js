@@ -7,7 +7,7 @@ import "./css/switcher-mode.css"
 const SwitcherMode = () => {
 
   const { format } = usePalettes()
-  const { dispatch } = usePalettesDispatch()
+  const dispatch = usePalettesDispatch()
 
   const handleChangeMode = useConst((format) => {
     dispatch({

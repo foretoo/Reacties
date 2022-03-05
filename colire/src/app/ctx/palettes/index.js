@@ -9,8 +9,8 @@ const Dispatch = createContext()
 const PalettesContextProvider = ({ children }) => {
   const [ state, dispatch ] = useReducer(reducer, init)
   return (
-    <State.Provider value={{ ...state }}>
-      <Dispatch.Provider value={{ dispatch }}>
+    <State.Provider value={ state }>
+      <Dispatch.Provider value={ dispatch }>
         {children}
       </Dispatch.Provider>
     </State.Provider>

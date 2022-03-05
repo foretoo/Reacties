@@ -9,7 +9,7 @@ import "./css/header.css"
 const PageHeader = ({ palette, color, editor }) => {
 
   const history = useHistory()
-  const { dispatch } = usePalettesDispatch()
+  const dispatch = usePalettesDispatch()
   const { agent: { width }} = useAgent()
 
   const handleDeletePalette = useConst(() => {

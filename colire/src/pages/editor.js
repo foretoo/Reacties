@@ -37,7 +37,7 @@ const Editor = () => {
 
   const history = useHistory()
   const target = paletteID ? "toEdit" : "toCreate"
-  const { dispatch: dispatchPalettes } = usePalettesDispatch()
+  const dispatchPalettes = usePalettesDispatch()
   const { agent } = useAgent()
 
   const { colors, name, emoji, id } = editor[target]
