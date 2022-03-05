@@ -1,5 +1,3 @@
-import { addLevelProp, colorScaler } from "@utils/helpers"
-
 const editPaletteReducer = (state, action) => {
   switch (action.type) {
   case "DELETE_COLOR": {
@@ -95,7 +93,7 @@ const editPaletteReducer = (state, action) => {
     const { name, target } = action.payload
     const { colors, valid } = state.editor[target]
     const nameIsValid = !colors.some((c) => {
-      return normSpaces(c.name.toLowerCase()) === normSpaces(name.toLowerCase())
+      return norm(c.name) === norm(name)
     })
 
     let warnText = name
@@ -210,6 +208,6 @@ const editPaletteReducer = (state, action) => {
 
 export default editPaletteReducer
 
-const normSpaces = (str) => {
-  return str.replace(/\s\s+/g, " ").trim()
+const norm = (str) => {
+  return str.replace(/\s\s+/g, " ").trim().toLowerCase()
 }
