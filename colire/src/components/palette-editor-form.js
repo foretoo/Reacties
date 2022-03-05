@@ -1,6 +1,7 @@
 import { h } from "preact"
 import { useState, useEffect } from "preact/hooks"
 import chroma from "chroma-js"
+import { useEditor, useEditorDispatch } from "@app/ctx"
 import {
   Button,
   ColorPicker,
@@ -8,13 +9,14 @@ import {
   ToneHandler,
   Switcher,
 } from "@assets"
-import { useCtx, useConst } from "@utils/hooks"
+import { useConst } from "@utils/hooks"
 import { throttle } from "@utils/helpers"
 import "./css/palette-editor-form.css"
 
 const PaletteEditorForm = ({ target }) => {
   
-  const { state: { editor }, dispatch } = useCtx()
+  const editor = useEditor()
+  const dispatch = useEditorDispatch()
   const { [target]: { color, colors, valid }, hidden } = editor
 
   const [ pickerMoving, setPickerMoving ] = useState(false)

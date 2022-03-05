@@ -2,8 +2,13 @@ import { h, Fragment } from "preact"
 import { useState, useRef, useLayoutEffect } from "preact/hooks"
 import { useHistory, useParams } from "react-router-dom"
 import gsap from "gsap"
-import { useAgent, usePalettes, usePalettesDispatch } from "@app/ctx"
-import { useCtx } from "@utils/hooks"
+import {
+  useAgent,
+  useEditor,
+  useEditorDispatch,
+  usePalettes,
+  usePalettesDispatch,
+} from "@app/ctx"
 import { getID } from "@utils/helpers"
 import { Button } from "@assets"
 import {
@@ -17,13 +22,12 @@ import "./css/palette-editor.css"
 const Editor = () => {
 
   const { paletteID } = useParams()
-  const { state: { editor }, dispatch: dispatchEditor } = useCtx()
+  const editor = useEditor()
+  const dispatchEditor = useEditorDispatch()
   const { palettes } = usePalettes()
-  const { dispatch: dispatchPalettes } = usePalettesDispatch()
-  const { agent } = useAgent()
   const palette = palettes.find((palette) => palette.id === paletteID)
 
-  if (paletteID && editor.toEdit.id !== paletteID) {
+  if (paletteID && !editor.toEdit.id) {
     dispatchEditor({
       type:    "INIT_EDIT_PALETTE",
       payload: palette,
@@ -33,6 +37,9 @@ const Editor = () => {
 
   const history = useHistory()
   const target = paletteID ? "toEdit" : "toCreate"
+  const { dispatch: dispatchPalettes } = usePalettesDispatch()
+  const { agent } = useAgent()
+
   const { colors, name, emoji, id } = editor[target]
   const [ warn, setWarn ] = useState("")
   const [ width, setWidth ] = useState(0)
@@ -108,9 +115,11 @@ const Editor = () => {
             <div className="warn-info">{warn}</div>
             <Button name="Save"
               type="idle"
+              size={33}
               onClick={handleSavePalette} />
             <Button name="Clear"
               type="idle"
+              size={33}
               onClick={handleClearPalette} />
           </div>
 

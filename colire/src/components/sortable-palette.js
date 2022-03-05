@@ -3,13 +3,14 @@ import chroma from "chroma-js"
 import { DndContext, closestCenter, PointerSensor, useSensor } from "@dnd-kit/core"
 import { SortableContext, arrayMove } from "@dnd-kit/sortable"
 import { SortableColorBox } from "@components"
-import { useCtx } from "@utils/hooks"
+import { useEditor, useEditorDispatch } from "@app/ctx"
 import "./css/color-box.css"
 
 
 const SortablePalette = ({ target }) => {
 
-  const { state: { editor }, dispatch } = useCtx()
+  const editor = useEditor()
+  const dispatch = useEditorDispatch()
   const { colors } = editor[target]
   const names = []
 

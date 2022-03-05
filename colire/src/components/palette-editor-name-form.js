@@ -1,11 +1,12 @@
 import { h, Fragment } from "preact"
 import { useState, useEffect, useRef } from "preact/hooks"
-import { useCtx } from "@utils/hooks"
+import { useEditor, useEditorDispatch } from "@app/ctx"
 import { EmojiPicker } from "@components"
 
 const PaletteEditorNameForm = ({ target, setWarn }) => {
 
-  const { state: { editor }, dispatch } = useCtx()
+  const editor = useEditor()
+  const dispatch = useEditorDispatch()
   const { name, emoji } = editor[target]
   const [ formState, setFormState ] = useState({ displayEmojis: false, emojisOffset: { x: 0, y: 0 }})
   const emojiButtonRef = useRef()
