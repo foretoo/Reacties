@@ -17,12 +17,15 @@ const PageHeader = ({ palette, color, editor }) => {
     history.push("/")
   })
 
+  const isCreatePalettePage =  editor && !palette
+  const isPalettePage       = !editor && !color
+
   return (
     <Header>
       <nav className="header-nav">
         <Link className="nav-link" to="/">root</Link>
         <span className="nav-slash">/</span>
-        {(editor && !palette || !editor && !color)
+        {(isCreatePalettePage || isPalettePage)
           ? <>
               <span className="nav-palette-name">
                 {editor ? "Create palette": palette.name}
@@ -31,7 +34,7 @@ const PageHeader = ({ palette, color, editor }) => {
                 {editor ? "🧑‍🎨" : palette.emoji}
               </span>
             </>
-          : <>
+          : <> {/* IF "PALETTE EDIT" || "COLOR" PAGE */}
               <Link to={`/${palette.id}/`}>
                 <span>{palette.name}</span>
                 <span className="nav-palette-emoji">{palette.emoji}</span>
