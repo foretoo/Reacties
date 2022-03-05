@@ -179,9 +179,7 @@ const editPaletteReducer = (state, action) => {
     }
   }
   case "INIT_EDIT_PALETTE": {
-    const paletteID = action.payload
-    const { colors: leveledColors, name, emoji, id } =
-      state.palettes.find((palette) => palette.id === paletteID)
+    const { colors: leveledColors, name, emoji, id } = action.payload
     const colors = leveledColors.map(({ name, levels }) => ({ name, color: levels[4].hex }))
     const color = { name: "", color: "#ffffff" }
     return {

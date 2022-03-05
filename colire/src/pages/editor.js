@@ -21,11 +21,12 @@ const Editor = () => {
   const { palettes } = usePalettes()
   const { dispatch: dispatchPalettes } = usePalettesDispatch()
   const { agent } = useAgent()
+  const palette = palettes.find((palette) => palette.id === paletteID)
 
   if (paletteID && editor.toEdit.id !== paletteID) {
     dispatchEditor({
       type:    "INIT_EDIT_PALETTE",
-      payload: paletteID,
+      payload: palette,
     })
     return null
   }
@@ -88,7 +89,7 @@ const Editor = () => {
   return (
     <>
       <PageHeader
-        palette={paletteID ? { name, emoji, id } : null}
+        palette={paletteID ? palette : null}
         editor={true} />
 
       <main className="edit-palette-container">
