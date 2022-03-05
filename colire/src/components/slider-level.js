@@ -11,7 +11,7 @@ const SliderLevel = ({ id, level }) => {
   const handleChangeLevel = (level) => {
     dispatch({
       type:    "CHANGE_PALETTE_LEVEL",
-      payload: { id, level },
+      payload: { id, activeLevel: level },
     })
   }
 
