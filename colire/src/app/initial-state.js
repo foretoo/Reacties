@@ -11,13 +11,13 @@ const initialState = {
         name:  "",
         color: "#ffffff",
       },
+      valid:  {
+        name:     true,
+        color:    true,
+        warnText: "",
+      },
     },
     hidden: false,
-    valid:  {
-      name:     true,
-      color:    true,
-      warnText: "",
-    },
   },
 }
 

@@ -15,7 +15,7 @@ import "./css/palette-editor-form.css"
 const PaletteEditorForm = ({ target }) => {
   
   const { state: { editor }, dispatch } = useCtx()
-  const { [target]: { color, colors }, hidden, valid } = editor
+  const { [target]: { color, colors, valid }, hidden } = editor
 
   const [ pickerMoving, setPickerMoving ] = useState(false)
   const [ pickedColor, setPickedColor ] = useState("#fff")

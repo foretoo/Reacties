@@ -33,13 +33,15 @@ const editPaletteReducer = (state, action) => {
 
   case "ADD_NEW_COLOR": {
     const target = action.payload
-    const { [target]: { colors, color }, valid } = state.editor
+    const { colors, color, valid } = state.editor[target]
 
     if (!color.name.trim()) {
       return { ...state,
         editor: { ...state.editor,
-          valid: { ...valid,
-            warnText: "Enter a color name.\n",
+          [target]: { ...state.editor[target],
+            valid: { ...valid,
+              warnText: "Enter a color name.\n",
+            },
           },
         },
       }
@@ -55,17 +57,18 @@ const editPaletteReducer = (state, action) => {
           color: { ...color,
             name: "",
           },
-        },
-        valid: { ...valid,
-          color:    true,
-          warnText: "",
+          valid: { ...valid,
+            color:    true,
+            name:     true,
+            warnText: "",
+          },
         },
       },
     }
   }
   case "CHANGE_NEW_COLOR": {
     const { color, target } = action.payload
-    const { [target]: { colors }, valid } = state.editor
+    const { colors, valid } = state.editor[target]
     const colorIsValid = !colors.some((c) => c.color === color)
 
     const warnText = colorIsValid
@@ -80,17 +83,17 @@ const editPaletteReducer = (state, action) => {
           color: { ...state.editor[target].color,
             color,
           },
-        },
-        valid: { ...valid,
-          color: colorIsValid,
-          warnText,
+          valid: { ...valid,
+            color: colorIsValid,
+            warnText,
+          },
         },
       },
     }
   }
   case "CHANGE_NEW_COLOR_NAME": {
     const { name, target } = action.payload
-    const { [target]: { colors }, valid } = state.editor
+    const { colors, valid } = state.editor[target]
     const nameIsValid = !colors.some((c) => {
       return normSpaces(c.name.toLowerCase()) === normSpaces(name.toLowerCase())
     })
@@ -110,10 +113,10 @@ const editPaletteReducer = (state, action) => {
           color: { ...state.editor[target].color,
             name,
           },
-        },
-        valid: { ...valid,
-          name: nameIsValid,
-          warnText,
+          valid: { ...valid,
+            name: nameIsValid,
+            warnText,
+          },
         },
       },
     }
@@ -149,13 +152,13 @@ const editPaletteReducer = (state, action) => {
           target === "toEdit"
           ? state.editor.toCreate
           : {
-            colors: [],
-            name:    "",
-            emoji:   "🖖",
-            color:   { name: "", color: "#ffffff" },
-          },
+              colors: [],
+              name:   "",
+              emoji:  "🖖",
+              color:  { name: "", color: "#ffffff" },
+              valid:  { name: true, color: true, warnText: "" },
+            },
         hidden: false,
-        valid:  { name: true, color: true, warnText: "" },
       }
     }
   }
@@ -164,7 +167,7 @@ const editPaletteReducer = (state, action) => {
     return { ...state,
       editor: { ...state.editor,
         [target]: { ...state.editor[target],
-          palette: [],
+          colors: [],
         },
       },
     }
@@ -182,11 +185,20 @@ const editPaletteReducer = (state, action) => {
     const { colors: leveledColors, name, emoji, id } = action.payload
     const colors = leveledColors.map(({ name, levels }) => ({ name, color: levels[4].hex }))
     const color = { name: "", color: "#ffffff" }
-    return {
-      ...state,
-      editor: {
-        ...state.editor,
-        toEdit: { color, colors, name, emoji, id },
+    return { ...state,
+      editor: { ...state.editor,
+        toEdit: {
+          color,
+          colors,
+          name,
+          emoji,
+          id,
+          valid:  {
+            name:     true,
+            color:    true,
+            warnText: "",
+          },
+        },
       },
     }
   }
