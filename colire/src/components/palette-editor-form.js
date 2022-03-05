@@ -15,7 +15,7 @@ import "./css/palette-editor-form.css"
 const PaletteEditorForm = ({ target }) => {
   
   const { state: { editor }, dispatch } = useCtx()
-  const { [target]: { color, palette }, hidden, valid } = editor
+  const { [target]: { color, colors }, hidden, valid } = editor
 
   const [ pickerMoving, setPickerMoving ] = useState(false)
   const [ pickedColor, setPickedColor ] = useState("#fff")
@@ -29,7 +29,7 @@ const PaletteEditorForm = ({ target }) => {
   if (valid.warnText) submitClass += " warn"
 
   const handleAddColor = () => {
-    const validColor = !palette.some((c) => c.color === color.color)
+    const validColor = !colors.some((c) => c.color === color.color)
     if (!validColor || !valid.name) {
       dispatch({
         type:    "CHANGE_NEW_COLOR_NAME",

@@ -10,7 +10,7 @@ import "./css/color-box.css"
 const SortablePalette = ({ target }) => {
 
   const { state: { editor }, dispatch } = useCtx()
-  const { palette } = editor[target]
+  const { colors } = editor[target]
   const names = []
 
   const pointerSensor = useSensor(PointerSensor, {
@@ -38,7 +38,7 @@ const SortablePalette = ({ target }) => {
     })
   }
 
-  const paletteList = palette.map((c) => {
+  const paletteList = colors.map((c) => {
     const { name, color } = c
     names.push(name)
     const lumClass = chroma(color).luminance() < 0.333 ? " light" : " dark"

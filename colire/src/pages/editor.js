@@ -30,7 +30,7 @@ const Editor = () => {
 
   const history = useHistory()
   const target = paletteID ? "toEdit" : "toCreate"
-  const { palette, name, emoji, id } = editor[target]
+  const { colors, name, emoji, id } = editor[target]
   const [ warn, setWarn ] = useState("")
   const [ width, setWidth ] = useState(0)
   const formRef = useRef(null)
@@ -51,7 +51,7 @@ const Editor = () => {
 
 
   const handleSavePalette = () => {
-    if (!palette.length) setWarn("Palette is empty")
+    if (!colors.length) setWarn("Palette is empty")
     else if (name.trim()) {
       const curPaletteID = getID(name)
       const curPaletteIdIsUnique = !palettes.some((p) => p.id === curPaletteID)

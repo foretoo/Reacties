@@ -18,7 +18,7 @@ const initialState = {
   editor: {
     toEdit:   {},
     toCreate: {
-      palette: seedColors[0].colors,
+      colors: seedColors[0].colors,
       name:    "",
       emoji:   "🖖",
       color:   {

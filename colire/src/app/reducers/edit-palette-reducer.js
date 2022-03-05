@@ -4,28 +4,28 @@ const editPaletteReducer = (state, action) => {
   switch (action.type) {
   case "DELETE_COLOR": {
     const { name, target } = action.payload
-    const { palette } = state.editor[target]
+    const { colors: prevColors } = state.editor[target]
 
-    const newPalette = palette.filter((c) => c.name !== name)
+    const colors = prevColors.filter((c) => c.name !== name)
 
     return { ...state,
       editor: { ...state.editor,
         [target]: { ...state.editor[target],
-          palette: newPalette,
+          colors,
         },
       },
     }
   }
   case "CHANGE_PALETTE_ORDER": {
     const { newOrder, target } = action.payload
-    const { palette } = state.editor[target]
+    const { colors: prevColors } = state.editor[target]
 
-    const newPalette = newOrder.map((c) => palette.find((_c) => c === _c.name))
+    const colors = newOrder.map((c) => prevColors.find((_c) => c === _c.name))
     
     return { ...state,
       editor: { ...state.editor,
         [target]: { ...state.editor[target],
-          palette: newPalette,
+          colors,
         },
       },
     }
@@ -33,7 +33,7 @@ const editPaletteReducer = (state, action) => {
 
   case "ADD_NEW_COLOR": {
     const target = action.payload
-    const { [target]: { palette, color }, valid } = state.editor
+    const { [target]: { colors, color }, valid } = state.editor
 
     if (!color.name.trim()) {
       return { ...state,
@@ -48,7 +48,7 @@ const editPaletteReducer = (state, action) => {
     return { ...state,
       editor: { ...state.editor,
         [target]: { ...state.editor[target],
-          palette: palette.concat({
+          colors: colors.concat({
             name:  color.name.replace(/\s\s+/g, " ").trim(),
             color: color.color,
           }),
@@ -65,8 +65,8 @@ const editPaletteReducer = (state, action) => {
   }
   case "CHANGE_NEW_COLOR": {
     const { color, target } = action.payload
-    const { [target]: { palette }, valid } = state.editor
-    const colorIsValid = !palette.some((c) => c.color === color)
+    const { [target]: { colors }, valid } = state.editor
+    const colorIsValid = !colors.some((c) => c.color === color)
 
     const warnText = colorIsValid
       ? valid.warnText.replace("Color should be unique.", "")
@@ -90,8 +90,8 @@ const editPaletteReducer = (state, action) => {
   }
   case "CHANGE_NEW_COLOR_NAME": {
     const { name, target } = action.payload
-    const { [target]: { palette }, valid } = state.editor
-    const nameIsValid = !palette.some((c) => {
+    const { [target]: { colors }, valid } = state.editor
+    const nameIsValid = !colors.some((c) => {
       return normSpaces(c.name.toLowerCase()) === normSpaces(name.toLowerCase())
     })
 
@@ -141,28 +141,22 @@ const editPaletteReducer = (state, action) => {
   }
   case "SAVE_PALETTE": {
     const target = action.payload
-    const { palette, name, emoji, id } = state.editor[target]
-
-    const newPalette =
-      setPalette(palette, name.replace(/\s\s+/g, " ").trim(), emoji, id)
-    let palettes = []
-
-    if (id) {
-      const i = state.palettes.findIndex((palette) => palette.id === id)
-      palettes = [
-        ...state.palettes.slice(0, i),
-        newPalette,
-        ...state.palettes.slice(i + 1, state.palettes.length),
-      ]
-    }
-    else {
-      palettes = [ newPalette, ...state.palettes ]
-    }
-
     return {
       ...state,
-      palettes,
-      editor: getInitEditor(state, target === "toEdit"),
+      editor: {
+        toEdit: {},
+        toCreate:
+          target === "toEdit"
+          ? state.editor.toCreate
+          : {
+            colors: [],
+            name:    "",
+            emoji:   "🖖",
+            color:   { name: "", color: "#ffffff" },
+          },
+        hidden: false,
+        valid:  { name: true, color: true, warnText: "" },
+      }
     }
   }
   case "CLEAR_PALETTE": {
@@ -186,14 +180,15 @@ const editPaletteReducer = (state, action) => {
   }
   case "INIT_EDIT_PALETTE": {
     const paletteID = action.payload
-    const { colors, name, emoji, id } = state.palettes.find((palette) => palette.id === paletteID)
-    const palette = colors.map(({ name, levels }) => ({ name, color: levels[4].hex }))
+    const { colors: leveledColors, name, emoji, id } =
+      state.palettes.find((palette) => palette.id === paletteID)
+    const colors = leveledColors.map(({ name, levels }) => ({ name, color: levels[4].hex }))
     const color = { name: "", color: "#ffffff" }
     return {
       ...state,
       editor: {
         ...state.editor,
-        toEdit: { color, palette, name, emoji, id },
+        toEdit: { color, colors, name, emoji, id },
       },
     }
   }
@@ -208,22 +203,3 @@ export default editPaletteReducer
 const normSpaces = (str) => {
   return str.replace(/\s\s+/g, " ").trim()
 }
-
-const getInitEditor = (state, isPalettePage) => ({
-  toEdit:   {},
-  toCreate: isPalettePage ? state.editor.toCreate : {
-    palette: [],
-    name:    "",
-    emoji:   "🖖",
-    color:   { name: "", color: "#ffffff" },
-  },
-  hidden: false,
-  valid:  { name: true, color: true, warnText: "" },
-})
-
-const setPalette = (palette, name, emoji) => colorScaler(addLevelProp({
-  name,
-  id:     name.toLowerCase().replace(/ /g, "-"),
-  colors: palette,
-  emoji,
-}))
