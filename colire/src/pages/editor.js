@@ -2,6 +2,7 @@ import { h, Fragment } from "preact"
 import { useState, useRef, useLayoutEffect } from "preact/hooks"
 import { useHistory, useParams } from "react-router-dom"
 import gsap from "gsap"
+import { useAgent } from "@app/ctx"
 import { useCtx } from "@utils/hooks"
 import { getID } from "@utils/helpers"
 import { Button } from "@assets"
@@ -16,7 +17,8 @@ import "./css/palette-editor.css"
 const Editor = () => {
 
   const { paletteID } = useParams()
-  const { state: { palettes, editor, agent }, dispatch } = useCtx()
+  const { state: { palettes, editor }, dispatch } = useCtx()
+  const { agent } = useAgent()
 
   if (paletteID && editor.toEdit.id !== paletteID) {
     dispatch({

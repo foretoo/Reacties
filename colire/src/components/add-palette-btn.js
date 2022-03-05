@@ -1,12 +1,12 @@
-import gsap from "gsap"
 import { h } from "preact"
 import { useState, useEffect, useRef } from "preact/hooks"
-import { useCtx } from "@utils/hooks"
+import { useAgent } from "@app/ctx"
+import gsap from "gsap"
 import "./css/add-palette-btn.css"
 
 const AddPaletteBtn = () => {
 
-  const { state: { actualTheme, agent }} = useCtx()
+  const { actualTheme, agent }= useAgent()
   const [ hover, setHover ] = useState(false)
   const rectRef = useRef(null)
   const svgRef  = useRef(null)

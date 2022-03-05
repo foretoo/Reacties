@@ -1,5 +1,6 @@
 import { h, Fragment } from "preact"
 import { Link, useHistory } from "react-router-dom"
+import { useAgent } from "@app/ctx"
 import { useCtx, useConst } from "@utils/hooks"
 import { Button, Header } from "@assets"
 import "./css/header.css"
@@ -8,6 +9,7 @@ const PageHeader = ({ palette, color, editor }) => {
 
   const history = useHistory()
   const { dispatch } = useCtx()
+  const { agent: { width }} = useAgent()
 
   const handleDeletePalette = useConst(() => {
     dispatch({
@@ -15,6 +17,9 @@ const PageHeader = ({ palette, color, editor }) => {
       payload: palette.id,
     })
     history.push("/")
+  })
+  const handleEditPalette = useConst(() => {
+    history.push("edit")
   })
 
   const isCreatePalettePage =  editor && !palette
@@ -57,7 +62,7 @@ const PageHeader = ({ palette, color, editor }) => {
               <Button name="Edit"
                 type="idle"
                 size={35}
-                onClick={() => history.push("edit")} />
+                onClick={handleEditPalette} />
               <Button name="Delete"
                 type="idle"
                 size={35}

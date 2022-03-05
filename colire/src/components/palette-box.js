@@ -1,13 +1,13 @@
 import { h } from "preact"
 import { useRef } from "preact/hooks"
 import { Link } from "react-router-dom"
-import { useCtx } from "@utils/hooks"
 import gsap from "gsap"
+import { useAgent } from "@app/ctx"
 import "./css/palette-box.css"
 
 const PaletteBox = ({ id, name, colors }) => {
 
-  const { state: { agent }} = useCtx()
+  const { agent } = useAgent()
   const contentRef = useRef(null)
   gsap.defaults({ duration: 0.5 })
 

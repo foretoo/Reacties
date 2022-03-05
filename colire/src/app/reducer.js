@@ -1,7 +1,6 @@
 import {
   paletteReducer,
   editPaletteReducer,
-  themeReducer,
 } from "./reducers"
 
 const reduceReducers = (...reducers) =>
@@ -14,5 +13,4 @@ const reduceReducers = (...reducers) =>
 export default reduceReducers(
   paletteReducer,
   editPaletteReducer,
-  themeReducer,
 )
