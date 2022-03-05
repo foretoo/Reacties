@@ -1,7 +1,7 @@
-import { h, Fragment } from "preact"
+import { h } from "preact"
 import { ColorBox } from "@components"
 
-const ColorListContent = ({ id, name, levels, handleCopy }) => {
+const ColorListContent = ({ id, name, format, levels, handleCopy }) => {
 
   const lightLevels = [],
         darkLevels  = []
@@ -12,6 +12,7 @@ const ColorListContent = ({ id, name, levels, handleCopy }) => {
         <ColorBox
           key={`${id}-${(i + 1) * 100}`}
           name={name}
+          format={format}
           level={(i + 1) * 100}
           contentClass=" color"
           {...level}
@@ -22,6 +23,7 @@ const ColorListContent = ({ id, name, levels, handleCopy }) => {
         <ColorBox
           key={`${id}-${(i + 1) * 100}`}
           name={name}
+          format={format}
           level={(i + 1) * 100}
           contentClass=" color"
           {...level}
@@ -37,6 +39,7 @@ const ColorListContent = ({ id, name, levels, handleCopy }) => {
       <div className="init-color">
         <ColorBox
           name={name}
+          format={format}
           level={500}
           contentClass=" color"
           {...levels[4]}
