@@ -1,18 +1,18 @@
-import { h, createContext } from "preact"
-import { useReducer } from "preact/hooks"
-import { initialState, reducer } from "@app"
+import { h } from "preact"
+import {
+  AgentContextProvider,
+  EditorContextProvider,
+  PalettesContextProvider,
+} from "./ctx"
 
-const Context = createContext()
+const Context = ({ children }) => (
+  <AgentContextProvider>
+    <PalettesContextProvider>
+      <EditorContextProvider>
+        {children}
+      </EditorContextProvider>
+    </PalettesContextProvider>
+  </AgentContextProvider>
+)
 
-const ContextProvider = ({ children }) => {
-  const [ state, dispatch ] = useReducer(reducer, initialState)
-  return (
-    <Context.Provider value={{
-      state, dispatch,
-    }}>
-      {children}
-    </Context.Provider>
-  )
-}
-
-export { Context, ContextProvider }
+export default Context
