@@ -6,7 +6,7 @@ import "./css/switcher-theme.css"
 const SwitcherTheme = () => {
 
   const { switcherTheme } = useAgent()
-  const { dispatch } = useAgentDispatch()
+  const dispatch = useAgentDispatch()
 
   const handleChangeMode = useConst((e, theme) => {
     const isClick = e.type === "click"
