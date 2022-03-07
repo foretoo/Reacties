@@ -1,12 +1,13 @@
 .header {
+  flex-shrink: 0;
   margin-bottom: 1rem;
-  min-height: 3rem;
+  height: 3rem;
   padding: 0 1rem;
   display: flex;
-  align-items: center;
   gap: 1rem;
   background-color: white;
   border-bottom: 1px solid var(--dark-l-m);
+  transition: 0.3s;
   overflow-x: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -14,8 +15,12 @@
 .header::-webkit-scrollbar {
   display: none;
 }
-.header * {
-  width: max-content;
+.header.mobile {
+  flex-direction: column;
+  gap:unset;
+}
+.header.expanded {
+  height: 106px;
 }
 .dark-theme .header {
   background-color: #333;
