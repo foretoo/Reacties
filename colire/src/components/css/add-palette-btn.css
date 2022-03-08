@@ -1,13 +1,17 @@
 .add-palette-btn-container {
+  position: relative;
   width: calc(2.5rem * 5);
+  height: calc(2rem * 5);
   padding: 2.5rem;
   box-sizing: content-box;
-  position: relative;
+}
+.add-palette-btn-container > * {
+  position: absolute;
+  margin-top: 2rem;
+  width: calc(2.5rem * 5);
+  height: calc(2rem * 4);
 }
 .add-palette-btn {
-  width: 100%;
-  margin-top: 2rem;
-  height: calc(2rem * 4);
   font-weight: bold;
   color: inherit;
   cursor: pointer;
@@ -20,17 +24,22 @@ a:focus-visible .add-palette-btn-bg {
 
 
 .add-palette-btn-bg {
-  position: absolute;
-  left: 2.5rem;
-  bottom: 2.5rem;
   fill: white;
   border-radius: 5px;
-  z-index: -1;
-}
-
-.dark-theme .add-palette-btn-bg {
-  fill: #444;
 }
 .dark-theme .add-palette-btn {
   color: white;
+}
+
+
+.add-palette-shadow-container {
+  position: absolute;
+  width: 350px;
+  height: 300px;
+  padding: 2.5rem;
+  display: flex;
+}
+.add-palette-shadow {
+  margin-top: 2rem;
+  flex-grow: 1;
 }
