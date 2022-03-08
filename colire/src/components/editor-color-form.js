@@ -13,7 +13,7 @@ import { useConst } from "@utils/hooks"
 import { throttle } from "@utils/helpers"
 import "./css/palette-editor-form.css"
 
-const PaletteEditorForm = ({ target }) => {
+const EditorColorForm = ({ target }) => {
   
   const editor = useEditor()
   const dispatch = useEditorDispatch()
@@ -108,4 +108,4 @@ const PaletteEditorForm = ({ target }) => {
   )
 }
 
-export default PaletteEditorForm
+export default EditorColorForm

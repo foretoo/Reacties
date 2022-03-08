@@ -12,10 +12,10 @@ import {
 import { getID } from "@utils/helpers"
 import { Button } from "@assets"
 import {
-  SortablePalette,
+  EditorPalette,
   PageHeader,
-  PaletteEditorForm,
-  PaletteEditorNameForm,
+  EditorColorForm,
+  EditorNameForm,
 } from "@components"
 import "./css/palette-editor.css"
 
@@ -102,8 +102,8 @@ const Editor = () => {
       <main className="edit-palette-container">
 
         <aside ref={formRef} className="edit-palette-form">
-          <PaletteEditorNameForm target={target} setWarn={setWarn} />
-          <PaletteEditorForm target={target} />
+          <EditorNameForm target={target} setWarn={setWarn} />
+          <EditorColorForm target={target} />
         </aside>
 
         <section className="edit-palette-view">
@@ -124,7 +124,7 @@ const Editor = () => {
           </div>
 
           <div className="edit-palette-content">
-            <SortablePalette target={target} />
+            <EditorPalette target={target} />
           </div>
 
         </section>

@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "preact/hooks"
 import { useEditor, useEditorDispatch } from "@app/ctx"
 import { EmojiPicker } from "@components"
 
-const PaletteEditorNameForm = ({ target, setWarn }) => {
+const EditorNameForm = ({ target, setWarn }) => {
 
   const editor = useEditor()
   const dispatch = useEditorDispatch()
@@ -63,4 +63,4 @@ const PaletteEditorNameForm = ({ target, setWarn }) => {
   )
 }
 
-export default PaletteEditorNameForm
+export default EditorNameForm

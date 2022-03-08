@@ -2,12 +2,12 @@ import { h, Fragment } from "preact"
 import chroma from "chroma-js"
 import { DndContext, closestCenter, PointerSensor, useSensor } from "@dnd-kit/core"
 import { SortableContext, arrayMove } from "@dnd-kit/sortable"
-import { SortableColorBox } from "@components"
+import { EditorColorBox } from "@components"
 import { useEditor, useEditorDispatch } from "@app/ctx"
 import "./css/color-box.css"
 
 
-const SortablePalette = ({ target }) => {
+const EditorPalette = ({ target }) => {
 
   const editor = useEditor()
   const dispatch = useEditorDispatch()
@@ -44,7 +44,7 @@ const SortablePalette = ({ target }) => {
     names.push(name)
     const lumClass = chroma(color).luminance() < 0.333 ? " light" : " dark"
     return (
-      <SortableColorBox
+      <EditorColorBox
         key={name}
         name={name}
         color={color}
@@ -63,4 +63,4 @@ const SortablePalette = ({ target }) => {
 
 }
 
-export default SortablePalette
+export default EditorPalette

@@ -2,7 +2,7 @@ import { h } from "preact"
 import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 
-const SortableColorBox = ({ name, color, lum, handleDeleteColor }) => {
+const EditorColorBox = ({ name, color, lum, handleDeleteColor }) => {
 
   const { listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: name })
 
@@ -33,4 +33,4 @@ const SortableColorBox = ({ name, color, lum, handleDeleteColor }) => {
   )
 }
 
-export default SortableColorBox
+export default EditorColorBox
