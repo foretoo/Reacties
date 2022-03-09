@@ -19,7 +19,7 @@ const Home = () => {
 
         <header className="home-header">
           <h1>Colllie</h1>
-          <span>yor palette lib</span>
+          <span>your palette lib</span>
         </header>
 
         <Link to="/create-palette">
