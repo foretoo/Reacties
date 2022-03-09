@@ -1,14 +1,9 @@
 import { useState, useEffect, useRef } from "preact/hooks"
 
 const useDynamicImport = (
-  name = "",
+  name = "" || [""],
   upload = () => {},
 ) => {
-
-  const uploadRef = useRef(upload)
-  useEffect(() => {
-    uploadRef.current = upload
-  }, [ upload ])
 
   const initState = {
     isLoading: false,
@@ -22,7 +17,14 @@ const useDynamicImport = (
     setState((state) => ({ ...state, isLoading: true }))
 
     upload()
-      .then((data) => data[name] ? data[name] : data.default)
+      .then((data) => {
+        if (Array.isArray(name)) {
+          const result = []
+          for (let key of name) result[key] = data[key]
+          return result
+        }
+        else return data[name] ? data[name] : data.default
+      })
       .then((module) => {
         isMounted && setState((prev) => ({ ...prev, module, error: null }))
       })
