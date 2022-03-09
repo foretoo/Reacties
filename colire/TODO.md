@@ -5,6 +5,7 @@
 - [ ] add widgets folder
 - [ ] move edit-palette-form to widget
 - [ ] move palette/color-content-list to widget folder
+- [x] ~~separate contextes~~
 - [x] ~~fix all animations via gsap lib~~
 - [x] ~~add dark theme~~
 ` `  
@@ -20,6 +21,7 @@
 - [ ] ! style palette view with respect to its colors quantity
 - [ ] validate form in component (clear reducer)
 - [ ] add undo button
+- [ ] add reset button (palette/edit page)
 - [ ] fix hue handler size depends on window width
 - [x] ~~change burger icon~~
 - [x] ~~add mobile~~
@@ -34,14 +36,14 @@
 
 ### PALETTE
 
-- [ ] fix header size on mobile
-- [ ] export
+- [ ] ! export
+- [x] ~~fix header size on mobile~~
 - [x] ~~add export & edit & delete buttons~~
 - [x] ~~restyle color subpage~~
 - [x] ~~display color names on mouse hover~~
 
 ### HOME
-- [ ] shadow on create-palette button hover effect (in dark theme)
+- [x] ~~shadow on create-palette button hover effect (in dark theme)~~
 - [x] ~~fix create-palette-link hover effect (wiggling & on dark-mode)~~
 ` `  
 ` `  
@@ -57,7 +59,7 @@
 - [x] ~~hue: animation via matrix transformation~~
 
 ### SLIDER
-- [ ] make slider path clickable to set slider value instantly
+- [x] ~~make slider path clickable to set slider value instantly~~
 
 ### BUTTON
 - [x] ~~add idle style type~~
