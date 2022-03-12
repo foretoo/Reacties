@@ -3,6 +3,7 @@ const HtmlWebPackPlugin = require("html-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const homeIP = "192.168.1.44"
 const katIP = "192.168.0.103"
+const mobileIP = "172.20.10.4"
 const local = "localhost"
 
 module.exports = (env, { mode }) => ({

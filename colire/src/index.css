@@ -4,7 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital@0;1&display=swap');
 
 :root {
-  --light: #eee;
+  --light: #e6e6e6;
   --light-h: rgba(255, 255, 255, 0.75);
   --light-m: rgba(255, 255, 255, 0.5);
   --light-l: rgba(255, 255, 255, 0.25);
