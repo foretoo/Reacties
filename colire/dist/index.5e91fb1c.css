@@ -4,7 +4,7 @@
 /* IBM Plex Mono : Regular + Italic */
 
 :root {
-  --light: #eee;
+  --light: #e6e6e6;
   --light-h: rgba(255, 255, 255, 0.75);
   --light-m: rgba(255, 255, 255, 0.5);
   --light-l: rgba(255, 255, 255, 0.25);
@@ -222,67 +222,6 @@ a:focus-visible .add-palette-btn-bg {
   background: var(--dark);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
 }
-.footer {
-  height: 2.4rem;
-  padding: 1rem 1.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 111;
-}
-.footer * {
-  font-size: 0.6rem;
-  color: var(--dark-m-l);
-}
-.footer a:focus-visible {
-  outline: 4px solid white;
-}
-.dark-theme .footer * {
-  color: var(--light-m)
-}
-.overlay {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-radius: 0.5rem;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.overlay h1 {
-  margin: 1rem;
-  padding: 0.8rem 1rem;
-  text-align: center;
-  border-radius: 4px;
-}
-.overlay.light h1 {
-  color: var(--light-h);
-  border: 1px solid var(--light-l);
-  background: var(--light-l);
-}
-.overlay.dark h1 {
-  color: var(--dark-h);
-  border: 1px solid var(--dark-l);
-  background: var(--dark-l);
-}
-
-.overlay span {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.8rem;
-}
-.overlay.light span {
-  color: var(--light-m);
-}
-.overlay.dark span {
-  color: var(--dark-m);
-}
-
 .button {
   font-size: calc(var(--butSize) * 0.4);
   line-height: calc(var(--butSize) * 0.5);
@@ -519,7 +458,8 @@ a:focus-visible .add-palette-btn-bg {
   font-family: inherit;
   font-size: var(--font-size);
   color: rgba(0, 0, 0, 0.4);
-  transition: all 0.5s ease;
+  transition-property: width, transform, color;
+  transition-duration: 0.5s;
   z-index: 1;
 }
 .switch-case.active {
@@ -538,6 +478,114 @@ a:focus-visible .add-palette-btn-bg {
     rgba(0, 0, 0, 0.2);
   z-index: 0;
 }
+.export-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: var(--light);
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}
+.dark-theme .export-container {
+  background-color: #141414;
+  color: var(--light);
+}
+
+.export-content {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: 2px solid var(--dark-l);
+  border-radius: 0.5rem;
+}
+.export-content > p {
+  tab-size: 4;
+  font-size: 0.6rem;
+  line-height: 0.8rem;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+.dark-theme .export-content {
+  border: 2px solid var(--light-xl);
+}
+
+.export-controls {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+.export-controls > span {
+  padding: 0.2rem 0.3rem;
+  font-size: 0.8rem;
+  color: var(--dark-m-l);
+  border-radius: 0.2rem;
+}
+.dark-theme .export-controls > span {
+  color: var(--light-m);
+}
+.footer {
+  height: 2.4rem;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 111;
+}
+.footer * {
+  font-size: 0.6rem;
+  color: var(--dark-m-l);
+}
+.footer a:focus-visible {
+  outline: 4px solid white;
+}
+.dark-theme .footer * {
+  color: var(--light-m)
+}
+.overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5rem;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.overlay h1 {
+  margin: 1rem;
+  padding: 0.8rem 1rem;
+  text-align: center;
+  border-radius: 4px;
+}
+.overlay.light h1 {
+  color: var(--light-h);
+  border: 1px solid var(--light-l);
+  background: var(--light-l);
+}
+.overlay.dark h1 {
+  color: var(--dark-h);
+  border: 1px solid var(--dark-l);
+  background: var(--dark-l);
+}
+
+.overlay span {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem;
+}
+.overlay.light span {
+  color: var(--light-m);
+}
+.overlay.dark span {
+  color: var(--dark-m);
+}
+
 .header-nav {
   margin: 1rem 0;
   height: 1rem;

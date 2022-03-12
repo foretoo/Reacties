@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkcolire=self.webpackChunkcolire||[]).push([[137],{156:(e,r,o)=>{o.r(r),o.d(r,{DndContext:()=>s.LB,closestCenter:()=>s.pE,PointerSensor:()=>s.we,useSensor:()=>s.VT,arrayMove:()=>t.Rp,SortableContext:()=>t.Fo,useSortable:()=>t.nB,CSS:()=>n.ux});var s=o(752),t=o(587),n=o(285)}}]);
