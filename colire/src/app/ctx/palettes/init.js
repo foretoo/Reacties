@@ -10,6 +10,11 @@ for (const palette of seedColors) {
 const init = {
   palettes,
   format: "HEX",
+  toExport: {
+    css:  { hex: "", rgb: "" },
+    json: { hex: "", rgb: "" },
+    display: false,
+  },
 }
 
 export default init

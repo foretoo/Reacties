@@ -14,6 +14,9 @@ const PageHeader = ({ palette, color, editor }) => {
   const isMobile = agent.width < 769 ? true : false
   const menuRef = useRef()
 
+  const handleExport = useConst(() => {
+    dispatch({ type: "EXPORT_CONTENT_TOGGLE" })
+  })
   const handleDeletePalette = useConst(() => {
     dispatch({
       type:    "DELETE_PALETTE",
@@ -99,7 +102,7 @@ const PageHeader = ({ palette, color, editor }) => {
       <Button name="Export"
         type="idle"
         size={33}
-        onClick={() => {}} />
+        onClick={handleExport} />
       {!color &&
         <>
           <Button name="Edit"
