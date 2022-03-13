@@ -6,7 +6,6 @@ import EditorColorBox from "./editor-color-box"
 import EditorPalette from "./editor-palette"
 import EmojiPicker from "./emoji-picker"
 import ExportContent from "./export-content"
-import Footer from "./footer"
 import withMore from "./hoc-with-more"
 import Overlay from "./overlay"
 import PageHeader from "./page-header"
@@ -31,7 +30,6 @@ export {
   EditorPalette,
   EmojiPicker,
   ExportContent,
-  Footer,
   withMore,
   Overlay,
   PageHeader,

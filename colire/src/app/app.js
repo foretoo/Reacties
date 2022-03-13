@@ -2,7 +2,8 @@ import { h } from "preact"
 import { Switch, Route } from "react-router-dom"
 import { useAgent } from "./ctx"
 import { Home, Palette, Editor } from "@pages"
-import { Footer, SwitcherTheme } from "@components"
+import { Footer } from "@assets"
+import { SwitcherTheme } from "@components"
 import "./app.css"
 
 const App = () => {

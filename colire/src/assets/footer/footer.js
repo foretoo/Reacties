@@ -1,5 +1,5 @@
 import { h } from "preact"
-import "./css/footer.css"
+import "./footer.css"
 
 const Footer = ({ className = "", children = [] }) => (
   <footer className={`footer` + (className ? ` ${className}` : ``)}>
