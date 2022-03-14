@@ -9,6 +9,7 @@
   border-bottom: 1px solid var(--dark-l-m);
   transition: 0.3s;
   overflow-x: scroll;
+  overflow-y: hidden;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
