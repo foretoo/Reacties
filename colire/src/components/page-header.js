@@ -83,7 +83,17 @@ const PageHeader = ({ palette, color, editor }) => {
   )
   const Back = ({ path }) => (
     <>
-      <span className="nav-link" onClick={() => handleBack(path)}>back</span>
+      <svg xmlns="http://www.w3.org/2000/svg"
+        width="30" height="30" viewBox="0 0 30 30"
+        className="nav-icon back"
+        fill="none"
+        stroke-width={2}
+        stroke-linejoin="round"
+        stroke-linecap="round"
+        stroke="#fff7"
+        onClick={() => handleBack(path)} >
+        <path d="M20 6L8 15L20 24" />
+      </svg>
       {(editor && palette)
         ? <>
             <span className="nav-current">{palette.name}</span>
@@ -118,7 +128,15 @@ const PageHeader = ({ palette, color, editor }) => {
     </div>
   )
   const MenuIcon = () => (
-    <span className="menu-icon" onClick={toggleMenu}>menu</span>
+    <svg xmlns="http://www.w3.org/2000/svg"
+      width="30" height="30" viewBox="0 0 30 30"
+      className="nav-icon menu"
+      stroke-width={2}
+      stroke-linecap="round"
+      stroke="#fff7"
+      onClick={toggleMenu} >
+      <path d="M4 6h22 M4 15h22 M4 24h22" />
+    </svg>
   )
 
   return (
