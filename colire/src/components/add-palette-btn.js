@@ -47,95 +47,92 @@ const AddPaletteBtn = () => {
     return () => tweenShadow.kill()
   }, [ actualTheme ])
 
-  const handleMouseEnter = () => {
+  const handleEnter = () => {
     gsap.to(rectRef.current, { attr: { rx: 0 }, scale: 1, duration: 0.3 })
     if (!isSafari) {
       gsap.to(shadowRef.current, { opacity: 1, ease: "power1.in", duration: 0.5 })
       tweenShadow.play()
     }
   }
-  const handleMouseLeave = () => {
+  const handleLeave = () => {
     gsap.to(rectRef.current, { attr: { rx: 5 }, scaleX: 0.84, scaleY: 0.8, ease: "power1.in", duration: 0.3 })
     if (!isSafari) {
-      gsap.to(shadowRef.current, { opacity: 0, duration: 0.3 })
+      gsap.to(shadowRef.current, { opacity: 0, duration: 0.5 })
       tweenShadow.pause()
     }
   }
 
   return (
     <>
-    <div className="add-palette-shadow-container"
-      style={{ filter }}>
-      <div ref={shadowRef}
-        className="add-palette-shadow"
-        style={{
-          background: gradient(turn.value),
-          opacity: 0,
-        }}>  
+      <div className="add-palette-shadow-container"
+        style={{ filter }}>
+        <div ref={shadowRef}
+          className="add-palette-shadow"
+          style={{ background: gradient(turn.value) }}>  
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" style={{ height: 0, width: 0 }}>
+          <filter id={"shadow-filter"}
+            x="-50%"
+            y="-50%"
+            width="200%"
+            height="200%"
+            filterUnits="objectBoundingBox"
+            primitiveUnits="userSpaceOnUse"
+            color-interpolation-filters="linearRGB" >
+
+            <feGaussianBlur in="SourceGraphic"
+              stdDeviation="20"
+              edgeMode="none"
+              result="blur" />
+
+            {isChrome &&
+            <>
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="2.222"
+                numOctaves="1"
+                result="noise"/>
+              <feDisplacementMap in="blur" in2="noise"
+                scale="25"
+                xChannelSelector="R"
+                yChannelSelector="B"
+                result="displace"  />
+            </>
+            }
+
+          </filter>
+        </svg>
       </div>
-      <svg xmlns="http://www.w3.org/2000/svg" style={{ height: 0, width: 0 }}>
-        <filter id={"shadow-filter"}
-          x="-50%"
-          y="-50%"
-          width="200%"
-          height="200%"
-          filterUnits="objectBoundingBox"
-          primitiveUnits="userSpaceOnUse"
-          color-interpolation-filters="linearRGB" >
+      <div className="add-palette-btn-container">
+        <svg className="add-palette-btn-bg"
+          width="250"
+          height="160"
+          viewBox="0 0 250 160"
+          xmlns="http://www.w3.org/2000/svg" >
 
-          <feGaussianBlur in="SourceGraphic"
-            stdDeviation="20"
-            edgeMode="none"
-            result="blur" />
-
-          {isChrome &&
-          <>
-            <feTurbulence
-              type="fractalNoise"
-              baseFrequency="2.222"
-              numOctaves="1"
-              result="noise"/>
-            <feDisplacementMap in="blur" in2="noise"
-              scale="25"
-              xChannelSelector="R"
-              yChannelSelector="B"
-              result="displace"  />
-          </>
-          }
-
-        </filter>
-      </svg>
-    </div>
-    <div className="add-palette-btn-container">
-      <svg className="add-palette-btn-bg"
-        width="250"
-        height="160"
-        viewBox="0 0 250 160"
-        xmlns="http://www.w3.org/2000/svg" >
-
-        <symbol id="rect"
-          width="50"
-          height="40" >
-          <rect ref={rectRef}
-            fill={bg[1]}
-            x="0"
-            y="0"
+          <symbol id="rect"
             width="50"
-            height="40"
-            rx="5" />
-        </symbol>
+            height="40" >
+            <rect ref={rectRef}
+              fill={bg[1]}
+              x="0"
+              y="0"
+              width="50"
+              height="40"
+              rx="5" />
+          </symbol>
 
-        {rects}
+          {rects}
 
-      </svg>
-      <input className="add-palette-btn"
-        tabIndex={-1}
-        type="button"
-        value="CREATE PALETTE"
-        onPointerEnter={handleMouseEnter}
-        onPointerLeave={handleMouseLeave}
-        onPointerCancel={handleMouseLeave} />
-    </div>
+        </svg>
+        <input className="add-palette-btn"
+          tabIndex={-1}
+          type="button"
+          value="CREATE PALETTE"
+          onPointerEnter={handleEnter}
+          onPointerLeave={handleLeave}
+          onPointerCancel={handleLeave} />
+      </div>
     </>
   )
 }

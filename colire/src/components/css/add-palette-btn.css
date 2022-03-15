@@ -42,4 +42,5 @@ a:focus-visible .add-palette-btn-bg {
 .add-palette-shadow {
   margin-top: 2rem;
   flex-grow: 1;
+  opacity: 0;
 }
