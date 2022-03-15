@@ -55,22 +55,22 @@ const EditorColorForm = ({ target }) => {
       payload: { color: hex, target },
     }), 333 ))
   useEffect(() => throttleChangeColor(pickedColor), [ pickedColor ])
-  const handleChangeColor = ({ hex, moving }) => {
-    setPickerMoving(moving)
+  const handleChangeColor = useConst(({ hex, moving }) => {
+    setPickerMoving(!!moving)
     setPickedColor(hex)
-  }
-  const handleChangeColorName = (e) => {
+  })
+  const handleChangeColorName = useConst((e) => {
     const name = e.target.value
     dispatch({
       type:    "CHANGE_NEW_COLOR_NAME",
       payload: { name, target },
     })
-  }
-  const handleRandomColor = () => {
+  })
+  const handleRandomColor = useConst(() => {
     const randomColor = chroma.random()
     const hex = chroma(randomColor).hex()
     handleChangeColor({ hex })
-  }
+  })
 
   return (
     <ColorPicker className={formClass}

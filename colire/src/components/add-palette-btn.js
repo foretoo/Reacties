@@ -18,7 +18,7 @@ const AddPaletteBtn = () => {
   }
 
   const isDark = actualTheme === "dark"
-  const bg = isDark ? [ "#4440", "#444f" ] : [ "#fff0", "#ffff" ]
+  const bg = isDark ? [ "#141414", "#444" ] : [ "#fff", "#fff" ]
 
   const isChrome = agent.name === "Chrome"
   const isSafari = agent.name === "Safari"
@@ -48,14 +48,14 @@ const AddPaletteBtn = () => {
   }, [ actualTheme ])
 
   const handleEnter = () => {
-    gsap.to(rectRef.current, { attr: { rx: 0 }, scale: 1, duration: 0.3 })
+    gsap.to(rectRef.current, { attr: { rx: 0, fill: bg[0] }, scale: 1, duration: 0.3 })
     if (!isSafari) {
       gsap.to(shadowRef.current, { opacity: 1, ease: "power1.in", duration: 0.5 })
       tweenShadow.play()
     }
   }
   const handleLeave = () => {
-    gsap.to(rectRef.current, { attr: { rx: 5 }, scaleX: 0.84, scaleY: 0.8, ease: "power1.in", duration: 0.3 })
+    gsap.to(rectRef.current, { attr: { rx: 5, fill: bg[1] }, scaleX: 0.84, scaleY: 0.8, ease: "power1.in", duration: 0.3 })
     if (!isSafari) {
       gsap.to(shadowRef.current, { opacity: 0, duration: 0.5 })
       tweenShadow.pause()

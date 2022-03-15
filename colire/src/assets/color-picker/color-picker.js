@@ -1,5 +1,5 @@
 import { h, createContext } from "preact"
-import { useState, useEffect, useRef } from "preact/hooks"
+import { useState, useEffect } from "preact/hooks"
 import chroma from "chroma-js"
 import "./color-picker.css"
 
@@ -7,9 +7,9 @@ const Context = createContext()
 
 const ColorPicker = ({
   color = "#fff",
-  onChange = (color) => console.log(color.hex),
-  children = [],
-  className = "",
+  onChange, // (color) => console.log(color.hex)
+  children,
+  className,
   style,
 }) => {
 
@@ -64,12 +64,11 @@ const ColorPicker = ({
     })
   }
 
-
-  const classList = `picker-container` + (className.length ? ` ${className}` : ``)
-
   return (
     <Context.Provider value={{ GET, SET, handleChange }}>
-      <div className={classList} style={{ "--hue": GET.hsl[0], ...style }}>
+      <div
+        className={`picker-container ${className}`}
+        style={{ "--hue": GET.hsl[0], ...style }}>
 
         {children}
 
