@@ -35,12 +35,18 @@
   transform: scale(1.25);
   color: black;
 }
+
 .nav-icon {
   cursor: pointer;
+  stroke: var(--dark-m-l);
+}
+.dark-theme .nav-icon {
+  stroke: var(--light-m);
 }
 .nav-icon.menu {
   margin-left: auto;
 }
+
 .header-menu {
   margin-left: auto;
   display: flex;

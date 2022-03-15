@@ -1,10 +1,9 @@
 import { h, Fragment } from "preact"
-import { useRef } from "preact/hooks"
 import { Link, useHistory } from "react-router-dom"
 import { useAgent, usePalettesDispatch } from "@app/ctx"
 import { useConst } from "@utils/hooks"
 import { Button, Header } from "@assets"
-import "./css/header.css"
+import "./css/page-header.css"
 
 const PageHeader = ({ palette, color, editor }) => {
 
@@ -12,19 +11,18 @@ const PageHeader = ({ palette, color, editor }) => {
   const dispatch = usePalettesDispatch()
   const { agent } = useAgent()
   const isMobile = agent.width < 769 ? true : false
-  const menuRef = useRef()
 
   const handleExport = useConst(() => {
     dispatch({ type: "EXPORT_CONTENT_TOGGLE" })
   })
-  const handleDeletePalette = useConst(() => {
+  const handleDelete = useConst(() => {
     dispatch({
       type:    "DELETE_PALETTE",
       payload: palette.id,
     })
     history.push("/")
   })
-  const handleEditPalette = useConst(() => {
+  const handleEdit = useConst(() => {
     history.push("edit")
   })
   const handleBack = useConst((path) => {
@@ -35,7 +33,7 @@ const PageHeader = ({ palette, color, editor }) => {
     document.querySelector("header").classList.toggle("expanded")
   })
 
-  const getPath = () => {
+  const getPath = useConst(() => {
     const path = [{ name: "root", link: "/" }]
     if (editor && !palette) {
       path.push({ name: "Create palette" })
@@ -63,8 +61,8 @@ const PageHeader = ({ palette, color, editor }) => {
         return path
       }
     }
-  }
-  const Navigation = ({ path }) => (
+  })
+  const Navigation = useConst(({ path }) => (
     path.map(({ link, name, emoji }) => (
       link
       ? <>
@@ -79,8 +77,8 @@ const PageHeader = ({ palette, color, editor }) => {
           {emoji ? <span className="nav-emoji">{emoji}</span> : null}
         </>
     ))
-  )
-  const Back = ({ path }) => (
+  ))
+  const Back = useConst(({ path }) => (
     <>
       <svg xmlns="http://www.w3.org/2000/svg"
         width="30" height="30" viewBox="0 0 30 30"
@@ -89,7 +87,6 @@ const PageHeader = ({ palette, color, editor }) => {
         stroke-width={2}
         stroke-linejoin="round"
         stroke-linecap="round"
-        stroke="#fff7"
         onClick={() => handleBack(path)} >
         <path d="M20 6L8 15L20 24" />
       </svg>
@@ -101,9 +98,9 @@ const PageHeader = ({ palette, color, editor }) => {
         : <Navigation path={path.slice(-1)} />
       }
     </>
-  )
-  const Menu = () => (
-    <div ref={menuRef} className="header-menu">
+  ))
+  const Menu = useConst(() => (
+    <div className="header-menu">
       <Button name="Export"
         type="idle"
         size={33}
@@ -113,29 +110,28 @@ const PageHeader = ({ palette, color, editor }) => {
           <Button name="Edit"
             type="idle"
             size={33}
-            onClick={handleEditPalette} />
+            onClick={handleEdit} />
           <Button name="Delete"
             type="idle"
             size={33}
-            onClick={handleDeletePalette} />
+            onClick={handleDelete} />
         </>
       }
     </div>
-  )
-  const MenuIcon = () => (
+  ))
+  const MenuIcon = useConst(() => (
     <svg xmlns="http://www.w3.org/2000/svg"
       width="30" height="30" viewBox="0 0 30 30"
       className="nav-icon menu"
       stroke-width={2}
       stroke-linecap="round"
-      stroke="#fff7"
       onClick={toggleMenu} >
       <path d="M4 6h22 M4 15h22 M4 24h22" />
     </svg>
-  )
+  ))
 
   return (
-    <Header className={isMobile ? `mobile` : ``}>
+    <Header className={isMobile ? "mobile" : ""}>
       <nav className="header-nav">
         {!isMobile
           ? <Navigation path={getPath()} />
