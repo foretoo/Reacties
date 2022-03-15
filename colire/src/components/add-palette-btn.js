@@ -8,7 +8,6 @@ const AddPaletteBtn = () => {
 
   const { actualTheme, agent } = useAgent()
   const rectRef   = useRef(null)
-  const svgRef    = useRef(null)
   const shadowRef = useRef(null)
 
   const rects = []
@@ -19,7 +18,7 @@ const AddPaletteBtn = () => {
   }
 
   const isDark = actualTheme === "dark"
-  const bg = isDark ? [ "#14141400", "#141414ff" ] : [ "#fff0", "#ffff" ]
+  const bg = isDark ? [ "#4440", "#444f" ] : [ "#fff0", "#ffff" ]
 
   const isChrome = agent.name === "Chrome"
   const isSafari = agent.name === "Safari"
@@ -45,31 +44,18 @@ const AddPaletteBtn = () => {
 
   useEffect(() => {
     gsap.set(rectRef.current, { scaleX: 0.84, scaleY: 0.8, transformOrigin: "center" })
-    gsap.set(svgRef.current, { backgroundColor: bg[0] })
     return () => tweenShadow.kill()
   }, [ actualTheme ])
 
   const handleMouseEnter = () => {
-    gsap.to(rectRef.current, {
-      attr: { rx: 0, fill: isSafari ? "#444" : bg[1] },
-      scale: 1, duration: 0.3
-    })
-    gsap.to(svgRef.current, { scale: 1.05, ease: "power1.in", duration: 0.3 })
-    gsap.to(svgRef.current, {
-      backgroundColor: isSafari ? "#444" : bg[1], ease: "power1.in", duration: 0.5
-    })
+    gsap.to(rectRef.current, { attr: { rx: 0 }, scale: 1, duration: 0.3 })
     if (!isSafari) {
       gsap.to(shadowRef.current, { opacity: 1, ease: "power1.in", duration: 0.5 })
       tweenShadow.play()
     }
   }
   const handleMouseLeave = () => {
-    gsap.to(rectRef.current, {
-      attr: { rx: 5, fill: isDark ? "#444" : "#fff" },
-      scaleX: 0.84, scaleY: 0.8, ease: "power1.in", duration: 0.3
-    })
-    gsap.to(svgRef.current, { scale: 1, duration: 0.3 })
-    gsap.to(svgRef.current, { backgroundColor: bg[0], duration: 0.1 })
+    gsap.to(rectRef.current, { attr: { rx: 5 }, scaleX: 0.84, scaleY: 0.8, ease: "power1.in", duration: 0.3 })
     if (!isSafari) {
       gsap.to(shadowRef.current, { opacity: 0, duration: 0.3 })
       tweenShadow.pause()
@@ -121,8 +107,7 @@ const AddPaletteBtn = () => {
       </svg>
     </div>
     <div className="add-palette-btn-container">
-      <svg ref={svgRef}
-        className="add-palette-btn-bg"
+      <svg className="add-palette-btn-bg"
         width="250"
         height="160"
         viewBox="0 0 250 160"
@@ -132,7 +117,7 @@ const AddPaletteBtn = () => {
           width="50"
           height="40" >
           <rect ref={rectRef}
-            fill={isDark ? "#444" : "#fff"}
+            fill={bg[1]}
             x="0"
             y="0"
             width="50"
@@ -147,8 +132,9 @@ const AddPaletteBtn = () => {
         tabIndex={-1}
         type="button"
         value="CREATE PALETTE"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave} />
+        onPointerEnter={handleMouseEnter}
+        onPointerLeave={handleMouseLeave}
+        onPointerCancel={handleMouseLeave} />
     </div>
     </>
   )
