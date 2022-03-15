@@ -32,8 +32,7 @@ const PageHeader = ({ palette, color, editor }) => {
     history.push(link)
   })
   const toggleMenu = useConst(() => {
-    // menuRef.current.classList.toggle("hidden")
-    document.querySelector(".header").classList.toggle("expanded")
+    document.querySelector("header").classList.toggle("expanded")
   })
 
   const getPath = () => {
@@ -104,11 +103,7 @@ const PageHeader = ({ palette, color, editor }) => {
     </>
   )
   const Menu = () => (
-    <div ref={menuRef}
-      className={
-        /*`header-menu${isMobile ? ` hidden` : ``}`*/
-        "header-menu"
-        }>
+    <div ref={menuRef} className="header-menu">
       <Button name="Export"
         type="idle"
         size={33}

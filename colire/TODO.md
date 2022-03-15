@@ -1,7 +1,7 @@
 ***Common***
 ============
 
-- [ ] ! add localStorage support to store app state
+- [ ] add localStorage support to store app state
 - [ ] add widgets folder
 - [ ] move edit-palette-form to widget
 - [ ] move palette/color-content-list to widget folder
@@ -18,7 +18,7 @@
 
 ### EDIT-PALETTE
 
-- [ ] ! style palette view with respect to its colors quantity
+- [ ] style palette view with respect to its colors quantity
 - [ ] validate form in component (clear reducer)
 - [ ] add undo button
 - [ ] add reset button (palette/edit page)
@@ -36,7 +36,8 @@
 
 ### PALETTE
 
-- [ ] ! export
+- [x] ~~fix overlay on mobile~~
+- [x] ~~export~~
 - [x] ~~fix header size on mobile~~
 - [x] ~~add export & edit & delete buttons~~
 - [x] ~~restyle color subpage~~

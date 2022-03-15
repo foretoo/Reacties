@@ -24,8 +24,7 @@ const PaletteBox = ({ id, name, colors }) => {
     gsap.to(contentRef.current, { scale: 1 })
   }
 
-  const isSafari = agent.name === "Safari"
-  const filter   = !isSafari ? "url(#filter)" : "none"
+  const filter = agent.name !== "Safari" ? "url(#filter)" : "none"
 
   return (
     <div className="palette-box-container"
