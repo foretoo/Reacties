@@ -7,12 +7,12 @@
 }
 
 .pick-color-form > div:nth-child(1),
-.pick-color-form > div:nth-child(4) {
+.pick-color-form > div:nth-child(3) {
   display: flex;
   gap: 1rem;
   justify-content: space-between;
 }
-.pick-color-form > div:nth-child(3) {
+.pick-color-form > div:nth-child(2) {
   align-self: center;
 }
 

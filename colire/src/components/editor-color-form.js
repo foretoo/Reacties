@@ -11,7 +11,7 @@ import {
 } from "@assets"
 import { useConst } from "@utils/hooks"
 import { throttle } from "@utils/helpers"
-import "./css/palette-editor-form.css"
+import "./css/editor-color-form.css"
 
 const EditorColorForm = ({ target }) => {
   
@@ -78,11 +78,11 @@ const EditorColorForm = ({ target }) => {
       onChange={handleChangeColor} >
       <div>
         <Button name="Random" onClick={handleRandomColor} />
-        <Switcher options={[ "RGB", "HEX" ]} />
+        {/* <Switcher options={[ "RGB", "HEX" ]} /> */}
       </div>
-      <input className="editor-color-name"
+      {/* <input className="editor-color-name"
           type="number"
-          placeholder="color code" />
+          placeholder="color code" /> */}
       <HueHandler
         size={150}
         style={{ marginBottom: "40px", marginTop: "20px" }} />
