@@ -4,13 +4,17 @@
   height: 100%;
   background-color: var(--light);
   display: flex;
-  justify-content: center;
-  align-items: baseline;
 }
 .dark-theme .export-container {
   background-color: #141414;
   color: var(--light);
 }
+.export-wrapper {
+  margin: auto;
+  display: flex;
+  align-items: baseline;
+}
+
 
 .export-content {
   padding: 1rem;

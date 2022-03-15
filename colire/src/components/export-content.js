@@ -38,29 +38,31 @@ const ExportContent = ({ colorID }) => {
   return (
     <div className="export-container"
       style={{ visibility: display ? "visible" : "hidden" }}>
-      <div className="export-content"
-        style={isMobile ? { flexGrow: 1 } : null}>
-        <div className="export-controls">
-          <Switcher
-            style={{
-              "--font-size": "13px",
-              "--padding":   "7px",
-              "--border":    "2px",
-            }}
-            options={modes}
-            defaultValue={mode}
-            onChange={setModes} />
-          {navigator.clipboard &&
-            <span ref={copiedRef}>Copied</span>
-          }
+      <div className="export-wrapper">
+        <div className="export-content"
+          style={isMobile ? { flexGrow: 1 } : null}>
+          <div className="export-controls">
+            <Switcher
+              style={{
+                "--font-size": "13px",
+                "--padding":   "7px",
+                "--border":    "2px",
+              }}
+              options={modes}
+              defaultValue={mode}
+              onChange={setModes} />
+            {navigator.clipboard &&
+              <span ref={copiedRef}>Copied</span>
+            }
+          </div>
+          <p>{content}</p>
         </div>
-        <p>{content}</p>
+        <Button
+          name="close"
+          type="idle"
+          size={33}
+          onClick={handleClose} />
       </div>
-      <Button
-        name="close"
-        type="idle"
-        size={33}
-        onClick={handleClose} />
     </div>
   )
 }
