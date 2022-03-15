@@ -90,6 +90,7 @@ a:focus-visible .add-palette-btn-bg {
 .add-palette-shadow {
   margin-top: 2rem;
   flex-grow: 1;
+  opacity: 0;
 }
 .color-box {
   display: flex;
@@ -318,11 +319,11 @@ a:focus-visible .add-palette-btn-bg {
 .picker-handler-view {
   width: 100%;
   height: 100%;
-  transition: var(--hueDur);
+  transition: transform var(--hueDur);
 }
 .picker-handler-view > path {
   fill: hsl(var(--hue), 100%, 50%);
-  transition: var(--hueDur);
+  transition: fill var(--hueDur);
   filter: drop-shadow( 0 0 1.618px hsl(var(--hue), 100%, 33%));
 }
 
@@ -350,6 +351,24 @@ a:focus-visible .add-palette-btn-bg {
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
   pointer-events: none;
 }
+.footer {
+  height: 2.4rem;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 111;
+}
+.footer * {
+  font-size: 0.6rem;
+  color: var(--dark-m-l);
+}
+.footer a:focus-visible {
+  outline: 4px solid white;
+}
+.dark-theme .footer * {
+  color: var(--light-m)
+}
 .header {
   flex-shrink: 0;
   margin-bottom: 1rem;
@@ -359,8 +378,9 @@ a:focus-visible .add-palette-btn-bg {
   gap: 1rem;
   background-color: white;
   border-bottom: 1px solid var(--dark-l-m);
-  transition: 0.3s;
+  transition: height 0.3s;
   overflow-x: scroll;
+  overflow-y: hidden;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -484,13 +504,17 @@ a:focus-visible .add-palette-btn-bg {
   height: 100%;
   background-color: var(--light);
   display: flex;
-  justify-content: center;
-  align-items: baseline;
 }
 .dark-theme .export-container {
   background-color: #141414;
   color: var(--light);
 }
+.export-wrapper {
+  margin: auto;
+  display: flex;
+  align-items: flex-start;
+}
+
 
 .export-content {
   padding: 1rem;
@@ -503,7 +527,6 @@ a:focus-visible .add-palette-btn-bg {
 .export-content > p {
   tab-size: 4;
   font-size: 0.6rem;
-  line-height: 0.8rem;
   white-space: pre-wrap;
   word-break: break-all;
 }
@@ -525,23 +548,14 @@ a:focus-visible .add-palette-btn-bg {
 .dark-theme .export-controls > span {
   color: var(--light-m);
 }
-.footer {
-  height: 2.4rem;
-  padding: 1rem 1.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 111;
+
+.export-icon-close {
+  margin: 0.25rem;
+  stroke: var(--dark-l-m);
+  cursor: pointer;
 }
-.footer * {
-  font-size: 0.6rem;
-  color: var(--dark-m-l);
-}
-.footer a:focus-visible {
-  outline: 4px solid white;
-}
-.dark-theme .footer * {
-  color: var(--light-m)
+.dark-theme .export-icon-close {
+  stroke: var(--light-l);
 }
 .overlay {
   position: absolute;
@@ -587,16 +601,15 @@ a:focus-visible .add-palette-btn-bg {
 }
 
 .header-nav {
-  margin: 1rem 0;
-  height: 1rem;
+  flex-shrink: 0;
+  height: 3rem;
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 0.5rem;
   color: var(--dark-m);
 }
 .header-nav * {
   font-size: inherit;
-  width: max-content;
 }
 .dark-theme .header-nav {
   color: var(--light-m);
@@ -612,8 +625,10 @@ a:focus-visible .add-palette-btn-bg {
   border-bottom: 1px solid var(--light-l);
 }
 .nav-current {
+  width: max-content;
   font-weight: 700;
   color: var(--dark-h);
+  word-break: break-all;
 }
 .dark-theme .nav-current {
   color: var(--light);
@@ -623,10 +638,17 @@ a:focus-visible .add-palette-btn-bg {
   color: black;
 }
 
-.menu-icon {
-  margin-left: auto;
+.nav-icon {
   cursor: pointer;
+  stroke: var(--dark-m-l);
 }
+.dark-theme .nav-icon {
+  stroke: var(--light-m);
+}
+.nav-icon.menu {
+  margin-left: auto;
+}
+
 .header-menu {
   margin-left: auto;
   display: flex;
@@ -665,7 +687,7 @@ a:focus-visible .add-palette-btn-bg {
 
 .palette-box-name {
   width: 100%;
-  height: 2rem;
+  min-height: 2rem;
   padding: 0.5rem 0;
   font-size: 0.9rem;
   color: var(--dark-h);
@@ -679,6 +701,7 @@ a:focus-visible .add-palette-btn-bg {
   align-items: flex-start;
   border-radius: 5px;
   overflow: hidden;
+  will-change: transform;
 }
 
 
@@ -690,23 +713,24 @@ a:focus-visible .add-palette-btn-bg {
 .pick-color-form {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   gap: 1rem;
   border: 2px solid var(--dark-l);
 }
 
 .pick-color-form > div:nth-child(1),
-.pick-color-form > div:nth-child(4) {
+.pick-color-form > div:nth-child(3) {
   display: flex;
   gap: 1rem;
   justify-content: space-between;
-  width: 100%;
+}
+.pick-color-form > div:nth-child(2) {
+  align-self: center;
 }
 
 
 
 .editor-color-name {
-  width: 100%;
   padding: 0.5rem;
   font-size: 0.8rem;
   border-radius: 0.5rem;
@@ -728,12 +752,10 @@ a:focus-visible .add-palette-btn-bg {
   flex-direction: row-reverse;
   justify-content: space-between;
   align-items: flex-start;
-  width: 100%;
 }
 .submit .warn-info {
   display: none;
   width: 50%;
-  /* inline-size: 200px; */
   white-space: pre-line;
   font-size: 0.7rem;
   color: var(--warn);
@@ -1011,6 +1033,7 @@ a:focus-visible .add-palette-btn-bg {
 .input-palette-name input {
   color: inherit;
   flex-grow: 1;
+  width: 240px;
   padding: 0.75rem;
   background-color: transparent;
 }
