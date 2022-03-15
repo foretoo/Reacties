@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "preact/hooks"
 import { gsap } from "gsap"
 import { useAgent, usePalettes, usePalettesDispatch } from "@app/ctx"
 import { useConst } from "@utils/hooks"
-import { Button, Switcher } from "@assets"
+import { Switcher } from "@assets"
 import "./css/export-content.css" 
 
 const ExportContent = ({ colorID }) => {
@@ -20,9 +20,7 @@ const ExportContent = ({ colorID }) => {
 
   const modes = useConst([ "CSS", "JSON" ])
   const handleClose = useConst(() => dispatch({ type: "EXPORT_CONTENT_HIDE" }))
-  const content = mode === "CSS"
-    ? css[format.toLowerCase()]
-    : json[format.toLowerCase()]
+  const content = mode === "CSS" ? css[format.toLowerCase()] : json[format.toLowerCase()]
 
   useEffect(handleClose, [ colorID ])
   useEffect(() => {
@@ -57,11 +55,14 @@ const ExportContent = ({ colorID }) => {
           </div>
           <p>{content}</p>
         </div>
-        <Button
-          name="close"
-          type="idle"
-          size={33}
-          onClick={handleClose} />
+        <svg xmlns="http://www.w3.org/2000/svg"
+          width="30" height="30" viewBox="0 0 30 30"
+          className="export-icon-close"
+          stroke-width={2}
+          stroke-linecap="round"
+          onClick={handleClose} >
+          <path d="M8 8l14 14M22 8l-14 14" />
+        </svg>
       </div>
     </div>
   )

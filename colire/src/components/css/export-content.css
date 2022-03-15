@@ -12,7 +12,7 @@
 .export-wrapper {
   margin: auto;
   display: flex;
-  align-items: baseline;
+  align-items: flex-start;
 }
 
 
@@ -27,7 +27,6 @@
 .export-content > p {
   tab-size: 4;
   font-size: 0.6rem;
-  line-height: 0.8rem;
   white-space: pre-wrap;
   word-break: break-all;
 }
@@ -48,4 +47,13 @@
 }
 .dark-theme .export-controls > span {
   color: var(--light-m);
+}
+
+.export-icon-close {
+  margin: 0.25rem;
+  stroke: var(--dark-l-m);
+  cursor: pointer;
+}
+.dark-theme .export-icon-close {
+  stroke: var(--light-l);
 }
