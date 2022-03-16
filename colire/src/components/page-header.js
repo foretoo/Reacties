@@ -33,7 +33,7 @@ const PageHeader = ({ palette, color, editor }) => {
     document.querySelector("header").classList.toggle("expanded")
   })
 
-  const getPath = useConst(() => {
+  const getPath = () => {
     const path = [{ name: "root", link: "/" }]
     if (editor && !palette) {
       path.push({ name: "Create palette" })
@@ -61,7 +61,7 @@ const PageHeader = ({ palette, color, editor }) => {
         return path
       }
     }
-  })
+  }
   const Navigation = useConst(({ path }) => (
     path.map(({ link, name, emoji }) => (
       link
@@ -99,7 +99,7 @@ const PageHeader = ({ palette, color, editor }) => {
       }
     </>
   ))
-  const Menu = useConst(() => (
+  const Menu = () => (
     <div className="header-menu">
       <Button name="Export"
         type="idle"
@@ -118,7 +118,7 @@ const PageHeader = ({ palette, color, editor }) => {
         </>
       }
     </div>
-  ))
+  )
   const MenuIcon = useConst(() => (
     <svg xmlns="http://www.w3.org/2000/svg"
       width="30" height="30" viewBox="0 0 30 30"
