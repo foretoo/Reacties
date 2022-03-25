@@ -2,8 +2,14 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: var(--light);
   display: flex;
+  background-color: var(--light);
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.export-container::-webkit-scrollbar {
+  display: none;
 }
 .dark-theme .export-container {
   background-color: #141414;
@@ -23,15 +29,18 @@
   gap: 1rem;
   border: 2px solid var(--dark-l);
   border-radius: 0.5rem;
+  background-color: #fff;
 }
 .export-content > p {
   tab-size: 4;
-  font-size: 0.6rem;
+  font-size: max(0.6rem, 2vh);
+  line-height: 1.4em;
   white-space: pre-wrap;
   word-break: break-all;
 }
 .dark-theme .export-content {
   border: 2px solid var(--light-xl);
+  background-color: var(--light-xl);
 }
 
 .export-controls {
@@ -52,7 +61,11 @@
 .export-icon-close {
   margin: 0.25rem;
   stroke: var(--dark-l-m);
+  transition: transform 0.3s;
   cursor: pointer;
+}
+.export-icon-close:hover {
+  transform: rotate(90deg);
 }
 .dark-theme .export-icon-close {
   stroke: var(--light-l);

@@ -26,8 +26,8 @@ const ExportContent = ({ colorID }) => {
   useEffect(() => {
     if (display && navigator.clipboard) {
       gsap.fromTo(copiedRef.current,
-        { backgroundColor: isDark ? "#fff7" : "#ffff" },
-        { backgroundColor: "#fff0", ease: "power1.in", duration: 1.5 }
+        { backgroundColor: isDark ? "#fff7" : "#bdff" },
+        { backgroundColor: isDark ? "#fff0" : "#bcf4", ease: "power1.in", duration: 1.5 }
       )
       navigator.clipboard.writeText(content)
     }
