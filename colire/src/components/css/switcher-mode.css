@@ -3,6 +3,9 @@
   justify-content: center;
   width: calc(100% * 0.2);
 }
+.switcher-mode.color {
+  margin: auto;
+}
 
 @media screen and (max-width: 1024px) {
   .switcher-mode {

@@ -4,7 +4,7 @@ import { usePalettes, usePalettesDispatch } from "@app/ctx"
 import { Switcher } from "@assets"
 import "./css/switcher-mode.css"
 
-const SwitcherMode = () => {
+const SwitcherMode = ({ color }) => {
 
   const { format } = usePalettes()
   const dispatch = usePalettesDispatch()
@@ -19,7 +19,7 @@ const SwitcherMode = () => {
 
   return (
     <Switcher
-      className="switcher-mode"
+      className={`switcher-mode${color ? " color" : ""}`}
       defaultValue={format}
       options={modes}
       onChange={handleChangeMode} />

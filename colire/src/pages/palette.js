@@ -36,7 +36,7 @@ const Palette = () => {
 
       <aside className="controls">
         {colorID ? null : <SliderLevel id={paletteID} level={palette.activeLevel}/>}
-        <SwitcherMode />
+        <SwitcherMode color={!!color} />
       </aside>
 
       <main className="content-container">
