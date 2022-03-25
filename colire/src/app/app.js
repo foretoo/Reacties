@@ -1,4 +1,5 @@
 import { h } from "preact"
+import { useLayoutEffect } from "preact/hooks"
 import { Switch, Route, Redirect, useLocation } from "react-router-dom"
 import { useAgent } from "./ctx"
 import { Home, Palette, Editor } from "@pages"
@@ -7,8 +8,14 @@ import { SwitcherTheme } from "@components"
 import "./app.css"
 
 const App = () => {
+  
   const { actualTheme } = useAgent()
   const { pathname } = useLocation()
+  useLayoutEffect(() => {
+    document.body.style.background =
+      actualTheme === "dark" ? "#141414" : "#e6e6e6"
+  }, [ actualTheme ])
+
   return (
     <div className={`app` + (actualTheme === `dark` ? ` dark-theme` : ``)}>
       <Switch>
